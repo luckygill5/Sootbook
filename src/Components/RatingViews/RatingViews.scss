@@ -1,0 +1,48 @@
+@import "../../BaseStyle/Basestyle.scss";
+
+$white:#FFF;
+$black: #000;
+$text: #1F2937;
+$buttonColor:#00A9BB;
+
+$font-monsterat : 'Montserrat';
+
+.rating_views_container{
+    padding: 112px 0px;
+    box-sizing: border-box;
+    *{
+        box-sizing: border-box;
+        font-family: $font-monsterat;
+    }
+    @include container_block();
+    .grid_flexBox{
+        @include flexbox();
+        margin: 0 -24px;
+        padding: 24px 60px;
+        background-color: #00A9BB;
+        border-radius: 16px;
+        .flex-item{
+            margin: 0 24px;
+            width: calc(33.33% - 48px);
+            .rating{
+                font-size: 48px;
+                font-style: normal;
+                font-weight: 600;
+                line-height: 72px; /* 150% */
+                letter-spacing: 0.24px;
+                color: $white;
+                margin-bottom: 12px;
+                text-align: center;
+            }
+            .info{
+                font-size: 16px;
+                font-style: normal;
+                font-weight: 400;
+                line-height: 24px; /* 150% */
+                letter-spacing: 0.08px;
+                color: $white;
+                text-align: center;
+            }
+        }
+    }
+}

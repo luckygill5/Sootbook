@@ -1,0 +1,484 @@
+$white:#FFF;
+$black: #000;
+$text: #1F2937;
+$buttonColor:#00A9BB;
+
+$font-monsterat : 'Montserrat';
+
+
+// Flexbox display
+@mixin flexbox{
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+}
+
+// Inline flex display
+@mixin inline-flex{
+    display: -webkit-inline-box;
+    display: -moz-inline-box;
+    display: -webkit-inline-flex;
+    display: -ms-inline-flexbox;
+    display: inline-flexbox;
+}
+
+.MuiDialog-root{
+    box-sizing: border-box;
+    *{
+        box-sizing: border-box;
+    }
+    &.resetPassModal_container{
+        .MuiModal-backdrop{ 
+            background-color: transparent;
+        }
+        .MuiDialog-container{
+            .MuiDialog-paper{
+                max-width: 587px;
+                width: 100%;
+                box-shadow: 0px 10px 70px 0px rgba(0, 0, 0, 0.08);
+                border-radius: 12px;
+                border: 1px solid #E9E9E9;
+                .modal_container{
+                    padding: 64px;
+                    .modal_head{
+                        max-width: 403px;
+                        margin-left: auto;
+                        margin-right: auto;
+                        .title{
+                            text-align: center;
+                            color: $text;
+                            font-family: $font-monsterat;
+                            font-size: 24px;
+                            font-style: normal;
+                            font-weight: 600;
+                            line-height: 32px; /* 133.333% */
+                            letter-spacing: 0.12px;
+                            margin-top: 0;
+                            margin-bottom: 16px;
+                        }
+                    }
+                    .modal_Body{
+                        max-width: 403px;
+                        margin-left: auto;
+                        margin-right: auto;
+                        .email_reset_info{
+                            font-size: 14px;
+                            font-style: normal;
+                            font-weight: 400;
+                            line-height: 20px; /* 142.857% */
+                            letter-spacing: 0.07px;
+                            margin-top: 0;
+                            margin-bottom: 36px;
+                            color: #6B7280;
+                            font-family: $font-monsterat;
+                            text-align: center
+                        }
+                        .email_input_box{
+                            @include flexbox();
+                            flex-direction: column;
+                            align-items: flex-start;
+                            margin-bottom: 20px;
+                            > label{
+                                display: inline-block;
+                                font-size: 14px;
+                                font-style: normal;
+                                font-weight: 500;
+                                line-height: 20px; /* 142.857% */
+                                letter-spacing: 0.07px;
+                                font-family: $font-monsterat;
+                                margin-bottom: 10px;
+                                position: relative;
+                                &::after{
+                                    content: "*";
+                                    display: inline-block;
+                                    position: absolute;
+                                    left: 100%;
+                                    top:0;
+                                    font-size: 14px;
+                                    font-style: normal;
+                                    font-weight: 700;
+                                    line-height: 20px;
+                                    letter-spacing: 0.07px;
+                                    color: #EF4444;
+                                    font-family: $font-monsterat;
+                                }
+                            }
+                            .email_input{
+                                position: relative;
+                                z-index: 1;
+                                border-radius: 6px;
+                                height: 48px;
+                                outline: none;
+                                padding: 14px 16px;
+                                box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25) inset, -7px -7px 7px 0px #FFF inset;
+                                border: 1px solid #E5E7EB;
+                                font-size: 14px;
+                                font-style: normal;
+                                font-weight: 400;
+                                line-height: 20px;
+                                letter-spacing: 0.07px;
+                                font-family: "Montserrat";
+                                color: #1F2937;
+                                width: 100%;
+                                background-color: #f2f5fa;
+                                &::placeholder{
+                                    font-size: 14px;
+                                    font-style: normal;
+                                    font-weight: 400;
+                                    line-height: 20px; /* 142.857% */
+                                    letter-spacing: 0.07px;
+                                    color: #7D7D7D;
+                                }
+                            }
+                        }
+                        .action{
+                            .continue_btn{
+                            width: 100%;
+                            cursor: pointer;
+                            height: 48px;
+                            border-radius: 8px;
+                            padding: 14px 16px;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            font-size: 14px;
+                            font-style: normal;
+                            font-weight: 600;
+                            line-height: 20px;
+                            letter-spacing: 0.07px;
+                            font-family: "Montserrat";
+                            color: #FFF;
+                            background-color: #00A9BB;
+                            border: none;
+                            box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25), -7px -7px 7px 0px #FFF;
+                            &:focus:not(:focus-visible){
+                                outline: none;
+                            }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    &.createNew_passwordModal_container{
+        .MuiModal-backdrop{ 
+            background-color: transparent;
+        }
+        .MuiDialog-container{
+            .MuiDialog-paper{
+                max-width: 587px;
+                width: 100%;
+                box-shadow: 0px 10px 70px 0px rgba(0, 0, 0, 0.08);
+                border-radius: 12px;
+                border: 1px solid #E9E9E9;
+                .modal_container{
+                    padding: 64px;
+                    .modal_head{
+                        max-width: 403px;
+                        margin-left: auto;
+                        margin-right: auto;
+                        .title{
+                            text-align: center;
+                            color: $text;
+                            font-family: $font-monsterat;
+                            font-size: 24px;
+                            font-style: normal;
+                            font-weight: 600;
+                            line-height: 32px; /* 133.333% */
+                            letter-spacing: 0.12px;
+                            margin-top: 0;
+                            margin-bottom: 36px;
+                        }
+                    }
+                    .modal_Body{
+                        max-width: 403px;
+                        margin-left: auto;
+                        margin-right: auto;
+                        .newpass_input_box, .confirmpass_input_box{
+                            @include flexbox();
+                            flex-direction: column;
+                            align-items: flex-start;
+                            margin-bottom: 36px;
+                            > label{
+                                display: inline-block;
+                                font-size: 14px;
+                                font-style: normal;
+                                font-weight: 500;
+                                line-height: 20px; /* 142.857% */
+                                letter-spacing: 0.07px;
+                                font-family: $font-monsterat;
+                                margin-bottom: 10px;
+                                position: relative;
+                                &::after{
+                                    content: "*";
+                                    display: inline-block;
+                                    position: absolute;
+                                    left: 100%;
+                                    top:0;
+                                    font-size: 14px;
+                                    font-style: normal;
+                                    font-weight: 700;
+                                    line-height: 20px;
+                                    letter-spacing: 0.07px;
+                                    color: #EF4444;
+                                    font-family: $font-monsterat;
+                                }
+                            }
+                            .flex_box{
+                                @include flexbox();
+                                box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25) inset, -7px -7px 7px 0px #FFF inset;
+                                    border: 1px solid #E5E7EB;
+                                    border-radius: 6px;
+                                    position: relative;
+                                    width: 100%;
+                                .newpass_input, .confirmpass_input{
+                                    position: relative;
+                                    z-index: 1;
+                                    border-radius: 6px;
+                                    height: 48px;
+                                    outline: none;
+                                    padding: 14px 50px 14px 16px;
+                                    border: none;
+                                    font-size: 14px;
+                                    font-style: normal;
+                                    font-weight: 400;
+                                    line-height: 20px;
+                                    letter-spacing: 0.07px;
+                                    font-family: "Montserrat";
+                                    color: #1F2937;
+                                    width: 100%;
+                                    background-color: #f2f5fa;
+                                    &::placeholder{
+                                        font-size: 14px;
+                                        font-style: normal;
+                                        font-weight: 400;
+                                        line-height: 20px; /* 142.857% */
+                                        letter-spacing: 0.07px;
+                                        color: #7D7D7D;
+                                    }
+                                  
+                                }
+                                .eye_view{
+                                    cursor: pointer;
+                                    display: inline-flex;
+                                    align-items: center;
+                                    justify-content: center;
+                                    width: 48px;
+                                    height: 44px;
+                                    transform: translateY(-50%);
+                                    position: absolute;
+                                    z-index: 1;
+                                    top: 50%;
+                                    right: 0;
+                                }
+                            }
+                        }
+                        .action{
+                            .next_btn{
+                                width: 100%;
+                                cursor: pointer;
+                                height: 48px;
+                                border-radius: 8px;
+                                padding: 14px 16px;
+                                display: flex;
+                                align-items: center;
+                                justify-content: center;
+                                font-size: 14px;
+                                font-style: normal;
+                                font-weight: 600;
+                                line-height: 20px;
+                                letter-spacing: 0.07px;
+                                font-family: "Montserrat";
+                                color: #FFF;
+                                background-color: #00A9BB;
+                                border: none;
+                                box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25), -7px -7px 7px 0px #FFF;
+                                &:focus:not(:focus-visible){
+                                    outline: none;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    &.emailverificationModal_container{
+        .MuiModal-backdrop{ 
+            background-color: transparent;
+        }
+        .MuiDialog-container{
+            .MuiDialog-paper{
+                max-width: 587px;
+                width: 100%;
+                box-shadow: 0px 10px 70px 0px rgba(0, 0, 0, 0.08);
+                border-radius: 12px;
+                border: 1px solid #E9E9E9;
+                .modal_container{
+                    padding: 64px;
+                    .modal_head{
+                        max-width: 403px;
+                        margin-left: auto;
+                        margin-right: auto;
+                        .title{
+                            text-align: center;
+                            color: $text;
+                            font-family: $font-monsterat;
+                            font-size: 24px;
+                            font-style: normal;
+                            font-weight: 600;
+                            line-height: 32px; /* 133.333% */
+                            letter-spacing: 0.12px;
+                            margin-top: 0;
+                            margin-bottom: 16px;
+                        }
+                    }
+                    .modal_Body{
+                        max-width: 403px;
+                        margin-left: auto;
+                        margin-right: auto;
+                        .email_info_text{
+                            font-size: 14px;
+                            font-style: normal;
+                            font-weight: 400;
+                            line-height: 20px; /* 142.857% */
+                            letter-spacing: 0.07px;
+                            font-family: $font-monsterat;
+                            color: #6B7280;
+                            margin-top: 0;
+                            margin-bottom: 36px;
+                        }
+                        .otp_verify_title{
+                            color: $text;
+                            font-family: $font-monsterat;
+                            font-size: 20px;
+                            font-style: normal;
+                            font-weight: 600;
+                            line-height: 28px; /* 140% */
+                            letter-spacing: 0.1px;
+                            margin-bottom: 16px;
+                            text-align: center;
+                            display: block;
+
+                        }
+                        .otp_verification_box{
+                           .label{
+                            font-size: 14px;
+                            font-style: normal;
+                            font-weight: 500;
+                            line-height: 20px; /* 142.857% */
+                            letter-spacing: 0.07px;
+                            font-family: $font-monsterat;
+                            color: $text;
+                            display: block;
+                            margin-bottom: 10px;
+                           } 
+                           .flex_box{
+                            @include flexbox();
+                            margin-bottom: 36px;
+                            .input_code{
+                                &:focus:not(:focus-visible){
+                                    outline: none;
+                                }
+                                background-color: #f2f5fa;
+                                box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25) inset, -7px -7px 7px 0px #FFF inset;
+                                border: 1px solid #E5E7EB;
+                                margin-right: 10px;
+                                width: 32px;
+                                height: 40px;
+                                border-radius: 4px;
+                                @include flexbox();
+                                align-items: center;
+                                justify-content: center;
+                                font-size: 14px;
+                                font-style: normal;
+                                font-weight: 400;
+                                line-height: 20px; /* 142.857% */
+                                letter-spacing: 0.07px;
+                                font-family: $font-monsterat;
+                                color: #6B7280;
+                                text-align: center;
+                                &:focus:not(:focus-visible){
+                                    outline: none;
+                                 }
+                                &:last-child{
+                                    margin-right: 0;
+                                }
+                            }
+                           }
+                        }
+                        .action{
+                           .next_btn{
+                            width: 100%;
+                            cursor: pointer;
+                            height: 48px;
+                            border-radius: 8px;
+                            padding: 14px 16px;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            font-size: 14px;
+                            font-style: normal;
+                            font-weight: 600;
+                            line-height: 20px;
+                            letter-spacing: 0.07px;
+                            font-family: "Montserrat";
+                            color: #FFF;
+                            background-color: #00A9BB;
+                            border: none;
+                            box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25), -7px -7px 7px 0px #FFF;
+                            &:focus:not(:focus-visible){
+                                outline: none;
+                            }
+                           } 
+                        }
+                    }
+                }
+            }
+        }
+    }
+} 
+
+@media screen and (max-width:576px) {
+    .MuiDialog-root{
+        &.resetPassModal_container{
+            .MuiDialog-container{
+                .MuiDialog-paper{
+                    margin: 15px;
+                    .modal_container{
+                        padding: 32px;
+                        .modal_head, .modal_Body{
+                            max-width: initial;
+                        }
+                        .modal_head{
+                            .title{
+                                font-size: 20px;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        &.createNew_passwordModal_container {
+            .MuiDialog-container{
+                .MuiDialog-paper{
+                    margin: 15px;
+                    .modal_container{
+                        padding: 32px;
+                        .modal_head{
+                            .title{
+                                font-size: 20px;
+                            }
+                        }
+                        .modal_head, .modal_Body{
+                            max-width: initial;
+                        }
+                    }
+                }
+            }  
+        }
+    }   
+}

@@ -1,0 +1,8 @@
+<svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="concierge-bell">
+<path id="Vector" d="M4 36C4 34.9391 4.42143 33.9217 5.17157 33.1716C5.92172 32.4214 6.93913 32 8 32H40C41.0609 32 42.0783 32.4214 42.8284 33.1716C43.5786 33.9217 44 34.9391 44 36V40H4V36Z" fill="#025B74" stroke="black" stroke-linecap="round" stroke-linejoin="round"/>
+<path id="Vector_2" d="M40 32C40 27.7565 38.3143 23.6869 35.3137 20.6863C32.3131 17.6857 28.2435 16 24 16C19.7565 16 15.6869 17.6857 12.6863 20.6863C9.68571 23.6869 8 27.7565 8 32" stroke="black" stroke-linecap="round" stroke-linejoin="round"/>
+<path id="Vector_3" d="M24 8V16" stroke="black" stroke-linecap="round" stroke-linejoin="round"/>
+<path id="Vector_4" d="M20 8H28" stroke="black" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</svg>

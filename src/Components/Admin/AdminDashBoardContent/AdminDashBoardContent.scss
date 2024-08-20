@@ -1,0 +1,1285 @@
+$white:#FFF;
+$black: #000;
+
+$font-monsterat : 'Montserrat';
+
+// Flexbox display
+@mixin flexbox{
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+}
+
+// Inline flex display
+@mixin inline-flex{
+    display: -webkit-inline-box;
+    display: -moz-inline-box;
+    display: -webkit-inline-flex;
+    display: -ms-inline-flexbox;
+    display: inline-flexbox;
+}
+
+
+.dashboard_dataWrapper{
+    padding-left: 20px;
+    width: calc(100% - 237px);
+    transition: width 0.2s ease-in-out;
+    box-sizing: border-box;
+    *{
+        box-sizing: border-box;
+    }
+    &.expand_view{
+        width: calc(100% - 97px);
+    }
+    .header_block{
+        width: 100%;
+        @include flexbox();
+        align-items: center;
+        justify-content: space-between;
+        padding: 10px 20px 10px 10px;
+        position: relative;
+        // background-color: #E5ECF7;
+        background-color: #F1F5FB;
+        border-radius: 10px;
+        .searchBlock{
+            @include flexbox();
+            width: 37.161%;
+            position: relative;
+            z-index: 1;
+            .input_field{
+                height: 48px;
+                outline: none;
+                box-shadow: none;
+                border: none;
+                padding: 10px;
+                font-size: 16px;
+                font-weight: 400;
+                font-style: normal;
+                line-height: normal;
+                border-radius: 10px 0px 0px 10px;
+                width: calc(100% - 46px);
+                color: $black;
+                font-family: $font-monsterat
+            }
+            .searchBtn{
+                @include flexbox();
+                align-items: center;
+                justify-content: center;
+                width: 46px;
+                height: 48px;
+                padding: 0;
+                cursor: pointer;
+                border: none;
+                box-shadow: none;
+                background-color: rgb(34, 229, 145);
+                border-radius: 0px 10px 10px 0px;
+                &:focus:not(:focus-visible){
+                    outline: none;
+                }
+            }
+        }
+        .notify_profile_block{
+            position: relative;
+            z-index: 1;
+            .flex_box{
+                @include flexbox();
+                align-items: center;
+                .notify{
+                    display: inline-flex;
+                    align-items: center;
+                    justify-content: center;
+                    width: 20px;
+                    height: 20px;
+                    background-color: rgb(34, 229, 145);
+                    margin-right: 20px;
+                    border-radius: 50%;
+                }
+                .profile_icon{
+                    width: 38px;
+                    height: 38px;
+                    display: inline-flex;
+                    align-items: center;
+                    justify-content: center;
+                    img{
+                        max-width: 100%;
+                        height: auto;
+                    }
+                }
+            }
+        }
+        &::before{
+            content: '';
+            display: inline-block;
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            box-shadow: -3px -4px 6px 0px rgba(255, 255, 255, 0.8);
+            border-radius: 10px;
+        }
+        &::after{
+            content: '';
+            display: inline-block;
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            height: 100%;
+            box-shadow: 3px 3px 6px 0px rgba(18, 17, 17, 0.3);
+            border-radius: 10px;
+        }
+    }
+    .breadcrumb_block{
+        margin: 20px 0px;
+        nav{
+            ol{
+                li{
+                   >  a{
+                        font-family: $font-monsterat;
+                        font-size: 14px;
+                        color: rgb(75, 85, 99);
+                    }
+                     > p{
+                        font-size: 14px;
+                        font-weight: bold;
+                        font-family: $font-monsterat;
+                        color: rgb( 31, 41, 55);
+                     }
+                }
+                .MuiBreadcrumbs-separator{
+                    font-size: 12px;
+                    color: rgb(75, 85, 99);
+                }
+            }
+        }
+    }
+    .middle_content{
+        .flexBox_container{
+            @include flexbox();
+            .left_profileBlock{
+                border-radius: 10px;
+                position: relative;
+                padding: 20px;
+                // background-color: #E5ECF7;
+                background-color: #F1F5FB;
+                width: calc(100vw * .218099);
+                &::before{
+                    content: "";
+                    display: inline-block;
+                    position: absolute;
+                    left: 0;
+                    top: 0;
+                    width: 100%;
+                    height: 100%;
+                    z-index: 1;
+                    box-shadow: -3px -4px 6px 0px rgba(255, 255, 255, 0.8);
+                    border-radius: 10px;
+                }
+                &::after{
+                    content: "";
+                    display: inline-block;
+                    position: absolute;
+                    left: 0;
+                    bottom: 0;
+                    width: 100%;
+                    height: 100%;
+                    z-index: 1;
+                    box-shadow: 3px 3px 6px 0px rgba(18, 17, 17, 0.3);
+                    border-radius: 10px;
+                }
+                .upper_profileData{
+                    position: relative;
+                    z-index: 2;
+                    .info_status_flex{
+                        @include flexbox();
+                        align-items: center;
+                        justify-content: space-between;
+                        .status_info{
+                            &.active{
+                                position: relative;
+                                left: 0;
+                                top: 0;
+                                white-space: nowrap;
+                                font-size: 12px;
+                                font-weight: 500;
+                                font-style: normal;
+                                line-height: normal;
+                                @include flexbox();
+                                align-items: center;
+                                color: rgb(33, 48, 60);
+                                background-color: rgb(34, 229, 145);
+                                border-radius: 6px;
+                                padding: 6px 12px;
+                                font-family: $font-monsterat;
+                                .indicator{
+                                    width: 4px;
+                                    height: 4px;
+                                    border-radius: 50%;
+                                    background-color: rgb(33, 48, 60);
+                                    margin-right: 5px;
+                                    border-radius: 50%;
+                                }
+                            }
+                        } 
+                        .more_infoBtnBlock{
+                            position: relative;
+                            border-radius: 10px;
+                            width: 39px;
+                            height: 39px;
+                            &::before{
+                                content: '';
+                                display: inline-block;
+                                position: absolute;
+                                left: 0;
+                                top: 0;
+                                width: 100%;
+                                height: 100%;
+                                border-radius: 10px;
+                                box-shadow: -3px -4px 6px 0px rgba(255, 255, 255, 0.8);
+                               
+                            }
+                            &::after{
+                                content: '';
+                                display: inline-block;
+                                position: absolute;
+                                left: 0;
+                                bottom: 0;
+                                width: 100%;
+                                height: 100%;
+                                border-radius: 10px;
+                                box-shadow: 3px 3px 6px 0px rgba(18, 17, 17, 0.3);
+                                
+                            }
+                            .more_infoBtn{
+                                padding: 0;
+                                cursor: pointer;
+                                border: none;
+                                box-shadow: none;
+                                &:focus:not(:focus-visible){
+                                    outline: none;
+                                }
+                                @include flexbox();
+                                align-items: center;
+                                justify-content: center;
+                                width: 39px;
+                                height: 39px;
+                                position: relative;
+                                z-index: 1;
+                                border-radius: 10px;
+                                // background-color: #E5ECF7;
+                                background-color: #F1F5FB;
+                             
+                            }
+                        }
+                     
+                    }
+                   .profileimg_data{
+                    margin-top: -39px;
+                    .profile_imgBlock{
+                        width: 80px;
+                        height: 80px;
+                        margin-left: auto;
+                        margin-right: auto;
+                        margin-bottom: 10px;
+                        img{
+                            max-width: 100%;
+                            height: auto;
+                        }
+                    }
+                .profile_name{
+                    display: block;
+                    text-align: center;
+                    font-size: 16px;
+                    font-weight: 500;
+                    font-style: normal;
+                    line-height: normal;
+                    color: rgb(89, 98, 112);
+                    margin-bottom: 10px;
+                }
+                .invite_data{
+                    display: block;
+                    text-align: center;
+                    font-size: 16px;
+                    font-weight: normal;
+                    font-style: normal;
+                    line-height: normal;
+                    color: rgb(89, 98, 112);
+                    margin-bottom: 10px; 
+                }
+                .cta_flexbox{
+                    @include flexbox();
+                    align-items: center;
+                    justify-content: space-between;
+                    margin: 0 -10px;
+                    .send_mailBtn, .downloadBtn{
+                        margin: 0 10px;
+                        background-color: transparent;
+                        border: 1px solid rgb(34, 229, 145);
+                        color:rgb(34, 229, 145);
+                        font-size: 16px;
+                        font-style: normal;
+                        font-weight: normal;
+                        line-height: normal;
+                        width: calc(50% - 20px);
+                        border-radius: 6px;
+                        padding: 10px 15px;
+                        height: 39px;
+                        position: relative;
+                        white-space: nowrap;
+                        cursor: pointer;
+                        &:hover{
+                            border:none;
+                            &::before{
+                                content: '';
+                                display: inline-block;
+                                position: absolute;
+                                left: 0;
+                                top: 0;
+                                width: 100%;
+                                border-radius: 6px;
+                                height: 100%;
+                                box-shadow: -3px -4px 6px 0px rgba(255, 255, 255, 0.8);
+                            }
+                            &::after{
+                                content: '';
+                                display: inline-block;
+                                position: absolute;
+                                left: 0;
+                                top: 0;
+                                width: 100%;
+                                border-radius: 6px;
+                                height: 100%;
+                                box-shadow: 3px 3px 6px 0px rgba(18, 17, 17, 0.3);
+                            }
+                        }
+                    }
+                }
+                   }
+                   .profileData_list{
+                    margin: 20px 0px;
+                    ul{
+                        margin: 0;
+                        padding: 0;
+                        li{
+                            list-style: none;
+                            @include flexbox();
+                            align-items: center;
+                            justify-content: space-between;
+                            margin-bottom: 10px;
+                            &:last-child{
+                                margin-bottom: 0;
+                            }
+                            .data{
+                              
+                                font-weight: 500 !important;
+                            }
+                            .label, .data{
+                                font-size: 16px;
+                                font-weight: normal;
+                                font-style: normal;
+                                line-height: normal;
+                                white-space: nowrap;
+                                color: #687382;
+                                .icon{
+                                    display: inline-flex;
+                                    align-items: center;
+                                    justify-content: center;
+                                    margin-right: 10px;
+                                    width: 16px;
+                                    height: 16px;
+                                }
+                            }
+                        }
+                    }
+                   }
+                }
+                .bottom_options{
+                    position: relative;
+                    z-index: 2;
+                    ul{
+                        margin: 0;
+                        padding: 0;
+                        width: 100%;
+                        li{
+                            width: 100%;
+                            list-style: none;
+                            margin-bottom: 10px;
+                            &:last-child{
+                                margin-bottom: 0px;
+                            }
+                            .option_item{
+                                background-color: transparent;
+                                border: none;
+                                position: relative;
+                                width: 100%;
+                                &:focus:not(:focus-visible){
+                                    outline: none;
+                                }
+                                padding: 10px 12px;
+                                @include flexbox();
+                                align-items: center;
+                                justify-content: space-between;
+                                cursor: pointer;
+                                border-radius: 10px;
+                                &::before{
+                                    content: '';
+                                    display: inline-block;
+                                    position: absolute;
+                                    left: 0;
+                                    top: 0;
+                                    width: 100%;
+                                    height: 100%;
+                                    box-shadow: -3px -4px 6px 0px rgba(255, 255, 255, 0.8);
+                                    border-radius: 10px;
+                                }
+                                &::after{
+                                    content: '';
+                                    display: inline-block;
+                                    position: absolute;
+                                    left: 0;
+                                    bottom: 0;
+                                    width: 100%;
+                                    height: 100%;
+                                    box-shadow: 3px 3px 6px 0px rgba(18, 17, 17, 0.3);
+                                    border-radius: 10px;
+                                }
+                                &:hover{
+                                    background-color: rgb(34, 229, 145);
+                                    // &::before, &::after{
+                                    //     display: none
+                                    // }
+                                    .label{
+                                        color: rgb(36, 52, 65);
+                                        .icon{
+                                            svg{
+                                                path{
+                                                    stroke: rgb(36, 52, 65) !important;
+                                                }
+                                            }
+                                        }
+                                    }
+                                    .arrow_icon{
+                                        svg{
+                                            path{
+                                                stroke:  rgb(36, 52, 65) !important
+                                            }
+                                        }
+                                    }
+                                }
+                                .label{
+                                    @include flexbox();
+                                    align-items: center;
+                                    position: relative;
+                                    z-index: 1;
+                                    .icon{
+                                        display: inline-flex;
+                                        margin-right: 10px;
+                                        svg{
+                                            g{
+                                                opacity: 1 !important;
+                                            }
+                                            path{
+                                                stroke: #687382 !important;
+                                            }
+                                        }
+                                    }
+                                    font-size: 16px;
+                                    font-weight: normal;
+                                    font-style: normal;
+                                    line-height: normal;
+                                    color: #687382;
+                                }
+                                .arrow_icon{
+                                    position: relative;
+                                    z-index: 1;
+                                    display: inline-block;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            .right_tabData_block{
+                padding: 20px;
+                border-radius: 10px;
+                position: relative;
+                width: calc(100% - (100vw * .218099 - 20px));
+                margin-left: 20px;
+                &::before{
+                    content: '';
+                    display: inline-block;
+                    position: absolute;
+                    left: 0;
+                    top: 0;
+                    width: 100%;
+                    height: 100%;
+                    z-index: 1;
+                    box-shadow: -3px -4px 6px 0px rgba(255, 255, 255, 0.8);
+                    border-radius: 10px;
+                }
+                &::after{
+                    content: '';
+                    display: inline-block;
+                    position: absolute;
+                    left: 0;
+                    bottom: 0;
+                    width: 100%;
+                    height: 100%;
+                    z-index: 1;
+                    box-shadow: 3px 3px 6px 0px rgba(18, 17, 17, 0.3);
+                    border-radius: 10px;
+                }
+                .tabs_data_container{
+                    position: relative;
+                    z-index: 2;
+                    .MuiBox-root {
+                        > .MuiBox-root{
+                            width: calc(100% - 60px);
+                            border-bottom: 2px solid ;
+                            border-color: rgb( 229, 231, 235);
+                            .MuiTabs-flexContainer{
+                                overflow-x: auto;
+                                scrollbar-width: thin;
+                                .MuiButtonBase-root {
+                                    text-transform: capitalize;
+                                    min-height: 30px;
+                                    padding: 5px 20px;
+                                    max-width: initial;
+                                    font-size: 14px;
+                                    font-style: normal;
+                                    line-height: normal;
+                                    font-weight: 500;
+                                    color: rgb(141, 155, 177);
+                                    font-family: $font-monsterat;
+                                    &.Mui-selected{
+                                        color: rgb(34, 229, 145);
+                                    }
+                                }
+                            }
+                            .MuiTabs-indicator{
+                                background-color: rgb(34, 229, 145);
+                            }
+                        }
+                        .tabsData_block{
+                            .MuiBox-root{
+                                padding: 10px 0px;
+                                .search-box{
+                                    text-align: left;
+                                    margin-bottom: 10px;
+                                    .search-input{
+                                        width:100%;
+                                        height: 57px;
+                                        border-radius: 10px;
+                                        border: none;
+                                        outline: none;
+                                        background-color: transparent;
+                                        font-size: 16px;
+                                        font-family: $font-monsterat;
+                                        font-weight: normal;
+                                        font-style: normal;
+                                        line-height: normal;
+                                        box-shadow: 4px 4px 8px 3px inset rgba(18, 17, 17, 0.1);
+                                        background-image: url('../../../assets/images/search_icon_new.svg');
+                                        background-repeat: no-repeat;
+                                        padding: 10px 10px 10px 50px;
+                                        background-position-x: 20px;
+                                        background-position-y: 50%;
+                                        &::placeholder{
+                                            color: rgba(39, 56, 80, .3);
+                                            font-family: $font-monsterat;
+                                            font-weight: 500;
+                                            font-size: 16px;
+                                        }
+                                    }
+                                }
+                                .tabular_data{
+                                    text-align: left;
+                                    padding-bottom: 10px;
+                                    padding-right: 10px;
+                                    margin-bottom: 20px;
+                                    margin-right: -10px;
+                                    overflow-x: auto;
+                                    padding: 5px 5px 5px 5px;
+                                    scrollbar-width: thin;
+                                    .tableform{
+                                        width: calc(100% - 0px);
+                                        position: relative;
+                                        border-radius: 10px;
+                                        display: table;
+                                        &::before{
+                                            content: '';
+                                            display: inline-block;
+                                            position: absolute;
+                                            left: 0;
+                                            top: 0;
+                                            width: 100%;
+                                            height: 100%;
+                                            box-shadow: -3px -4px 6px 0px rgba(255, 255, 255, 0.8);
+                                            border-radius: 10px
+                                        }
+                                        &::after{
+                                            content: '';
+                                            display: inline-block;
+                                            position: absolute;
+                                            left: 0;
+                                            bottom: 0;
+                                            width: 100%;
+                                            height: 100%;
+                                            box-shadow: 3px 3px 6px 0px rgba(18, 17, 17, 0.3);
+                                            border-radius: 10px
+                                        }
+                                        .tableHead{
+                                            @include flexbox();
+                                            width: 100%;
+                                            height: 50px;
+                                            background-color: #F1F5FB;
+                                            border-radius: 10px 10px 0px 0px;
+                                            position: relative;
+                                            z-index: 1;
+                                            padding: 4px;
+                                            margin-bottom: 5px;
+                                            .theadItem{
+                                                min-height: 51px;
+                                                width: 25%;
+                                                min-width: 150px;
+                                                @include flexbox();
+                                                align-items: center;
+                                                justify-content: center;
+                                                font-size: 14px;
+                                                font-weight: 600;
+                                                font-style: normal;
+                                                line-height: normal;
+                                                // color: rgb(107, 114, 128);
+                                                color: #687382;
+                                                font-family: $font-monsterat;
+                                                white-space: nowrap;
+                                                position: relative;
+                                                .text{
+                                                    display: inline-block;
+                                                    position: relative;
+                                                    z-index: 1;
+                                                }
+                                                .sort{
+                                                    display: inline-flex;
+                                                    flex-direction: column;
+                                                    margin-left: 8px;
+                                                   
+                                                    .arrow_up{
+                                                        transform: rotate(-90deg);
+                                                        display: inline-block;
+                                                        cursor: pointer;
+                                                    }
+                                                    .arrow_down{
+                                                        transform: rotate(90deg);
+                                                        display: inline-block;
+                                                        cursor: pointer;
+                                                    }
+                                                }
+                                                &::after{
+                                                    content: '';
+                                                    display: inline-block;
+                                                    position: absolute;
+                                                    right: 0;
+                                                    height: 80%;
+                                                    width: 1px;
+                                                    background-color: rgba(128, 128, 128, 0.3);
+                                                }
+                                                &:last-child{
+                                                    &::after{
+                                                        display: none;
+                                                    }
+                                                }
+                                                &:hover{
+                                                    background-color: rgb(34, 229, 145);
+                                                    border-radius: 6px;
+                                                    color: $white;
+                                                    .sort{
+                                                        margin-left: 0;
+                                                        position: absolute;
+                                                        width: auto;
+                                                        height: 100%;
+                                                        right: 8px;
+                                                        z-index: 2;
+                                                        padding: 4px 0px;
+                                                        justify-content: space-between;
+                                                        .arrow_up, .arrow_down{
+                                                           width: 15px;
+                                                           height: 15px;
+                                                           border-radius: 50%;
+                                                           @include flexbox();
+                                                           align-items: center;
+                                                           justify-content: center;
+                                                           background-color: $white; 
+                                                           svg{
+                                                            height:8px;
+                                                            margin-right: -1px;
+                                                            path{
+                                                                stroke: rgb( 34, 229, 145) !important;
+                                                            }
+                                                           }
+                                                        }
+                                                    }
+                                                    &::after{
+                                                        content: '';
+                                                        position: absolute;
+                                                        right: 0;
+                                                        bottom: 0;
+                                                        width: 100%;
+                                                        height: 100%;
+                                                        border-radius: 6px;
+                                                        display: inline-block;
+                                                        box-shadow: 3px 3px 6px 0px rgba(18, 17, 17, 0.3);
+                                                    }
+                                                    &::before{
+                                                        content: '';
+                                                        position: absolute;
+                                                        right: 0;
+                                                        bottom: 0;
+                                                        width: 100%;
+                                                        height: 100%;
+                                                        border-radius: 6px;
+                                                        display: inline-block;
+                                                        box-shadow:-3px -4px 6px 0px rgba(255, 255, 255, 0.8) ;
+                                                    }
+                                                }
+                                            }
+                                        }
+                                        .tableBody{
+                                            min-height: 50px;
+                                            position: relative;
+                                            z-index: 1;
+                                            .tbodyRow{
+                                                padding: 5px;
+                                                .no-records{
+                                                    padding: 10px;
+                                                    border-radius: 6px;
+                                                    height: 49px;
+                                                    @include flexbox();
+                                                    align-items: center;
+                                                    justify-content: center;
+                                                    box-shadow: 4px 4px 8px 3px inset rgba(18, 17, 17, 0.1);
+                                                    .text{
+                                                        display: inline-block;
+                                                        color: #8D9BB1;
+                                                        font-size: 14px;
+                                                        font-weight: 400;
+                                                        font-style: normal;
+                                                        line-height: normal;
+                                                        font-family: $font-monsterat;
+                                                    }
+
+                                                }
+                                            }
+                                            
+                                        }
+                                    }
+                                    .table-pagination{
+                                        margin-top: 15px;
+                                        @include flexbox();
+                                        align-items: center;
+                                        justify-content: space-between;
+                                        .count_select{
+                                            @include flexbox();
+                                            align-items: center;
+                                          .page_count{
+                                            margin: 0;
+                                            padding: 0;
+                                            @include flexbox();
+                                            align-items: center;
+                                            li{
+                                                list-style: none;
+                                                margin-right: 10px;
+                                                &:last-child{
+                                                    margin-right: 0px;
+                                                }
+                                                .prev_btn{
+                                                    padding: 5px;
+                                                    background-color: transparent;
+                                                    border: none;
+                                                    cursor: pointer;
+                                                    img{
+                                                        transform: rotate(180deg);
+                                                    }
+                                                }
+                                                .next_btn{
+                                                    padding: 5px;
+                                                    background-color: transparent;
+                                                    border: none;
+                                                    cursor: pointer; 
+                                                }
+                                                .option{
+                                                    padding: 5px;
+                                                    background-color: transparent;
+                                                    border: none;
+                                                    cursor: pointer;
+                                                    color: rgb(141, 155, 177);
+                                                    font-size: 14px;
+                                                    font-weight: 500;
+                                                    font-style: normal;
+                                                    line-height: normal;
+                                                    position: relative;
+                                                    font-weight: 600;
+                                                    &.active{
+                                                        padding: 10px;
+                                                        border-radius: 10px;
+                                                        min-width: 38px;
+                                                        min-height: 38px;
+                                                        color: #687382;
+                                                        &::before{
+                                                            content: '';
+                                                            display: inline-block;
+                                                            position: absolute;
+                                                            left: 0;
+                                                            top: 0;
+                                                            width: 100%;
+                                                            height: 100%;
+                                                            border-radius: 10px;
+                                                            box-shadow: -3px -4px 6px 0px rgba(255, 255, 255, 0.8);
+                                                        }
+                                                        &::after{
+                                                            content: '';
+                                                            display: inline-block;
+                                                            position: absolute;
+                                                            left: 0;
+                                                            bottom: 0;
+                                                            width: 100%;
+                                                            height: 100%;
+                                                            border-radius: 10px;
+                                                            box-shadow: 3px 3px 6px 0px rgba(18, 17, 17, 0.3);
+                                                        }
+                                                    }
+                                                }
+                                                .dot_more{
+                                                    display: inline-block;
+                                                    color: rgb(141, 155, 177);
+                                                }
+                                            }
+                                          }  
+                                          .jump_page{
+                                            min-width: 92px;
+                                            margin-left: 10px;
+                                            border-radius: 10px;
+                                            position: relative;
+                                            &::before{
+                                                content: '';
+                                                display: inline-block;
+                                                position: absolute;
+                                                left: 0;
+                                                top: 0;
+                                                width: 100%;
+                                                height: 100%;
+                                                border-radius: 10px;
+                                                box-shadow: -3px -4px 6px 0px rgba(255, 255, 255, 0.8);
+                                            }
+                                            &::after{
+                                                content: '';
+                                                display: inline-block;
+                                                position: absolute;
+                                                left: 0;
+                                                bottom: 0;
+                                                width: 100%;
+                                                height: 100%;
+                                                border-radius: 10px;
+                                                box-shadow: 3px 3px 6px 0px rgba(18, 17, 17, 0.3);
+                                            }
+                                            .MuiInputBase-root{
+                                                width: 100%;
+                                                position: relative;
+                                                z-index: 2;
+                                                .MuiSelect-select{
+                                                    background-image: url('../../../assets/images/chevron-down.svg');
+                                                    background-repeat: no-repeat;
+                                                    background-position: 90% center;
+                                                    padding: 10px 20px 10px;
+                                                    font-size: 14px;
+                                                    font-family: $font-monsterat;
+                                                    line-height: normal;
+                                                    font-weight: normal;
+                                                    font-style: normal;
+                                                    color: rgb(141, 155, 177);
+                                                }
+                                                fieldset, .MuiSelect-icon{
+                                                    display: none;
+                                                }
+                                            }
+                                          }
+                                        }
+                                        .goto_page{
+                                            @include flexbox();
+                                            align-items: center;
+                                            .goto, .page{
+                                                display: inline-block;
+                                                font-size: 14px;
+                                                font-style: normal;
+                                                font-weight: 500;
+                                                line-height: normal;
+                                                font-family: $font-monsterat;
+                                                // color: rgb(107, 114, 128);
+                                                color: #687382;
+                                            }
+                                            .page_input{
+                                                width: 63px;
+                                                height: 40px;
+                                                border-radius: 6px;
+                                                padding: 10px;
+                                                text-align: center;
+                                                font-size: 14px;
+                                                font-style: normal;
+                                                font-weight: 500;
+                                                line-height: normal;
+                                                font-family: $font-monsterat;
+                                                color: $black;
+                                                margin: 0 10px;
+                                                background-color: transparent;
+                                                box-shadow: 4px 4px 8px 3px inset rgba(18, 17, 17, 0.1);
+                                                border: none;
+                                                outline: none;
+                                            }
+                                        }
+                                    }
+                                }
+                                .data_formContainer{
+                                  form{
+                                    .input_flexbox{
+                                        @include flexbox();
+                                        margin: 0 -15px 30px -15px;
+                                        .input_box{
+                                            margin: 0 15px;
+                                            width: calc(50% - 30px);
+                                            @include flexbox();
+                                            flex-direction: column;
+                                            align-items: flex-start;
+                                            label{
+                                                display: inline-block;
+                                                position: relative;
+                                                margin-bottom: 10px;
+                                                font-size: 14px;
+                                                font-weight: 600;
+                                                font-style: normal;
+                                                line-height: normal;
+                                                font-family: $font-monsterat;
+                                                color: rgb(89, 98, 112);
+                                                text-align: left;
+                                                &::after{
+                                                    content: '*';
+                                                    display: inline-block;
+                                                    position: absolute;
+                                                    left: 100%;
+                                                    top: 0;
+                                                    color: rgb(239, 83, 88);
+                                                }
+                                            }
+                                            .select_input{
+                                                width: 100%;
+                                                box-sizing: border-box;
+                                                border-radius: 6px;
+                                                position: relative;
+                                                box-shadow: 4px 4px 8px 3px inset rgba(18, 17, 17, 0.1);
+                                                background-image: url("../../../assets/images/chevron-down.svg");
+                                                background-repeat: no-repeat;
+                                                background-position: 95% center;
+                                                *{
+                                                    box-sizing: border-box;
+                                                }
+                                                .MuiSelect-icon, fieldset{
+                                                    display: none;
+                                                }
+                                                .MuiSelect-select{
+                                                    min-height: 49px;
+                                                    padding-top: 10px;
+                                                    padding-bottom: 10px;
+                                                    text-align:left;
+                                                    font-size: 14px;
+                                                    font-weight: normal;
+                                                    font-style: normal;
+                                                    line-height: normal;
+                                                    font-family: $font-monsterat;
+                                                    color: $black;
+                                                    @include flexbox();
+                                                    align-items: center;
+                                                }
+                                            }
+                                            .title_input{
+                                                min-height: 49px;
+                                                width: 100%;
+                                                border-radius: 6px;
+                                                position: relative;
+                                                box-shadow: 4px 4px 8px 3px inset rgba(18, 17, 17, 0.1);
+                                                background-color: transparent;
+                                                position: relative;
+                                                outline: none;
+                                                border: none;
+                                                text-align: left;
+                                                font-size: 14px;
+                                                font-weight: normal;
+                                                font-style: normal;
+                                                line-height: normal;
+                                                font-family: $font-monsterat;
+                                                color: $black;
+                                                @include flexbox();
+                                                align-items: center;
+                                                padding: 10px;
+                                            }
+                                        }
+                                    }
+                                    .form_actions{
+                                        margin: 0 0px 0 auto;
+                                        width: calc(50% - 15px);
+                                        @include flexbox();
+                                        align-items: center;
+                                        justify-content:flex-end ;
+                                        .reset_btn{
+                                            @include flexbox();
+                                            align-items: center;
+                                            justify-content: center;
+                                            margin: 0 10px 0 0px;
+                                            width: calc(50% - 10px);
+                                            position: relative;
+                                            cursor: pointer;
+                                            border: none;
+                                            &:focus:not(:focus-visible){
+                                                outline: none;
+                                            }
+                                            background-color: #FF306F;
+                                            min-width: 179px;
+                                            color: $white;
+                                            font-size: 14px;
+                                            font-weight: 600;
+                                            line-height: normal;
+                                            font-style: normal;
+                                            font-family: $font-monsterat;
+                                            height: 48px;
+                                            border-radius: 10px;
+                                            &::before{
+                                                content: '';
+                                                display: inline-block;
+                                                position: absolute;
+                                                left: 0;
+                                                top: 0;
+                                                width: 100%;
+                                                height: 100%;
+                                                border-radius: 10px;
+                                                box-shadow: -3px -4px 6px 0px rgba(255, 255, 255, 0.8);
+                                            }
+                                            &::after{
+                                                content: '';
+                                                display: inline-block;
+                                                position: absolute;
+                                                left: 0;
+                                                bottom: 0;
+                                                width: 100%;
+                                                height: 100%;
+                                                border-radius: 10px;
+                                                box-shadow: 3px 3px 6px 0px rgba(18, 17, 17, 0.3)
+                                            }
+                                        }
+                                        .save_btn{
+                                            @include flexbox();
+                                            align-items: center;
+                                            justify-content: center;
+                                            margin: 0 0 0 10px;
+                                            width: calc(50% - 10px);
+                                            min-width:179px ;
+                                            position: relative;
+                                            cursor: pointer;
+                                            border: none;
+                                            &:focus:not(:focus-visible){
+                                                outline: none;
+                                            }
+                                            background-color: rgb( 34, 229, 145);
+                                            color: $black;
+                                            font-size: 14px;
+                                            font-weight: 600;
+                                            line-height: normal;
+                                            font-style: normal;
+                                            font-family: $font-monsterat;
+                                            height: 48px;
+                                            border-radius: 10px;
+                                            &::before{
+                                                content: '';
+                                                display: inline-block;
+                                                position: absolute;
+                                                left: 0;
+                                                top: 0;
+                                                width: 100%;
+                                                height: 100%;
+                                                border-radius: 10px;
+                                                box-shadow: -3px -4px 6px 0px rgba(255, 255, 255, 0.8);
+                                            }
+                                            &::after{
+                                                content: '';
+                                                display: inline-block;
+                                                position: absolute;
+                                                left: 0;
+                                                bottom: 0;
+                                                width: 100%;
+                                                height: 100%;
+                                                border-radius: 10px;
+                                                box-shadow: 3px 3px 6px 0px rgba(18, 17, 17, 0.3)
+                                            }
+                                        }
+                                    }
+                                  }  
+                                }
+                            }
+                        }
+                    }
+                   
+                    .more_optBtn{
+                        background-color: transparent;
+                        position: absolute;
+                        z-index: 1;
+                        right: 0;
+                        top: 0;
+                        width: 39px;
+                        height: 39px;
+                        border-radius: 6px;
+                        @include flexbox();
+                        align-items: center;
+                        justify-content: center;
+                        &:focus:not(:focus-visible){
+                            outline: none;
+                        }
+                        border: none;
+                        // background-color: #E5ECF7;
+                        background-color: #F1F5FB;
+                        padding: 0;
+                        
+                        cursor: pointer;
+                        svg{
+                            transform: rotate(90deg);
+                        }
+                        &::before{
+                            content: '';
+                            display: inline-block;
+                            position: absolute;
+                            left: 0;
+                            top: 0;
+                            width: 100%;
+                            height: 100%;
+                            border-radius: 6px;
+                            box-shadow: -3px -4px 6px 0px rgba(255, 255, 255, 0.8);
+                        }
+                        &::after{
+                            content: '';
+                            display: inline-block;
+                            position: absolute;
+                            left: 0;
+                            bottom: 0;
+                            width: 100%;
+                            height: 100%;
+                            border-radius: 6px;
+                            box-shadow: 3px 3px 6px 0px rgba(18, 17, 17, 0.3);
+                        }
+
+                    }
+                }
+            }
+        }
+    }
+    .footer_section{
+        position: relative;
+        margin-top: 60px;
+        border-radius: 10px;
+        padding: 20px;
+        height: 60px;
+        &::before{
+            content: '';
+            display: inline-block;
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 10px;
+            box-shadow: -3px -4px 6px 0px rgba(255, 255, 255, 0.8);
+        }
+        &::after{
+            content: '';
+            display: inline-block;
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 10px;
+            box-shadow: 3px 3px 6px 0px rgba(18, 17, 17, 0.3)
+        }
+        .flexBox{
+            @include flexbox();
+            align-items: center;
+            justify-content: space-between;
+            position: relative;
+            z-index: 1;
+            .left_block{
+                .copy_statement{
+                    font-size: 14px;
+                    font-style: normal;
+                    font-weight: 500;
+                    line-height: normal;
+                    font-family: $font-monsterat;
+                    color: #687382;
+                }
+            }
+            .right_block{
+                .link_list{
+                    margin: 0;
+                    padding: 0;
+                    @include flexbox();
+                    align-items: center;
+                    li{
+                        list-style: none;
+                        position: relative;
+                        padding-right: 10px;
+                        &:last-child{
+                            padding-right: 0;
+                            &::after{
+                                display: none;
+                            }
+                        }
+                        &::after{
+                            content: '';
+                            display: inline-block;
+                            position: absolute;
+                            right: 5px;
+                            height: calc(100% - 4px);
+                            top: 53%;
+                            transform: translateY(-50%);
+                            width: 1px;
+                            background-color: #687382;
+                        }
+                        .footLink{
+                            font-size: 14px;
+                            font-style: normal;
+                            font-weight: 500;
+                            line-height: normal;
+                            font-family: $font-monsterat;
+                            color: #687382;
+                            text-decoration: none;
+                            cursor: pointer;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+
+@media screen and (min-width:1200px) {
+    .dashboard_dataWrapper{
+        .middle_content{
+            .flexBox_container{
+                .left_profileBlock{
+                    min-width: 335px;
+                }
+                .right_tabData_block{
+                    min-width: calc(100% - 355px)
+                }
+            }
+        }
+    }   
+}

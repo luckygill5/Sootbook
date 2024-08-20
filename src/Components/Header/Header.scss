@@ -1,0 +1,112 @@
+@import "../../BaseStyle/Basestyle.scss";
+
+$white:#FFF;
+$black: #000;
+$text: #1F2937;
+$buttonColor:#00A9BB;
+
+$font-monsterat : 'Montserrat';
+
+
+.main_header{
+    @include container_block();
+    box-shadow: 0px 6px 12px 0px rgba(0, 0, 0, 0.03);
+    background-color: $white;
+    height: 72px;
+    width: 100%;
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: 99;
+    box-sizing: border-box;
+    @include flexbox();
+    align-items: center;
+    *{
+        box-sizing: border-box;
+        font-family: $font-monsterat
+    }
+    .flex_gridbox{
+        @include flexbox();
+        width: 100%;
+        justify-content: space-between;
+        align-items: center;
+        .logo_block{
+            height: 40px;
+            .logo_link{
+                display: inline-block;
+                text-decoration: none;
+                cursor: pointer;
+                .logo_icon{
+                    max-width: 100%;
+                    height: auto
+                }
+            }
+            
+        }
+        .right_data{
+            @include flexbox();
+            align-items: center;
+            .menu_list{
+                ul{
+                    @include flexbox();
+                    margin: 0;
+                    padding:0;
+                    li{
+                        list-style: none;
+                        margin-right: 25px;
+                        &:last-child{
+                            margin-right: 0;
+                        }
+                        .menu_item{
+                            padding: 10px;
+                            cursor: pointer;
+                            text-decoration: none;
+                            font-size: 16px;
+                            font-style: normal;
+                            font-weight: 400;
+                            line-height: 24px; /* 150% */
+                            letter-spacing: 0.08px;
+                            color: $text;
+                            display: inline-block;
+                            &:hover{
+                                color: #00A9BB;
+                            }
+                        }
+                    }
+                }
+
+            }
+            .signIn_link{
+                .sign_in{
+                    font-size: 14px;
+                    font-style: normal;
+                    font-weight: 600;
+                    line-height: 20px; /* 142.857% */
+                    letter-spacing: 0.07px;
+                    color: #00A9BB;
+                    text-decoration: none;
+                    padding: 14px 16px;
+                    cursor: pointer;
+                    display: inline-block;
+                    background-color: transparent;
+                    border: none;
+                    &:focus:not(:focus-visible){
+                        outline: none;
+                    }
+                }
+              
+            }
+            .sign_upBtn{
+                background-color: #00A9BB;
+                color: $white;
+                cursor: pointer;
+                border: none;
+                box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25), -1px -7px 7px 0px #FFF;
+                border-radius: 8px;
+                height: 48px;
+                padding: 14px 16px;
+                margin-left: 16px;
+            }
+        }
+    }
+}

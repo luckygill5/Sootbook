@@ -1,0 +1,625 @@
+$white: #FFF;
+$black: #000;
+$text: #1F2937;
+$buttonColor: #00A9BB;
+
+$font-monsterat : 'Montserrat';
+
+
+// Flexbox display
+@mixin flexbox {
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+}
+
+// Inline flex display
+@mixin inline-flex {
+    display: -webkit-inline-box;
+    display: -moz-inline-box;
+    display: -webkit-inline-flex;
+    display: -ms-inline-flexbox;
+    display: inline-flexbox;
+}
+
+.signIn_wrapper {
+    box-sizing: border-box;
+    background-color: $white;
+
+    * {
+        box-sizing: border-box;
+    }
+
+    .header {
+        padding: 0px 60px;
+        height: 72px;
+        background-color: $white;
+        @include flexbox();
+        align-items: center;
+        justify-content: space-between;
+        box-shadow: 0px 6px 12px 0px rgba(0, 0, 0, 0.03);
+        position: fixed;
+        z-index: 99;
+        left: 0;
+        top: 0;
+        width: 100%;
+
+        .right_action {
+            .closeBtn {
+                display: none;
+            }
+
+            .dont_account {
+                display: inline-block;
+                margin-right: 36px;
+                font-size: 16px;
+                font-family: $font-monsterat;
+                font-style: normal;
+                font-weight: 400;
+                line-height: 24px;
+                /* 150% */
+                letter-spacing: 0.08px;
+                color: $text;
+            }
+
+            .signup_btn {
+                height: 48px;
+                background-color: $buttonColor;
+                border-radius: 8px;
+                font-size: 14px;
+                font-style: normal;
+                font-weight: 600;
+                line-height: 20px;
+                /* 142.857% */
+                letter-spacing: 0.07px;
+                font-family: $font-monsterat;
+                color: $white;
+                border: none;
+                cursor: pointer;
+                padding: 0 15px;
+
+                &:focus:not(:focus-visible) {
+                    outline: none;
+                }
+            }
+        }
+
+        .burgerMenuBtn {
+            display: none;
+        }
+    }
+
+    .main_container {
+        // padding-top: 0px;
+        // height: 100vh;
+        position: relative;
+        @include flexbox();
+        align-items: center;
+        justify-content: center;
+
+        &.signInModal_show {
+            padding-top: 155px;
+            padding-bottom: 150px;
+        }
+
+        .signIn_formBlock {
+            position: relative;
+            left: 0;
+            top: 0;
+            transform: none;
+            z-index: 1;
+            width: 100%;
+            max-width: 531px;
+            padding: 64px;
+            background-color: $white;
+            border-radius: 12px;
+            border: 1px solid #E9E9E9;
+            box-shadow: 0px 10px 70px 0px rgba(0, 0, 0, 0.08);
+
+            .title {
+                font-family: $font-monsterat;
+                font-size: 24px;
+                font-style: normal;
+                font-weight: 600;
+                line-height: 32px;
+                /* 133.333% */
+                letter-spacing: 0.12px;
+                margin: 0 0 36px 0px;
+                color: $text;
+            }
+
+            .sign_in_google {
+                width: 100%;
+
+                .googleButton {
+                    border: none;
+                    cursor: pointer;
+                    width: 100%;
+                    @include flexbox();
+                    align-items: center;
+                    justify-content: center;
+                    border-radius: 8px;
+                    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25) inset, -7px -7px 7px 0px #FFF inset;
+                    border: 1px solid #E5E7EB;
+                    height: 48px;
+                    // background-color: $white;
+                    background-color: #f2f5fa;
+
+                    .text {
+                        display: inline-block;
+                        font-size: 14px;
+                        font-style: normal;
+                        font-weight: 600;
+                        line-height: 20px;
+                        /* 142.857% */
+                        letter-spacing: 0.07px;
+                        color: $text;
+                    }
+
+                    .icon {
+                        width: 18px;
+                        height: 18px;
+                        display: inline-block;
+                        margin-right: 10px;
+
+                        img {
+                            max-width: 100%;
+                            height: auto;
+                        }
+                    }
+                }
+            }
+
+            .or_seperator {
+                margin: 16px 0px;
+                width: 100%;
+                position: relative;
+                display: inline-block;
+
+                &::before {
+                    content: '';
+                    display: inline-block;
+                    width: calc(50% - 15px);
+                    height: 1px;
+                    background-color: #DDDADA;
+                    position: absolute;
+                    left: 0;
+                    top: 61%;
+                    transform: translateY(-50%);
+                }
+
+                &::after {
+                    content: '';
+                    display: inline-block;
+                    width: calc(50% - 15px);
+                    height: 1px;
+                    background-color: #DDDADA;
+                    position: absolute;
+                    right: 0;
+                    top: 61%;
+                    transform: translateY(-50%);
+                }
+
+                .text {
+                    font-size: 14px;
+                    font-style: normal;
+                    font-weight: 400;
+                    line-height: 20px;
+                    /* 142.857% */
+                    color: #222;
+                    font-family: $font-monsterat;
+                    display: inline-block;
+                    width: 50px;
+                    text-align: center;
+                }
+            }
+
+            .form_container {
+                .username_fielbox {
+                    @include flexbox();
+                    flex-direction: column;
+                    align-items: flex-start;
+                    margin-bottom: 36px;
+
+                    label {
+                        margin-bottom: 10px;
+                        display: inline-block;
+                        font-size: 14px;
+                        font-style: normal;
+                        font-weight: 500;
+                        line-height: 20px;
+                        /* 142.857% */
+                        letter-spacing: 0.07px;
+                        color: $text;
+                        font-family: $font-monsterat;
+                        position: relative;
+                        text-align: left;
+
+                        &::after {
+                            content: "*";
+                            display: inline-block;
+                            position: absolute;
+                            left: calc(100% + 1px);
+                            top: 0;
+                            color: #EF4444;
+                            font-size: 14px;
+                            font-style: normal;
+                            font-weight: 700;
+                            line-height: 20px;
+                            letter-spacing: 0.07px;
+                        }
+                    }
+
+                    .email_input {
+                        position: relative;
+                        z-index: 1;
+                        border-radius: 6px;
+                        height: 48px;
+                        // background-color: transparent;
+                        outline: none;
+                        padding: 14px 16px;
+                        box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25) inset, -7px -7px 7px 0px #FFF inset;
+                        border: 1px solid #E5E7EB;
+                        font-size: 14px;
+                        font-style: normal;
+                        font-weight: 400;
+                        line-height: 20px;
+                        /* 142.857% */
+                        letter-spacing: 0.07px;
+                        font-family: $font-monsterat;
+                        color: $text;
+                        width: 100%;
+                        background-color: #f2f5fa;
+
+                        &::placeholder {
+                            color: #7D7D7D
+                        }
+                    }
+
+                    input:-webkit-autofill,
+                    input:-webkit-autofill:hover,
+                    input:-webkit-autofill:focus,
+                    textarea:-webkit-autofill,
+                    textarea:-webkit-autofill:hover,
+                    textarea:-webkit-autofill:focus,
+                    select:-webkit-autofill,
+                    select:-webkit-autofill:hover,
+                    select:-webkit-autofill:focus {
+                        -webkit-text-fill-color: $text;
+                    }
+
+                    .error {
+                        display: inline-block;
+                        font-size: 12px;
+                        color: #EF4444;
+                        margin-top: 5px;
+                        font-family: $font-monsterat;
+                    }
+
+                }
+
+                .password_fielbox {
+                    @include flexbox();
+                    flex-direction: column;
+                    align-items: flex-start;
+                    margin-bottom: 36px;
+
+                    label {
+                        margin-bottom: 10px;
+                        display: inline-block;
+                        font-size: 14px;
+                        font-style: normal;
+                        font-weight: 500;
+                        line-height: 20px;
+                        /* 142.857% */
+                        letter-spacing: 0.07px;
+                        color: $text;
+                        font-family: $font-monsterat;
+                        position: relative;
+                        text-align: left;
+
+                        &::after {
+                            content: "*";
+                            display: inline-block;
+                            position: absolute;
+                            left: calc(100% + 1px);
+                            top: 0;
+                            color: #EF4444;
+                            font-size: 14px;
+                            font-style: normal;
+                            font-weight: 700;
+                            line-height: 20px;
+                            letter-spacing: 0.07px;
+                        }
+                    }
+
+                    .flexBox {
+                        position: relative;
+                        width: 100%;
+
+                        .password_input {
+                            width: 100%;
+                            border-radius: 6px;
+                            height: 48px;
+                            // background-color: transparent;
+                            background-color: #f2f5fa;
+                            outline: none;
+                            padding: 14px 50px 14px 16px;
+                            box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25) inset, -7px -7px 7px 0px #FFF inset;
+                            border: 1px solid #E5E7EB;
+                            font-size: 14px;
+                            font-style: normal;
+                            font-weight: 400;
+                            line-height: 20px;
+                            /* 142.857% */
+                            letter-spacing: 0.07px;
+                            font-family: $font-monsterat;
+                            color: $text;
+                        }
+
+                        .eye_icon {
+                            width: 48px;
+                            height: 44px;
+                            @include flexbox();
+                            align-items: center;
+                            justify-content: center;
+                            cursor: pointer;
+                            position: absolute;
+                            z-index: 1;
+                            right: 0;
+                            top: 50%;
+                            transform: translateY(-50%);
+                        }
+                    }
+
+                    .pass_length_msg {
+                        margin-top: 10px;
+                        display: block;
+                        color: #9CA3AF;
+                        font-size: 14px;
+                        font-style: normal;
+                        font-weight: 400;
+                        line-height: 20px;
+                        /* 142.857% */
+                        letter-spacing: 0.07px;
+                        font-family: $font-monsterat;
+                    }
+                }
+
+                .submit_action {
+                    width: 100%;
+
+                    .submitBtn {
+                        width: 100%;
+                        cursor: pointer;
+                        height: 48px;
+                        border-radius: 8px;
+                        padding: 14px 16px;
+                        @include flexbox();
+                        align-items: center;
+                        justify-content: center;
+                        font-size: 14px;
+                        font-style: normal;
+                        font-weight: 600;
+                        line-height: 20px;
+                        /* 142.857% */
+                        letter-spacing: 0.07px;
+                        font-family: $font-monsterat;
+                        color: $white;
+                        background-color: #00A9BB;
+                        border: none;
+
+                        &:focus:not(:focus-visible) {
+                            outline: none;
+                        }
+
+                        box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25),
+                        -7px -7px 7px 0px #FFF;
+
+                        &:disabled {
+                            background-color: #ddd;
+                            color: $black;
+                            cursor: not-allowed;
+                        }
+                    }
+                }
+
+                .forgot_pass_action {
+                    margin-top: 20px;
+                    text-align: center;
+
+                    .link {
+                        display: inline-block;
+                        cursor: pointer;
+                        font-size: 14px;
+                        font-style: normal;
+                        font-weight: 600;
+                        line-height: 20px;
+                        /* 142.857% */
+                        letter-spacing: 0.07px;
+                        color: $text;
+                        font-family: $font-monsterat;
+                    }
+                }
+            }
+        }
+    }
+}
+
+.account_notExist_page {
+    position: fixed;
+    left: 0;
+    top: 0;
+    padding-top: 72px;
+    box-sizing: border-box;
+
+    * {
+        box-sizing: border-box;
+        font-family: $font-monsterat;
+    }
+
+    z-index: 2;
+    background-color: $white;
+    @include flexbox();
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+
+    .account_notExist_Modal {
+        box-shadow: 0px 10px 70px 0px rgba(0, 0, 0, 0.08);
+        background-color: $white;
+        padding: 24px;
+        border-radius: 12px;
+        max-width: 475px;
+        width: 100%;
+        .icon_block{
+            width: 80px;
+            height: 80px;
+            margin: 0 auto;
+            .cross_img{
+                width: 100%;
+                max-width: 100%;
+                height: auto;
+            }
+        }
+        .title {
+            margin-top: 24px;
+            margin-bottom: 24px;
+            font-size: 24px;
+            font-style: normal;
+            font-weight: 600;
+            line-height: 32px;
+            /* 133.333% */
+            letter-spacing: 0.12px;
+            color: $text;
+        }
+
+        .signup_btn {
+            height: 48px;
+            border-radius: 8px;
+            padding: 14px 16px;
+            width: 100%;
+            max-width: 347px;
+            margin: 0 auto;
+            @include flexbox();
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            border: none;
+            background-color: #00A9BB;
+            color: $white;
+            font-size: 14px;
+            font-style: normal;
+            font-weight: 600;
+            line-height: 20px;
+            /* 142.857% */
+            letter-spacing: 0.07px;
+            box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25), -1px -7px 7px 0px #FFF;
+            &:focus:not(:focus-visible){
+                outline: none;
+            }
+        }
+    }
+}
+
+@media screen and (max-width:576px) {
+    .account_notExist_page{
+        .account_notExist_Modal{
+            max-width: initial;
+            width: calc(100% - 30px);
+            .title{
+                font-size: 20px;
+            }
+        }
+    }
+}
+
+@media screen and (max-width:767px) {
+    .signIn_wrapper {
+        .header {
+            padding: 0 16px;
+
+            .right_action {
+                transition: all .5s ease-in-out;
+
+                .closeBtn {
+                    display: inline-block;
+                    position: absolute;
+                    right: 10px;
+                    top: 10px;
+                }
+
+                position: fixed;
+                // left: 100%;
+                height: 100%;
+                background-color: $white;
+                @include flexbox();
+                flex-direction: column;
+                padding: 100px 16px 16px 16px;
+                width: 100%;
+                top: 0;
+                right: -100%;
+                box-shadow: 4px 0px 4px 0px rgba(0, 0, 0, 0.25) inset;
+
+                &.show {
+                    right: 0;
+                    left: auto;
+
+                    .dont_account {
+                        margin: 0 0 20px 0px;
+                    }
+                }
+            }
+
+            .burgerMenuBtn {
+
+                border: none;
+                background-color: transparent;
+                width: 40px;
+                height: 30px;
+                display: grid;
+                row-gap: 2px;
+
+                .seperator {
+                    display: block;
+                    width: 100%;
+                    height: 1px;
+                    background-color: $black;
+                }
+
+            }
+        }
+
+        .main_container {
+            &.signInModal_show {
+                .signIn_formBlock {
+                    padding: 32px;
+                    max-width: initial;
+                    width: 90%;
+
+                    .title {
+                        font-size: 20px;
+                    }
+                }
+
+            }
+        }
+    }
+}
+
+
+
+@media screen and (min-width:1600px) {
+    .signIn_wrapper {
+        .main_container {
+            &.signInModal_show {
+                height: 100vh;
+
+            }
+        }
+    }
+}

@@ -1,0 +1,270 @@
+@import "../../BaseStyle/Basestyle.scss";
+
+$white: #FFF;
+$black: #000;
+$text: #1F2937;
+$buttonColor: #00A9BB;
+
+$font-monsterat : 'Montserrat';
+
+
+.contactus_page_container {
+    padding-top: 72px;
+    box-sizing: border-box;
+
+    * {
+        box-sizing: border-box;
+        font-family: $font-monsterat;
+    }
+
+    .page_banner {
+        @include flexbox();
+        width: 100%;
+
+        .banner_img {
+            max-width: 100%;
+            height: auto;
+            width: 100%;
+        }
+    }
+
+    .contact_box {
+        padding-top: 40px;
+
+        .contact_flexbox {
+            @include flexbox();
+            justify-content: center;
+
+            .flexbox_item {
+                @include flexbox();
+                margin-right: 64px;
+
+                &:last-child {
+                    margin-right: 0;
+                }
+
+                .icon {
+                    width: 44px;
+                    height: 44px;
+                    @include flexbox();
+                    align-items: center;
+                    justify-content: center;
+                    background-color: #FFF6E8;
+                    border-radius: 50%;
+                    margin-right: 12px;
+                }
+
+                .content {
+                    label {
+                        font-size: 14px;
+                        font-style: normal;
+                        font-weight: 500;
+                        line-height: 20px;
+                        /* 142.857% */
+                        letter-spacing: 0.07px;
+                        display: block;
+                        margin-bottom: 4px;
+                        color: $black;
+                        text-align: left;
+                    }
+
+                    .text {
+                        font-size: 14px;
+                        font-style: normal;
+                        font-weight: 400;
+                        line-height: 20px;
+                        /* 142.857% */
+                        letter-spacing: 0.07px;
+                        color: #6B7280;
+                        display: inline-block;
+                        text-align: left;
+                    }
+                }
+            }
+        }
+
+        .contact_header {
+            padding: 112px 0px;
+
+            .subtitle {
+                font-size: 16px;
+                font-style: normal;
+                font-weight: 400;
+                line-height: 24px;
+                /* 150% */
+                letter-spacing: 0.08px;
+                color: #FAA61A;
+                margin-top: 0;
+                margin-bottom: 4px;
+                text-align: center;
+            }
+
+            .title {
+                font-size: 36px;
+                font-style: normal;
+                font-weight: 600;
+                line-height: 40px;
+                /* 111.111% */
+                letter-spacing: 0.18px;
+                color: #024457;
+                margin-top: 0;
+                margin-bottom: 16px;
+                text-align: center;
+            }
+
+            .description {
+                display: inline-block;
+                font-size: 16px;
+                font-style: normal;
+                font-weight: 400;
+                line-height: 24px;
+                /* 150% */
+                letter-spacing: 0.08px;
+                color: #52525B;
+                text-align: center;
+            }
+        }
+
+        .form_container {
+            max-width: 650px;
+            width: 100%;
+            margin-left: auto;
+            margin-right: auto;
+
+            form {
+                .input_box {
+                    @include flexbox();
+                    flex-direction: column;
+                    align-items: flex-start;
+                    margin-bottom: 20px;
+
+                    label {
+                        font-size: 14px;
+                        font-style: normal;
+                        font-weight: 600;
+                        line-height: 20px;
+                        letter-spacing: 0.07px;
+                        color: #18181B;
+                        position: relative;
+                        margin-bottom: 6px;
+
+                        &::after {
+                            content: "*";
+                            display: inline-block;
+                            position: absolute;
+                            left: 100%;
+                            top: 0;
+                            font-size: 14px;
+                            font-style: normal;
+                            font-weight: 600;
+                            line-height: 20px;
+                            letter-spacing: 0.07px;
+                            color: #EF4444;
+                        }
+                    }
+
+                    .input_element {
+                        width: 100%;
+                        height: 48px;
+                        padding: 14px 16px;
+                        font-size: 14px;
+                        font-style: normal;
+                        font-weight: 400;
+                        line-height: 20px;
+                        /* 142.857% */
+                        letter-spacing: 0.07px;
+                        color: #6B7280;
+                        box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25) inset, -7px -7px 7px 0px #FFF inset;
+                        border: 1px solid #E5E7EB;
+                        background-color: #f2f5fa;
+                        border-radius: 6px;
+                        outline: none;
+                    }
+
+                    .text_input {
+                        resize: none;
+                        width: 100%;
+                        height: 140px;
+                        padding: 14px 16px;
+                        font-size: 14px;
+                        font-style: normal;
+                        font-weight: 400;
+                        line-height: 20px;
+                        /* 142.857% */
+                        letter-spacing: 0.07px;
+                        color: #6B7280;
+                        box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25) inset, -7px -7px 7px 0px #FFF inset;
+                        border: 1px solid #E5E7EB;
+                        background-color: #f2f5fa;
+                        border-radius: 6px;
+                        outline: none;
+                    }
+                }
+
+                .agree_termcheckBox_container {
+                    text-align: left;
+                    margin-top: 36px;
+                    margin-bottom: 24px;
+
+                    .agree_term {
+                        margin-left: 0;
+                        margin-right: 0;
+
+                        .MuiCheckbox-root {
+                            padding: 0 16px 0px 0px;
+
+                            &.Mui-checked {
+                                color: #00A9BB;
+                            }
+                        }
+
+                        .MuiTypography-root {
+                            font-size: 16px;
+                            font-style: normal;
+                            font-weight: 400;
+                            line-height: 24px;
+                            /* 150% */
+                            letter-spacing: 0.08px;
+                            color: $text;
+                            font-family: $font-monsterat;
+                        }
+                    }
+                }
+
+                .action {
+                    text-align: left;
+                    .send_btn {
+                        border: none;
+                        cursor: pointer;
+                        white-space: nowrap;
+                        padding: 14px 16px;
+                        border-radius: 8px;
+                        box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25), -1px -7px 7px 0px #FFF;
+                        background-color: #00A9BB;
+                        color: $white;
+                        font-size: 14px;
+                        font-style: normal;
+                        font-weight: 600;
+                        line-height: 20px;
+                        /* 142.857% */
+                        letter-spacing: 0.07px;
+                        min-width: 82px;
+                        height: 48px;
+                        &:focus:not(:focus-visible){
+                            outline: none;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    .career_faqs_section{
+        .faqs_section{
+            .container{
+                .subtitle, .title, .info{
+                    display: none;
+                }
+            }
+        }
+    }
+}
