@@ -27,6 +27,7 @@ import Box from '@mui/material/Box';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 import BasicInformation from './BasicInformation/BasicInformation';
+import PersonalInformation from './PersonalInformation/PersonalInformation';
 import './AdminDashBoardContent.scss'
 
 // interface TabPanelProps {
@@ -38,7 +39,7 @@ import './AdminDashBoardContent.scss'
 
 function AdminDashBoardContent(props) {
     const [value, setValue] = useState(0);
-    const [basicInformation, setBasicInformation] = useState(false)
+    const [selectedMenu, setSelectedMenu] = useState('')
     const [pagevalue, setPageValue] = useState("5 Page")
 
     function CustomTabPanel(props) {
@@ -65,9 +66,7 @@ function AdminDashBoardContent(props) {
     }
 
     const handleOptionMenu = (event) => {
-        if (event == "Basic Information") {
-            setBasicInformation(true)
-        }
+        setSelectedMenu(event)
     }
 
     const handleChange = (event, newValue) => {
@@ -168,7 +167,7 @@ function AdminDashBoardContent(props) {
                     </Breadcrumbs>
                 </div>
                 <div className='middle_content'>
-                    <div className='flexBox_container'>
+                    <div className={`flexBox_container ${selectedMenu.split(' ').join("_").toLocaleLowerCase()}`}>
                         <div className='left_profileBlock'>
                             <div className='upper_profileData'>
                                 <div className='info_status_flex'>
@@ -261,8 +260,10 @@ function AdminDashBoardContent(props) {
                             </div>
                         </div>
                         <div className='right_tabData_block'>
-                            { basicInformation ? (
+                            { selectedMenu ==  'Basic Information' ? (
                                 <BasicInformation/>
+                            ) : selectedMenu ==  'Personal Information' ? (
+                                <PersonalInformation/>
                             ) : 
                                 <div className='tabs_data_container'>
                                     <Box sx={{ width: '100%' }}>
@@ -434,147 +435,6 @@ function AdminDashBoardContent(props) {
                                                     </CustomTabPanel>
                                                 )
                                         }
-                                        {/* {
-                                 tabsHorizonData && tabsHorizonData.length > 0 && tabsHorizonData.map((item, index) => {
-                                            return (
-                                                    <CustomTabPanel className="tabsData_block" value={value} index={index} key={index}>
-                                                    <div className='search-box'>
-                                                        <input type='text' className='search-input' placeholder='Search'></input>
-                                                    </div>
-                                                    <div className='tabular_data'>
-                                                        <div className='tableform'>
-                                                            <div className='tableHead'>
-                                                                {
-                                                                    tabHead && tabHead.length > 0 && tabHead.map((item, index) => {
-                                                                        return (
-                                                                    <div className='theadItem' key={index}>{item.label}<span className='sort'>
-                                                                        <img src={Sort}></img>
-                                                                        </span></div>
-                                                                        )
-                                                                    })
-                                                                }
-                                                                
-                                                            </div>
-                                                            <div className='tableBody'>
-                                                                <div className='tbodyRow'></div>
-                                                            </div>
-                                                        </div>
-                                                        <div className='table-pagination'>
-                                                            <div className='count_select'>
-                                                                <ul className='page_count'>
-                                                                    <li>
-                                                                        <button className='prev_btn'>
-                                                                            <img src={ArrowRight} alt='prev-icon'></img>
-                                                                        </button>
-                                                                    </li>
-                                                                    <li>
-                                                                        <button className='option active'>1</button>
-                                                                    </li>
-                                                                    <li>
-                                                                    <button className='option'>2</button>
-                                                                    </li>
-                                                                    <li>
-                                                                    <button className='option'>3</button>
-                                                                    </li>
-                                                                    <li>
-                                                                    <span className='dot_more'>...</span>
-                                                                    </li>
-                                                                    <li>
-                                                                    <button className='option'>10</button>
-                                                                    </li>
-                                                                    <li>
-                                                                        <button className='next_btn'>
-                                                                            <img src={ArrowRight} alt='next-icon'></img>
-                                                                        </button>
-                                                                    </li>
-                                                                </ul>
-                                                                <div className='jump_page'>
-                                                                <Select
-                                                                labelId="demo-simple-select-label"
-                                                                id="demo-simple-select"
-                                                                value={pagevalue}
-                                                                label="Age"
-                                                                // onChange={handleChange}
-                                                                >
-                                                                <MenuItem value={"5 Page"}>5 Page</MenuItem>
-                                                                <MenuItem value={"10 Page"}>10 Page</MenuItem>
-                                                                <MenuItem value={"15 Page"}>15 Page</MenuItem>
-                                                                </Select>
-                                                                </div>
-                                                            </div>
-                                                            <div className='goto_page'>
-                                                                <span className='goto'>Go to</span>
-                                                                <input type='text' className='page_input'></input>
-                                                                <span className='page'>page</span>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div className='data_formContainer'>
-                                                        <form>
-                                                            <div className='input_flexbox'>
-                                                                <div className='input_box'>
-                                                                    <label>Allowance Option</label>
-                                                                <Select
-                                                                    labelId="demo-simple-select-label"
-                                                                    id="id_select_input_1"
-                                                                    className='select_input'
-                                                                    // value={age}
-                                                                    label="Age"
-                                                                    // onChange={handleChange}
-                                                                >
-                                                                    <MenuItem value={`Non Taxable`}>Non Taxable</MenuItem>
-                                                                    <MenuItem value={20}>Twenty</MenuItem>
-                                                                    <MenuItem value={30}>Thirty</MenuItem>
-                                                                </Select>
-                                                                </div>
-                                                                <div className='input_box'>
-                                                                    <label>Amount Option</label>
-                                                                <Select
-                                                                    labelId="demo-simple-select-label"
-                                                                    id="id_select_input_2"
-                                                                    className='select_input'
-                                                                    // value={age}
-                                                                    label="Age"
-                                                                    // onChange={handleChange}
-                                                                >
-                                                                    <MenuItem value={`Fixed`}>Fixed</MenuItem>
-                                                                    <MenuItem value={20}>Twenty</MenuItem>
-                                                                    <MenuItem value={30}>Thirty</MenuItem>
-                                                                </Select>
-                                                                </div>
-                                                            </div>
-                                                            <div className='input_flexbox'>
-                                                                <div className='input_box'>
-                                                                <label>Title</label>
-                                                                    <input type="text" className='title_input'></input>
-                                                                </div>
-        
-                                                            <div className='input_box'>
-                                                                    <label>Amount</label>
-                                                                <Select
-                                                                    labelId="demo-simple-select-label"
-                                                                    id="id_select_input_1"
-                                                                    className='select_input'
-                                                                    // value={age}
-                                                                    label="Age"
-                                                                    // onChange={handleChange}
-                                                                >
-                                                                    <MenuItem value={`$ Amount USD`}>$ Amount USD</MenuItem>
-                                                                    <MenuItem value={20}>Twenty</MenuItem>
-                                                                    <MenuItem value={30}>Thirty</MenuItem>
-                                                                </Select>
-                                                                </div>
-                                                            </div>
-                                                            <div className='form_actions'>
-                                                                <button className='reset_btn'>Reset</button>
-                                                                <button className='save_btn'>Save</button>
-                                                            </div>
-                                                        </form>
-                                                    </div>
-                                                </CustomTabPanel>
-                                            )
-                                 }) 
-                            } */}
                                     </Box>
                                     <button className='more_optBtn'>
                                         <DotsIcon />

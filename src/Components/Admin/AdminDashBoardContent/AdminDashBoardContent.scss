@@ -159,6 +159,9 @@ $font-monsterat : 'Montserrat';
     .middle_content{
         .flexBox_container{
             @include flexbox();
+            &.personal_information{
+                align-items: flex-start;
+            }
             .left_profileBlock{
                 border-radius: 10px;
                 position: relative;

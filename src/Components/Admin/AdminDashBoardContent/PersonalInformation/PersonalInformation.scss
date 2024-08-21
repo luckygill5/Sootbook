@@ -1,0 +1,725 @@
+@import "../../../../BaseStyle/Basestyle.scss";
+
+$white: #FFF;
+$black: #000;
+$text: #1F2937;
+$buttonColor: #00A9BB;
+
+$font-monsterat : 'Montserrat';
+
+.personalInformation_container {
+    box-sizing: border-box;
+    position: relative;
+    z-index: 2;
+
+    * {
+        box-sizing: border-box;
+        font-family: $font-monsterat;
+    }
+
+    .header_flex {
+        @include flexbox();
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 20px;
+
+        .title {
+            margin: 0;
+            font-size: 24px;
+            font-style: normal;
+            font-weight: 600;
+            line-height: 32px;
+            /* 133.333% */
+            letter-spacing: 0.12px;
+            color: $text;
+        }
+
+        .edit_btn {
+            border: 1px solid #00A9BB;
+            color: #00A9BB;
+            box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25), -1px -7px 7px 0px #FFF;
+            border-radius: 8px;
+            height: 48px;
+            width: 86px;
+            @include flexbox();
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+
+            &:focus:not(:focus-visible) {
+                outline: none;
+            }
+
+            background-color: transparent;
+
+            .icon {
+                width: 14px;
+                height: 14px;
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                margin-right: 10px;
+            }
+
+            font-size: 14px;
+            font-style: normal;
+            font-weight: 600;
+            line-height: 20px;
+            /* 142.857% */
+            letter-spacing: 0.07px;
+        }
+    }
+
+    .body_section {
+        .tabsBlock {
+            .MuiTabs-root {
+                .MuiTabs-scroller {
+                    overflow-x: auto;
+                    scrollbar-width: thin;
+
+                    .MuiTabs-flexContainer {
+
+
+                        .MuiButtonBase-root {
+                            text-transform: capitalize;
+                            font-size: 14px;
+                            font-style: normal;
+                            font-weight: 500;
+                            line-height: 20px;
+                            /* 142.857% */
+                            letter-spacing: 0.07px;
+                            color: #6B7280;
+                            padding: 8px 12px;
+                            font-family: $font-monsterat;
+                            border-bottom: 2px solid #E5E7EB;
+
+                            &.Mui-selected {
+                                color: #00A9BB;
+                            }
+
+                        }
+                    }
+
+                    .MuiTabs-indicator {
+                        background-color: #00A9BB;
+                    }
+                }
+            }
+
+            .tabdataBlock {
+                width: 100%;
+
+                .MuiBox-root {
+                    padding: 20px 0px 0px 0px;
+
+                    .personalBioInfo_container {
+                        .data_listing {
+                            margin: 0;
+                            padding: 0;
+                            border-top: 1px solid #E5E7EB;
+
+                            .list_item {
+                                list-style: none;
+                                @include flexbox();
+                                align-items: center;
+                                padding: 24px 0px;
+                                border-bottom: 1px solid #E5E7EB;
+
+                                &:last-child {
+                                    border-bottom: none;
+                                }
+
+                                .label {
+                                    display: inline-block;
+                                    text-align: left;
+                                    font-size: 16px;
+                                    font-style: normal;
+                                    font-weight: 400;
+                                    line-height: 24px;
+                                    /* 150% */
+                                    letter-spacing: 0.08px;
+                                    color: $text;
+                                    width: 60%;
+                                    margin-right: 16px;
+                                }
+
+                                .value {
+                                    display: inline-block;
+                                    width: 40%;
+                                    font-size: 16px;
+                                    font-style: normal;
+                                    font-weight: 400;
+                                    line-height: 24px;
+                                    /* 150% */
+                                    letter-spacing: 0.08px;
+                                    color: #6B7280;
+                                    text-align: left;
+                                }
+                            }
+                        }
+
+                        .editMode {
+                            .form_container {
+                                .input_box {
+                                    width: 100%;
+                                    margin-bottom: 36px;
+                                    @include flexbox();
+                                    align-items: flex-start;
+                                    flex-direction: column;
+
+                                    label {
+                                        display: inline-block;
+                                        text-align: left;
+                                        position: relative;
+                                        font-size: 14px;
+                                        font-style: normal;
+                                        font-weight: 600;
+                                        line-height: 20px;
+                                        /* 142.857% */
+                                        letter-spacing: 0.07px;
+                                        color: $text;
+                                        margin-bottom: 10px;
+
+                                        &::after {
+                                            content: '*';
+                                            display: inline-block;
+                                            position: absolute;
+                                            top: 0;
+                                            left: 100%;
+                                            font-size: 14px;
+                                            font-style: normal;
+                                            font-weight: 600;
+                                            line-height: 20px;
+                                            letter-spacing: 0.07px;
+                                            color: #EF4444
+                                        }
+                                    }
+
+                                    .biotext {
+                                        width: 100%;
+                                        height: calc(100vw * .0833339);
+                                        resize: none;
+                                        box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25), -7px -7px 7px 0px #FFF;
+                                        border-radius: 8px;
+                                        border: 1px solid #E5E7EB;
+                                        background-color: #F2F5FA;
+                                        padding: 14px 16px;
+                                        font-size: 14px;
+                                        font-style: normal;
+                                        font-weight: 400;
+                                        line-height: 20px;
+                                        /* 142.857% */
+                                        letter-spacing: 0.07px;
+                                        color: #6B7280;
+                                    }
+                                }
+
+                                .selectBox {
+                                    width: 50%;
+                                    margin-bottom: 36px;
+
+                                    label {
+                                        display: block;
+                                        text-align: left;
+                                        position: relative;
+                                        font-size: 14px;
+                                        font-style: normal;
+                                        font-weight: 600;
+                                        line-height: 20px;
+                                        /* 142.857% */
+                                        letter-spacing: 0.07px;
+                                        color: $text;
+                                        margin-bottom: 10px;
+                                    }
+
+                                    .experienceselect_Box {
+                                        width: 100%;
+                                        box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25), -7px -7px 7px 0px #FFF;
+                                        border-radius: 8px;
+                                        background-color: #F2F5FA;
+
+                                        .MuiSelect-select {
+                                            text-align: left;
+                                            font-size: 14px;
+                                            font-style: normal;
+                                            font-weight: 400;
+                                            line-height: 20px;
+                                            /* 142.857% */
+                                            letter-spacing: 0.07px;
+                                            color: #6B7280;
+                                            font-family: $font-monsterat;
+                                        }
+
+                                        fieldset {
+                                            display: none;
+                                        }
+                                    }
+                                }
+
+                                .button-container {
+                                    text-align: right;
+
+                                    .saveBtn {
+                                        cursor: pointer;
+                                        border: none;
+                                        box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25), -1px -7px 7px 0px #FFF;
+                                        border-radius: 8px;
+                                        background-color: #00A9BB;
+                                        padding: 14px 16px;
+                                        height: 48px;
+                                        width: 66px;
+
+                                        &:focus:not(:focus-visible) {
+                                            outline: none;
+                                        }
+
+                                        font-size: 14px;
+                                        font-style: normal;
+                                        font-weight: 600;
+                                        line-height: 20px;
+                                        /* 142.857% */
+                                        letter-spacing: 0.07px;
+                                        color:$white
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                    .socialProfile_container {
+                        .socialProfile_listing {
+                            margin: 0;
+                            padding: 0;
+                            border-top: 1px solid #E5E7EB;
+
+                            .list_item {
+                                @include flexbox();
+                                align-items: center;
+                                padding: 24px 0px;
+                                border-bottom: 1px solid #E5E7EB;
+
+                                &:last-child {
+                                    border-bottom: none;
+                                }
+
+                                .label {
+                                    display: inline-block;
+                                    width: 60%;
+                                    font-size: 16px;
+                                    font-style: normal;
+                                    font-weight: 400;
+                                    line-height: 24px;
+                                    /* 150% */
+                                    letter-spacing: 0.08px;
+                                    color: $text;
+                                    margin-right: 16px;
+                                    text-align: left;
+                                }
+
+                                .value {
+                                    display: inline-block;
+                                    font-size: 16px;
+                                    font-style: normal;
+                                    font-weight: 400;
+                                    line-height: 24px;
+                                    /* 150% */
+                                    letter-spacing: 0.08px;
+                                    color: #6B7280;
+                                    text-align: left;
+                                }
+                            }
+                        }
+
+                        .editMode {
+                            .form_container {
+                                .input_box {
+                                    width: 100%;
+                                    margin-bottom: 36px;
+                                    @include flexbox();
+                                    align-items: flex-start;
+                                    flex-direction: column;
+
+                                    label {
+                                        display: inline-block;
+                                        margin-bottom: 10px;
+                                        color: $text;
+                                        font-size: 14px;
+                                        font-style: normal;
+                                        font-weight: 500;
+                                        line-height: 20px;
+                                        /* 142.857% */
+                                        letter-spacing: 0.07px;
+                                    }
+
+                                    .input_flexbox {
+                                        width: 100%;
+                                        @include flexbox();
+                                        box-shadow: 0px 3px 8px 3px inset rgba(18, 17, 17, 0.1);
+                                        border-radius: 6px;
+
+                                        .icon_holder {
+                                            width: 50px;
+                                            height: 48px;
+                                            border-right: 1px solid #E5E7EB;
+                                            @include flexbox();
+                                            align-items: center;
+                                            justify-content: center;
+                                        }
+
+                                        .input_element {
+                                            width: calc(100% - 50px);
+                                            border: none;
+                                            outline: none;
+                                            background-color: transparent;
+                                            font-size: 14px;
+                                            font-style: normal;
+                                            font-weight: 400;
+                                            line-height: 20px;
+                                            /* 142.857% */
+                                            letter-spacing: 0.07px;
+                                            color: #6B7280;
+                                            padding: 14px 16px;
+                                        }
+                                    }
+                                }
+
+                                .button-container {
+                                    text-align: right;
+
+                                    .saveBtn {
+                                        cursor: pointer;
+                                        border: none;
+                                        box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25), -1px -7px 7px 0px #FFF;
+                                        border-radius: 8px;
+                                        background-color: #00A9BB;
+                                        padding: 14px 16px;
+                                        height: 48px;
+                                        width: 66px;
+
+                                        &:focus:not(:focus-visible) {
+                                            outline: none;
+                                        }
+
+                                        font-size: 14px;
+                                        font-style: normal;
+                                        font-weight: 600;
+                                        line-height: 20px;
+                                        /* 142.857% */
+                                        letter-spacing: 0.07px;
+                                        color:$white
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                    .personalinfoBankaccount_container {
+                        .accountInfo_listing {
+                            margin: 0;
+                            padding: 0;
+                            border-top: 1px solid #E5E7EB;
+
+                            .list_item {
+                                @include flexbox();
+                                align-items: center;
+                                padding: 24px 0px;
+                                border-bottom: 1px solid #E5E7EB;
+
+                                &:last-child {
+                                    border-bottom: none;
+                                }
+
+                                .label {
+                                    display: inline-block;
+                                    width: 60%;
+                                    font-size: 16px;
+                                    font-style: normal;
+                                    font-weight: 400;
+                                    line-height: 24px;
+                                    /* 150% */
+                                    letter-spacing: 0.08px;
+                                    color: $text;
+                                    margin-right: 16px;
+                                    text-align: left;
+                                }
+
+                                .value {
+                                    display: inline-block;
+                                    font-size: 16px;
+                                    font-style: normal;
+                                    font-weight: 400;
+                                    line-height: 24px;
+                                    /* 150% */
+                                    letter-spacing: 0.08px;
+                                    color: #6B7280;
+                                    text-align: left;
+                                }
+                            }
+                        }
+
+                        .editMode {
+                            .form_container {
+                                .flexbox {
+                                    @include flexbox();
+                                    margin: 0 -10px 36px -10px;
+
+                                    .input_flexItem {
+                                        margin: 0 10px;
+                                        width: calc(50% - 20px);
+                                        @include flexbox();
+                                        align-items: flex-start;
+                                        flex-direction: column;
+
+                                        label {
+                                            font-size: 14px;
+                                            font-style: normal;
+                                            font-weight: 600;
+                                            line-height: 20px;
+                                            /* 142.857% */
+                                            letter-spacing: 0.07px;
+                                            color: $text;
+                                            position: relative;
+                                            margin-bottom: 10px;
+                                            display: block;
+
+                                            &::after {
+                                                content: '*';
+                                                display: inline-block;
+                                                position: absolute;
+                                                top: 0;
+                                                left: 100%;
+                                                font-size: 14px;
+                                                font-style: normal;
+                                                font-weight: 600;
+                                                line-height: 20px;
+                                                letter-spacing: 0.07px;
+                                                color: #EF4444;
+                                            }
+                                        }
+
+                                        .input_element {
+                                            outline: none;
+                                            width: 100%;
+                                            font-size: 14px;
+                                            font-style: normal;
+                                            font-weight: 400;
+                                            line-height: 20px;
+                                            /* 142.857% */
+                                            letter-spacing: 0.07px;
+                                            color: #6B7280;
+                                            padding: 14px 16px;
+                                            height: 48px;
+                                            border-radius: 6px;
+                                            box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25), -7px -7px 7px 0px #FFF;
+                                            border: 1px solid #E5E7EB;
+                                            background-color: #F2F5FA;
+                                        }
+                                    }
+
+                                }
+
+                                .input_fullBox {
+                                    width: 100%;
+                                    @include flexbox();
+                                    align-items: flex-start;
+                                    flex-direction: column;
+                                    margin-bottom: 36px;
+
+                                    label {
+                                        font-size: 14px;
+                                        font-style: normal;
+                                        font-weight: 600;
+                                        line-height: 20px;
+                                        /* 142.857% */
+                                        letter-spacing: 0.07px;
+                                        color: $text;
+                                        position: relative;
+                                        margin-bottom: 10px;
+                                        display: block;
+
+                                        &::after {
+                                            content: '*';
+                                            display: inline-block;
+                                            position: absolute;
+                                            top: 0;
+                                            left: 100%;
+                                            font-size: 14px;
+                                            font-style: normal;
+                                            font-weight: 600;
+                                            line-height: 20px;
+                                            letter-spacing: 0.07px;
+                                            color: #EF4444;
+                                        }
+                                    }
+
+                                    .input_element {
+                                        outline: none;
+                                        width: 100%;
+                                        font-size: 14px;
+                                        font-style: normal;
+                                        font-weight: 400;
+                                        line-height: 20px;
+                                        /* 142.857% */
+                                        letter-spacing: 0.07px;
+                                        color: #6B7280;
+                                        padding: 14px 16px;
+                                        height: 48px;
+                                        border-radius: 6px;
+                                        box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25), -7px -7px 7px 0px #FFF;
+                                        border: 1px solid #E5E7EB;
+                                        background-color: #F2F5FA;
+                                    }
+
+                                    .textBank {
+                                        width: 100%;
+                                        outline: none;
+                                        resize: none;
+                                        padding: 14px 16px;
+                                        font-size: 14px;
+                                        font-style: normal;
+                                        font-weight: 400;
+                                        line-height: 20px;
+                                        /* 142.857% */
+                                        letter-spacing: 0.07px;
+                                        color: #6B7280;
+                                        border-radius: 6px;
+                                        box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25), -7px -7px 7px 0px #FFF;
+                                        border: 1px solid #E5E7EB;
+                                        background-color: #F2F5FA;
+                                        height: 8.33339vw;
+                                    }
+                                }
+                            }
+                        }
+
+                    }
+
+                    .personalinfo_emergencycontact_container {
+                        .emergencycontact_listing {
+                            margin: 0;
+                            padding: 0;
+                            border-top: 1px solid #E5E7EB;
+
+                            .list_item {
+                                @include flexbox();
+                                align-items: center;
+                                padding: 24px 0px;
+                                border-bottom: 1px solid #E5E7EB;
+
+                                &:last-child {
+                                    border-bottom: none;
+                                }
+
+                                .label {
+                                    display: inline-block;
+                                    width: 60%;
+                                    font-size: 16px;
+                                    font-style: normal;
+                                    font-weight: 400;
+                                    line-height: 24px;
+                                    /* 150% */
+                                    letter-spacing: 0.08px;
+                                    color: $text;
+                                    margin-right: 16px;
+                                    text-align: left;
+                                }
+
+                                .value {
+                                    display: inline-block;
+                                    font-size: 16px;
+                                    font-style: normal;
+                                    font-weight: 400;
+                                    line-height: 24px;
+                                    /* 150% */
+                                    letter-spacing: 0.08px;
+                                    color: #6B7280;
+                                    text-align: left;
+                                }
+                            }
+                        }
+
+                        .editMode {
+                            .form_container {
+                                .input_box {
+                                    @include flexbox();
+                                    align-items: flex-start;
+                                    flex-direction: column;
+                                    margin-bottom: 36px;
+
+                                    label {
+                                        display: inline-block;
+                                        position: relative;
+                                        font-size: 14px;
+                                        font-style: normal;
+                                        font-weight: 600;
+                                        line-height: 20px;
+                                        /* 142.857% */
+                                        letter-spacing: 0.07px;
+                                        color: $text;
+                                        margin-bottom: 10px;
+                                        &::after {
+                                            content: '*';
+                                            display: inline-block;
+                                            position: absolute;
+                                            top: 0;
+                                            left: 100%;
+                                            font-size: 14px;
+                                            font-style: normal;
+                                            font-weight: 600;
+                                            line-height: 20px;
+                                            letter-spacing: 0.07px;
+                                            color: #EF4444;
+                                        }
+                                    }
+                                    .input_element{
+                                        outline: none;
+                                        width: 100%;
+                                        font-size: 14px;
+                                        font-style: normal;
+                                        font-weight: 400;
+                                        line-height: 20px;
+                                        /* 142.857% */
+                                        letter-spacing: 0.07px;
+                                        color: #6B7280;
+                                        padding: 14px 16px;
+                                        height: 48px;
+                                        border-radius: 6px;
+                                        box-shadow: 0px 4px 4px 0px inset rgba(0, 0, 0, 0.25), -7px -7px 7px 0px #FFF;
+                                        border: 1px solid #E5E7EB;
+                                        background-color: #F2F5FA;
+                                    }
+                                    .addressText{
+                                        width: 100%;
+                                        outline: none;
+                                        resize: none;
+                                        padding: 14px 16px;
+                                        font-size: 14px;
+                                        font-style: normal;
+                                        font-weight: 400;
+                                        line-height: 20px;
+                                        /* 142.857% */
+                                        letter-spacing: 0.07px;
+                                        color: #6B7280;
+                                        border-radius: 6px;
+                                        box-shadow: 0px 4px 4px 0px inset rgba(0, 0, 0, 0.25), -7px -7px 7px 0px #FFF;
+                                        border: 1px solid #E5E7EB;
+                                        background-color: #F2F5FA;
+                                        height: 8.33339vw;
+                                    }
+                                }
+                                .input_flebox{
+                                    @include flexbox();
+                                    margin: 0 -10px;
+                                    .flexItem{
+                                        width: calc(50% -  20px);
+                                        margin: 0 10px;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
