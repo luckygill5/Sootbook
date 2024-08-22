@@ -46,7 +46,7 @@ function AdminSideNav(props) {
     }
 
     const handleLogout = () => {
-        localStorage.removeItem("accessToken");
+        sessionStorage.removeItem("accessToken");
         dispatch(addData([]));
         navigate("/")
     }

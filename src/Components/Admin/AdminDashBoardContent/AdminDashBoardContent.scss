@@ -159,9 +159,10 @@ $font-monsterat : 'Montserrat';
     .middle_content{
         .flexBox_container{
             @include flexbox();
-            &.personal_information{
+            &.personal_information, &.contract{
                 align-items: flex-start;
             }
+
             .left_profileBlock{
                 border-radius: 10px;
                 position: relative;
@@ -451,9 +452,6 @@ $font-monsterat : 'Montserrat';
                                 }
                                 &:hover{
                                     background-color: rgb(34, 229, 145);
-                                    // &::before, &::after{
-                                    //     display: none
-                                    // }
                                     .label{
                                         color: rgb(36, 52, 65);
                                         .icon{
@@ -468,6 +466,26 @@ $font-monsterat : 'Montserrat';
                                         svg{
                                             path{
                                                 stroke:  rgb(36, 52, 65) !important
+                                            }
+                                        }
+                                    }
+                                }
+                                &.active{
+                                    background-color: rgb(34, 229, 145);
+                                    .label{
+                                        color: rgb(36, 52, 65);
+                                        .icon{
+                                            svg{
+                                                path{
+                                                    stroke: rgb(36, 52, 65) !important;
+                                                }
+                                            }
+                                        }
+                                    }
+                                    .arrow_icon{
+                                        svg{
+                                            path{
+                                                stroke: rgb(36, 52, 65) !important;
                                             }
                                         }
                                     }
@@ -506,7 +524,7 @@ $font-monsterat : 'Montserrat';
                 }
             }
             .right_tabData_block{
-                padding: 20px;
+                padding: 24px;
                 border-radius: 10px;
                 position: relative;
                 width: calc(100% - (100vw * .218099 - 20px));

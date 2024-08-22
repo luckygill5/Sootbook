@@ -83,7 +83,7 @@ function SignIn(props) {
         }
         loginService(data).then((response) => {
             if(response && response.status == true){
-                localStorage.setItem("accessToken", response.data.token)
+                sessionStorage.setItem("accessToken", response.data.token)
                 dispatch(addData(response.data));
                 navigate("/dashboard")
             }else if(response && response.status == false && response.message == "Vendor doesnot exist"){

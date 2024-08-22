@@ -28,6 +28,7 @@ import Select, { SelectChangeEvent } from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 import BasicInformation from './BasicInformation/BasicInformation';
 import PersonalInformation from './PersonalInformation/PersonalInformation';
+import ContractContent from './ContractContent/ContractContent';
 import './AdminDashBoardContent.scss'
 
 // interface TabPanelProps {
@@ -39,7 +40,7 @@ import './AdminDashBoardContent.scss'
 
 function AdminDashBoardContent(props) {
     const [value, setValue] = useState(0);
-    const [selectedMenu, setSelectedMenu] = useState('')
+    const [selectedMenu, setSelectedMenu] = useState('Contract')
     const [pagevalue, setPageValue] = useState("5 Page")
 
     function CustomTabPanel(props) {
@@ -238,7 +239,7 @@ function AdminDashBoardContent(props) {
                                         optionMenuData && optionMenuData.length > 0 && optionMenuData.map((item, index) => {
                                             return (
                                                 <li key={index}>
-                                                    <button className='option_item' onClick={() => handleOptionMenu(item.label)}>
+                                                    <button className={`option_item ${item.label == selectedMenu ? 'active' : ''}`} onClick={() => handleOptionMenu(item.label)}>
                                                         <span className='label'>
                                                             <span className='icon'>
                                                                 {item.icon}
@@ -264,6 +265,8 @@ function AdminDashBoardContent(props) {
                                 <BasicInformation/>
                             ) : selectedMenu ==  'Personal Information' ? (
                                 <PersonalInformation/>
+                            ) : selectedMenu == "Contract" ? (
+                                <ContractContent/>
                             ) : 
                                 <div className='tabs_data_container'>
                                     <Box sx={{ width: '100%' }}>

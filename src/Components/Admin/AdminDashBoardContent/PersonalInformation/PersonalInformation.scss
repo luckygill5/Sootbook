@@ -74,7 +74,7 @@ $font-monsterat : 'Montserrat';
         .tabsBlock {
             .MuiTabs-root {
                 .MuiTabs-scroller {
-                    overflow-x: auto;
+                    overflow-x: auto !important;
                     scrollbar-width: thin;
 
                     .MuiTabs-flexContainer {
@@ -248,6 +248,9 @@ $font-monsterat : 'Montserrat';
                                             letter-spacing: 0.07px;
                                             color: #6B7280;
                                             font-family: $font-monsterat;
+                                            min-height: auto;
+                                            height: 48px;
+                                            box-sizing: border-box;
                                         }
 
                                         fieldset {
