@@ -1,5 +1,8 @@
-$white:#FFF;
+
+$white: #FFF;
 $black: #000;
+$text: #1F2937;
+$buttonColor: #00A9BB;
 
 $font-monsterat : 'Montserrat';
 
@@ -29,6 +32,7 @@ $font-monsterat : 'Montserrat';
     box-sizing: border-box;
     *{
         box-sizing: border-box;
+        font-family: $font-monsterat;
     }
     &.expand_view{
         width: calc(100% - 97px);
@@ -37,7 +41,7 @@ $font-monsterat : 'Montserrat';
         width: 100%;
         @include flexbox();
         align-items: center;
-        justify-content: space-between;
+        // justify-content: space-between;
         padding: 10px 20px 10px 10px;
         position: relative;
         // background-color: #E5ECF7;
@@ -80,9 +84,17 @@ $font-monsterat : 'Montserrat';
                 }
             }
         }
+        .company_name{
+            font-size: 20px;
+            font-weight: 400;
+            line-height: normal;
+            color: $text;
+            margin-left: 20px;
+        }
         .notify_profile_block{
             position: relative;
             z-index: 1;
+            margin-left: auto;
             .flex_box{
                 @include flexbox();
                 align-items: center;
@@ -159,7 +171,7 @@ $font-monsterat : 'Montserrat';
     .middle_content{
         .flexBox_container{
             @include flexbox();
-            &.personal_information, &.contract{
+            &.personal_information, &.contract, &.documents, &.change_password{
                 align-items: flex-start;
             }
 
@@ -387,6 +399,7 @@ $font-monsterat : 'Montserrat';
                                 line-height: normal;
                                 white-space: nowrap;
                                 color: #687382;
+                                font-family: $font-monsterat;
                                 .icon{
                                     display: inline-flex;
                                     align-items: center;
@@ -512,6 +525,7 @@ $font-monsterat : 'Montserrat';
                                     font-style: normal;
                                     line-height: normal;
                                     color: #687382;
+                                    font-family: $font-monsterat;
                                 }
                                 .arrow_icon{
                                     position: relative;

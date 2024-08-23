@@ -14,6 +14,7 @@ import { ReactComponent as AInfo } from "../../../assets/images/account_info.svg
 import { ReactComponent as Document } from "../../../assets/images/documents.svg";
 import { ReactComponent as TAgenda } from "../../../assets/images/t_agenda.svg";
 import { ReactComponent as CPass } from "../../../assets/images/c_password.svg";
+import { ReactComponent as UserCogNew } from "../../../assets/images/user-cogNew.svg";
 import Sort from "../../../assets/images/sort.svg";
 import ArrowRight from "../../../assets/images/chevron-right.svg";
 import { ReactComponent as ArrowRightIcon } from "../../../assets/images/chevron-right.svg";
@@ -29,6 +30,11 @@ import MenuItem from '@mui/material/MenuItem';
 import BasicInformation from './BasicInformation/BasicInformation';
 import PersonalInformation from './PersonalInformation/PersonalInformation';
 import ContractContent from './ContractContent/ContractContent';
+import Documents from './Documents/Documents';
+import ChangePassword from './ChangePassword/ChangePassword';
+import RolePrivilege from './RolePrivilege/RolePrivilege';
+import { useSelector, useDispatch } from 'react-redux';
+import { useNavigate } from "react-router-dom";
 import './AdminDashBoardContent.scss'
 
 // interface TabPanelProps {
@@ -39,6 +45,9 @@ import './AdminDashBoardContent.scss'
 
 
 function AdminDashBoardContent(props) {
+    const data = useSelector((state) => state);
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
     const [value, setValue] = useState(0);
     const [selectedMenu, setSelectedMenu] = useState('Contract')
     const [pagevalue, setPageValue] = useState("5 Page")
@@ -88,17 +97,17 @@ function AdminDashBoardContent(props) {
             icon: <PInfo />,
         },
         {
-            label: 'Account Information',
-            icon: <AInfo />,
+            label: 'Role and Privileges',
+            icon: <UserCogNew />,
         },
         {
             label: 'Documents',
             icon: <Document />,
         },
-        {
-            label: 'Timesheet Agenda',
-            icon: <TAgenda />,
-        },
+        // {
+        //     label: 'Timesheet Agenda',
+        //     icon: <TAgenda />,
+        // },
         {
             label: 'Change Password',
             icon: <CPass />,
@@ -137,6 +146,8 @@ function AdminDashBoardContent(props) {
             label: 'Amount Option'
         },
     ]
+
+
     return (
         <React.Fragment>
             <div className={`dashboard_dataWrapper ${props.viewManage && 'expand_view'}`}>
@@ -147,6 +158,9 @@ function AdminDashBoardContent(props) {
                             <img src={SearchIcon}
                                 alt='search_icon'></img>
                         </button>
+                    </div>
+                    <div className='company_name'>
+                        {data?.vendor?.company_name || JSON.parse(sessionStorage.getItem("loginData"))?.vendor?.company_name}
                     </div>
                     <div className='notify_profile_block'>
                         <div className='flex_box'>
@@ -261,13 +275,19 @@ function AdminDashBoardContent(props) {
                             </div>
                         </div>
                         <div className='right_tabData_block'>
-                            { selectedMenu ==  'Basic Information' ? (
-                                <BasicInformation/>
-                            ) : selectedMenu ==  'Personal Information' ? (
-                                <PersonalInformation/>
+                            {selectedMenu == 'Basic Information' ? (
+                                <BasicInformation />
+                            ) : selectedMenu == 'Personal Information' ? (
+                                <PersonalInformation />
                             ) : selectedMenu == "Contract" ? (
-                                <ContractContent/>
-                            ) : 
+                                <ContractContent />
+                            ) : selectedMenu == "Documents" ? (
+                                <Documents />
+                            ) : selectedMenu == "Change Password" ? (
+                                <ChangePassword />
+                            ) : selectedMenu == 'Role and Privileges' ? (
+                                <RolePrivilege/>
+                            ):
                                 <div className='tabs_data_container'>
                                     <Box sx={{ width: '100%' }}>
                                         <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>

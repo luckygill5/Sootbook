@@ -1,6 +1,7 @@
 $white:#FFF;
 $black: #000;
 
+$font-monsterat : 'Montserrat';
 
 // Flexbox display
 @mixin flexbox{
@@ -29,6 +30,7 @@ $black: #000;
     box-sizing: border-box;
     *{
         box-sizing: border-box; 
+        font-family: $font-monsterat;
     }
     padding: 16px;
     min-height: 100vh;

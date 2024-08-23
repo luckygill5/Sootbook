@@ -47,6 +47,7 @@ function AdminSideNav(props) {
 
     const handleLogout = () => {
         sessionStorage.removeItem("accessToken");
+        sessionStorage.removeItem("loginData")
         dispatch(addData([]));
         navigate("/")
     }

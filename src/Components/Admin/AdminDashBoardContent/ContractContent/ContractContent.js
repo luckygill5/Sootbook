@@ -11,6 +11,7 @@ import Allowances from './Allowances/Allowances';
 import Commissions from './Commissions/Commissions';
 import StatutoryDeductions from './StatutoryDeductions/StatutoryDeductions';
 import Reimbursements from './Reimbursements/Reimbursements';
+import { ReactComponent as DotsIcon } from "../../../../assets/images/bullets.svg";
 import './ContractContent.scss'
 
 function ContractContent(props){
@@ -56,9 +57,12 @@ function ContractContent(props){
         setEditMode(true)
     }
 
+    const handleSubmit = () => {
+        setEditMode(false)
+    }
     return (
         <div className='contractContent_container'>
-             <div className='header_flex'>
+             {editMode ? null : (<div className='header_flex'>
                     <h5 className='title'>Contract</h5>
                     <button className='edit_btn' onClick={() => handleEdit()}>
                         <span className='icon'>
@@ -66,10 +70,10 @@ function ContractContent(props){
                         </span>
                         {locales.edit_title}
                     </button>
-                </div>
+                </div>)}
                 <div className='body_section'>
                     <Box sx={{ width: '100%' }} className="tabsBlock">
-                        <Box>
+                        <Box className="tabsFlexbox">
                             <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
                                 {
                                     tabsData &&
@@ -81,21 +85,24 @@ function ContractContent(props){
                                     })
                                 }
                             </Tabs>
+                            <button className='moreBtn'>
+                                <DotsIcon/>
+                            </button>
                         </Box>
                         <CustomTabPanel value={value} index={0} className="tabdataBlock">
-                        <Contract mode={editMode} />
+                        <Contract mode={editMode} submit={handleSubmit} />
                         </CustomTabPanel>
                         <CustomTabPanel value={value} index={1} className="tabdataBlock">
-                          <Allowances mode={editMode}/>
+                          <Allowances mode={editMode} submit={handleSubmit}/>
                         </CustomTabPanel>
                         <CustomTabPanel value={value} index={2} className="tabdataBlock">
-                          <Commissions mode={editMode}/>
+                          <Commissions mode={editMode} submit={handleSubmit}/>
                         </CustomTabPanel>
                         <CustomTabPanel value={value} index={3} className="tabdataBlock">
-                           <StatutoryDeductions mode={editMode}/>
+                           <StatutoryDeductions mode={editMode} submit={handleSubmit}/>
                         </CustomTabPanel>
                         <CustomTabPanel value={value} index={4} className="tabdataBlock">
-                           <Reimbursements mode={editMode}/>
+                           <Reimbursements mode={editMode} submit={handleSubmit}/>
                         </CustomTabPanel>
                     </Box>
                 </div>
