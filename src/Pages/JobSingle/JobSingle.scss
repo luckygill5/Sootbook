@@ -278,7 +278,7 @@ $font-monsterat : 'Montserrat';
                     @include flexbox();
                     margin: 0 -10px 36px -10px;
 
-                    .input_box {
+                    .inputField {
                         margin: 0 10px;
                         width: calc(50% - 20px);
                         @include flexbox();
@@ -624,6 +624,7 @@ $font-monsterat : 'Montserrat';
             letter-spacing: 0.08px;
             color: #6B7280;
         }
+
         .slider_container {
             .swiper {
                 .swiper-wrapper {
@@ -735,19 +736,22 @@ $font-monsterat : 'Montserrat';
                         }
                     }
                 }
-                .swiper-pagination-bullets{
+
+                .swiper-pagination-bullets {
                     margin-top: 40px;
                     @include flexbox();
                     align-content: center;
                     justify-content: center;
                     column-gap: 10px;
-                    .swiper-pagination-bullet{
+
+                    .swiper-pagination-bullet {
                         width: 10px;
                         height: 10px;
                         border-radius: 50%;
                         display: inline-block;
                         background-color: #E5E7EB;
-                        &.swiper-pagination-bullet-active{
+
+                        &.swiper-pagination-bullet-active {
                             background-color: #00A9BB;
                         }
                     }

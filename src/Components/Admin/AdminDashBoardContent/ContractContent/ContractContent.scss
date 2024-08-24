@@ -17,8 +17,6 @@ $font-monsterat : 'Montserrat';
         font-family: $font-monsterat
     }
 
-    ;
-
     .header_flex {
         @include flexbox();
         align-items: center;
@@ -115,339 +113,49 @@ $font-monsterat : 'Montserrat';
                     padding: 20px 0px 0px 0px;
 
                     .contract_container {
-                        .data_listing {
-                            margin: 0;
-                            padding: 0;
-                            // border-top: 1px solid #E5E7EB;
-
-                            .list_item {
-                                list-style: none;
-                                @include flexbox();
-                                align-items: center;
-                                padding: 24px 0px;
-                                border-bottom: 1px solid #E5E7EB;
-
-                                &:last-child {
-                                    border-bottom: none;
-                                }
-
-                                .label {
-                                    display: inline-block;
-                                    text-align: left;
-                                    font-size: 16px;
-                                    font-style: normal;
-                                    font-weight: 400;
-                                    line-height: 24px;
-                                    /* 150% */
-                                    letter-spacing: 0.08px;
-                                    color: $text;
-                                    width: 60%;
-                                    margin-right: 16px;
-                                }
-
-                                .value {
-                                    display: inline-block;
-                                    width: 40%;
-                                    font-size: 16px;
-                                    font-style: normal;
-                                    font-weight: 400;
-                                    line-height: 24px;
-                                    /* 150% */
-                                    letter-spacing: 0.08px;
-                                    color: #6B7280;
-                                    text-align: left;
-
-                                    .badge {
-                                        min-width: 59px;
-                                        text-align: center;
-
-                                        &.green {
-                                            background-color: #D9F2F5;
-                                            display: inline-block;
-                                            color: #006570;
-                                            white-space: nowrap;
-                                            padding: 6px;
-                                            border-radius: 999px;
-                                            font-size: 12px;
-                                            font-style: normal;
-                                            font-weight: 400;
-                                            line-height: 16px;
-                                            /* 133.333% */
-                                            letter-spacing: 0.06px;
-                                        }
-                                    }
-                                }
-                            }
-                        }
-
-                        .editMode {
-                            .form_container {
-                                .input_box {
-                                    width: 100%;
-                                    margin-bottom: 36px;
-                                    @include flexbox();
-                                    align-items: flex-start;
-                                    flex-direction: column;
-
-                                    label {
-                                        display: inline-block;
-                                        text-align: left;
-                                        position: relative;
-                                        font-size: 14px;
-                                        font-style: normal;
-                                        font-weight: 600;
-                                        line-height: 20px;
-                                        /* 142.857% */
-                                        letter-spacing: 0.07px;
-                                        color: $text;
-                                        margin-bottom: 10px;
-
-                                        &.mandate {
-                                            &::after {
-                                                content: '*';
-                                                display: inline-block;
-                                                position: absolute;
-                                                top: 0;
-                                                left: 100%;
-                                                font-size: 14px;
-                                                font-style: normal;
-                                                font-weight: 600;
-                                                line-height: 20px;
-                                                letter-spacing: 0.07px;
-                                                color: #EF4444
-                                            }
-                                        }
-
-                                    }
-
-                                    .textareaInput {
-                                        width: 100%;
-                                        height: calc(100vw * .0833339);
-                                        resize: none;
-                                        box-shadow: 0px 4px 4px 0px inset rgba(0, 0, 0, 0.25), -7px -7px 7px 0px inset #FFF;
-                                        border-radius: 8px;
-                                        border: 1px solid #E5E7EB;
-                                        background-color: #F2F5FA;
-                                        padding: 14px 16px;
-                                        font-size: 14px;
-                                        font-style: normal;
-                                        font-weight: 400;
-                                        line-height: 20px;
-                                        /* 142.857% */
-                                        letter-spacing: 0.07px;
-                                        color: #6B7280;
-                                    }
-
-                                    .input_element {
-                                        border-radius: 8px;
-                                        width: calc(100% - 0px);
-                                        border: none;
-                                        outline: none;
-                                        background-color: transparent;
-                                        font-size: 14px;
-                                        font-style: normal;
-                                        font-weight: 400;
-                                        line-height: 20px;
-                                        /* 142.857% */
-                                        letter-spacing: 0.07px;
-                                        color: #6B7280;
-                                        padding: 14px 16px;
-                                        box-shadow: 0px 4px 4px 0px inset rgba(0, 0, 0, 0.25), -7px -7px 7px 0px inset #FFF
-                                    }
-
-                                    &.col-5 {
-                                        .input_element {
-                                            width: 50%;
-                                        }
-                                    }
-
-                                    &.col-12 {
-                                        .input_element {
-                                            width: 100%;
-                                        }
-                                    }
-
-                                    .info {
-                                        display: inline-block;
-                                        font-size: 12px;
-                                        font-style: normal;
-                                        font-weight: 400;
-                                        line-height: 16px;
-                                        /* 133.333% */
-                                        letter-spacing: 0.06px;
-                                        margin-top: 6px;
-                                        color: #6B7280;
-                                        text-align: left
-                                    }
-                                }
-
-                                .input_flexbox {
-                                    @include flexbox();
-                                    margin-bottom: 36px;
-                                    margin-left: -10px;
-                                    margin-right: -10px;
-
-                                    &.col-2 {
-                                        .selectBox {
-                                            width: calc(50% - 20px);
-                                            margin: 0 10px;
-                                        }
-                                    }
-
-                                    &.col-3 {
-                                        .selectBox {
-                                            width: calc(33.33% - 20px);
-                                            margin: 0 10px;
-                                        }
-                                    }
-                                }
-
-                                .selectBox {
-                                    @include flexbox();
-                                    flex-direction: column;
-                                    align-items: flex-start;
-
-                                    label {
-                                        display: inline-block;
-                                        text-align: left;
-                                        position: relative;
-                                        font-size: 14px;
-                                        font-style: normal;
-                                        font-weight: 600;
-                                        line-height: 20px;
-                                        /* 142.857% */
-                                        letter-spacing: 0.07px;
-                                        color: $text;
-                                        margin-bottom: 10px;
-
-                                        &.mandate {
-                                            &::after {
-                                                content: '*';
-                                                display: inline-block;
-                                                position: absolute;
-                                                top: 0;
-                                                left: 100%;
-                                                font-size: 14px;
-                                                font-style: normal;
-                                                font-weight: 600;
-                                                line-height: 20px;
-                                                letter-spacing: 0.07px;
-                                                color: #EF4444
-                                            }
-                                        }
-                                    }
-
-                                    .select_inputBox {
-                                        width: 100%;
-                                        box-shadow: 0px 4px 4px 0px inset rgba(0, 0, 0, 0.25), -7px -7px 7px 0px inset #FFF;
-                                        border-radius: 8px;
-                                        background-color: #F2F5FA;
-
-                                        .MuiSelect-select {
-                                            text-align: left;
-                                            font-size: 14px;
-                                            font-style: normal;
-                                            font-weight: 400;
-                                            line-height: 20px;
-                                            /* 142.857% */
-                                            letter-spacing: 0.07px;
-                                            color: #6B7280;
-                                            font-family: $font-monsterat;
-                                            min-height: auto;
-                                            height: 48px;
-                                            box-sizing: border-box;
-                                        }
-
-                                        fieldset {
-                                            display: none;
-                                        }
-                                    }
-                                }
-
-                                .button-container {
-                                    text-align: right;
-
-                                    .saveBtn {
-                                        cursor: pointer;
-                                        border: none;
-                                        box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25), -1px -7px 7px 0px #FFF;
-                                        border-radius: 8px;
-                                        background-color: #00A9BB;
-                                        padding: 14px 16px;
-                                        height: 48px;
-                                        width: 66px;
-
-                                        &:focus:not(:focus-visible) {
-                                            outline: none;
-                                        }
-
-                                        font-size: 14px;
-                                        font-style: normal;
-                                        font-weight: 600;
-                                        line-height: 20px;
-                                        /* 142.857% */
-                                        letter-spacing: 0.07px;
-                                        color:$white
-                                    }
-                                }
-                            }
-                        }
-                    }
-
-                    .allowances_container {
-                        .data_listing {
-                            margin: 0;
-                            padding: 0;
-                            border-top: 1px solid #E5E7EB;
-
-                            .list_item {
-                                list-style: none;
-                                @include flexbox();
-                                align-items: center;
-                                padding: 24px 0px;
-                                border-bottom: 1px solid #E5E7EB;
-
-                                &:last-child {
-                                    border-bottom: none;
-                                }
-
-                                .label {
-                                    display: inline-block;
-                                    text-align: left;
-                                    font-size: 16px;
-                                    font-style: normal;
-                                    font-weight: 400;
-                                    line-height: 24px;
-                                    /* 150% */
-                                    letter-spacing: 0.08px;
-                                    color: $text;
-                                    width: 60%;
-                                    margin-right: 16px;
-                                }
-
-                                .value {
-                                    display: inline-block;
-                                    width: 40%;
-                                    font-size: 16px;
-                                    font-style: normal;
-                                    font-weight: 400;
-                                    line-height: 24px;
-                                    /* 150% */
-                                    letter-spacing: 0.08px;
-                                    color: #6B7280;
-                                    text-align: left;
-
-                                }
-                            }
-                        }
-
                         .form_container {
-                            .input_box {
+                            .textareaInput {
                                 width: 100%;
-                                margin-bottom: 36px;
+                                height: calc(100vw * .0833339);
+                                resize: none;
+                                box-shadow: 0px 4px 4px 0px inset rgba(0, 0, 0, 0.25), -7px -7px 7px 0px inset #FFF;
+                                border-radius: 8px;
+                                border: 1px solid #E5E7EB;
+                                background-color: #F2F5FA;
+                                padding: 14px 16px;
+                                font-size: 14px;
+                                font-style: normal;
+                                font-weight: 400;
+                                line-height: 20px;
+                                /* 142.857% */
+                                letter-spacing: 0.07px;
+                                color: #6B7280;
+                            }
+
+                            .info {
+                                display: inline-block;
+                                font-size: 12px;
+                                font-style: normal;
+                                font-weight: 400;
+                                line-height: 16px;
+                                /* 133.333% */
+                                letter-spacing: 0.06px;
+                                margin-top: 6px;
+                                color: #6B7280;
+                                text-align: left
+                            }
+
+                            .input_flexbox {
                                 @include flexbox();
-                                align-items: flex-start;
+                                margin-bottom: 36px;
+                                margin-left: -10px;
+                                margin-right: -10px;
+                            }
+
+                            .selectBox {
+                                @include flexbox();
                                 flex-direction: column;
+                                align-items: flex-start;
 
                                 label {
                                     display: inline-block;
@@ -462,62 +170,93 @@ $font-monsterat : 'Montserrat';
                                     color: $text;
                                     margin-bottom: 10px;
 
-                                    &::after {
-                                        content: '*';
-                                        display: inline-block;
-                                        position: absolute;
-                                        top: 0;
-                                        left: 100%;
-                                        font-size: 14px;
-                                        font-style: normal;
-                                        font-weight: 600;
-                                        line-height: 20px;
-                                        letter-spacing: 0.07px;
-                                        color: #EF4444
+                                    &.mandate {
+                                        &::after {
+                                            content: '*';
+                                            display: inline-block;
+                                            position: absolute;
+                                            top: 0;
+                                            left: 100%;
+                                            font-size: 14px;
+                                            font-style: normal;
+                                            font-weight: 600;
+                                            line-height: 20px;
+                                            letter-spacing: 0.07px;
+                                            color: #EF4444
+                                        }
                                     }
                                 }
 
-                                .input_element {
+                                .select_inputBox {
+                                    width: 100%;
+                                    box-shadow: 0px 4px 4px 0px inset rgba(0, 0, 0, 0.25), -7px -7px 7px 0px inset #FFF;
                                     border-radius: 8px;
-                                    width: calc(100% - 0px);
+                                    background-color: #F2F5FA;
+
+                                    .MuiSelect-select {
+                                        text-align: left;
+                                        font-size: 14px;
+                                        font-style: normal;
+                                        font-weight: 400;
+                                        line-height: 20px;
+                                        /* 142.857% */
+                                        letter-spacing: 0.07px;
+                                        color: #6B7280;
+                                        font-family: $font-monsterat;
+                                        min-height: auto;
+                                        height: 48px;
+                                        box-sizing: border-box;
+                                    }
+
+                                    fieldset {
+                                        display: none;
+                                    }
+                                }
+                            }
+
+                            .button-container {
+                                text-align: right;
+
+                                .saveBtn {
+                                    cursor: pointer;
                                     border: none;
-                                    outline: none;
-                                    background-color: transparent;
+                                    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25), -1px -7px 7px 0px #FFF;
+                                    border-radius: 8px;
+                                    background-color: #00A9BB;
+                                    padding: 14px 16px;
+                                    height: 48px;
+                                    width: 66px;
+
+                                    &:focus:not(:focus-visible) {
+                                        outline: none;
+                                    }
+
                                     font-size: 14px;
                                     font-style: normal;
-                                    font-weight: 400;
+                                    font-weight: 600;
                                     line-height: 20px;
                                     /* 142.857% */
                                     letter-spacing: 0.07px;
-                                    color: #6B7280;
-                                    padding: 14px 16px;
-                                    box-shadow: 0px 4px 4px 0px inset rgba(0, 0, 0, 0.25), -7px -7px 7px 0px inset #FFF
+                                    color:$white
                                 }
+                            }
+                        }
+                    }
 
-                                &.col-5 {
-                                    .input_element {
-                                        width: 50%;
-                                    }
-                                }
+                    .allowances_container {
+                        .form_container {
 
-                                &.col-12 {
-                                    .input_element {
-                                        width: 100%;
-                                    }
-                                }
-
-                                .info {
-                                    display: inline-block;
-                                    font-size: 12px;
-                                    font-style: normal;
-                                    font-weight: 400;
-                                    line-height: 16px;
-                                    /* 133.333% */
-                                    letter-spacing: 0.06px;
-                                    margin-top: 6px;
-                                    color: #6B7280;
-                                    text-align: left
-                                }
+                            .info {
+                                display: inline-block;
+                                font-size: 12px;
+                                font-style: normal;
+                                font-weight: 400;
+                                line-height: 16px;
+                                /* 133.333% */
+                                letter-spacing: 0.06px;
+                                margin-top: 6px;
+                                color: #6B7280;
+                                text-align: left
                             }
 
                             .input_flexbox {
@@ -525,18 +264,6 @@ $font-monsterat : 'Montserrat';
                                 margin-bottom: 36px;
                                 margin-left: -10px;
                                 margin-right: -10px;
-
-                                &.col-2 {
-                                    .selectBox {
-                                        width: calc(50% - 20px);
-                                        margin: 0 10px;
-                                    }
-
-                                    .input_box {
-                                        width: calc(50% - 20px);
-                                        margin: 0 10px;
-                                    }
-                                }
                             }
 
                             .selectBox {
@@ -666,18 +393,6 @@ $font-monsterat : 'Montserrat';
                                     .row {
                                         @include flexbox();
                                         column-gap: 4px;
-
-                                        &.col-3 {
-                                            .thead {
-                                                width: 33.33%;
-                                            }
-                                        }
-
-                                        &.col-4 {
-                                            .thead {
-                                                width: 25%;
-                                            }
-                                        }
 
                                         .thead {
                                             padding: 10px 12px;
@@ -932,18 +647,6 @@ $font-monsterat : 'Montserrat';
                                         @include flexbox();
                                         column-gap: 4px;
 
-                                        &.col-3 {
-                                            .thead {
-                                                width: 33.33%;
-                                            }
-                                        }
-
-                                        &.col-4 {
-                                            .thead {
-                                                width: 25%;
-                                            }
-                                        }
-
                                         .thead {
                                             padding: 10px 12px;
                                             box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25), -1px -7px 7px 0px #FFF;
@@ -1180,6 +883,7 @@ $font-monsterat : 'Montserrat';
                                 }
                             }
                         }
+
                         .search_fieldbox {
                             text-align: left;
                             margin-bottom: 20px;
@@ -1204,130 +908,19 @@ $font-monsterat : 'Montserrat';
                             }
                         }
 
-                        .data_listing {
-                            margin: 0;
-                            padding: 0;
-                            border-top: 1px solid #E5E7EB;
-
-                            .list_item {
-                                list-style: none;
-                                @include flexbox();
-                                align-items: center;
-                                padding: 24px 0px;
-                                border-bottom: 1px solid #E5E7EB;
-
-                                &:last-child {
-                                    border-bottom: none;
-                                }
-
-                                .label {
-                                    display: inline-block;
-                                    text-align: left;
-                                    font-size: 16px;
-                                    font-style: normal;
-                                    font-weight: 400;
-                                    line-height: 24px;
-                                    /* 150% */
-                                    letter-spacing: 0.08px;
-                                    color: $text;
-                                    width: 60%;
-                                    margin-right: 16px;
-                                }
-
-                                .value {
-                                    display: inline-block;
-                                    width: 40%;
-                                    font-size: 16px;
-                                    font-style: normal;
-                                    font-weight: 400;
-                                    line-height: 24px;
-                                    /* 150% */
-                                    letter-spacing: 0.08px;
-                                    color: #6B7280;
-                                    text-align: left;
-
-
-                                }
-                            }
-                        }
-
                         .form_container {
-                            .input_box {
-                                width: 100%;
-                                margin-bottom: 36px;
-                                @include flexbox();
-                                align-items: flex-start;
-                                flex-direction: column;
 
-                                label {
-                                    display: inline-block;
-                                    text-align: left;
-                                    position: relative;
-                                    font-size: 14px;
-                                    font-style: normal;
-                                    font-weight: 600;
-                                    line-height: 20px;
-                                    /* 142.857% */
-                                    letter-spacing: 0.07px;
-                                    color: $text;
-                                    margin-bottom: 10px;
-
-                                    &::after {
-                                        content: '*';
-                                        display: inline-block;
-                                        position: absolute;
-                                        top: 0;
-                                        left: 100%;
-                                        font-size: 14px;
-                                        font-style: normal;
-                                        font-weight: 600;
-                                        line-height: 20px;
-                                        letter-spacing: 0.07px;
-                                        color: #EF4444
-                                    }
-                                }
-
-                                .input_element {
-                                    border-radius: 8px;
-                                    width: calc(100% - 0px);
-                                    border: none;
-                                    outline: none;
-                                    background-color: transparent;
-                                    font-size: 14px;
-                                    font-style: normal;
-                                    font-weight: 400;
-                                    line-height: 20px;
-                                    /* 142.857% */
-                                    letter-spacing: 0.07px;
-                                    color: #6B7280;
-                                    padding: 14px 16px;
-                                    box-shadow: 0px 4px 4px 0px inset rgba(0, 0, 0, 0.25), -7px -7px 7px 0px inset #FFF
-                                }
-
-                                &.col-5 {
-                                    .input_element {
-                                        width: 50%;
-                                    }
-                                }
-
-                                &.col-12 {
-                                    .input_element {
-                                        width: 100%;
-                                    }
-                                }
-
-                                .info {
-                                    display: inline-block;
-                                    font-size: 12px;
-                                    font-style: normal;
-                                    font-weight: 400;
-                                    line-height: 16px;
-                                    /* 133.333% */
-                                    letter-spacing: 0.06px;
-                                    margin-top: 6px;
-                                    color: #6B7280;
-                                    text-align: left
-                                }
+                            .info {
+                                display: inline-block;
+                                font-size: 12px;
+                                font-style: normal;
+                                font-weight: 400;
+                                line-height: 16px;
+                                /* 133.333% */
+                                letter-spacing: 0.06px;
+                                margin-top: 6px;
+                                color: #6B7280;
+                                text-align: left
                             }
 
                             .input_flexbox {
@@ -1335,18 +928,6 @@ $font-monsterat : 'Montserrat';
                                 margin-bottom: 36px;
                                 margin-left: -10px;
                                 margin-right: -10px;
-
-                                &.col-2 {
-                                    .selectBox {
-                                        width: calc(50% - 20px);
-                                        margin: 0 10px;
-                                    }
-
-                                    .input_box {
-                                        width: calc(50% - 20px);
-                                        margin: 0 10px;
-                                    }
-                                }
                             }
 
                             .selectBox {
@@ -1455,18 +1036,6 @@ $font-monsterat : 'Montserrat';
                                         @include flexbox();
                                         column-gap: 4px;
 
-                                        &.col-3 {
-                                            .thead {
-                                                width: 33.33%;
-                                            }
-                                        }
-
-                                        &.col-4 {
-                                            .thead {
-                                                width: 25%;
-                                            }
-                                        }
-
                                         .thead {
                                             padding: 10px 12px;
                                             box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25), -1px -7px 7px 0px #FFF;
@@ -1703,6 +1272,7 @@ $font-monsterat : 'Montserrat';
                                 }
                             }
                         }
+
                         .search_fieldbox {
                             text-align: left;
                             margin-bottom: 20px;
@@ -1727,130 +1297,19 @@ $font-monsterat : 'Montserrat';
                             }
                         }
 
-                        .data_listing {
-                            margin: 0;
-                            padding: 0;
-                            border-top: 1px solid #E5E7EB;
-
-                            .list_item {
-                                list-style: none;
-                                @include flexbox();
-                                align-items: center;
-                                padding: 24px 0px;
-                                border-bottom: 1px solid #E5E7EB;
-
-                                &:last-child {
-                                    border-bottom: none;
-                                }
-
-                                .label {
-                                    display: inline-block;
-                                    text-align: left;
-                                    font-size: 16px;
-                                    font-style: normal;
-                                    font-weight: 400;
-                                    line-height: 24px;
-                                    /* 150% */
-                                    letter-spacing: 0.08px;
-                                    color: $text;
-                                    width: 60%;
-                                    margin-right: 16px;
-                                }
-
-                                .value {
-                                    display: inline-block;
-                                    width: 40%;
-                                    font-size: 16px;
-                                    font-style: normal;
-                                    font-weight: 400;
-                                    line-height: 24px;
-                                    /* 150% */
-                                    letter-spacing: 0.08px;
-                                    color: #6B7280;
-                                    text-align: left;
-
-
-                                }
-                            }
-                        }
-
                         .form_container {
-                            .input_box {
-                                width: 100%;
-                                margin-bottom: 36px;
-                                @include flexbox();
-                                align-items: flex-start;
-                                flex-direction: column;
 
-                                label {
-                                    display: inline-block;
-                                    text-align: left;
-                                    position: relative;
-                                    font-size: 14px;
-                                    font-style: normal;
-                                    font-weight: 600;
-                                    line-height: 20px;
-                                    /* 142.857% */
-                                    letter-spacing: 0.07px;
-                                    color: $text;
-                                    margin-bottom: 10px;
-
-                                    &::after {
-                                        content: '*';
-                                        display: inline-block;
-                                        position: absolute;
-                                        top: 0;
-                                        left: 100%;
-                                        font-size: 14px;
-                                        font-style: normal;
-                                        font-weight: 600;
-                                        line-height: 20px;
-                                        letter-spacing: 0.07px;
-                                        color: #EF4444
-                                    }
-                                }
-
-                                .input_element {
-                                    border-radius: 8px;
-                                    width: calc(100% - 0px);
-                                    border: none;
-                                    outline: none;
-                                    background-color: transparent;
-                                    font-size: 14px;
-                                    font-style: normal;
-                                    font-weight: 400;
-                                    line-height: 20px;
-                                    /* 142.857% */
-                                    letter-spacing: 0.07px;
-                                    color: #6B7280;
-                                    padding: 14px 16px;
-                                    box-shadow: 0px 4px 4px 0px inset rgba(0, 0, 0, 0.25), -7px -7px 7px 0px inset #FFF
-                                }
-
-                                &.col-5 {
-                                    .input_element {
-                                        width: 50%;
-                                    }
-                                }
-
-                                &.col-12 {
-                                    .input_element {
-                                        width: 100%;
-                                    }
-                                }
-
-                                .info {
-                                    display: inline-block;
-                                    font-size: 12px;
-                                    font-style: normal;
-                                    font-weight: 400;
-                                    line-height: 16px;
-                                    /* 133.333% */
-                                    letter-spacing: 0.06px;
-                                    margin-top: 6px;
-                                    color: #6B7280;
-                                    text-align: left
-                                }
+                            .info {
+                                display: inline-block;
+                                font-size: 12px;
+                                font-style: normal;
+                                font-weight: 400;
+                                line-height: 16px;
+                                /* 133.333% */
+                                letter-spacing: 0.06px;
+                                margin-top: 6px;
+                                color: #6B7280;
+                                text-align: left
                             }
 
                             .input_flexbox {
@@ -1858,30 +1317,6 @@ $font-monsterat : 'Montserrat';
                                 margin-bottom: 36px;
                                 margin-left: -10px;
                                 margin-right: -10px;
-
-                                &.col-2 {
-                                    .selectBox {
-                                        width: calc(50% - 20px);
-                                        margin: 0 10px;
-                                    }
-
-                                    .input_box {
-                                        width: calc(50% - 20px);
-                                        margin: 0 10px;
-                                    }
-                                }
-
-                                &.col-3 {
-                                    .selectBox {
-                                        width: calc(33.33% - 20px);
-                                        margin: 0 10px;
-                                    }
-
-                                    .input_box {
-                                        width: calc(33.33% - 20px);
-                                        margin: 0 10px;
-                                    }
-                                }
                             }
 
                             .selectBox {
@@ -1990,18 +1425,6 @@ $font-monsterat : 'Montserrat';
                                         @include flexbox();
                                         column-gap: 4px;
 
-                                        &.col-3 {
-                                            .thead {
-                                                width: 33.33%;
-                                            }
-                                        }
-
-                                        &.col-4 {
-                                            .thead {
-                                                width: 25%;
-                                            }
-                                        }
-
                                         .thead {
                                             padding: 10px 12px;
                                             box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25), -1px -7px 7px 0px #FFF;
@@ -2238,154 +1661,44 @@ $font-monsterat : 'Montserrat';
                                 }
                             }
                         }
-                        .search_fieldbox {
-                            text-align: left;
-                            margin-bottom: 20px;
 
-                            .search_input {
-                                width: 60%;
-                                border: none;
-                                outline: none;
-                                background-color: transparent;
-                                font-size: 14px;
-                                font-style: normal;
-                                font-weight: 400;
-                                line-height: 20px;
-                                letter-spacing: 0.07px;
-                                color: #6B7280;
-                                padding: 14px 16px 14px 48px;
-                                border-radius: 8px;
-                                box-shadow: 0px 4px 4px 0px inset rgba(0, 0, 0, 0.25), -7px -7px 7px 0px inset #FFF;
-                                background-image: url('../../../../assets/images/search_icon.svg');
-                                background-repeat: no-repeat;
-                                background-position: 16px center;
-                            }
-                        }
+                        // .search_fieldbox {
+                        //     text-align: left;
+                        //     margin-bottom: 20px;
 
-                        .data_listing {
-                            margin: 0;
-                            padding: 0;
-                            border-top: 1px solid #E5E7EB;
-
-                            .list_item {
-                                list-style: none;
-                                @include flexbox();
-                                align-items: center;
-                                padding: 24px 0px;
-                                border-bottom: 1px solid #E5E7EB;
-
-                                &:last-child {
-                                    border-bottom: none;
-                                }
-
-                                .label {
-                                    display: inline-block;
-                                    text-align: left;
-                                    font-size: 16px;
-                                    font-style: normal;
-                                    font-weight: 400;
-                                    line-height: 24px;
-                                    /* 150% */
-                                    letter-spacing: 0.08px;
-                                    color: $text;
-                                    width: 60%;
-                                    margin-right: 16px;
-                                }
-
-                                .value {
-                                    display: inline-block;
-                                    width: 40%;
-                                    font-size: 16px;
-                                    font-style: normal;
-                                    font-weight: 400;
-                                    line-height: 24px;
-                                    /* 150% */
-                                    letter-spacing: 0.08px;
-                                    color: #6B7280;
-                                    text-align: left;
-
-
-                                }
-                            }
-                        }
+                        //     .search_input {
+                        //         width: 60%;
+                        //         border: none;
+                        //         outline: none;
+                        //         background-color: transparent;
+                        //         font-size: 14px;
+                        //         font-style: normal;
+                        //         font-weight: 400;
+                        //         line-height: 20px;
+                        //         letter-spacing: 0.07px;
+                        //         color: #6B7280;
+                        //         padding: 14px 16px 14px 48px;
+                        //         border-radius: 8px;
+                        //         box-shadow: 0px 4px 4px 0px inset rgba(0, 0, 0, 0.25), -7px -7px 7px 0px inset #FFF;
+                        //         background-image: url('../../../../assets/images/search_icon.svg');
+                        //         background-repeat: no-repeat;
+                        //         background-position: 16px center;
+                        //     }
+                        // }
 
                         .form_container {
-                            .input_box {
-                                width: 100%;
-                                margin-bottom: 36px;
-                                @include flexbox();
-                                align-items: flex-start;
-                                flex-direction: column;
 
-                                label {
-                                    display: inline-block;
-                                    text-align: left;
-                                    position: relative;
-                                    font-size: 14px;
-                                    font-style: normal;
-                                    font-weight: 600;
-                                    line-height: 20px;
-                                    /* 142.857% */
-                                    letter-spacing: 0.07px;
-                                    color: $text;
-                                    margin-bottom: 10px;
-
-                                    &::after {
-                                        content: '*';
-                                        display: inline-block;
-                                        position: absolute;
-                                        top: 0;
-                                        left: 100%;
-                                        font-size: 14px;
-                                        font-style: normal;
-                                        font-weight: 600;
-                                        line-height: 20px;
-                                        letter-spacing: 0.07px;
-                                        color: #EF4444
-                                    }
-                                }
-
-                                .input_element {
-                                    border-radius: 8px;
-                                    width: calc(100% - 0px);
-                                    border: none;
-                                    outline: none;
-                                    background-color: transparent;
-                                    font-size: 14px;
-                                    font-style: normal;
-                                    font-weight: 400;
-                                    line-height: 20px;
-                                    /* 142.857% */
-                                    letter-spacing: 0.07px;
-                                    color: #6B7280;
-                                    padding: 14px 16px;
-                                    box-shadow: 0px 4px 4px 0px inset rgba(0, 0, 0, 0.25), -7px -7px 7px 0px inset #FFF
-                                }
-
-                                &.col-5 {
-                                    .input_element {
-                                        width: 50%;
-                                    }
-                                }
-
-                                &.col-12 {
-                                    .input_element {
-                                        width: 100%;
-                                    }
-                                }
-
-                                .info {
-                                    display: inline-block;
-                                    font-size: 12px;
-                                    font-style: normal;
-                                    font-weight: 400;
-                                    line-height: 16px;
-                                    /* 133.333% */
-                                    letter-spacing: 0.06px;
-                                    margin-top: 6px;
-                                    color: #6B7280;
-                                    text-align: left
-                                }
+                            .info {
+                                display: inline-block;
+                                font-size: 12px;
+                                font-style: normal;
+                                font-weight: 400;
+                                line-height: 16px;
+                                /* 133.333% */
+                                letter-spacing: 0.06px;
+                                margin-top: 6px;
+                                color: #6B7280;
+                                text-align: left
                             }
 
                             .input_flexbox {
@@ -2393,18 +1706,6 @@ $font-monsterat : 'Montserrat';
                                 margin-bottom: 36px;
                                 margin-left: -10px;
                                 margin-right: -10px;
-
-                                &.col-2 {
-                                    .selectBox {
-                                        width: calc(50% - 20px);
-                                        margin: 0 10px;
-                                    }
-
-                                    .input_box {
-                                        width: calc(50% - 20px);
-                                        margin: 0 10px;
-                                    }
-                                }
                             }
 
                             .selectBox {

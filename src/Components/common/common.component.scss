@@ -1,0 +1,162 @@
+@import "../../BaseStyle/Basestyle.scss";
+
+.data_listing {
+    margin: 0;
+    padding: 0;
+    // border-top: 1px solid #E5E7EB;
+
+    .list_item {
+        list-style: none;
+        @include flexbox();
+        align-items: center;
+        padding: 24px 0px;
+        border-bottom: 1px solid #E5E7EB;
+
+        &:last-child {
+            border-bottom: none;
+        }
+
+        .label {
+            display: inline-block;
+            text-align: left;
+            font-size: 16px;
+            font-style: normal;
+            font-weight: 400;
+            line-height: 24px;
+            /* 150% */
+            letter-spacing: 0.08px;
+            color: $text;
+            width: 60%;
+            margin-right: 16px;
+        }
+
+        .value {
+            display: inline-block;
+            width: 40%;
+            font-size: 16px;
+            font-style: normal;
+            font-weight: 400;
+            line-height: 24px;
+            /* 150% */
+            letter-spacing: 0.08px;
+            color: #6B7280;
+            text-align: left;
+
+            .badge {
+                min-width: 59px;
+                text-align: center;
+
+                &.green {
+                    background-color: #D9F2F5;
+                    display: inline-block;
+                    color: #006570;
+                    white-space: nowrap;
+                    padding: 6px;
+                    border-radius: 999px;
+                    font-size: 12px;
+                    font-style: normal;
+                    font-weight: 400;
+                    line-height: 16px;
+                    /* 133.333% */
+                    letter-spacing: 0.06px;
+                }
+            }
+        }
+    }
+}
+
+.inputField {
+    margin: 0 18px;
+    width: 50%;
+
+    label {
+        margin-bottom: 10px;
+        display: block;
+        text-align: left;
+        color: $text;
+        font-size: 14px;
+        font-style: normal;
+        font-weight: 500;
+        line-height: 20px;
+        /* 142.857% */
+        letter-spacing: 0.07px;
+    }
+
+    .input_element {
+        width: 100%;
+        height: 48px;
+        border-radius: 8px;
+        outline: none;
+        padding: 14px 16px;
+        font-size: 14px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 20px;
+        /* 142.857% */
+        letter-spacing: 0.07px;
+        color: #6B7280;
+        border: none;
+        box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25) inset, -7px -7px 7px 0px #FFF inset;
+        background-color: #f2f5fa;
+
+        &.inputTextArea{
+            height: 100px;
+        }
+    }
+
+    &.col12 {
+        width: 100%;
+    }
+
+    &.col6 {
+        width: 50%;
+    }
+
+    &.col4 {
+        width: 33.3%;
+    }
+
+    .select_fieldBox {
+        width: 100%;
+
+        .MuiSelect-select {
+            box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25) inset, -7px -7px 7px 0px #FFF inset;
+            background-color: #f2f5fa;
+            border-radius: 8px;
+            text-align: left;
+            font-size: 14px;
+            font-style: normal;
+            font-weight: 400;
+            line-height: 20px;
+            /* 142.857% */
+            letter-spacing: 0.07px;
+            color: $text;
+            min-height: auto;
+            height: 48px;
+            box-sizing: border-box;
+        }
+
+        .search_input {
+            width: 60%;
+            border: none;
+            outline: none;
+            background-color: transparent;
+            font-size: 14px;
+            font-style: normal;
+            font-weight: 400;
+            line-height: 20px;
+            letter-spacing: 0.07px;
+            color: #6B7280;
+            padding: 14px 16px 14px 48px;
+            border-radius: 8px;
+            box-shadow: 0px 4px 4px 0px inset rgba(0, 0, 0, 0.25), -7px -7px 7px 0px inset #FFF;
+            background-image: url('../../assets/images/search_icon.svg');
+            background-repeat: no-repeat;
+            background-position: 16px center;
+        }
+
+        fieldset {
+            display: none
+        }
+    }
+}

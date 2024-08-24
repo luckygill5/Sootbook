@@ -132,7 +132,7 @@ $font-monsterat : 'Montserrat';
             margin-right: auto;
 
             form {
-                .input_box {
+                .inputField {
                     @include flexbox();
                     flex-direction: column;
                     align-items: flex-start;
@@ -233,6 +233,7 @@ $font-monsterat : 'Montserrat';
 
                 .action {
                     text-align: left;
+
                     .send_btn {
                         border: none;
                         cursor: pointer;
@@ -250,7 +251,8 @@ $font-monsterat : 'Montserrat';
                         letter-spacing: 0.07px;
                         min-width: 82px;
                         height: 48px;
-                        &:focus:not(:focus-visible){
+
+                        &:focus:not(:focus-visible) {
                             outline: none;
                         }
                     }
@@ -258,10 +260,14 @@ $font-monsterat : 'Montserrat';
             }
         }
     }
-    .career_faqs_section{
-        .faqs_section{
-            .container{
-                .subtitle, .title, .info{
+
+    .career_faqs_section {
+        .faqs_section {
+            .container {
+
+                .subtitle,
+                .title,
+                .info {
                     display: none;
                 }
             }

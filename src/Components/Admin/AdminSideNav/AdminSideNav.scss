@@ -1,11 +1,10 @@
-
-$white:#FFF;
+$white: #FFF;
 $black: #000;
 
 $font-monsterat : 'Montserrat';
 
 // Flexbox display
-@mixin flexbox{
+@mixin flexbox {
     display: -webkit-box;
     display: -moz-box;
     display: -ms-flexbox;
@@ -14,7 +13,7 @@ $font-monsterat : 'Montserrat';
 }
 
 // Inline flex display
-@mixin inline-flex{
+@mixin inline-flex {
     display: -webkit-inline-box;
     display: -moz-inline-box;
     display: -webkit-inline-flex;
@@ -22,442 +21,530 @@ $font-monsterat : 'Montserrat';
     display: inline-flexbox;
 }
 
-.navMenu_container{
+.navMenu_containerWrapper {
     width: 100%;
-    max-width: 237px;
-    box-sizing: border-box;
-    *{
+    height: 100vh;
+    max-width: 235px;
+
+    .navMenu_container {
+        width: 100%;
+        max-width: 235px;
+        height: 98%;
+        position: fixed;
         box-sizing: border-box;
-    }
-    transition: max-width .2s ease-in-out;
-    &.expand_view{
-        max-width: 97px;
-        background-color: rgb(36, 52, 65);
-        border-radius: 50px ;
-        .upper_part{
-            border-radius: 50px 50px 0px 0px;
-            height: calc(100% - 76px);
-            .header_logoBlock{
-                .logoBlock{
-                    .compact_logo{
-                        display: block;
-                    }
-                    .fogo_logo{
-                        display: none;
-                    }
-                }
-                .toggle_view{
-                    .toggle_btn{
-                        position: relative;
-                        top: 12px;
-                        .collapse_view{
-                            display: none;
-                        }
-                        .expand_view{
+
+        * {
+            box-sizing: border-box;
+        }
+
+        transition: max-width .2s ease-in-out;
+
+        &.expand_view {
+            max-width: 97px;
+            background-color: rgb(36, 52, 65);
+            border-radius: 50px;
+
+            .upper_part {
+                border-radius: 50px 50px 0px 0px;
+                height: calc(100% - 76px);
+
+                .header_logoBlock {
+                    .logoBlock {
+                        .compact_logo {
                             display: block;
                         }
+
+                        .fogo_logo {
+                            display: none;
+                        }
+                    }
+
+                    .toggle_view {
+                        .toggle_btn {
+                            position: relative;
+                            top: 12px;
+
+                            .collapse_view {
+                                display: none;
+                            }
+
+                            .expand_view {
+                                display: block;
+                            }
+                        }
                     }
                 }
-            }
-            .menu_itemContainer{
-                ul {
-                    li{
-                        .menu_link{
-                            width: 56px;
-                            height: 56px;
-                            @include flexbox();
-                            align-items: center;
-                            justify-content: center;
-                            border-radius: 50%;
-                            position: relative;
-                            &::before, &::after{
-                                
-                                display: none;
-                            }
-                            .tooltip{
-                                position: absolute;
-                                z-index: 11;
-                                width: 100%;
-                                display: inline-flex;
-                                height: 100%;
-                            }
-                            .icon{
-                                margin-right: 0;
-                                svg {
-                                    path{
-                                        stroke: rgb(34, 229, 145);
-                                    }
+
+                .menu_itemContainer {
+                    ul {
+                        li {
+                            .menu_link {
+                                width: 56px;
+                                height: 56px;
+                                @include flexbox();
+                                align-items: center;
+                                justify-content: center;
+                                border-radius: 50%;
+                                position: relative;
+
+                                &::before,
+                                &::after {
+
+                                    display: none;
                                 }
-                            }
-                            .text{
-                                display: none;
-                            }
-                            .count_status{
-                               background-color: transparent;
-                               border: 1px solid rgb(34, 229, 145);
-                               color: rgb(34, 229, 145);
-                               font-size: 8px; 
-                               width: 15px;
-                            height: 15px;
-                            padding: 0;
-                            min-width: 15px;
-                            min-height: 15px;
-                            @include flexbox();
-                            align-items: center;
-                            justify-content: center;
-                            margin-left: 1px;
-                            margin-bottom: -15px;
-                            }
-                            .caret_icon{
-                                svg{
-                                    path{
-                                        stroke: rgb(34, 229, 145) !important;
-                                    }
+
+                                .tooltip {
+                                    position: absolute;
+                                    z-index: 11;
+                                    width: 100%;
+                                    display: inline-flex;
+                                    height: 100%;
                                 }
-                            }
-                            &:hover{
-                                background-color: transparent;
-                                .count_status{
-                                    color:rgb(34, 229, 145); ;
-                                }
-                                .icon{
+
+                                .icon {
                                     margin-right: 0;
+
                                     svg {
-                                        path{
+                                        path {
                                             stroke: rgb(34, 229, 145);
                                         }
                                     }
                                 }
-                                &::before{
-                                    content: '';
-                                    display: inline-block;
-                                    position: absolute;
-                                    width: 100%;
-                                    height: 100%;
-                                    left: 0;
-                                    top: 0;
-                                    box-shadow: -3px -4px 6px 0px rgba(255, 255, 255, 0.3);
-                                    border-radius: 50%;
+
+                                .text {
+                                    display: none;
                                 }
-                                &::after{
-                                    content: '';
-                                    display: inline-block;
-                                    position: absolute;
-                                    width: 100%;
-                                    height: 100%;
-                                    left: 0;
-                                    top: 0;
-                                    box-shadow: 3px 3px 6px 0px rgba(18, 17, 17, 0.3);
-                                    border-radius: 50%;
-                                }
-                            }
-                            &.active{
-                                &:hover{
-                                    background-color: rgb(34, 229, 145);
-                                    color: rgb(36, 52, 65);
-                                    &::before, &::after{
-                                        display: none;
-                                    }
-                                    .icon{
-                                        svg{
-                                            path{
-                                            stroke: rgb(36, 52, 65);;    
-                                            }
-                                        }
-                                    }
-                                }
-                                .count_status{
-                                    position: absolute;
-                                    right: 0;
-                                    top: calc(100% - 20px);
-                                    z-index: 1;
-                                    background: rgb(36, 52, 65);
-                                    color: rgb(34, 229, 145);
-                                    width: 20px;
-                                    height: 20px;
-                                    font-size: 10px;
-                                    box-shadow: -2px 0px 2px 0px rgb(19 18 18 / 50%);
-                                }
-                                .caret_icon{
-                                    position: absolute;
-                                    width: 18px;
-                                    height: 18px;
-                                    border-radius: 50%;
-                                    right: 0;
-                                    top: calc(100% - 18px);
-                                    z-index: 1;
-                                    background-color: rgb(36, 52, 65);
+
+                                .count_status {
+                                    background-color: transparent;
                                     border: 1px solid rgb(34, 229, 145);
+                                    color: rgb(34, 229, 145);
+                                    font-size: 8px;
+                                    width: 15px;
+                                    height: 15px;
+                                    padding: 0;
+                                    min-width: 15px;
+                                    min-height: 15px;
                                     @include flexbox();
                                     align-items: center;
                                     justify-content: center;
-                                    box-shadow: 3px 1px 2px 0px rgba(19, 18, 18, 0.5);
-                                    svg{
-                                        path{
+                                    margin-left: 1px;
+                                    margin-bottom: -15px;
+                                }
+
+                                .caret_icon {
+                                    svg {
+                                        path {
                                             stroke: rgb(34, 229, 145) !important;
                                         }
                                     }
                                 }
+
+                                &:hover {
+                                    background-color: transparent;
+
+                                    .count_status {
+                                        color: rgb(34, 229, 145);
+                                        ;
+                                    }
+
+                                    .icon {
+                                        margin-right: 0;
+
+                                        svg {
+                                            path {
+                                                stroke: rgb(34, 229, 145);
+                                            }
+                                        }
+                                    }
+
+                                    &::before {
+                                        content: '';
+                                        display: inline-block;
+                                        position: absolute;
+                                        width: 100%;
+                                        height: 100%;
+                                        left: 0;
+                                        top: 0;
+                                        box-shadow: -3px -4px 6px 0px rgba(255, 255, 255, 0.3);
+                                        border-radius: 50%;
+                                    }
+
+                                    &::after {
+                                        content: '';
+                                        display: inline-block;
+                                        position: absolute;
+                                        width: 100%;
+                                        height: 100%;
+                                        left: 0;
+                                        top: 0;
+                                        box-shadow: 3px 3px 6px 0px rgba(18, 17, 17, 0.3);
+                                        border-radius: 50%;
+                                    }
+                                }
+
+                                &.active {
+                                    &:hover {
+                                        background-color: rgb(34, 229, 145);
+                                        color: rgb(36, 52, 65);
+
+                                        &::before,
+                                        &::after {
+                                            display: none;
+                                        }
+
+                                        .icon {
+                                            svg {
+                                                path {
+                                                    stroke: rgb(36, 52, 65);
+                                                    ;
+                                                }
+                                            }
+                                        }
+                                    }
+
+                                    .count_status {
+                                        position: absolute;
+                                        right: 0;
+                                        top: calc(100% - 20px);
+                                        z-index: 1;
+                                        background: rgb(36, 52, 65);
+                                        color: rgb(34, 229, 145);
+                                        width: 20px;
+                                        height: 20px;
+                                        font-size: 10px;
+                                        box-shadow: -2px 0px 2px 0px rgb(19 18 18 / 50%);
+                                    }
+
+                                    .caret_icon {
+                                        position: absolute;
+                                        width: 18px;
+                                        height: 18px;
+                                        border-radius: 50%;
+                                        right: 0;
+                                        top: calc(100% - 18px);
+                                        z-index: 1;
+                                        background-color: rgb(36, 52, 65);
+                                        border: 1px solid rgb(34, 229, 145);
+                                        @include flexbox();
+                                        align-items: center;
+                                        justify-content: center;
+                                        box-shadow: 3px 1px 2px 0px rgba(19, 18, 18, 0.5);
+
+                                        svg {
+                                            path {
+                                                stroke: rgb(34, 229, 145) !important;
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+
+                            .subMenu {
+                                display: none;
                             }
                         }
-                        .subMenu{
-                            display: none;
+                    }
+                }
+            }
+
+            .lower_part {
+                padding: 0;
+                height: auto;
+                background-color: transparent;
+                border-radius: 0;
+
+                .logout_block {
+                    width: 56px;
+                    height: 56px;
+                    border-radius: 50%;
+                    margin: 0 auto 20px auto;
+                    background-color: #FF306F;
+                    @include flexbox();
+                    align-items: center;
+                    justify-content: center;
+                    position: relative;
+
+                    &:hover {
+                        &::before {
+                            content: '';
+                            display: inline-block;
+                            position: absolute;
+                            left: 0;
+                            top: 0;
+                            width: 100%;
+                            height: 100%;
+                            border-radius: 50%;
+                            box-shadow: -3px -4px 6px 0px rgba(255, 255, 255, 0.3);
+                        }
+
+                        &::after {
+                            content: '';
+                            display: inline-block;
+                            position: absolute;
+                            left: 0;
+                            top: 0;
+                            width: 100%;
+                            height: 100%;
+                            border-radius: 50%;
+                            box-shadow: 3px 3px 6px 0px rgba(18, 17, 17, 0.3);
                         }
                     }
-                }
-            }
-        }
-        .lower_part{
-            padding: 0;
-            height: auto;
-            background-color: transparent;
-            border-radius: 0;
-            .logout_block{
-                width:56px;
-                height: 56px;
-                border-radius: 50%;
-                margin: 0 auto 20px auto;
-                background-color: #FF306F;
-                @include flexbox();
-                align-items: center;
-                justify-content: center;
-                position: relative;
-                &:hover{
-                &::before{
-                    content: '';
-                    display: inline-block;
-                    position: absolute;
-                    left: 0;
-                    top: 0;
-                    width: 100%;
-                    height: 100%;
-                    border-radius: 50%;
-                    box-shadow: -3px -4px 6px 0px rgba(255, 255, 255, 0.3);
-                }
-                &::after{
-                    content: '';
-                    display: inline-block;
-                    position: absolute;
-                    left: 0;
-                    top: 0;
-                    width: 100%;
-                    height: 100%;
-                    border-radius: 50%;
-                    box-shadow: 3px 3px 6px 0px rgba(18, 17, 17, 0.3);
-                }
-            }
-                .icon{
-                    margin-right: 0;
-                }
-                .text{
-                    display: none;
-                }
-            }
-        }
-    }
-    .upper_part{
-        padding: 20px 20px;
-        border-radius: 27px 27px 0px 0px;
-        background-color: rgb(36, 52, 65);
-        height: calc(100% - 60px);
-        .header_logoBlock{
-            @include flexbox();
-            align-items: center;
-            justify-content: space-between;
-            margin-bottom: 15px;
-            .toggle_view{
-                .toggle_btn{
-                    background-color: transparent;
-                    border: none;
-                    &:focus:not(:focus-visible){
-                        outline: none;
+
+                    .icon {
+                        margin-right: 0;
                     }
-                    width: 35px;
-                    height: 35px;
-                    padding: 0;
-                    cursor: pointer;
-                    .expand_view{
+
+                    .text {
                         display: none;
                     }
                 }
-                
-            }
-            .logoBlock{
-                .compact_logo{
-                    display:none;
-                }
             }
         }
-        .menu_itemContainer{
-            ul{
-                margin: 0;
-                padding: 0;
-                li{
-                    list-style: none;
-                    margin-bottom: 15px;
-                    &:last-child{
-                        margin-bottom: 0;
-                    }
-                    .menu_link{
-                        text-decoration: none;
-                        @include flexbox();
-                        align-items: center;
-                        color: rgba( 229, 231, 235, .5);
-                        position: relative;
-                        padding: 10px;
-                        border-radius: 10px;
-                        font-size: 16px;
-                        font-weight: normal;
-                        font-style: normal;
-                        line-height: normal;
-                        font-family: $font-monsterat;
-                        background-color:transparent;
-                        border: none;
-                        width: 100%;
-                        cursor: pointer;
-                        &:focus:not(:focus-visible){
-                            outline: none;
-                        }
-                        .tooltip{
-                            display: none;
-                        }
-                        &:hover{
-                            background-color:  rgb(34, 229,145);
-                            .icon{
-                                svg{
-                                    path{
-                                        stroke: rgb(36, 52 ,65);
-                                    }
-                                }
-                            }
-                            color: rgb(36, 52 ,65);
-                            &::after,&::before{
-                                display: none;
-                            }
-                            .count_status{
-                                background-color: rgba(36, 52 ,65, .3);
-                                color: rgba(36, 52 ,65, 1);
-                                font-weight: 500;
-                            }
-                        }
-                        &.active{
-                            background-color:  rgb(34, 229,145);
-                            .icon{
-                                svg{
-                                    path{
-                                        stroke: rgb(36, 52 ,65);
-                                    }
-                                }
-                            }
-                            color: rgb(36, 52 ,65);
-                            &::after,&::before{
-                                display: none;
-                            }
-                            .count_status{
-                                background-color: rgba(36, 52 ,65, .3);
-                                color: rgba(36, 52 ,65, 1);
-                                font-weight: 500;
-                            }
-                            .caret_icon{
-                                transform: rotate(180deg);
-                                svg{
-                                    path{
-                                        stroke: rgb(36, 52 ,65) !important;
-                                    }
-                                }
-                            }
-                        }
-                        .count_status{
-                            display: inline-flex;
-                            align-items: center;
-                            background-color: rgba(34, 229, 145, .3);
-                            padding: 2px 5px;
-                            border-radius: 15px;
-                            font-size: 12px;
-                            font-style: normal;
-                            font-weight: normal;
-                            line-height: normal;
-                            font-family: $font-monsterat;
-                            color: rgba(34, 229, 145, 1);
-                            margin-left: 10px;
-                        }
-                        .icon{
-                            margin-right: 10px;
-                            width: 20px;
-                            height: 20px;
-                            svg{
-                                g{
-                                    opacity: 1 !important;
-                                }
-                                path{
-                                    stroke: rgba(229, 231, 235, .5);
-                                }
-                            }
-                        }
-                        .caret_icon{
-                            display: inline-flex;
-                            margin-left: auto;
-                        }
-                        &::before{
-                            content: '';
-                            position: absolute;
-                            left: 0;
-                            top: 0;
-                            width: 100%;
-                            height: 100%;
-                            box-shadow: -3px -4px 6px 0px rgba(255, 255, 255, 0.3);
-                            border-radius: 10px;
-                        }
-                        &::after{
-                            content: '';
-                            position: absolute;
-                            left: 0;
-                            top: 0;
-                            width: 100%;
-                            height: 100%;
-                            box-shadow: 3px 3px 6px 0px rgb(18 17 17 / 30%);
-                            border-radius: 10px;
-                        }
-                    }
-                    .subMenu{
-                        width: 80%;
-                        margin-left: auto;
-                        margin-top: 15px;
-                    }
-                }
-            }
-        }
-    }
-    .lower_part{
-        padding: 20px;
-        border-radius: 0px 0px 27px 27px;
-        background-color: #FF306F;
-        height: 60px;
-        .logout_block{
-            @include flexbox();
-            align-items: center;
-            background-color: transparent;
-            border: none;
-            padding: 0;
-            cursor: pointer;
-            &:focus:not(:focus-visible){
-                outline: none;
-            }
-            .icon{
-                margin-right: 10px;
-                width: 18px;
-                height: 18px; 
+
+        .upper_part {
+            padding: 20px 20px;
+            border-radius: 27px 27px 0px 0px;
+            background-color: rgb(36, 52, 65);
+            height: calc(100% - 60px);
+
+            .header_logoBlock {
                 @include flexbox();
                 align-items: center;
-                justify-content: center;
+                justify-content: space-between;
+                margin-bottom: 15px;
+
+                .toggle_view {
+                    .toggle_btn {
+                        background-color: transparent;
+                        border: none;
+
+                        &:focus:not(:focus-visible) {
+                            outline: none;
+                        }
+
+                        width: 35px;
+                        height: 35px;
+                        padding: 0;
+                        cursor: pointer;
+
+                        .expand_view {
+                            display: none;
+                        }
+                    }
+
+                }
+
+                .logoBlock {
+                    .compact_logo {
+                        display: none;
+                    }
+                }
             }
-            .text{
-                color: $white;
-                font-size: 14px;
-                font-family: $font-monsterat;
-                font-weight: normal;
-                font-style: normal;
-                line-height: normal;
+
+            .menu_itemContainer {
+                ul {
+                    margin: 0;
+                    padding: 0;
+
+                    li {
+                        list-style: none;
+                        margin-bottom: 15px;
+
+                        &:last-child {
+                            margin-bottom: 0;
+                        }
+
+                        .menu_link {
+                            text-decoration: none;
+                            @include flexbox();
+                            align-items: center;
+                            color: rgba(229, 231, 235, .5);
+                            position: relative;
+                            padding: 10px;
+                            border-radius: 10px;
+                            font-size: 16px;
+                            font-weight: normal;
+                            font-style: normal;
+                            line-height: normal;
+                            font-family: $font-monsterat;
+                            background-color: transparent;
+                            border: none;
+                            width: 100%;
+                            cursor: pointer;
+
+                            &:focus:not(:focus-visible) {
+                                outline: none;
+                            }
+
+                            .tooltip {
+                                display: none;
+                            }
+
+                            &:hover {
+                                background-color: rgb(34, 229, 145);
+
+                                .icon {
+                                    svg {
+                                        path {
+                                            stroke: rgb(36, 52, 65);
+                                        }
+                                    }
+                                }
+
+                                color: rgb(36, 52, 65);
+
+                                &::after,
+                                &::before {
+                                    display: none;
+                                }
+
+                                .count_status {
+                                    background-color: rgba(36, 52, 65, .3);
+                                    color: rgba(36, 52, 65, 1);
+                                    font-weight: 500;
+                                }
+                            }
+
+                            &.active {
+                                background-color: rgb(34, 229, 145);
+
+                                .icon {
+                                    svg {
+                                        path {
+                                            stroke: rgb(36, 52, 65);
+                                        }
+                                    }
+                                }
+
+                                color: rgb(36, 52, 65);
+
+                                &::after,
+                                &::before {
+                                    display: none;
+                                }
+
+                                .count_status {
+                                    background-color: rgba(36, 52, 65, .3);
+                                    color: rgba(36, 52, 65, 1);
+                                    font-weight: 500;
+                                }
+
+                                .caret_icon {
+                                    transform: rotate(180deg);
+
+                                    svg {
+                                        path {
+                                            stroke: rgb(36, 52, 65) !important;
+                                        }
+                                    }
+                                }
+                            }
+
+                            .count_status {
+                                display: inline-flex;
+                                align-items: center;
+                                background-color: rgba(34, 229, 145, .3);
+                                padding: 2px 5px;
+                                border-radius: 15px;
+                                font-size: 12px;
+                                font-style: normal;
+                                font-weight: normal;
+                                line-height: normal;
+                                font-family: $font-monsterat;
+                                color: rgba(34, 229, 145, 1);
+                                margin-left: 10px;
+                            }
+
+                            .icon {
+                                margin-right: 10px;
+                                width: 20px;
+                                height: 20px;
+
+                                svg {
+                                    g {
+                                        opacity: 1 !important;
+                                    }
+
+                                    path {
+                                        stroke: rgba(229, 231, 235, .5);
+                                    }
+                                }
+                            }
+
+                            .caret_icon {
+                                display: inline-flex;
+                                margin-left: auto;
+                            }
+
+                            &::before {
+                                content: '';
+                                position: absolute;
+                                left: 0;
+                                top: 0;
+                                width: 100%;
+                                height: 100%;
+                                box-shadow: -3px -4px 6px 0px rgba(255, 255, 255, 0.3);
+                                border-radius: 10px;
+                            }
+
+                            &::after {
+                                content: '';
+                                position: absolute;
+                                left: 0;
+                                top: 0;
+                                width: 100%;
+                                height: 100%;
+                                box-shadow: 3px 3px 6px 0px rgb(18 17 17 / 30%);
+                                border-radius: 10px;
+                            }
+                        }
+
+                        .subMenu {
+                            width: 80%;
+                            margin-left: auto;
+                            margin-top: 15px;
+                        }
+                    }
+                }
+            }
+        }
+
+        .lower_part {
+            padding: 20px;
+            border-radius: 0px 0px 27px 27px;
+            background-color: #FF306F;
+            height: 60px;
+
+            .logout_block {
+                @include flexbox();
+                align-items: center;
+                background-color: transparent;
+                border: none;
+                padding: 0;
+                cursor: pointer;
+
+                &:focus:not(:focus-visible) {
+                    outline: none;
+                }
+
+                .icon {
+                    margin-right: 10px;
+                    width: 18px;
+                    height: 18px;
+                    @include flexbox();
+                    align-items: center;
+                    justify-content: center;
+                }
+
+                .text {
+                    color: $white;
+                    font-size: 14px;
+                    font-family: $font-monsterat;
+                    font-weight: normal;
+                    font-style: normal;
+                    line-height: normal;
+                }
             }
         }
     }
