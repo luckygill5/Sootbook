@@ -32,6 +32,8 @@ $font-monsterat : 'Montserrat';
         height: 98%;
         position: fixed;
         box-sizing: border-box;
+        left: 16px;
+        top: 16px;
 
         * {
             box-sizing: border-box;
@@ -303,17 +305,26 @@ $font-monsterat : 'Montserrat';
         }
 
         .upper_part {
-            padding: 20px 20px;
+            padding: 0 20px 20px 20px;
             border-radius: 27px 27px 0px 0px;
             background-color: rgb(36, 52, 65);
-            height: calc(100% - 60px);
+            height: calc(100% - 59px);
+            overflow-y: auto;
+            scrollbar-width: thin;
 
             .header_logoBlock {
                 @include flexbox();
                 align-items: center;
                 justify-content: space-between;
-                margin-bottom: 15px;
-
+                position: sticky;
+                left: 0;
+                top: 0;
+                background: rgb(36, 52, 65);
+                z-index: 1;
+                padding-top: 20px;
+                margin: 0 -20px 15px -20px;
+                padding-left: 20px;
+                padding-right: 20px;
                 .toggle_view {
                     .toggle_btn {
                         background-color: transparent;

@@ -13,7 +13,7 @@ export function Select({
     touched,
     error,
 }) {
-    const selectOptions = options.map((item, i) => {
+    const selectOptions = options && options.map((item, i) => {
         return (
             <MenuItem name={item.id + "" + i} value={item.id}>
                 {item.value}

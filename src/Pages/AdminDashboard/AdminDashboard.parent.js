@@ -4,7 +4,7 @@ import PageNotFound from '../PageNotFound/PageNotFound'
 
 function AdminDashboardParent(props) {
     const dashbordView = sessionStorage.getItem('accessToken') ? true : false
-    return <AdminDashboard />
+    return dashbordView ? <AdminDashboard /> : <PageNotFound/>
 }
 
 export default AdminDashboardParent

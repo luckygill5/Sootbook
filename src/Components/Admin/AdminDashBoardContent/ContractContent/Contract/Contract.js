@@ -106,7 +106,8 @@ function Contract(props) {
                                 isRequired
                             />
                         </div>
-                        <div className='inputField col-12'>
+                        <div className='input_flexbox'>
+                        <div className='inputField col12'>
                             <label>Leave Categories</label>
                             <input
                                 type='text'
@@ -117,6 +118,7 @@ function Contract(props) {
                                 If All is selected, then all leave categories will show to employee
                                 which are added in the system.
                             </span>
+                        </div>
                         </div>
                         <div className='input_flexbox'>
                             <TextArea

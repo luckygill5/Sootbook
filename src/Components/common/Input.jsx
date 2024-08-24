@@ -14,7 +14,7 @@ export const Input = ({ label, type, name, placeholder, value, onChange, onBlur,
     <div className={`inputField ${wrapperClass}`}>
       <label>
         {label}
-        {isRequired && <span style={{ color: "red" }}>*</span>}
+        {isRequired && <span style={{ color: "#EF4444" }}>*</span>}
       </label>
       <div className={className}>
         <input type={type}

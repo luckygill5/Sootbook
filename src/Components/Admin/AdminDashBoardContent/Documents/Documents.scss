@@ -84,83 +84,7 @@ $font-monsterat : 'Montserrat';
             text-align: left;
         }
 
-        .input_box {
-            width: 100%;
-            margin-bottom: 36px;
-            @include flexbox();
-            align-items: flex-start;
-            flex-direction: column;
 
-            label {
-                display: inline-block;
-                text-align: left;
-                position: relative;
-                font-size: 14px;
-                font-style: normal;
-                font-weight: 600;
-                line-height: 20px;
-                /* 142.857% */
-                letter-spacing: 0.07px;
-                color: $text;
-                margin-bottom: 10px;
-
-                &::after {
-                    content: '*';
-                    display: inline-block;
-                    position: absolute;
-                    top: 0;
-                    left: 100%;
-                    font-size: 14px;
-                    font-style: normal;
-                    font-weight: 600;
-                    line-height: 20px;
-                    letter-spacing: 0.07px;
-                    color: #EF4444
-                }
-            }
-
-            .input_element {
-                border-radius: 8px;
-                width: calc(100% - 0px);
-                border: none;
-                outline: none;
-                background-color: transparent;
-                font-size: 14px;
-                font-style: normal;
-                font-weight: 400;
-                line-height: 20px;
-                /* 142.857% */
-                letter-spacing: 0.07px;
-                color: #6B7280;
-                padding: 14px 16px;
-                box-shadow: 0px 4px 4px 0px inset rgba(0, 0, 0, 0.25), -7px -7px 7px 0px inset #FFF
-            }
-
-            &.col-5 {
-                .input_element {
-                    width: 50%;
-                }
-            }
-
-            &.col-12 {
-                .input_element {
-                    width: 100%;
-                }
-            }
-
-            .info {
-                display: inline-block;
-                font-size: 12px;
-                font-style: normal;
-                font-weight: 400;
-                line-height: 16px;
-                /* 133.333% */
-                letter-spacing: 0.06px;
-                margin-top: 6px;
-                color: #6B7280;
-                text-align: left
-            }
-        }
 
         .uplaod_container {
             @include flexbox();
@@ -247,81 +171,8 @@ $font-monsterat : 'Montserrat';
             margin-bottom: 36px;
             margin-left: -10px;
             margin-right: -10px;
-
-            &.col-2 {
-                .selectBox {
-                    width: calc(50% - 20px);
-                    margin: 0 10px;
-                }
-
-                .input_box {
-                    width: calc(50% - 20px);
-                    margin: 0 10px;
-                }
-            }
         }
 
-        .selectBox {
-            @include flexbox();
-            flex-direction: column;
-            align-items: flex-start;
-
-            label {
-                display: inline-block;
-                text-align: left;
-                position: relative;
-                font-size: 14px;
-                font-style: normal;
-                font-weight: 600;
-                line-height: 20px;
-                /* 142.857% */
-                letter-spacing: 0.07px;
-                color: $text;
-                margin-bottom: 10px;
-
-                &.mandate {
-                    &::after {
-                        content: '*';
-                        display: inline-block;
-                        position: absolute;
-                        top: 0;
-                        left: 100%;
-                        font-size: 14px;
-                        font-style: normal;
-                        font-weight: 600;
-                        line-height: 20px;
-                        letter-spacing: 0.07px;
-                        color: #EF4444
-                    }
-                }
-            }
-
-            .select_inputBox {
-                width: 100%;
-                box-shadow: 0px 4px 4px 0px inset rgba(0, 0, 0, 0.25), -7px -7px 7px 0px inset #FFF;
-                border-radius: 8px;
-                background-color: #F2F5FA;
-
-                .MuiSelect-select {
-                    text-align: left;
-                    font-size: 14px;
-                    font-style: normal;
-                    font-weight: 400;
-                    line-height: 20px;
-                    /* 142.857% */
-                    letter-spacing: 0.07px;
-                    color: #6B7280;
-                    font-family: $font-monsterat;
-                    min-height: auto;
-                    height: 48px;
-                    box-sizing: border-box;
-                }
-
-                fieldset {
-                    display: none;
-                }
-            }
-        }
 
         .button-container {
             text-align: right;
