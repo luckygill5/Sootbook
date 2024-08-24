@@ -1,5 +1,7 @@
 $white: #FFF;
 $black: #000;
+$text: #1F2937;
+$buttonColor: #00A9BB;
 
 $font-monsterat : 'Montserrat';
 
@@ -30,6 +32,7 @@ $font-monsterat : 'Montserrat';
 
     * {
         box-sizing: border-box;
+        font-family: $font-monsterat;
     }
 
     &.expand_view {
@@ -40,7 +43,7 @@ $font-monsterat : 'Montserrat';
         width: 100%;
         @include flexbox();
         align-items: center;
-        justify-content: space-between;
+        // justify-content: space-between;
         padding: 10px 20px 10px 10px;
         position: relative;
         // background-color: #E5ECF7;
@@ -87,12 +90,18 @@ $font-monsterat : 'Montserrat';
                 }
             }
         }
-
-        .notify_profile_block {
+        .company_name{
+            font-size: 20px;
+            font-weight: 400;
+            line-height: normal;
+            color: $text;
+            margin-left: 20px;
+        }
+        .notify_profile_block{
             position: relative;
             z-index: 1;
-
-            .flex_box {
+            margin-left: auto;
+            .flex_box{
                 @include flexbox();
                 align-items: center;
 
@@ -178,9 +187,7 @@ $font-monsterat : 'Montserrat';
     .middle_content {
         .flexBox_container {
             @include flexbox();
-
-            &.personal_information,
-            &.contract {
+            &.personal_information, &.contract, &.documents, &.change_password{
                 align-items: flex-start;
             }
 
@@ -374,79 +381,15 @@ $font-monsterat : 'Montserrat';
                                 height: 39px;
                                 position: relative;
                                 white-space: nowrap;
-                                cursor: pointer;
-
-                                &:hover {
-                                    border: none;
-
-                                    &::before {
-                                        content: '';
-                                        display: inline-block;
-                                        position: absolute;
-                                        left: 0;
-                                        top: 0;
-                                        width: 100%;
-                                        border-radius: 6px;
-                                        height: 100%;
-                                        box-shadow: -3px -4px 6px 0px rgba(255, 255, 255, 0.8);
-                                    }
-
-                                    &::after {
-                                        content: '';
-                                        display: inline-block;
-                                        position: absolute;
-                                        left: 0;
-                                        top: 0;
-                                        width: 100%;
-                                        border-radius: 6px;
-                                        height: 100%;
-                                        box-shadow: 3px 3px 6px 0px rgba(18, 17, 17, 0.3);
-                                    }
-                                }
-                            }
-                        }
-                    }
-
-                    .profileData_list {
-                        margin: 20px 0px;
-
-                        ul {
-                            margin: 0;
-                            padding: 0;
-
-                            li {
-                                list-style: none;
-                                @include flexbox();
-                                align-items: center;
-                                justify-content: space-between;
-                                margin-bottom: 10px;
-
-                                &:last-child {
-                                    margin-bottom: 0;
-                                }
-
-                                .data {
-
-                                    font-weight: 500 !important;
-                                }
-
-                                .label,
-                                .data {
-                                    font-size: 16px;
-                                    font-weight: normal;
-                                    font-style: normal;
-                                    line-height: normal;
-                                    white-space: nowrap;
-                                    color: #687382;
-
-                                    .icon {
-                                        display: inline-flex;
-                                        align-items: center;
-                                        justify-content: center;
-                                        margin-right: 10px;
-                                        width: 16px;
-                                        height: 16px;
-                                    }
+                                color: #687382;
+                                font-family: $font-monsterat;
+                                .icon{
+                                    display: inline-flex;
+                                    align-items: center;
+                                    justify-content: center;
+                                    margin-right: 10px;
+                                    width: 16px;
+                                    height: 16px;
                                 }
                             }
                         }
@@ -586,6 +529,7 @@ $font-monsterat : 'Montserrat';
                                     font-style: normal;
                                     line-height: normal;
                                     color: #687382;
+                                    font-family: $font-monsterat;
                                 }
 
                                 .arrow_icon {

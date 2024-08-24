@@ -190,7 +190,7 @@ function Reimbursements(props) {
                             />
                         </div>
                         <div className='button-container'>
-                            <button className='saveBtn'>Save</button>
+                            <button className='saveBtn' onClick={() => props.submit()}>Save</button>
                         </div>
                     </form>
                 </div>

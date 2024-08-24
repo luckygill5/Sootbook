@@ -44,9 +44,10 @@ function AdminSideNav(props) {
     }
 
     const handleLogout = () => {
-        sessionStorage.removeItem('accessToken')
-        dispatch(addData([]))
-        navigate('/')
+        sessionStorage.removeItem("accessToken");
+        sessionStorage.removeItem("loginData")
+        dispatch(addData([]));
+        navigate("/")
     }
 
     const sidebarMenu = [

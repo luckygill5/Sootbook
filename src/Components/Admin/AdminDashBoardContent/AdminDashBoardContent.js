@@ -1,34 +1,40 @@
-import React, { useState } from 'react'
-import SearchIcon from '../../../assets/images/search_icon.svg'
-import BellIcon from '../../../assets/images/bell_icon.svg'
-import AvtaarIcon from '../../../assets/images/avatar-large.png'
-import File from '../../../assets/images/file_icon.svg'
-import Create from '../../../assets/images/create_icon.svg'
-import Reload from '../../../assets/images/reload.svg'
-import Location from '../../../assets/images/map-pin.svg'
-import Phone from '../../../assets/images/dial.svg'
-import { ReactComponent as Contract } from '../../../assets/images/contract.svg'
-import { ReactComponent as BInfo } from '../../../assets/images/basic_info.svg'
-import { ReactComponent as PInfo } from '../../../assets/images/user_new.svg'
-import { ReactComponent as AInfo } from '../../../assets/images/account_info.svg'
-import { ReactComponent as Document } from '../../../assets/images/documents.svg'
-import { ReactComponent as TAgenda } from '../../../assets/images/t_agenda.svg'
-import { ReactComponent as CPass } from '../../../assets/images/c_password.svg'
-import Sort from '../../../assets/images/sort.svg'
-import ArrowRight from '../../../assets/images/chevron-right.svg'
-import { ReactComponent as ArrowRightIcon } from '../../../assets/images/chevron-right.svg'
-import { ReactComponent as DotsIcon } from '../../../assets/images/bullets.svg'
-import Typography from '@mui/material/Typography'
-import Breadcrumbs from '@mui/material/Breadcrumbs'
-import Link from '@mui/material/Link'
-import Tabs from '@mui/material/Tabs'
-import Tab from '@mui/material/Tab'
-import Box from '@mui/material/Box'
-import Select, { SelectChangeEvent } from '@mui/material/Select'
-import MenuItem from '@mui/material/MenuItem'
-import BasicInformation from './BasicInformation/BasicInformation'
-import PersonalInformation from './PersonalInformation/PersonalInformation'
-import ContractContent from './ContractContent/ContractContent'
+import React, { useState } from 'react';
+import SearchIcon from "../../../assets/images/search_icon.svg";
+import BellIcon from "../../../assets/images/bell_icon.svg";
+import AvtaarIcon from "../../../assets/images/avatar-large.png";
+import File from "../../../assets/images/file_icon.svg";
+import Create from "../../../assets/images/create_icon.svg";
+import Reload from "../../../assets/images/reload.svg";
+import Location from "../../../assets/images/map-pin.svg";
+import Phone from "../../../assets/images/dial.svg";
+import { ReactComponent as Contract } from "../../../assets/images/contract.svg";
+import { ReactComponent as BInfo } from "../../../assets/images/basic_info.svg";
+import { ReactComponent as PInfo } from "../../../assets/images/user_new.svg";
+import { ReactComponent as AInfo } from "../../../assets/images/account_info.svg";
+import { ReactComponent as Document } from "../../../assets/images/documents.svg";
+import { ReactComponent as TAgenda } from "../../../assets/images/t_agenda.svg";
+import { ReactComponent as CPass } from "../../../assets/images/c_password.svg";
+import { ReactComponent as UserCogNew } from "../../../assets/images/user-cogNew.svg";
+import Sort from "../../../assets/images/sort.svg";
+import ArrowRight from "../../../assets/images/chevron-right.svg";
+import { ReactComponent as ArrowRightIcon } from "../../../assets/images/chevron-right.svg";
+import { ReactComponent as DotsIcon } from "../../../assets/images/bullets.svg";
+import Typography from '@mui/material/Typography';
+import Breadcrumbs from '@mui/material/Breadcrumbs';
+import Link from '@mui/material/Link';
+import Tabs from '@mui/material/Tabs';
+import Tab from '@mui/material/Tab';
+import Box from '@mui/material/Box';
+import Select, { SelectChangeEvent } from '@mui/material/Select';
+import MenuItem from '@mui/material/MenuItem';
+import BasicInformation from './BasicInformation/BasicInformation';
+import PersonalInformation from './PersonalInformation/PersonalInformation';
+import ContractContent from './ContractContent/ContractContent';
+import Documents from './Documents/Documents';
+import ChangePassword from './ChangePassword/ChangePassword';
+import RolePrivilege from './RolePrivilege/RolePrivilege';
+import { useSelector, useDispatch } from 'react-redux';
+import { useNavigate } from "react-router-dom";
 import './AdminDashBoardContent.scss'
 
 // interface TabPanelProps {
@@ -38,7 +44,10 @@ import './AdminDashBoardContent.scss'
 //   }
 
 function AdminDashBoardContent(props) {
-    const [value, setValue] = useState(0)
+    const data = useSelector((state) => state);
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+    const [value, setValue] = useState(0);
     const [selectedMenu, setSelectedMenu] = useState('Contract')
     const [pagevalue, setPageValue] = useState('5 Page')
 
@@ -87,17 +96,17 @@ function AdminDashBoardContent(props) {
             icon: <PInfo />,
         },
         {
-            label: 'Account Information',
-            icon: <AInfo />,
+            label: 'Role and Privileges',
+            icon: <UserCogNew />,
         },
         {
             label: 'Documents',
             icon: <Document />,
         },
-        {
-            label: 'Timesheet Agenda',
-            icon: <TAgenda />,
-        },
+        // {
+        //     label: 'Timesheet Agenda',
+        //     icon: <TAgenda />,
+        // },
         {
             label: 'Change Password',
             icon: <CPass />,
@@ -136,6 +145,8 @@ function AdminDashBoardContent(props) {
             label: 'Amount Option',
         },
     ]
+
+
     return (
         <React.Fragment>
             <div className={`dashboard_dataWrapper ${props.viewManage && 'expand_view'}`}>
@@ -145,6 +156,9 @@ function AdminDashBoardContent(props) {
                         <button className='searchBtn'>
                             <img src={SearchIcon} alt='search_icon'></img>
                         </button>
+                    </div>
+                    <div className='company_name'>
+                        {data?.vendor?.company_name || JSON.parse(sessionStorage.getItem("loginData"))?.vendor?.company_name}
                     </div>
                     <div className='notify_profile_block'>
                         <div className='flex_box'>
@@ -276,9 +290,15 @@ function AdminDashBoardContent(props) {
                                 <BasicInformation />
                             ) : selectedMenu == 'Personal Information' ? (
                                 <PersonalInformation />
-                            ) : selectedMenu == 'Contract' ? (
+                            ) : selectedMenu == "Contract" ? (
                                 <ContractContent />
-                            ) : (
+                            ) : selectedMenu == "Documents" ? (
+                                <Documents />
+                            ) : selectedMenu == "Change Password" ? (
+                                <ChangePassword />
+                            ) : selectedMenu == 'Role and Privileges' ? (
+                                <RolePrivilege/>
+                            ): 
                                 <div className='tabs_data_container'>
                                     <Box sx={{ width: '100%' }}>
                                         <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
@@ -532,7 +552,7 @@ function AdminDashBoardContent(props) {
                                         <DotsIcon />
                                     </button>
                                 </div>
-                            )}
+                            }
                         </div>
                     </div>
                 </div>

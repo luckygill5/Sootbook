@@ -1,16 +1,17 @@
-import React, { useState, useEffect } from 'react'
-import Pen from '../../../../assets/images/pen.svg'
-import { useSelector, useDispatch } from 'react-redux'
-import { Link, useNavigate } from 'react-router-dom'
-import locales from '../../../../Constants/en.json'
-import Tabs from '@mui/material/Tabs'
-import Tab from '@mui/material/Tab'
-import Box from '@mui/material/Box'
-import Contract from './Contract/Contract'
-import Allowances from './Allowances/Allowances'
-import Commissions from './Commissions/Commissions'
-import StatutoryDeductions from './StatutoryDeductions/StatutoryDeductions'
-import Reimbursements from './Reimbursements/Reimbursements'
+import React, {useState,useEffect} from 'react';
+import Pen from "../../../../assets/images/pen.svg";
+import { useSelector, useDispatch } from 'react-redux';
+import { Link, useNavigate } from "react-router-dom";
+import locales from "../../../../Constants/en.json";
+import Tabs from '@mui/material/Tabs';
+import Tab from '@mui/material/Tab';
+import Box from '@mui/material/Box';
+import Contract from './Contract/Contract';
+import Allowances from './Allowances/Allowances';
+import Commissions from './Commissions/Commissions';
+import StatutoryDeductions from './StatutoryDeductions/StatutoryDeductions';
+import Reimbursements from './Reimbursements/Reimbursements';
+import { ReactComponent as DotsIcon } from "../../../../assets/images/bullets.svg";
 import './ContractContent.scss'
 import '../../../common/common.component.scss'
 
@@ -63,46 +64,54 @@ function ContractContent(props) {
         setEditMode(true)
     }
 
+    const handleSubmit = () => {
+        setEditMode(false)
+    }
     return (
         <div className='contractContent_container'>
-            <div className='header_flex'>
-                <h5 className='title'>Contract</h5>
-                <button className='edit_btn' onClick={() => handleEdit()}>
-                    <span className='icon'>
-                        <img src={Pen} alt='edit'></img>
-                    </span>
-                    {locales.edit_title}
-                </button>
-            </div>
-            <div className='body_section'>
-                <Box sx={{ width: '100%' }} className='tabsBlock'>
-                    <Box>
-                        <Tabs value={value} onChange={handleChange} aria-label='basic tabs example'>
-                            {tabsData &&
-                                tabsData.length > 0 &&
-                                tabsData.map((item, index) => {
-                                    return (
-                                        <Tab key={index} label={`${item}`} {...a11yProps(item)} />
-                                    )
-                                })}
-                        </Tabs>
+             {editMode ? null : (<div className='header_flex'>
+                    <h5 className='title'>Contract</h5>
+                    <button className='edit_btn' onClick={() => handleEdit()}>
+                        <span className='icon'>
+                            <img src={Pen} alt="edit"></img>
+                        </span>
+                        {locales.edit_title}
+                    </button>
+                </div>)}
+                <div className='body_section'>
+                    <Box sx={{ width: '100%' }} className="tabsBlock">
+                        <Box className="tabsFlexbox">
+                            <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
+                                {
+                                    tabsData &&
+                                    tabsData.length > 0 &&
+                                    tabsData.map((item,index) => {
+                                        return (
+                                            <Tab key={index} label={`${item}`} {...a11yProps(item)} /> 
+                                        )
+                                    })
+                                }
+                            </Tabs>
+                            <button className='moreBtn'>
+                                <DotsIcon/>
+                            </button>
+                        </Box>
+                        <CustomTabPanel value={value} index={0} className="tabdataBlock">
+                        <Contract mode={editMode} submit={handleSubmit} />
+                        </CustomTabPanel>
+                        <CustomTabPanel value={value} index={1} className="tabdataBlock">
+                          <Allowances mode={editMode} submit={handleSubmit}/>
+                        </CustomTabPanel>
+                        <CustomTabPanel value={value} index={2} className="tabdataBlock">
+                          <Commissions mode={editMode} submit={handleSubmit}/>
+                        </CustomTabPanel>
+                        <CustomTabPanel value={value} index={3} className="tabdataBlock">
+                           <StatutoryDeductions mode={editMode} submit={handleSubmit}/>
+                        </CustomTabPanel>
+                        <CustomTabPanel value={value} index={4} className="tabdataBlock">
+                           <Reimbursements mode={editMode} submit={handleSubmit}/>
+                        </CustomTabPanel>
                     </Box>
-                    <CustomTabPanel value={value} index={0} className='tabdataBlock'>
-                        <Contract mode={editMode} />
-                    </CustomTabPanel>
-                    <CustomTabPanel value={value} index={1} className='tabdataBlock'>
-                        <Allowances mode={editMode} />
-                    </CustomTabPanel>
-                    <CustomTabPanel value={value} index={2} className='tabdataBlock'>
-                        <Commissions mode={editMode} />
-                    </CustomTabPanel>
-                    <CustomTabPanel value={value} index={3} className='tabdataBlock'>
-                        <StatutoryDeductions mode={editMode} />
-                    </CustomTabPanel>
-                    <CustomTabPanel value={value} index={4} className='tabdataBlock'>
-                        <Reimbursements mode={editMode} />
-                    </CustomTabPanel>
-                </Box>
             </div>
         </div>
     )
