@@ -1458,7 +1458,7 @@ $font-monsterat : 'Montserrat';
                             width: 100%;
 
 
-                            .input_box {
+                            .inputField {
                                 margin-bottom: 36px;
                                 @include flexbox();
                                 flex-direction: column;
@@ -1696,7 +1696,8 @@ $font-monsterat : 'Montserrat';
                         margin-top: 0;
                         margin-bottom: 24px;
                     }
-                    .dashBtn{
+
+                    .dashBtn {
                         width: 100%;
                         max-width: 347px;
                         box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25), -1px -7px 7px 0px #FFF;
@@ -1712,28 +1713,31 @@ $font-monsterat : 'Montserrat';
                         font-size: 14px;
                         font-style: normal;
                         font-weight: 600;
-                        line-height: 20px; /* 142.857% */
+                        line-height: 20px;
+                        /* 142.857% */
                         letter-spacing: 0.07px;
                         color: $white;
                         margin: 0 auto;
-                        &:focus:not(:focus-visible){
+
+                        &:focus:not(:focus-visible) {
                             outline: none;
                         }
                     }
                 }
             }
+
             .invalidOtp_container {
                 position: fixed;
                 left: 0;
                 top: 0;
                 padding-top: 72px;
                 box-sizing: border-box;
-            
+
                 * {
                     box-sizing: border-box;
                     font-family: $font-monsterat;
                 }
-            
+
                 z-index: 2;
                 background-color: $white;
                 @include flexbox();
@@ -1742,7 +1746,7 @@ $font-monsterat : 'Montserrat';
                 flex-direction: column;
                 width: 100%;
                 height: 100%;
-            
+
                 .modal {
                     box-shadow: 0px 10px 70px 0px rgba(0, 0, 0, 0.08);
                     background-color: $white;
@@ -1750,16 +1754,19 @@ $font-monsterat : 'Montserrat';
                     border-radius: 12px;
                     max-width: 475px;
                     width: 100%;
-                    .icon_block{
+
+                    .icon_block {
                         width: 80px;
                         height: 80px;
                         margin: 0 auto;
-                        .cross_img{
+
+                        .cross_img {
                             width: 100%;
                             max-width: 100%;
                             height: auto;
                         }
                     }
+
                     .title {
                         margin-top: 24px;
                         margin-bottom: 24px;
@@ -1771,7 +1778,7 @@ $font-monsterat : 'Montserrat';
                         letter-spacing: 0.12px;
                         color: $text;
                     }
-            
+
                     .closeBtn {
                         height: 48px;
                         border-radius: 8px;
@@ -1793,7 +1800,8 @@ $font-monsterat : 'Montserrat';
                         /* 142.857% */
                         letter-spacing: 0.07px;
                         box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25), -1px -7px 7px 0px #FFF;
-                        &:focus:not(:focus-visible){
+
+                        &:focus:not(:focus-visible) {
                             outline: none;
                         }
                     }
@@ -1802,7 +1810,7 @@ $font-monsterat : 'Montserrat';
         }
     }
 
-    
+
 }
 
 
@@ -2065,21 +2073,25 @@ $font-monsterat : 'Montserrat';
                         }
                     }
                 }
-                .success_page_container{
-                    .successmodal{
+
+                .success_page_container {
+                    .successmodal {
                         max-width: initial;
                         width: calc(100% - 30px);
-                        .title{
+
+                        .title {
                             font-size: 20px;
                         }
                     }
-                
+
                 }
-                .invalidOtp_container{
-                    .modal{
+
+                .invalidOtp_container {
+                    .modal {
                         max-width: initial;
                         width: calc(100% - 30px);
-                        .title{
+
+                        .title {
                             font-size: 20px;
                         }
                     }
@@ -2111,7 +2123,7 @@ $font-monsterat : 'Montserrat';
                     .paymentMethodPage_wrapper {
                         .body_container {
                             .form_container {
-                                .input_box {
+                                .inputField {
                                     &.grid_box {
                                         flex-wrap: wrap;
                                         width: 100%;

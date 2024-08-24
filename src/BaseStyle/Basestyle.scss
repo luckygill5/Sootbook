@@ -1,7 +1,5 @@
-
-
 // Flexbox display
-@mixin flexbox{
+@mixin flexbox {
     display: -webkit-box;
     display: -moz-box;
     display: -ms-flexbox;
@@ -10,7 +8,7 @@
 }
 
 // Inline flex display
-@mixin inline-flex{
+@mixin inline-flex {
     display: -webkit-inline-box;
     display: -moz-inline-box;
     display: -webkit-inline-flex;
@@ -19,9 +17,15 @@
 }
 
 
-@mixin container_block{
+$white: #FFF;
+$black: #000;
+$text: #1F2937;
+$buttonColor: #00A9BB;
+
+
+@mixin container_block {
     @media screen and (max-width:1599px) {
-        .container{
+        .container {
             max-width: 1400px;
             margin-left: auto;
             margin-right: auto;
@@ -30,8 +34,9 @@
             box-sizing: border-box;
         }
     }
+
     @media screen and (max-width:1450px) {
-        .container{
+        .container {
             max-width: initial;
             margin-left: auto;
             margin-right: auto;
@@ -40,8 +45,9 @@
             box-sizing: border-box;
         }
     }
+
     @media screen and (max-width:1299px) {
-        .container{
+        .container {
             max-width: initial;
             margin-left: auto;
             margin-right: auto;
@@ -50,8 +56,9 @@
             box-sizing: border-box;
         }
     }
-    @media  screen and (min-width:1600px) {
-        .container{
+
+    @media screen and (min-width:1600px) {
+        .container {
             max-width: 1500px;
             margin-left: auto;
             margin-right: auto;
@@ -60,6 +67,5 @@
             box-sizing: border-box;
         }
     }
-   
-}
 
+}

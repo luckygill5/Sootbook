@@ -13,29 +13,36 @@ import StatutoryDeductions from './StatutoryDeductions/StatutoryDeductions';
 import Reimbursements from './Reimbursements/Reimbursements';
 import { ReactComponent as DotsIcon } from "../../../../assets/images/bullets.svg";
 import './ContractContent.scss'
+import '../../../common/common.component.scss'
 
-function ContractContent(props){
-    const data = useSelector((state) => state);
-    const dispatch = useDispatch();
-    const navigate = useNavigate();
+function ContractContent(props) {
+    const data = useSelector(state => state)
+    const dispatch = useDispatch()
+    const navigate = useNavigate()
     const [editMode, setEditMode] = useState(false)
-    const [value, setValue] = useState(0);
-    const [selectLabel, setSelectLabel] = useState("Bio")
+    const [value, setValue] = useState(0)
+    const [selectLabel, setSelectLabel] = useState('Bio')
 
-    const tabsData = ["Contract", "Allowances", "Commissions", "Statutory deductions", "Reimbursements"]
+    const tabsData = [
+        'Contract',
+        'Allowances',
+        'Commissions',
+        'Statutory deductions',
+        'Reimbursements',
+    ]
 
     const handleChange = (event, newValue) => {
-        setValue(newValue);
-        setSelectLabel(event.target.innerText);
+        setValue(newValue)
+        setSelectLabel(event.target.innerText)
         setEditMode(false)
-    };
+    }
 
     function CustomTabPanel(props) {
-        const { children, value, index, ...other } = props;
+        const { children, value, index, ...other } = props
 
         return (
             <div
-                role="tabpanel"
+                role='tabpanel'
                 hidden={value !== index}
                 id={`simple-tabpanel-${index}`}
                 aria-labelledby={`simple-tab-${index}`}
@@ -43,14 +50,14 @@ function ContractContent(props){
             >
                 {value === index && <Box sx={{ p: 3 }}>{children}</Box>}
             </div>
-        );
+        )
     }
 
     function a11yProps(index) {
         return {
             id: `simple-tab-${index}`,
             'aria-controls': `simple-tabpanel-${index}`,
-        };
+        }
     }
 
     const handleEdit = () => {
@@ -105,7 +112,7 @@ function ContractContent(props){
                            <Reimbursements mode={editMode} submit={handleSubmit}/>
                         </CustomTabPanel>
                     </Box>
-                </div>
+            </div>
         </div>
     )
 }
