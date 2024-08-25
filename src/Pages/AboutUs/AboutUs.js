@@ -312,7 +312,7 @@ function AboutUs() {
                         <p className='description'>
                             "Our philosophy is clear and direct: we believe in building a team of diverse, passionate individuals and nurturing a culture that empowers everyone to do their best work."
                         </p>
-                        <div className='button_container'>
+                        <div className='button-container'>
                             <button className='see_btn'>
                                 See all positions
                             </button>

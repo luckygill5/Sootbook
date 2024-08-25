@@ -268,7 +268,7 @@ $font-monsterat : 'Montserrat';
 
                 }
 
-                .button_container {
+                .button-container {
                     @include flexbox();
                     justify-content: flex-end;
 

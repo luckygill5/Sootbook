@@ -1,20 +1,43 @@
-import React, { useState, useEffect } from 'react'
-import MenuItem from '@mui/material/MenuItem'
-import MuiSelect from '@mui/material/Select'
-import FormControl from '@mui/material/FormControl'
-import locales from '../../../../../Constants/en.json'
-import { ReactComponent as Arrow } from '../../../../../assets/images/chevron-down.svg'
-import { Input, DataList, Select } from '../../../../common'
-import '../ContractContent.scss'
+import React, { useEffect } from 'react';
+import { useFormik } from 'formik';
+import MenuItem from '@mui/material/MenuItem';
+import MuiSelect from '@mui/material/Select';
+import { Input, DataList, Select } from '../../../../common/';
+import { ReactComponent as Arrow } from '../../../../../assets/images/chevron-down.svg';
+import '../ContractContent.scss';
 
 const reimbursementConfig = [
     { label: 'Reimbursements Option', value: 'Non Taxable' },
     { label: 'Amount Option', value: 'Fixed' },
     { label: 'Title', value: 'Title' },
     { label: 'Amount', value: '$1000' },
-]
+];
+
+const reimbursementInitialValues = {
+    reimbursement_option: 'Taxable',
+    amount_option: 'Fixed',
+    title: '',
+    amount: '',
+};
 
 function Reimbursements(props) {
+    const handleFormSubmit = async values => {
+        console.log(values);
+    };
+
+    const { values, handleChange, handleSubmit } = useFormik({
+        initialValues: reimbursementInitialValues,
+        validateOnChange: true,
+        validateOnBlur: false,
+        enableReinitialize: true,
+        onSubmit: (values, action) => {
+            handleFormSubmit(values);
+            action.resetForm();
+        },
+    });
+
+    useEffect(() => {}, []);
+
     return (
         <div className='reimbursements_container'>
             {props.mode ? (
@@ -134,63 +157,58 @@ function Reimbursements(props) {
             </div>
             {props.mode ? (
                 <div className='form_container'>
-                    <form>
+                    <form onSubmit={handleSubmit}>
                         <div className='input_flexbox'>
                             <Select
-                                label={'Reimburdement Option'}
-                                name={'reimburdementOption'}
-                                value={'Startup'}
+                                label={'Reimbursement Option'}
+                                name={'reimbursement_option'}
+                                value={values.reimbursement_option}
                                 options={[
-                                    { id: 'Startup', value: 'Startup' },
-                                    { id: 'Startup', value: 'Startup' },
-                                    { id: 'Startup', value: 'Startup' },
+                                    { id: 'Taxable', value: 'Taxable' },
+                                    { id: 'Non Taxable', value: 'Non Taxable' },
                                 ]}
                                 wrapperClass={'col6'}
-                                onChange={() => {}}
-                                isRequired
+                                onChange={handleChange}
                             />
                             <Select
                                 label={'Amount Option'}
-                                name={'amountOption'}
-                                value={'Startup'}
+                                name={'amount_option'}
+                                value={values.amount_option}
                                 options={[
-                                    { id: 'Startup', value: 'Startup' },
-                                    { id: 'Startup', value: 'Startup' },
-                                    { id: 'Startup', value: 'Startup' },
+                                    { id: 'Fixed', value: 'Fixed' },
+                                    { id: 'Flexible', value: 'Flexible' },
                                 ]}
                                 wrapperClass={'col6'}
-                                onChange={() => {}}
-                                isRequired
+                                onChange={handleChange}
                             />
                         </div>
                         <div className='input_flexbox'>
                             <Input
                                 label={'Title'}
                                 type={'text'}
-                                placeholder={'24-02-2024'}
                                 name={'title'}
                                 id={'title'}
-                                value={'Title'}
+                                value={values.title}
                                 wrapperClass={'col6'}
-                                onChange={() => {}}
-                                isRequired
+                                onChange={handleChange}
                             />
-                            <Select
+                            <Input
                                 label={'Amount'}
-                                name={'Amount'}
-                                value={'Startup'}
-                                options={[
-                                    { id: 'Startup', value: 'Startup' },
-                                    { id: 'Startup', value: 'Startup' },
-                                    { id: 'Startup', value: 'Startup' },
-                                ]}
+                                type={'text'}
+                                name={'amount'}
+                                id={'amount'}
+                                value={values.amount}
                                 wrapperClass={'col6'}
-                                onChange={() => {}}
-                                isRequired
+                                onChange={handleChange}
                             />
                         </div>
                         <div className='button-container'>
-                            <button className='saveBtn' onClick={() => props.submit()}>Save</button>
+                            <button className='cancelBtn' onClick={() => props.setEditMode(false)}>
+                                Cancel
+                            </button>
+                            <button className='saveBtn' type='submit' onClick={handleSubmit}>
+                                Save
+                            </button>
                         </div>
                     </form>
                 </div>
@@ -198,7 +216,7 @@ function Reimbursements(props) {
                 <DataList config={reimbursementConfig} />
             )}
         </div>
-    )
+    );
 }
 
-export default Reimbursements
+export default Reimbursements;

@@ -1,49 +1,99 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import * as Yup from "yup";
 import { useFormik } from "formik";
+import { Input, Select } from "../../../../common";
+import { BLOOD_GROUP_LIST, COUNTRIES_LIST, NATIONALITY_LIST, RELIGION_LIST } from "../../../../../Constants/Contants.common";
 import Avtar from "../../../../../assets/images/avatar-large.png";
-import MenuItem from "@mui/material/MenuItem";
-import Select from "@mui/material/Select";
-import { Input, Select as MySelect } from "../../../../common";
 import "../BasicInformation.scss";
 
-const basicInformationEditFormSchema = Yup.object({
-  full_name: Yup.string().required("Full Name is required."),
-  email: Yup.string()
-    .email("Email must be valid")
-    .required("Email is required."),
-  country: Yup.object().required("Country is required."),
-  university: Yup.object().required("University is required."),
-});
-function BasicInformationEdit({ setReadMode }) {
-  // const { values, handleBlur, handleChange, handleSubmit, errors, touched } =
-  //   useFormik({
-  //     initialValues,
-  //     validationSchema: editFormSchema,
-  //     validateOnChange: true,
-  //     validateOnBlur: false,
-  //     enableReinitialize: true,
-  //     onSubmit: (values, action) => {
-  //       const changedValues = getChangedValues(values, initialValues);
-  //       if (!isEmptyObject(changedValues)) {
-  //         handleFormSubmit(changedValues);
-  //         action.resetForm();
-  //       }
-  //     },
-  //   });
 
-  // useEffect(() => {
-  //   const countryCodeOptions = getCountryCode(countries);
-  //   setCountryCodes(countryCodeOptions);
-  //   axiosClient.get("/universities").then((res) => {
-  //     setUniversities(res.data);
-  //   });
-  // }, []);
+const basicInformationEditFormSchema = Yup.object({
+  first_name: Yup.string().required("Full Name is required."),
+  last_name: Yup.string().required("Last Name is required."),
+  phone: Yup.string().required("Contact Number is required."),
+  empId: Yup.string().required("Employee Id is required."),
+  dob: Yup.string().required("Date of Birth is required.")
+});
+
+const basicInformationInitialValues = {
+  first_name: "",
+  last_name: "",
+  phone: "",
+  gender: "male",
+  empId: "",
+  dob: "",
+  martial_status: "Single",
+  state: "",
+  city: "",
+  postal: "",
+  religion: "Hinduism",
+  bloodGroup: "A+",
+  nationality: "Indian",
+  citizenship: "India",
+  address_1: "",
+  address_2: ""
+};
+
+
+function BasicInformationEdit({ setReadMode }) {
+
+  const handleFormSubmit = async (values) => {
+    console.log(values)
+    // try{
+    //     let response = await axiosClient.patch(`/profiles/${profileData.profileid}`, JSON.stringify(editformDataPreparer(values, profileData.profileid, userid)));
+    //     if (response.status === 204 ) {
+    //         swal("Success", "Profile updated successfully", "success", {
+    //             buttons: false,
+    //             timer: 2000,
+    //         })
+    //         .then(() => {
+    //             if(values.country) {
+    //                 let country = countries.find(item => item.id === values.country);
+    //                 dispatch(updateCountryInfo({country}));
+    //             }
+    //             if(values.state) {
+    //                 let state = states.find(item => item.id === values.state);
+    //                 dispatch(updateStateInfo({state}));
+    //             }
+    //             if(values.universityid) {
+    //                 let university = universities.find(item => item.id === values.universityid);
+    //                 dispatch(updateUniversityInfo({university}));
+    //             }
+    //             dispatch(updateProfileInfo({profileData: values}))
+    //             navigate('/profile');
+    //         });
+    //     }
+    // }
+    // catch(error) {
+    //     showPopupError(error, 'Oops!')
+    // }
+  }
+
+  const { values, handleBlur, handleChange, handleSubmit, errors, touched } =
+    useFormik({
+      initialValues: basicInformationInitialValues,
+      validationSchema: basicInformationEditFormSchema,
+      validateOnChange: true,
+      validateOnBlur: false,
+      enableReinitialize: true,
+      onSubmit: (values, action) => {
+        handleFormSubmit(values);
+        action.resetForm();
+      },
+    });
+
+  useEffect(() => {
+    // const countryCodeOptions = getCountryCode(countries);
+    // setCountryCodes(countryCodeOptions);
+    // axiosClient.get("/universities").then((res) => {
+    //   setUniversities(res.data);
+    // });
+  }, []);
 
   return (
     <React.Fragment>
       <div className="form_container">
-        <form>
+        <form onSubmit={handleSubmit}>
           <div className="profile_uplodSection">
             <label>Profile Picture</label>
             <div className="flexbox">
@@ -61,22 +111,30 @@ function BasicInformationEdit({ setReadMode }) {
               type={"text"}
               name={"first_name"}
               id={"first_name"}
-              placeholder={"Alex"}
               wrapperClass={"col6"}
-              onChange={() => { }}
+              value={values.first_name}
+              onChange={handleChange}
+              onBlur={handleBlur}
+              isRequired
+              error={errors.first_name}
+              touched={touched.first_name}
             />
             <Input
               label={"Last Name"}
               type={"text"}
               name={"last_name"}
               id={"last_name"}
-              placeholder={"Black"}
               wrapperClass={"col6"}
-              onChange={() => { }}
+              value={values.last_name}
+              onChange={handleChange}
+              onBlur={handleBlur}
+              isRequired
+              error={errors.last_name}
+              touched={touched.last_name}
             />
           </div>
           <div className="input_flexbox">
-            <div className="inputField">
+            {/* <div className="inputField">
               <label>Contact Number</label>
               <div className="countrySelectobox">
                 <Select
@@ -98,57 +156,84 @@ function BasicInformationEdit({ setReadMode }) {
                   placeholder="+1 (000) 000-0000"
                 ></input>
               </div>
-            </div>
+            </div> */}
             <Input
-              label={"Gender"}
+              label={"Contact Number"}
               type={"text"}
-              name={"gender"}
-              id={"gender"}
-              placeholder={"Male"}
+              name={"phone"}
+              id={"phone"}
+              placeholder={"(+91) 00000-00000"}
               wrapperClass={"col6"}
-              onChange={() => { }}
+              value={values.phone}
+              onChange={handleChange}
+              onBlur={handleBlur}
+              isRequired
+              error={errors.phone}
+              touched={touched.phone}
+            />
+            <Select
+              label={"Gender"}
+              name={"gender"}
+              options={[
+                { id: "male", value: "Male" },
+                { id: "female", value: "Female" },
+                { id: "other", value: "Other" },
+              ]}
+              wrapperClass={"col6"}
+              value={values.gender}
+              onChange={handleChange}
             />
           </div>
           <div className="input_flexbox">
             <Input
               label={"Employee ID"}
               type={"text"}
-              name={"employeeID"}
-              id={"employeeID"}
-              placeholder={"306776"}
+              name={"empId"}
+              id={"empId"}
               wrapperClass={"col6"}
-              onChange={() => { }}
+              value={values.empId}
+              onChange={handleChange}
+              onBlur={handleBlur}
+              isRequired
+              error={errors.empId}
+              touched={touched.empId}
             />
             <Input
               label={"Date of Birth"}
               type={"text"}
               name={"dob"}
               id={"dob"}
-              placeholder={"Date of Birth"}
+              placeholder={"MM/DD/YYYY"}
               wrapperClass={"col6"}
-              onChange={() => { }}
+              value={values.dob}
+              onChange={handleChange}
+              onBlur={handleBlur}
+              isRequired
+              error={errors.dob}
+              touched={touched.dob}
             />
           </div>
           <div className="input_flexbox">
-            <MySelect
+            <Select
               label={"Marital Status"}
-              name={"maritalStatus"}
-              value={"Hindu"}
+              name={"martial_status"}
               options={[
                 { id: "Single", value: "Single" },
                 { id: "Married", value: "Married" },
               ]}
               wrapperClass={"col6"}
-              onChange={() => { }}
+              value={values.martial_status}
+              onChange={handleChange}
             />
             <Input
               label={"State / Province"}
               type={"text"}
               name={"state"}
               id={"state"}
-              placeholder={"State / Province"}
               wrapperClass={"col6"}
-              onChange={() => { }}
+              value={values.state}
+              onChange={handleChange}
+              onBlur={handleBlur}
             />
           </div>
           <div className="input_flexbox">
@@ -157,96 +242,88 @@ function BasicInformationEdit({ setReadMode }) {
               type={"text"}
               name={"city"}
               id={"city"}
-              placeholder={"City"}
               wrapperClass={"col6"}
-              onChange={() => { }}
+              value={values.city}
+              onChange={handleChange}
+              onBlur={handleBlur}
             />
             <Input
               label={"Zip Code / Postal Code"}
               type={"text"}
-              name={"zipCode"}
-              id={"zipCode"}
-              placeholder={"Zip Code / Postal Code"}
+              name={"postal"}
+              id={"postal"}
               wrapperClass={"col6"}
-              onChange={() => { }}
+              value={values.postal}
+              onChange={handleChange}
+              onBlur={handleBlur}
             />
           </div>
           <div className="input_flexbox">
-            <MySelect
+            <Select
               label={"Religion"}
               name={"religion"}
-              value={"Hindu"}
-              options={[
-                { id: "Hindu", value: "Hindu" },
-                { id: "Muslim", value: "Muslim" },
-              ]}
+              options={RELIGION_LIST}
               wrapperClass={"col6"}
-              onChange={() => { }}
+              value={values.religion}
+              onChange={handleChange}
             />
-            <MySelect
+            <Select
               label={"Blood Group"}
               name={"bloodGroup"}
-              value={"Indian"}
-              options={[
-                { id: "b+", value: "b+" },
-                { id: "AB+", value: "AB+" },
-              ]}
+              options={BLOOD_GROUP_LIST}
               wrapperClass={"col6"}
-              onChange={() => { }}
+              value={values.bloodGroup}
+              onChange={handleChange}
             />
           </div>
           <div className="input_flexbox">
-            <MySelect
+            <Select
               label={"Nationality"}
               name={"nationality"}
-              value={"Indian"}
-              options={[
-                { id: "Indian", value: "Indian" },
-                { id: "Arab", value: "Arab" },
-                { id: "American", value: "American" },
-              ]}
+              options={NATIONALITY_LIST}
               wrapperClass={"col6"}
-              onChange={() => { }}
+              value={values.nationality}
+              onChange={handleChange}
+              onBlur={handleBlur}
             />
-            <MySelect
+            <Select
               label={"Citizenship"}
               name={"citizenship"}
-              value={"Indian"}
-              options={[
-                { id: "Indian", value: "Indian" },
-                { id: "Arab", value: "Arab" },
-                { id: "American", value: "American" },
-              ]}
+              options={COUNTRIES_LIST}
               wrapperClass={"col6"}
-              onChange={() => { }}
+              value={values.citizenship}
+              onChange={handleChange}
+              onBlur={handleBlur}
             />
           </div>
           <div className="input_flexbox">
             <Input
               label={"Address Line 1"}
               type={"text"}
-              name={"addressLine1"}
-              id={"addressLine1"}
-              placeholder={"Address Line 1"}
+              name={"address_1"}
+              id={"address_1"}
               wrapperClass={"col6"}
-              onChange={() => { }}
+              value={values.address_1}
+              onChange={handleChange}
+              onBlur={handleBlur}
             />
             <Input
               label={"Address Line 2"}
               type={"text"}
-              name={"addressLine2"}
-              id={"addressLine2"}
-              placeholder={"Address Line 2"}
+              name={"address_2"}
+              id={"address_2"}
               wrapperClass={"col6"}
-              onChange={() => { }}
+              value={values.address_2}
+              onChange={handleChange}
+              onBlur={handleBlur}
             />
           </div>
 
-          <div className="button_container">
+          <div className="button-container">
             <button className="cancelBtn" onClick={() => setReadMode(true)}>
               Cancel
             </button>
-            <button className="savebtn">Save</button>
+            <button className="savebtn" type="submit" onClick={handleSubmit}>Save</button>
           </div>
         </form>
       </div>

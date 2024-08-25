@@ -437,7 +437,7 @@ $font-monsterat : 'Montserrat';
             margin-right: auto
         }
 
-        .button_container {
+        .button-container {
             @include flexbox();
             justify-content: center;
             text-align: center;

@@ -59,19 +59,11 @@ function ContractContent(props) {
             'aria-controls': `simple-tabpanel-${index}`,
         }
     }
-
-    const handleEdit = () => {
-        setEditMode(true)
-    }
-
-    const handleSubmit = () => {
-        setEditMode(false)
-    }
     return (
         <div className='contractContent_container'>
              {editMode ? null : (<div className='header_flex'>
                     <h5 className='title'>Contract</h5>
-                    <button className='edit_btn' onClick={() => handleEdit()}>
+                    <button className='edit_btn' onClick={() => setEditMode(true)}>
                         <span className='icon'>
                             <img src={Pen} alt="edit"></img>
                         </span>
@@ -97,19 +89,19 @@ function ContractContent(props) {
                             </button>
                         </Box>
                         <CustomTabPanel value={value} index={0} className="tabdataBlock">
-                        <Contract mode={editMode} submit={handleSubmit} />
+                        <Contract mode={editMode} setEditMode={setEditMode} />
                         </CustomTabPanel>
                         <CustomTabPanel value={value} index={1} className="tabdataBlock">
-                          <Allowances mode={editMode} submit={handleSubmit}/>
+                          <Allowances mode={editMode} setEditMode={setEditMode} />
                         </CustomTabPanel>
                         <CustomTabPanel value={value} index={2} className="tabdataBlock">
-                          <Commissions mode={editMode} submit={handleSubmit}/>
+                          <Commissions mode={editMode} setEditMode={setEditMode} />
                         </CustomTabPanel>
                         <CustomTabPanel value={value} index={3} className="tabdataBlock">
-                           <StatutoryDeductions mode={editMode} submit={handleSubmit}/>
+                           <StatutoryDeductions mode={editMode} setEditMode={setEditMode} />
                         </CustomTabPanel>
                         <CustomTabPanel value={value} index={4} className="tabdataBlock">
-                           <Reimbursements mode={editMode} submit={handleSubmit}/>
+                           <Reimbursements mode={editMode} setEditMode={setEditMode} />
                         </CustomTabPanel>
                     </Box>
             </div>

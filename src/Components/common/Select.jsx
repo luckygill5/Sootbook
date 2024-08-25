@@ -14,12 +14,14 @@ export function Select({
     error,
 }) {
     const selectOptions = options && options.map((item, i) => {
+        if(typeof item === 'string')
+          return(<MenuItem name={item + "" + i} value={item}>{item}</MenuItem>);
         return (
             <MenuItem name={item.id + "" + i} value={item.id}>
                 {item.value}
             </MenuItem>
         );
-    });
+    }) || [];
     return (
         <div className={`inputField ${wrapperClass}`}>
             <label>
@@ -33,7 +35,8 @@ export function Select({
                 value={value}
                 label={label}
                 isRequired={true}
-                onChange={onChange}
+                name={name}
+                onChange={(props)=>{debugger;onChange(props)}}
             >
                 {selectOptions}
             </MuiSelect>

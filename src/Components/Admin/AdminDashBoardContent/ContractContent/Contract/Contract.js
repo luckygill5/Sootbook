@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from 'react'
-import MenuItem from '@mui/material/MenuItem'
-import FormControl from '@mui/material/FormControl'
-import { Input, DataList, Select, TextArea } from '../../../../common/'
-import '../ContractContent.scss'
-import '../../../../common/common.component.scss'
+import React, { useState, useEffect } from 'react';
+import { useFormik } from 'formik';
+import { Input, DataList, Select, TextArea } from '../../../../common/';
+import { DEPARTMENTS_LIST } from '../../../../../Constants/Contants.common';
+import '../ContractContent.scss';
+import '../../../../common/common.component.scss';
 
 const contractConfig = [
     { label: 'Contract date', value: '24/02/2024' },
@@ -15,123 +15,197 @@ const contractConfig = [
     { label: 'Contract End', value: 'Date Of Leaving' },
     { label: 'Categories', value: 'Badge', valueClass: 'badge green' },
     { label: 'Role Description', value: 'Description' },
-]
+];
+
+const contractInitialValues = {
+    contract_start: '',
+    contract_end: '',
+    department: '',
+    designation: '',
+    basic_salary: '',
+    hourly_rate: '',
+    payslip_type: 'week',
+    office_shift: 'Morning',
+    leave_category: '',
+    role_description: '',
+};
 
 //selectBox
 function Contract(props) {
+    const handleFormSubmit = async values => {
+        console.log(values);
+        // try{
+        //     let response = await axiosClient.patch(`/profiles/${profileData.profileid}`, JSON.stringify(editformDataPreparer(values, profileData.profileid, userid)));
+        //     if (response.status === 204 ) {
+        //         swal("Success", "Profile updated successfully", "success", {
+        //             buttons: false,
+        //             timer: 2000,
+        //         })
+        //         .then(() => {
+        //             if(values.country) {
+        //                 let country = countries.find(item => item.id === values.country);
+        //                 dispatch(updateCountryInfo({country}));
+        //             }
+        //             if(values.state) {
+        //                 let state = states.find(item => item.id === values.state);
+        //                 dispatch(updateStateInfo({state}));
+        //             }
+        //             if(values.universityid) {
+        //                 let university = universities.find(item => item.id === values.universityid);
+        //                 dispatch(updateUniversityInfo({university}));
+        //             }
+        //             dispatch(updateProfileInfo({profileData: values}))
+        //             navigate('/profile');
+        //         });
+        //     }
+        // }
+        // catch(error) {
+        //     showPopupError(error, 'Oops!')
+        // }
+    };
+
+    const { values, handleChange, handleSubmit } = useFormik({
+        initialValues: contractInitialValues,
+        validateOnChange: true,
+        validateOnBlur: false,
+        enableReinitialize: true,
+        onSubmit: (values, action) => {
+            handleFormSubmit(values);
+            action.resetForm();
+        },
+    });
+
+    useEffect(() => {
+        // const countryCodeOptions = getCountryCode(countries);
+        // setCountryCodes(countryCodeOptions);
+        // axiosClient.get("/universities").then((res) => {
+        //   setUniversities(res.data);
+        // });
+    }, []);
+
     return (
         <div className='contract_container'>
             {props.mode ? (
                 <div className='form_container'>
-                    <form>
+                    <form onSubmit={handleSubmit}>
                         <div className='input_flexbox'>
                             <Input
                                 label={'Contract Date'}
                                 type={'text'}
                                 placeholder={'24-02-2024'}
-                                name={'first_name'}
-                                id={'first_name'}
-                                value={'Alex'}
+                                name={'contract_start'}
+                                id={'contract_start'}
+                                value={values.contract_start}
                                 wrapperClass={'col6'}
-                                onChange={() => {}}
-                                isRequired
+                                onChange={handleChange}
                             />
                         </div>
                         <div className='input_flexbox'>
                             <Select
                                 label={'Department'}
                                 name={'department'}
-                                value={'Startup'}
-                                options={[
-                                    { id: 'Startup', value: 'Startup' },
-                                    { id: 'Startup', value: 'Startup' },
-                                    { id: 'Startup', value: 'Startup' },
-                                ]}
+                                value={values.department}
+                                options={DEPARTMENTS_LIST}
                                 wrapperClass={'col6'}
-                                onChange={() => {}}
-                                isRequired
+                                onChange={handleChange}
                             />
-                            <Select
+                            <Input
                                 label={'Designation'}
+                                type={'text'}
                                 name={'designation'}
-                                value={'Startup'}
-                                options={[
-                                    { id: 'Startup', value: 'Startup' },
-                                    { id: 'Startup', value: 'Startup' },
-                                    { id: 'Startup', value: 'Startup' },
-                                ]}
+                                id={'designation'}
+                                value={values.designation}
                                 wrapperClass={'col6'}
-                                onChange={() => {}}
-                                isRequired
+                                onChange={handleChange}
                             />
                         </div>
                         <div className='input_flexbox'>
-                            <Select
+                            <Input
                                 label={'Basic Salary'}
-                                name={'basicSalary'}
-                                value={'Startup'}
-                                options={[
-                                    { id: 'Startup', value: 'Startup' },
-                                    { id: 'Startup', value: 'Startup' },
-                                    { id: 'Startup', value: 'Startup' },
-                                ]}
-                                wrapperClass={'col4'}
-                                onChange={() => {}}
-                                isRequired
+                                type={'text'}
+                                name={'basic_salary'}
+                                id={'basic_salary'}
+                                value={values.basic_salary}
+                                wrapperClass={'col6'}
+                                onChange={handleChange}
                             />
-                            <Select
+                            <Input
                                 label={'Hourly Rate'}
-                                name={'hourlyRate'}
-                                value={'Startup'}
-                                options={[
-                                    { id: 'Startup', value: 'Startup' },
-                                    { id: 'Startup', value: 'Startup' },
-                                    { id: 'Startup', value: 'Startup' },
-                                ]}
-                                wrapperClass={'col4'}
-                                onChange={() => {}}
-                                isRequired
+                                type={'text'}
+                                name={'hourly_rate'}
+                                id={'hourly_rate'}
+                                value={values.hourly_rate}
+                                wrapperClass={'col6'}
+                                onChange={handleChange}
                             />
                             <Select
                                 label={'Payslip Type'}
                                 name={'payslipType'}
-                                value={'Startup'}
+                                value={values.payslip_type}
                                 options={[
-                                    { id: 'Startup', value: 'Startup' },
-                                    { id: 'Startup', value: 'Startup' },
-                                    { id: 'Startup', value: 'Startup' },
+                                    { id: 'week', value: 'Per Week' },
+                                    { id: 'month', value: 'Per Month' },
                                 ]}
                                 wrapperClass={'col4'}
-                                onChange={() => {}}
-                                isRequired
+                                onChange={handleChange}
                             />
                         </div>
                         <div className='input_flexbox'>
-                        <div className='inputField col12'>
-                            <label>Leave Categories</label>
-                            <input
-                                type='text'
-                                placeholder='24-02-2024'
-                                className='input_element'
-                            ></input>
-                            <span className='info'>
-                                If All is selected, then all leave categories will show to employee
-                                which are added in the system.
-                            </span>
+                            <Select
+                                label={'Office Shift'}
+                                name={'office_shift'}
+                                value={values.office_shift}
+                                options={[
+                                    { id: 'Morning', value: 'Morning' },
+                                    { id: 'Afternoon', value: 'Afternoon' },
+                                    { id: 'Evening', value: 'Evening' },
+                                ]}
+                                wrapperClass={'col6'}
+                                onChange={handleChange}
+                            />
+                            <Input
+                                label={'Contract End'}
+                                type={'text'}
+                                name={'contract_end'}
+                                id={'contract_end'}
+                                value={values.contract_end}
+                                wrapperClass={'col6'}
+                                onChange={handleChange}
+                            />
                         </div>
+                        <div className='input_flexbox'>
+                            <div className='inputField col12'>
+                                <label>Leave Categories</label>
+                                <input
+                                    type='text'
+                                    placeholder='24-02-2024'
+                                    className='input_element'
+                                    value={values.leave_category}
+                                    onChange={handleChange}
+                                ></input>
+                                <span className='info'>
+                                    If All is selected, then all leave categories will show to
+                                    employee which are added in the system.
+                                </span>
+                            </div>
                         </div>
                         <div className='input_flexbox'>
                             <TextArea
                                 label={'Role Description'}
                                 name={'description'}
-                                value={'description'}
+                                value={values.role_description}
                                 wrapperClass={'col12'}
-                                onChange={() => {}}
+                                onChange={handleChange}
                                 placeholder='Enter role description here..'
                             />
                         </div>
                         <div className='button-container'>
-                            <button className='saveBtn'>Save</button>
+                            <button className='cancelBtn' onClick={() => props.setEditMode(false)}>
+                                Cancel
+                            </button>
+                            <button className='saveBtn' type='submit' onClick={handleSubmit}>
+                                Save
+                            </button>
                         </div>
                     </form>
                 </div>
@@ -139,7 +213,7 @@ function Contract(props) {
                 <DataList config={contractConfig} />
             )}
         </div>
-    )
+    );
 }
 
-export default Contract
+export default Contract;

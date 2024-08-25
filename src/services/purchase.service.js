@@ -1,9 +1,8 @@
-import * as constants from "../Constants/constant";
+import {apiUrl, port} from "./constants.servics";
 import axios from "axios";
 
 
 export const Purchase = (data) => {
-    const { apiUrl, port } = constants;
     const {userId, amount} = data;
     const PurchaseUrl = `${apiUrl}:${port}/api/admin/vendor/purchase`
     return axios(PurchaseUrl, {

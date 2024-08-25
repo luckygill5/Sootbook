@@ -1,11 +1,10 @@
-import React, { useState, useEffect } from 'react'
-import MenuItem from '@mui/material/MenuItem'
-import MuiSelect from '@mui/material/Select'
-import FormControl from '@mui/material/FormControl'
-import locales from '../../../../../Constants/en.json'
-import { ReactComponent as Arrow } from '../../../../../assets/images/chevron-down.svg'
-import { Input, DataList, Select } from '../../../../common'
-import '../ContractContent.scss'
+import React, { useEffect } from 'react';
+import { useFormik } from 'formik';
+import MenuItem from '@mui/material/MenuItem';
+import MuiSelect from '@mui/material/Select';
+import { Input, DataList, Select } from '../../../../common/';
+import { ReactComponent as Arrow } from '../../../../../assets/images/chevron-down.svg';
+import '../ContractContent.scss';
 
 const statutoryDeductionsConfig = [
     { label: 'Deduction Option', value: 'Non Taxable' },
@@ -13,7 +12,30 @@ const statutoryDeductionsConfig = [
     { label: 'Amount', value: '$1000' },
 ]
 
+const deductionInitialValues = {
+    deduction_option: 'Taxable',
+    title: '',
+    amount: '',
+};
+
 function StatutoryDeductions(props) {
+    const handleFormSubmit = async values => {
+        console.log(values);
+    };
+
+    const { values, handleChange, handleSubmit } = useFormik({
+        initialValues: deductionInitialValues,
+        validateOnChange: true,
+        validateOnBlur: false,
+        enableReinitialize: true,
+        onSubmit: (values, action) => {
+            handleFormSubmit(values);
+            action.resetForm();
+        },
+    });
+
+    useEffect(() => {}, []);
+
     return (
         <div className='satutoryDeductions_container'>
             {props.mode ? (
@@ -122,48 +144,45 @@ function StatutoryDeductions(props) {
             </div>
             {props.mode ? (
                 <div className='form_container'>
-                    <form>
+                    <form onSubmit={handleSubmit}>
                         <div className='input_flexbox'>
                             <Select
                                 label={'Deduction Option'}
-                                name={'DeductionOption'}
-                                value={'Startup'}
+                                name={'deduction_option'}
+                                value={values.deduction_option}
                                 options={[
-                                    { id: 'Startup', value: 'Startup' },
-                                    { id: 'Startup', value: 'Startup' },
-                                    { id: 'Startup', value: 'Startup' },
+                                    { id: 'Taxable', value: 'Taxable' },
+                                    { id: 'Non Taxable', value: 'Non Taxable' },
                                 ]}
                                 wrapperClass={'col6'}
-                                onChange={() => {}}
-                                isRequired
+                                onChange={handleChange}
                             />
                             <Input
                                 label={'Title'}
                                 type={'text'}
-                                placeholder={'24-02-2024'}
                                 name={'title'}
                                 id={'title'}
-                                value={'Title'}
+                                value={values.title}
                                 wrapperClass={'col6'}
-                                onChange={() => {}}
-                                isRequired
+                                onChange={handleChange}
                             />
-                            <Select
+                            <Input
                                 label={'Amount'}
-                                name={'Amount'}
-                                value={'Startup'}
-                                options={[
-                                    { id: 'Startup', value: 'Startup' },
-                                    { id: 'Startup', value: 'Startup' },
-                                    { id: 'Startup', value: 'Startup' },
-                                ]}
+                                type={'text'}
+                                name={'amount'}
+                                id={'amount'}
+                                value={values.amount}
                                 wrapperClass={'col6'}
-                                onChange={() => {}}
-                                isRequired
+                                onChange={handleChange}
                             />
                         </div>
                         <div className='button-container'>
-                            <button className='saveBtn' onClick={() => props.submit()}>Save</button>
+                            <button className='cancelBtn' onClick={() => props.setEditMode(false)}>
+                                Cancel
+                            </button>
+                            <button className='saveBtn' type='submit' onClick={handleSubmit}>
+                                Save
+                            </button>
                         </div>
                     </form>
                 </div>
