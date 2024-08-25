@@ -98,7 +98,7 @@ function BasicInformationEdit({ setReadMode }) {
   const [files, setFiles] = useState([])
 
 
-console.log("files", files)
+
   
   return (
     <React.Fragment>

@@ -7,14 +7,24 @@ import Toggle from '../../../../assets/images/eye-off.svg';
 import Alert from '../../../../assets/images/alert-triangle.svg';
 import { DataList, Input } from '../../../common';
 import './ChangePassword.scss';
+import { current } from '@reduxjs/toolkit';
 
 function ChangePassword(props) {
     const passwordRef = useRef(null);
     const newPass = useRef(null);
     const RepeatNewPass = useRef(null);
     const [editMode, setEditMode] = useState(false);
+    const [formdata, setFormdata] = useState({
+        currentpassword:"",
+        newpassword:'',
+        repeatpassword:''
+    })
+    const [finalPassword, setFinalPassword] = useState("")
 
-    const handleSubmit = () => {
+    const handleSubmit = (event) => {
+        if(formdata.newpassword == formdata.repeatpassword){
+            setFinalPassword(formdata.repeatpassword)
+        }
         setEditMode(false);
     };
 
@@ -48,6 +58,15 @@ function ChangePassword(props) {
 
     const CPData = [{ label: 'Password', value: '• • • • • • • • • •' }];
 
+
+    const handleChange = (e) => {
+        const {name, value} = e.target;
+        setFormdata((prevState) => ({
+            ...prevState,
+            [name] :  value
+        }))
+    }
+
     return (
         <div className='changepassword_container'>
             {editMode ? null : (
@@ -63,7 +82,7 @@ function ChangePassword(props) {
             )}
             {editMode ? (
                 <div className='form_container'>
-                    <form>
+                    <form onSubmit={handleSubmit}>
                         <div className='alert_msg'>
                             <div className='flexbox'>
                                 <div className='icon'>
@@ -82,7 +101,7 @@ function ChangePassword(props) {
                             <div className='inputBox'>
                                 <label>Current Password</label>
                                 <div className='flexbox'>
-                                    <input type='password' className='input_password'></input>
+                                    <input type='password' className='input_password' name="currentpassword" value={formdata.currentpassword} onChange={handleChange}></input>
                                     <span
                                         className='toggleBtn'
                                         ref={passwordRef}
@@ -97,7 +116,7 @@ function ChangePassword(props) {
                             <div className='inputBox'>
                                 <label>New Password</label>
                                 <div className='flexbox'>
-                                    <input type='password' className='input_password'></input>
+                                    <input type='password' className='input_password' name="newpassword" value={formdata.newpassword} onChange={handleChange}></input>
                                     <span
                                         className='toggleBtn'
                                         ref={newPass}
@@ -110,7 +129,7 @@ function ChangePassword(props) {
                             <div className='inputBox'>
                                 <label>Repeat New Password</label>
                                 <div className='flexbox'>
-                                    <input type='password' className='input_password'></input>
+                                    <input type='password' className='input_password' name="repeatpassword" value={formdata.repeatpassword} onChange={handleChange}></input>
                                     <span
                                         className='toggleBtn'
                                         ref={RepeatNewPass}
@@ -122,7 +141,7 @@ function ChangePassword(props) {
                             </div>
                         </div>
                         <div className='button-container'>
-                            <button className='saveBtn' onClick={() => handleSubmit()}>
+                            <button className='saveBtn' type='submit' onClick={handleSubmit}>
                                 Save
                             </button>
                         </div>
