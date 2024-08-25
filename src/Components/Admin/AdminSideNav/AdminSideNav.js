@@ -1,9 +1,10 @@
 import React, { useState } from 'react'
 import Zoomview from '../../../assets/images/zoomview.svg'
 import ExpandView from '../../../assets/images/expand_view.svg'
-import { ReactComponent as Dashboard } from '../../../assets/images/home.svg'
-import { ReactComponent as Admin } from '../../../assets/images/admin.svg'
-import { ReactComponent as HRMICON } from '../../../assets/images/hrm.svg'
+import { ReactComponent as Dashboard } from '../../../assets/images/home.svg';
+import { ReactComponent as Admin } from '../../../assets/images/admin.svg';
+import { ReactComponent as UserCog } from '../../../assets/images/user-cogNew.svg';
+import { ReactComponent as HRMICON } from '../../../assets/images/hrm.svg';
 import { ReactComponent as MedicineIcon } from '../../../assets/images/medicines_green.svg'
 import { ReactComponent as CRMIcon } from '../../../assets/images/crm_green.svg'
 import { ReactComponent as CMSIcon } from '../../../assets/images/cms_green.svg'
@@ -24,23 +25,40 @@ function AdminSideNav(props) {
     const data = useSelector(state => state)
     const dispatch = useDispatch()
     const navigate = useNavigate()
-    const [menuState, setMenuState] = useState([])
+    const [menuState, setMenuState] = useState([]);
+    const [menuSelected, setMenuSelected] = useState('');
+    const [subMenuOption, setSubMenuOption] = useState(false);
 
-    function handleMenuItem(event) {
-        if (event && menuState && menuState.length > 0) {
+    function handleMenuItem(event, name, subMenu = false) {
+        if(subMenu == true){
+            setMenuState([event]);
+            setMenuSelected(name)
+            setSubMenuOption(true);
+            props.SelecteMenuOption(name)
+        }else{if (event && menuState && menuState.length > 0) {
             if (
                 menuState &&
                 menuState.length > 0 &&
                 sidebarMenu[event]?.childItem?.subMenu?.length > 0
             ) {
                 setMenuState([])
-                setMenuState([event])
+                setMenuState([event]);
+                setMenuSelected(name);
+                setSubMenuOption(false);
+                props.SelecteMenuOption(name)
             } else if (event) {
-                setMenuState([event])
+                setMenuState([event]);
+                setMenuSelected(name);
+                setSubMenuOption(false);
+                props.SelecteMenuOption(name)
             }
         } else {
-            setMenuState([event])
-        }
+            setMenuState([event]);
+            setMenuSelected(name);
+            setSubMenuOption(false);
+            props.SelecteMenuOption(name)
+        }}
+        
     }
 
     const handleLogout = () => {
@@ -63,11 +81,11 @@ function AdminSideNav(props) {
         },
         {
             item: 'HRM',
-            icon: <Admin />,
+            icon: <UserCog />,
             childItem: {
                 subMenu: [
                     {
-                        item: 'Link',
+                        item: 'User',
                     },
                     {
                         item: 'Employee',
@@ -120,6 +138,7 @@ function AdminSideNav(props) {
         }
     }
 
+
     return (
         <div className='navMenu_containerWrapper'>
             <div className='navMenu_container'>
@@ -156,8 +175,11 @@ function AdminSideNav(props) {
                                     return (
                                         <li key={index}>
                                             <button
-                                                className={`menu_link ${index == menuState && menuState.length > 0 && 'active'}`}
-                                                onClick={() => handleMenuItem(index)}
+                                                className={`menu_link 
+                                                    
+                                                             ${item.item == menuSelected && 'active'}
+                                                    `}
+                                                onClick={() => handleMenuItem(index, item.item)}
                                             >
                                                 <Tooltip
                                                     className='tooltip'
@@ -177,7 +199,9 @@ function AdminSideNav(props) {
                                                     </span>
                                                 )}
                                             </button>
-                                            {index == menuState &&
+                                            {
+                                                (item.item == menuSelected || subMenuOption) &&
+                                            // index == menuState && 
                                                 item?.childItem?.subMenu &&
                                                 item?.childItem?.subMenu.length > 0 && (
                                                     <ul className='subMenu'>
@@ -185,7 +209,7 @@ function AdminSideNav(props) {
                                                             (item, index) => {
                                                                 return (
                                                                     <li>
-                                                                        <button className='menu_link'>
+                                                                        <button className={`menu_link ${item.item == menuSelected ? 'active' : ""}`}  onClick={() => handleMenuItem(index, item.item, true)}>
                                                                             {item.item}
                                                                         </button>
                                                                     </li>

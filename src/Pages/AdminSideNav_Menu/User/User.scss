@@ -1,0 +1,265 @@
+@import "../../../BaseStyle/Basestyle.scss";
+
+$white: #FFF;
+$black: #000;
+$text: #1F2937;
+$buttonColor: #00A9BB;
+
+$font-monsterat : 'Montserrat';
+
+
+.user_container {
+    box-sizing: border-box;
+
+    * {
+        box-sizing: border-box;
+        font-family: $font-monsterat;
+    }
+
+    .userRoles_container {
+        .header_flexbox {
+            @include flexbox();
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 20px;
+
+            .title {
+                margin: 0;
+                font-size: 24px;
+                font-style: normal;
+                font-weight: 500;
+                line-height: 32px;
+                /* 133.333% */
+                letter-spacing: 0.12px;
+                color: $text;
+            }
+
+            .addroleBtn {
+                border-radius: 8px;
+                border: none;
+                cursor: pointer;
+                background-color: #00A9BB;
+                height: 48px;
+                padding: 14px 16px;
+                box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25), -1px -7px 7px 0px #FFF;
+                font-size: 14px;
+                font-style: normal;
+                font-weight: 600;
+                line-height: 20px;
+                /* 142.857% */
+                letter-spacing: 0.07px;
+                color: $white;
+                @include flexbox();
+                align-items: center;
+                justify-content: center;
+
+                .icon {
+                    display: inline-block;
+                    margin-right: 10px;
+                }
+
+                &:focus:not(:focus-visible) {
+                    outline: none;
+                }
+            }
+        }
+
+        .listcardview_container {
+            border-radius: 12px;
+            background-color: $white;
+
+            .header_section {
+                padding: 12px 0px;
+                @include flexbox();
+                align-items: center;
+                justify-content: space-between;
+
+                .searchBox {
+                    width: 30%;
+
+                    .search-input {
+                        width: 100%;
+                        height: 48px;
+                        box-shadow: 0px 4px 4px 0px inset rgba(0, 0, 0, 0.25), -7px -7px 7px 0px inset #FFF;
+                        padding: 14px 16px 14px 50px;
+                        font-size: 14px;
+                        font-style: normal;
+                        font-weight: 400;
+                        line-height: 20px;
+                        /* 142.857% */
+                        letter-spacing: 0.07px;
+                        color: #6B7280;
+                        background-image: url('../../../assets/images/search_icon.svg');
+                        background-repeat: no-repeat;
+                        background-position: 16px center;
+                        border-radius: 6px;
+                        outline: none;
+                        border: none;
+                        background-color: #f2f5fa;
+                    }
+                }
+
+                .action_flexBox {
+                    @include flexbox();
+                    align-items: center;
+
+                    .actionBtn {
+                        background-color: $white;
+                        cursor: pointer;
+                        font-size: 14px;
+                        font-style: normal;
+                        font-weight: 600;
+                        line-height: 20px;
+                        /* 142.857% */
+                        letter-spacing: 0.07px;
+                        color: $text;
+                        padding: 10px 12px;
+                        border-radius: 8px;
+                        box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25), -1px -7px 7px 0px #FFF;
+                        border: 1px solid #E5E7EB;
+                        @include flexbox();
+                        align-items: center;
+                        justify-content: center;
+
+                        &:focus:not(:focus-visible) {
+                            outline: none;
+                        }
+
+                        .icon {
+                            display: inline-flex;
+                            align-items: center;
+                            justify-content: center;
+                            margin-right: 10px;
+                        }
+
+                        margin-right: 20px;
+
+                        &:last-child {
+                            margin-right: 0;
+                        }
+                    }
+                }
+            }
+
+            .viewManage_section {
+                margin-bottom: 16px;
+                @include flexbox();
+                align-items: center;
+                justify-content: space-between;
+                .chip_flebox {
+                    @include flexbox();
+                    align-items: center;
+
+                    .MuiStack-root {
+                        .MuiChip-root {
+                            margin-right: 8px;
+
+                            &:last-child {
+                                margin-right: 0;
+                            }
+
+                            padding: 6px;
+                            border-radius: 6px;
+                            border: 1px solid #E5E7EB;
+                            box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25),
+                            -1px -7px 7px 0px #FFF;
+                            background-color: $white;
+
+                            .MuiChip-label {
+                                margin-right: 5px;
+                                padding-left: 0;
+                                padding-right: 0;
+                                font-size: 12px;
+                                font-style: normal;
+                                font-weight: 400;
+                                line-height: 16px;
+                                /* 133.333% */
+                                letter-spacing: 0.06px;
+                                color: $text;
+                                
+                            }
+                            .MuiChip-deleteIcon{
+                                width: 15px;
+                                height: 15px;
+                                background-color: #E5E7EB;
+                                border-radius: 50%;
+                                margin: 0;
+                                padding: 3px;
+                                g{
+                                    width: 8px;
+                                    height: 8px;
+                                   
+                                }
+                              
+                            }
+                        }
+                    }
+
+                    .clearallBtn {
+                        cursor: pointer;
+                        color: #00A9BB;
+                        font-size: 14px;
+                        font-style: normal;
+                        font-weight: 600;
+                        line-height: 20px;
+                        /* 142.857% */
+                        letter-spacing: 0.07px;
+                        margin-left: 8px;
+                        display: inline-block;
+                    }
+                }
+                .view_manage{
+                    .MuiRadioGroup-root{
+                        @include flexbox();
+                        flex-direction: row;
+                        column-gap: 10px;
+                        .list_view, .card_view{
+                            box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25), -1px -7px 7px 0px #FFF;
+                            background-color: #F2F5FA;
+                            border-radius: 8px;
+                            padding: 8px 12px;
+                            position: relative;
+                            width: 44px;
+                            height: 36px;
+                            @include flexbox();
+                            align-items: center;
+                            justify-content: center;
+                            .MuiFormControlLabel-root{
+                                margin-left: 0;
+                                margin-right: 0;
+                                position: absolute;
+                                left: 0;
+                                top: 0;
+                                height: 100%;
+                                width: 100%;
+                                opacity: 0;
+                            }
+                            svg{
+                                g{
+                                    path{
+                                        stroke: #1F2937;
+                                       
+                                    }
+                                }
+                            }
+                            &.active{
+                                background-color: #00A9BB;
+                                svg{
+                                    g{
+                                        path{
+                                            stroke: $white;
+                                            
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        
+                    }
+                }
+                
+            }
+        }
+    }
+
+}

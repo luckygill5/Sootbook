@@ -29,7 +29,7 @@ $font-monsterat : 'Montserrat';
     .navMenu_container {
         width: 100%;
         max-width: 235px;
-        height: 98%;
+        height: calc(100% - 32px);
         position: fixed;
         box-sizing: border-box;
         left: 16px;

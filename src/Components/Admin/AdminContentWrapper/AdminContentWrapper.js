@@ -7,7 +7,10 @@ function AdminContentWrapper(props){
 const {viewManage} = props;
     return(
         <React.Fragment>
-            <AdminDashBoardContent viewManage={props.viewManage}/>
+            <AdminDashBoardContent 
+            viewManage={props.viewManage}
+            viewcontrol={props.viewcontrol}
+            />
         </React.Fragment>
     )
 }
