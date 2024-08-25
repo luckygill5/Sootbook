@@ -26,7 +26,9 @@ export function Select({
         <div className={`inputField ${wrapperClass}`}>
             <label>
                 {label}
-                {isRequired && <em>*</em>}
+                {isRequired && <em style={{
+                    color:'rgb(239, 68, 68)'
+                }}>*</em>}
             </label>
             <MuiSelect
                 className="select_fieldBox"

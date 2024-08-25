@@ -4,6 +4,8 @@ import { useFormik } from "formik";
 import { Input, Select } from "../../../../common";
 import { BLOOD_GROUP_LIST, COUNTRIES_LIST, NATIONALITY_LIST, RELIGION_LIST } from "../../../../../Constants/Contants.common";
 import Avtar from "../../../../../assets/images/avatar-large.png";
+import BasicDatePicker from "../../../../common/DatePicker";
+import MyUploadButton from "../../../../common/UploadButton";
 import "../BasicInformation.scss";
 
 
@@ -36,7 +38,7 @@ const basicInformationInitialValues = {
 
 
 function BasicInformationEdit({ setReadMode }) {
-
+  
   const handleFormSubmit = async (values) => {
     console.log(values)
     // try{
@@ -90,18 +92,29 @@ function BasicInformationEdit({ setReadMode }) {
     // });
   }, []);
 
+
+
+  
+  const [files, setFiles] = useState([])
+
+
+console.log("files", files)
+  
   return (
     <React.Fragment>
       <div className="form_container">
         <form onSubmit={handleSubmit}>
-          <div className="profile_uplodSection">
+          <div className="profile_uploadSection">
             <label>Profile Picture</label>
             <div className="flexbox">
               <span className="avtaar">
-                <img src={Avtar} alt="profile_icon"></img>
+                <img src={files[0]?.fileUrl ||Avtar} alt="profile_icon"></img>
               </span>
-              <button className="uploadbtn">Upload new picture</button>
-              <button className="deleteBtn">Delete</button>
+              <button className="uploadbtn" type="button">
+                Upload new picture
+                <MyUploadButton setFiles={setFiles}/>
+                </button>
+              <button className="deleteBtn" onClick={() => setFiles([])}>Delete</button>
             </div>
           </div>
 
@@ -198,7 +211,7 @@ function BasicInformationEdit({ setReadMode }) {
               error={errors.empId}
               touched={touched.empId}
             />
-            <Input
+            {/* <Input
               label={"Date of Birth"}
               type={"text"}
               name={"dob"}
@@ -211,6 +224,10 @@ function BasicInformationEdit({ setReadMode }) {
               isRequired
               error={errors.dob}
               touched={touched.dob}
+            /> */}
+            <BasicDatePicker 
+            label={"Date of Birth"}
+            isRequired
             />
           </div>
           <div className="input_flexbox">

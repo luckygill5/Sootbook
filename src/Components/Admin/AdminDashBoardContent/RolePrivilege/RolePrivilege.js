@@ -5,6 +5,7 @@ import Checkbox from '@mui/material/Checkbox';
 import { DataList, Input, Select } from '../../../common';
 import locales from '../../../../Constants/en.json';
 import Pen from '../../../../assets/images/pen.svg';
+import BasicDatePicker from '../../../common/DatePicker';
 import './RolePrivilege.scss';
 
 const rolePrivilegeInitialValues = {
@@ -78,16 +79,9 @@ function RolePrivilege(props) {
                             />
                         </div>
                         <div className='input_flexBox w-50'>
-                            <Input
-                                label={'Contract Date'}
-                                type={'text'}
-                                placeholder={'24-02-2024'}
-                                name={'contractDate'}
-                                id={'contractDate'}
-                                value={values.contractDate}
-                                wrapperClass={'col12'}
-                                onChange={handleChange}
-                            />
+                            <BasicDatePicker 
+                            label={'Contract Date'}
+                            wrapperClass={'col12'}/>
                         </div>
                         <div className='privilege_section'>
                             <h5 className='title'>Privileges</h5>

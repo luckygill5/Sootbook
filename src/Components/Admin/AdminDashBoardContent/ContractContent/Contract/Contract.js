@@ -4,6 +4,7 @@ import { Input, DataList, Select, TextArea } from '../../../../common/';
 import { DEPARTMENTS_LIST } from '../../../../../Constants/Contants.common';
 import '../ContractContent.scss';
 import '../../../../common/common.component.scss';
+import BasicDatePicker from '../../../../common/DatePicker';
 
 const contractConfig = [
     { label: 'Contract date', value: '24/02/2024' },
@@ -89,15 +90,10 @@ function Contract(props) {
                 <div className='form_container'>
                     <form onSubmit={handleSubmit}>
                         <div className='input_flexbox'>
-                            <Input
-                                label={'Contract Date'}
-                                type={'text'}
-                                placeholder={'24-02-2024'}
-                                name={'contract_start'}
-                                id={'contract_start'}
-                                value={values.contract_start}
-                                wrapperClass={'col6'}
-                                onChange={handleChange}
+                            <BasicDatePicker 
+                             label={'Contract Date'}
+                            wrapperClass={'col6'}
+                            isRequired
                             />
                         </div>
                         <div className='input_flexbox'>
@@ -108,6 +104,7 @@ function Contract(props) {
                                 options={DEPARTMENTS_LIST}
                                 wrapperClass={'col6'}
                                 onChange={handleChange}
+                                isRequired
                             />
                             <Input
                                 label={'Designation'}
@@ -117,6 +114,7 @@ function Contract(props) {
                                 value={values.designation}
                                 wrapperClass={'col6'}
                                 onChange={handleChange}
+                                isRequired
                             />
                         </div>
                         <div className='input_flexbox'>
@@ -128,6 +126,7 @@ function Contract(props) {
                                 value={values.basic_salary}
                                 wrapperClass={'col6'}
                                 onChange={handleChange}
+                                isRequired
                             />
                             <Input
                                 label={'Hourly Rate'}
@@ -148,6 +147,7 @@ function Contract(props) {
                                 ]}
                                 wrapperClass={'col4'}
                                 onChange={handleChange}
+                                isRequired
                             />
                         </div>
                         <div className='input_flexbox'>
@@ -162,16 +162,11 @@ function Contract(props) {
                                 ]}
                                 wrapperClass={'col6'}
                                 onChange={handleChange}
+                                isRequired
                             />
-                            <Input
-                                label={'Contract End'}
-                                type={'text'}
-                                name={'contract_end'}
-                                id={'contract_end'}
-                                value={values.contract_end}
-                                wrapperClass={'col6'}
-                                onChange={handleChange}
-                            />
+                            <BasicDatePicker 
+                             label={'Contract End'}
+                             wrapperClass={'col6'}/>
                         </div>
                         <div className='input_flexbox'>
                             <div className='inputField col12'>
@@ -197,6 +192,7 @@ function Contract(props) {
                                 wrapperClass={'col12'}
                                 onChange={handleChange}
                                 placeholder='Enter role description here..'
+                                isRequired
                             />
                         </div>
                         <div className='button-container'>

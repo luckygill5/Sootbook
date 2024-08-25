@@ -130,7 +130,7 @@ $font-monsterat : 'Montserrat';
                     .form_container {
                         .input_flexbox {
                             @include flexbox();
-                            margin: 0 -18px 36px -18px;
+                            margin: 0 -10px 36px -10px;
                             width: 100%;
                         }
 
