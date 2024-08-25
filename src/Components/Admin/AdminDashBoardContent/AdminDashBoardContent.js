@@ -31,6 +31,7 @@ import ContractContent from './ContractContent/ContractContent';
 import Documents from './Documents/Documents';
 import ChangePassword from './ChangePassword/ChangePassword';
 import RolePrivilege from './RolePrivilege/RolePrivilege';
+import User from '../../../Pages/AdminSideNav_Menu/User/User';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from "react-router-dom";
 import './AdminDashBoardContent.scss'
@@ -177,7 +178,12 @@ function AdminDashBoardContent(props) {
                         <Typography color='text.primary'>Applications</Typography>
                     </Breadcrumbs>
                 </div>
-                <div className='middle_content'>
+                {
+                    props.viewcontrol == "User" ? (
+                    <User/>
+                    ) :
+                    (
+                    <div className='middle_content'>
                     <div
                         className={`flexBox_container ${selectedMenu.split(' ').join('_').toLocaleLowerCase()}`}
                     >
@@ -554,6 +560,8 @@ function AdminDashBoardContent(props) {
                         </div>
                     </div>
                 </div>
+            )
+            }
                 <div className='footer_section'>
                     <div className='flexBox'>
                         <div className='left_block'>
