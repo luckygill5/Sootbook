@@ -23,9 +23,15 @@ function ChangePassword(props) {
 
     const handleSubmit = (event) => {
         if(formdata.newpassword == formdata.repeatpassword){
-            setFinalPassword(formdata.repeatpassword)
+            setFinalPassword(formdata.repeatpassword);
+            setFormdata({
+                currentpassword:"",
+                newpassword:'',
+                repeatpassword:''
+            })
+            setEditMode(false);
         }
-        setEditMode(false);
+        
     };
 
     const handleEdit = () => {
