@@ -1,87 +1,80 @@
 import React, { useState, useEffect, useRef } from 'react';
-import Pen from "../../../../assets/images/pen.svg";
-import { useSelector, useDispatch } from 'react-redux';
-import { Link, useNavigate } from "react-router-dom";
-import locales from "../../../../Constants/en.json";
+import { useFormik } from 'formik';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
-import MenuItem from '@mui/material/MenuItem';
-import FormControl from '@mui/material/FormControl';
-// import Select, { SelectChangeEvent } from '@mui/material/Select';
 import { DataList, Input, Select } from '../../../common';
-import './RolePrivilege.scss'
+import locales from '../../../../Constants/en.json';
+import Pen from '../../../../assets/images/pen.svg';
+import './RolePrivilege.scss';
+
+const rolePrivilegeInitialValues = {
+    name: '',
+    status: '',
+    contractDate: '',
+};
 
 function RolePrivilege(props) {
     const [editMode, setEditMode] = useState(false);
 
-    const handleEdit = () => {
-        setEditMode(true)
-    }
-
-    const handleSubmit = () => {
-        setEditMode(false)
-    }
-
     const rolePrivilegeData = [
-        { label: "Role", value: "Manager" },
-        { label: "Status", value: "Active" },
-        { label: "Contract Date", value: "24-02-2024" },
-        {
-            label: "Privileges", value: "", CheckList: true, ChecklistClass: "check_listing", CheckListData: [
-                { label: "Ability to create and manage vendor profiles." },
-                { label: "View and update inventory levels, track production." },
-                { label: "Monitor the status of shipments." },
+        { label: 'Role', value: 'Manager' },
+        { label: 'Status', value: 'Active' },
+        { label: 'Contract Date', value: '24-02-2024' },
+        // {
+        //     label: "Privileges", value: "", CheckList: true, ChecklistClass: "check_listing", CheckListData: [
+        //         { label: "Ability to create and manage vendor profiles." },
+        //         { label: "View and update inventory levels, track production." },
+        //         { label: "Monitor the status of shipments." },
 
-            ]
+        //     ]
+        // },
+    ];
+
+    const handleFormSubmit = async values => {
+        console.log(values);
+    };
+
+    const { values, handleChange, handleSubmit } = useFormik({
+        initialValues: rolePrivilegeInitialValues,
+        validateOnChange: true,
+        validateOnBlur: false,
+        enableReinitialize: true,
+        onSubmit: (values, action) => {
+            handleFormSubmit(values);
+            action.resetForm();
         },
-    ]
+    });
+
+    useEffect(() => {}, []);
     return (
         <div className='rolePrivilege_container'>
-
-            {editMode ? <div className='editMode'>
-
+            {editMode ? (
                 <div className='form_container'>
-                    <form>
+                    <form onSubmit={handleSubmit}>
                         <div className='input_flexBox col-2'>
                             <Select
                                 label={'Role'}
-                                name={'Role'}
-                                value={'Startup'}
+                                name={'name'}
+                                value={values.name}
                                 options={[
                                     { id: 'Startup', value: 'Startup' },
                                     { id: 'Startup', value: 'Startup' },
                                     { id: 'Startup', value: 'Startup' },
                                 ]}
                                 wrapperClass={'col6'}
-                                onChange={() => { }}
-                                isRequired
+                                onChange={handleChange}
                             />
-                            {/* <div className='selectBox'>
-                            <label>Status</label>
-                            <Select
-                                className="select_inputBox"
-                                labelId="demo-simple-select-label"
-                                id="demo-simple-select"
-                                // value={countryselectedData}
-                                label="Age"
-                            //  onChange={handleChange}
-                            >
-                                <MenuItem name="Single" value="Startup">Startup</MenuItem>
-                                <MenuItem name="Married" value="Startup">Startup</MenuItem>
-                            </Select>
-                        </div> */}
                             <Select
                                 label={'Status'}
-                                name={'Status'}
-                                value={'Startup'}
+                                name={'status'}
+                                value={values.status}
                                 options={[
                                     { id: 'Startup', value: 'Startup' },
                                     { id: 'Startup', value: 'Startup' },
                                     { id: 'Startup', value: 'Startup' },
                                 ]}
                                 wrapperClass={'col6'}
-                                onChange={() => { }}
-
+                                onChange={handleChange}
                             />
                         </div>
                         <div className='input_flexBox w-50'>
@@ -89,49 +82,62 @@ function RolePrivilege(props) {
                                 label={'Contract Date'}
                                 type={'text'}
                                 placeholder={'24-02-2024'}
-                                name={'ContractDate'}
-                                id={'title'}
-                                value={'Title'}
+                                name={'contractDate'}
+                                id={'contractDate'}
+                                value={values.contractDate}
                                 wrapperClass={'col12'}
-                                onChange={() => { }}
-                                isRequired
+                                onChange={handleChange}
                             />
                         </div>
                         <div className='privilege_section'>
                             <h5 className='title'>Privileges</h5>
                             <ul className='check_listing'>
                                 <li className='check_item'>
-                                    <FormControlLabel control={<Checkbox />} label="Ability to create and manage vendor profiles." />
+                                    <FormControlLabel
+                                        control={<Checkbox />}
+                                        label='Ability to create and manage vendor profiles.'
+                                    />
                                 </li>
                                 <li className='check_item'>
-                                    <FormControlLabel control={<Checkbox />} label="View and update inventory levels, track production." />
+                                    <FormControlLabel
+                                        control={<Checkbox />}
+                                        label='View and update inventory levels, track production.'
+                                    />
                                 </li>
                                 <li className='check_item'>
-                                    <FormControlLabel control={<Checkbox />} label="Monitor the status of shipments." />
+                                    <FormControlLabel
+                                        control={<Checkbox />}
+                                        label='Monitor the status of shipments.'
+                                    />
                                 </li>
                             </ul>
                         </div>
                         <div className='button-container'>
-                            <button className='saveBtn' onClick={() => handleSubmit()}>Save</button>
+                            <button className='cancelBtn' onClick={() => setEditMode(false)}>
+                                Cancel
+                            </button>
+                            <button className='savebtn' type='submit' onClick={handleSubmit}>
+                                Save
+                            </button>
                         </div>
                     </form>
                 </div>
-            </div> : <React.Fragment>
-                <div className='header_flex'>
-                    <h5 className='title'>Role and Privileges</h5>
-                    <button className='edit_btn' onClick={() => handleEdit()}>
-                        <span className='icon'>
-                            <img src={Pen} alt="edit"></img>
-                        </span>
-                        {locales.edit_title}
-                    </button>
-                </div>
-                <DataList config={rolePrivilegeData} />
-            </React.Fragment>
-            }
+            ) : (
+                <React.Fragment>
+                    <div className='header_flex'>
+                        <h5 className='title'>Role and Privileges</h5>
+                        <button className='edit_btn' onClick={() => setEditMode(true)}>
+                            <span className='icon'>
+                                <img src={Pen} alt='edit'></img>
+                            </span>
+                            {locales.edit_title}
+                        </button>
+                    </div>
+                    <DataList config={rolePrivilegeData} />
+                </React.Fragment>
+            )}
         </div>
-    )
-
+    );
 }
 
-export default RolePrivilege
+export default RolePrivilege;

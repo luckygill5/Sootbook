@@ -129,6 +129,7 @@ $font-monsterat : 'Montserrat';
 
                             .MuiCheckbox-root {
                                 padding-top: 0;
+
                                 &.Mui-checked {
                                     color: #00A9BB;
 
@@ -164,111 +165,142 @@ $font-monsterat : 'Montserrat';
         }
     }
 
-    .editMode {
-        .form_container {
-            padding: 24px;
-            .input_flexBox {
-                @include flexbox();
+    .form_container {
+        padding: 24px;
+
+        .input_flexBox {
+            @include flexbox();
+            margin: 0 -10px 36px -10px;
+
+            &.w-50 {
+                width: 55%;
                 margin: 0 -10px 36px -10px;
 
-                &.w-50 {
-                    width: 55%;
-                    margin: 0 -10px 36px -10px;
+            }
+        }
 
-                }
+        .privilege_section {
+            display: none;
+            margin-bottom: 36px;
+
+            .title {
+                font-size: 14px;
+                font-style: normal;
+                font-weight: 500;
+                line-height: 20px;
+                /* 142.857% */
+                letter-spacing: 0.07px;
+                text-align: left;
+                margin-bottom: 10px;
+                margin-top: 0;
+                color: $text;
             }
 
-            .privilege_section {
-                margin-bottom: 36px;
-                .title {
-                    font-size: 14px;
-                    font-style: normal;
-                    font-weight: 500;
-                    line-height: 20px;
-                    /* 142.857% */
-                    letter-spacing: 0.07px;
+            .check_listing {
+                margin: 0;
+                padding: 0;
+
+                .check_item {
+                    list-style: none;
+                    margin-bottom: 8px;
                     text-align: left;
-                    margin-bottom: 10px;
-                    margin-top: 0;
-                    color: $text;
-                }
 
-                .check_listing {
-                    margin: 0;
-                    padding: 0;
+                    &:last-child {
+                        margin-bottom: 0;
+                    }
 
-                    .check_item {
-                        list-style: none;
-                        margin-bottom: 8px;
-                        text-align: left;
+                    .MuiFormControlLabel-root {
+                        align-items: center;
 
-                        &:last-child {
-                            margin-bottom: 0;
-                        }
+                        .MuiCheckbox-root {
+                            padding-top: 0;
+                            padding-bottom: 0;
 
-                        .MuiFormControlLabel-root {
-                            align-items: center;
-
-                            .MuiCheckbox-root {
-                                padding-top: 0;
-                                padding-bottom: 0;
-                                &.Mui-checked {
-                                    color: #00A9BB;
-
-                                    svg {
-                                        path {
-                                            stroke: transparent !important;
-                                        }
-                                    }
-                                }
+                            &.Mui-checked {
+                                color: #00A9BB;
 
                                 svg {
                                     path {
-                                        stroke: #E5E7EB !important;
+                                        stroke: transparent !important;
                                     }
                                 }
                             }
 
-                            .MuiTypography-root {
-                                font-family: $font-monsterat;
-                                font-size: 16px;
-                                font-style: normal;
-                                font-weight: 400;
-                                line-height: 24px;
-                                /* 150% */
-                                letter-spacing: 0.08px;
-                                color: $text
+                            svg {
+                                path {
+                                    stroke: #E5E7EB !important;
+                                }
                             }
                         }
 
+                        .MuiTypography-root {
+                            font-family: $font-monsterat;
+                            font-size: 16px;
+                            font-style: normal;
+                            font-weight: 400;
+                            line-height: 24px;
+                            /* 150% */
+                            letter-spacing: 0.08px;
+                            color: $text
+                        }
                     }
+
+                }
+            }
+        }
+
+        .button-container {
+            @include flexbox();
+            justify-content: flex-end;
+
+            .cancelBtn {
+                width: 80px;
+                color: $text;
+                font-size: 14px;
+                font-style: normal;
+                font-weight: 400;
+                line-height: 20px;
+                /* 142.857% */
+                letter-spacing: 0.07px;
+                box-shadow: 0px 2px 5px 2px inset rgba(0, 0, 0, 0.05);
+                border-radius: 8px;
+                border: 1px solid #E5E7EB;
+                background-color: #F2F5FA;
+                padding: 14px 16px;
+                height: 48px;
+                cursor: pointer;
+                margin-right: 20px;
+                @include flexbox();
+                align-items: center;
+                justify-content: center;
+
+                &:focus:not(:focus-visible) {
+                    outline: none;
                 }
             }
 
-            .button-container {
-                text-align: right;
+            .savebtn {
+                width: 66px;
+                height: 48px;
+                padding: 14px 16px;
+                @include flexbox();
+                align-items: center;
+                justify-content: center;
+                cursor: pointer;
+                border: none;
+                box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25), -1px -7px 7px 0px #FFF;
+                border-radius: 8px;
+                background-color: #00A9BB;
+                font-size: 14px;
+                font-style: normal;
+                font-weight: 600;
+                line-height: 20px;
+                /* 142.857% */
+                letter-spacing: 0.07px;
+                color: $white;
 
-                .saveBtn {
-                    cursor: pointer;
-                    border: none;
-                    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25), -1px -7px 7px 0px #FFF;
-                    border-radius: 8px;
-                    background-color: #00A9BB;
-                    padding: 14px 16px;
-                    height: 48px;
-                    width: 66px;
-
-                    &:focus:not(:focus-visible) {
-                        outline: none;
-                    }
-
-                    font-size: 14px;
-                    font-style: normal;
-                    font-weight: 600;
-                    line-height: 20px;
-                    /* 142.857% */
-                    letter-spacing: 0.07px;
-                    color:$white
+                &:focus:not(:focus-visible) {
+                    outline: none;
                 }
             }
         }

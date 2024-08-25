@@ -1,8 +1,6 @@
-import React, { useState, useEffect } from 'react';
-import MenuItem from '@mui/material/MenuItem';
-import FormControl from '@mui/material/FormControl';
+import React, { useEffect } from 'react';
+import { useFormik } from 'formik';
 import { TextArea, DataList, Select } from '../../../../common/';
-import locales from '../../../../../Constants/en.json';
 import '../PersonalInformation.scss';
 
 const bankAccountConfig = [
@@ -10,36 +8,69 @@ const bankAccountConfig = [
     { label: 'Experience', value: 'Startup' },
 ];
 
+const personalBioInitialValues = {
+    bio: '',
+    experience: 'fresher',
+};
+
 function PersonalInfoBio(props) {
+    const handleFormSubmit = async values => {
+        console.log(values);
+    };
+
+    const { values, handleChange, handleSubmit } = useFormik({
+        initialValues: personalBioInitialValues,
+        validateOnChange: true,
+        validateOnBlur: false,
+        enableReinitialize: true,
+        onSubmit: (values, action) => {
+            handleFormSubmit(values);
+            action.resetForm();
+        },
+    });
+
+    useEffect(() => {}, []);
+
     return (
         <React.Fragment>
             <div className='personalBioInfo_container'>
                 {props.mode ? (
                     <div className='form_container'>
-                        <form>
+                        <form onSubmit={handleSubmit}>
                             <div className='input_flexbox'>
                                 <TextArea
                                     label={'Bio'}
                                     name={'bio'}
-                                    value={'Bio'}
+                                    value={values.bio}
                                     wrapperClass={'col12'}
-                                    onChange={() => {}}
+                                    onChange={handleChange}
                                     placeholder='Enter staff bio here..'
                                 />
                             </div>
-                            <Select
-                                label={'Experience'}
-                                name={'experience'}
-                                value={'Hindu'}
-                                options={[
-                                    { id: 'Hindu', value: 'Hindu' },
-                                    { id: 'Muslim', value: 'Muslim' },
-                                ]}
-                                wrapperClass={'col6'}
-                                onChange={() => {}}
-                            />
+                            <div className='input_flexbox'>
+                                <Select
+                                    label={'Experience'}
+                                    name={'experience'}
+                                    value={values.experience}
+                                    options={[
+                                        { id: 'fresher', value: 'Fresher' },
+                                        { id: 'intermediate', value: 'Intermediate' },
+                                        { id: 'experienced', value: 'Experienced' },
+                                    ]}
+                                    wrapperClass={'col6'}
+                                    onChange={handleChange}
+                                />
+                            </div>
                             <div className='button-container'>
-                                <button className='saveBtn'>Save</button>
+                                <button
+                                    className='cancelBtn'
+                                    onClick={() => props.setEditMode(false)}
+                                >
+                                    Cancel
+                                </button>
+                                <button className='savebtn' type='submit' onClick={handleSubmit}>
+                                    Save
+                                </button>
                             </div>
                         </form>
                     </div>

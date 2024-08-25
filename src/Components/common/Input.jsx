@@ -9,7 +9,7 @@ function EyeIcon({ showEye, onClick }) {
 
 
 export const Input = ({ label, type, name, placeholder, value, onChange, onBlur, error,
-  touched, className, wrapperClass, hasEye, onEyeClick, showEye, isRequired, disabled }) => {
+  touched, className, wrapperClass, hasEye, onEyeClick, showEye, isRequired, disabled, icon }) => {
   return (
     <div className={`inputField ${wrapperClass}`}>
       <label>
@@ -17,6 +17,9 @@ export const Input = ({ label, type, name, placeholder, value, onChange, onBlur,
         {isRequired && <span style={{ color: "#EF4444" }}>*</span>}
       </label>
       <div className={className}>
+        {icon && <div className='icon_holder'>
+          <img src={icon} alt='icon' className='icon_img'></img>
+        </div>}
         <input type={type}
           placeholder={placeholder || "Please type"}
           autoComplete="off"

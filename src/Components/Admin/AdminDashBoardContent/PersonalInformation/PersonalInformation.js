@@ -89,16 +89,16 @@ function PersonalInformation() {
                             </Tabs>
                         </Box>
                         <CustomTabPanel value={value} index={0} className='tabdataBlock'>
-                            <PersonalInfoBio mode={editMode} />
+                            <PersonalInfoBio mode={editMode} setEditMode={setEditMode} />
                         </CustomTabPanel>
                         <CustomTabPanel value={value} index={1} className='tabdataBlock'>
-                            <SocialProfile mode={editMode} />
+                            <SocialProfile mode={editMode} setEditMode={setEditMode} />
                         </CustomTabPanel>
                         <CustomTabPanel value={value} index={2} className='tabdataBlock'>
-                            <BankAccount mode={editMode} />
+                            <BankAccount mode={editMode} setEditMode={setEditMode} />
                         </CustomTabPanel>
                         <CustomTabPanel value={value} index={3} className='tabdataBlock'>
-                            <EmergencyContact mode={editMode} />
+                            <EmergencyContact mode={editMode} setEditMode={setEditMode} />
                         </CustomTabPanel>
                     </Box>
                 </div>
