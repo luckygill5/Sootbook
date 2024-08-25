@@ -67,7 +67,7 @@ function RegistrationPage(props) {
             companyTypeData: newdata.companyTypeData,
             countryselectedData: newdata.countryselectedData,
             address: newdata.address,
-            tin: newdata.tin,
+            tin: newdata.tin ,
             vat: newdata.vat,
             file: file,
             employeeNumber: newdata.employeeNumber,
@@ -97,11 +97,11 @@ function RegistrationPage(props) {
                 <div className='body_container'>
                     <div className='grid_box'>
                         <div className='input_flexBox'>
-                            <label>Company Name</label>
+                            <label className='mandate'>Company Name</label>
                             <input type='text' className='input_text' value={newdata.companyname} name="companyname" onChange={handleChange}></input>
                         </div>
                         <div className='select_flexBox industry_selectBox'>
-                            <label>Industry</label>
+                            <label className='mandate'>Industry</label>
                             <Select
                                 className="industry_select"
                                 labelId="demo-simple-select-label"
@@ -126,7 +126,7 @@ function RegistrationPage(props) {
                     </div>
                     <div className='grid_box'>
                         <div className='select_flexBox industry_selectBox'>
-                            <label>Company Type</label>
+                            <label className='mandate'>Company Type</label>
                             <Select
                                 className="industry_select"
                                 labelId="demo-simple-select-label"
@@ -144,7 +144,7 @@ function RegistrationPage(props) {
                     </div>
                     <div className='grid_box'>
                         <div className='select_flexBox'>
-                            <label>Country</label>
+                            <label className='mandate'>Country</label>
                             <Select
                                 className="country_select"
                                 labelId="demo-simple-select-label"
@@ -164,7 +164,7 @@ function RegistrationPage(props) {
                             </Select>
                         </div>
                         <div className='input_flexBox'>
-                            <label>Address</label>
+                            <label className='mandate'>Address</label>
                             <input type='text' className='input_text' value={newdata.address} name="address" onChange={handleChange}></input>
                         </div>
                     </div>
@@ -192,7 +192,7 @@ function RegistrationPage(props) {
                     <div className='grid_box'>
                         <div className='select_flexbox'>
                             <div className='dropdown'>
-                                <label>Employee Number</label>
+                                <label className='mandate'>Employee Number</label>
                                 <Select
                                     className="country_select"
                                     labelId="demo-simple-select-label"
@@ -208,7 +208,7 @@ function RegistrationPage(props) {
                                 </Select>
                             </div>
                             <div className='dropdown'>
-                                <label>How do you heard about this?</label>
+                                <label className='mandate'>How do you heard about this?</label>
                                 <Select
                                     className="country_select"
                                     labelId="demo-simple-select-label"
@@ -229,7 +229,7 @@ function RegistrationPage(props) {
                         <ul>
                             <li>
                                 <FormControl className='switch_radio'>
-                                    <FormLabel id="demo-radio-buttons-group-label">Do you have multi branches</FormLabel>
+                                    <FormLabel className='mandate' id="demo-radio-buttons-group-label">Do you have multi branches</FormLabel>
                                     <RadioGroup
                                         aria-labelledby="demo-radio-buttons-group-label"
                                         defaultValue="female"
@@ -265,7 +265,7 @@ function RegistrationPage(props) {
                                     newdata.address !== "" &&
                                     newdata.tin !== "" &&
                                     newdata.vat !== "" &&
-                                    file !== "" &&
+                                    newdata.termscondition !== false &&
                                     newdata.employeeNumber !== "" &&
                                     newdata.heardValue !== "" &&
                                     newdata.multibranch !== "") ? false : true

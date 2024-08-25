@@ -227,6 +227,7 @@ function BasicInformationEdit({ setReadMode }) {
             /> */}
             <BasicDatePicker 
             label={"Date of Birth"}
+            dateFormat={"dd/MM/yyyy"}
             isRequired
             />
           </div>

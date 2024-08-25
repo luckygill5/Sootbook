@@ -81,6 +81,7 @@ function RolePrivilege(props) {
                         <div className='input_flexBox w-50'>
                             <BasicDatePicker 
                             label={'Contract Date'}
+                            dateFormat={"dd/MM/yyyy"}
                             wrapperClass={'col12'}/>
                         </div>
                         <div className='privilege_section'>

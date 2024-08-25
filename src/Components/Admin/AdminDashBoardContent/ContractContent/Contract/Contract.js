@@ -93,6 +93,7 @@ function Contract(props) {
                             <BasicDatePicker 
                              label={'Contract Date'}
                             wrapperClass={'col6'}
+                            dateFormat={"dd/MM/yyyy"}
                             isRequired
                             />
                         </div>

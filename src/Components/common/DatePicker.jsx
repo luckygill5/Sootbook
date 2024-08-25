@@ -18,7 +18,7 @@ export default function BasicDatePicker(props) {
             <DatePicker
                 selected={startDate}
                 onChange={(date) => setStartDate(date)}
-                dateFormat="dd/MM/yyyy" />
+                dateFormat={props.dateFormat} />
         </div>
     );
 }

@@ -14,7 +14,8 @@ import Tab from '@mui/material/Tab'
 import Box from '@mui/material/Box'
 import { Purchase } from '../../services/purchase.service'
 import CheckCircle from '../../assets/images/check-circle-blue.svg'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom';
+import BasicDatePicker from '../common/DatePicker'
 
 function PaymentMethodPage(props) {
     const [paymentOption, setPaymentOption] = useState('')
@@ -101,7 +102,7 @@ function PaymentMethodPage(props) {
                     </FormControl>
                     <div className='form_container'>
                         <div className='inputField name_cardBox'>
-                            <label>Name on card (As written on card)</label>
+                            <label className='mandate'>Name on card (As written on card)</label>
                             <input
                                 type='text'
                                 placeholder='NAME SURNAME'
@@ -112,7 +113,7 @@ function PaymentMethodPage(props) {
                             ></input>
                         </div>
                         <div className='inputField card_number_box'>
-                            <label>Card number</label>
+                            <label className='mandate'>Card number</label>
                             <input
                                 type='text'
                                 placeholder='xxxx-xxxx-xxxx-xxxx'
@@ -125,8 +126,8 @@ function PaymentMethodPage(props) {
                         </div>
                         <div className='inputField grid_box'>
                             <div className='flex_item'>
-                                <label>Expiry date</label>
-                                <input
+                                {/* <label>Expiry date</label> */}
+                                {/* <input
                                     type='text'
                                     placeholder='MM/YY'
                                     maxLength={4}
@@ -134,12 +135,18 @@ function PaymentMethodPage(props) {
                                     value={formData.expiryDate}
                                     name='expiryDate'
                                     onChange={event => handleChange(event)}
-                                ></input>
+                                ></input> */}
+                                <BasicDatePicker
+                                label={'Expiry date'}
+                                wrapperClass={`expiryDate`}
+                                isRequired
+                                dateFormat={"MM/yyyy"}
+                                />
                             </div>
                             <div className='flex_item cvv_code'>
-                                <label>Security code</label>
+                                <label className='mandate'>Security code</label>
                                 <input
-                                    type='text'
+                                    type='password'
                                     placeholder='CCV'
                                     maxLength={3}
                                     className='input_text'
