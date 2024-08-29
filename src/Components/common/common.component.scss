@@ -80,6 +80,9 @@
         line-height: 20px;
         /* 142.857% */
         letter-spacing: 0.07px;
+        &:empty{
+            display: none;
+        }
     }
 
     .input_element {

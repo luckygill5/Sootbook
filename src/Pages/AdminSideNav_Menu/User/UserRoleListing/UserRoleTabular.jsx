@@ -1,0 +1,226 @@
+import React, { useState, useEffect } from 'react';
+import Checkbox from '@mui/material/Checkbox';
+import { ReactComponent as Arrow } from "../../../../assets/images/chevron-down.svg";
+import { ReactComponent as Pin } from "../../../../assets/images/pin.svg";
+import { ReactComponent as Copy } from "../../../../assets/images/copy.svg";
+import { ReactComponent as DotsIcon } from "../../../../assets/images/bullets.svg";
+import { ReactComponent as EyeOff } from "../../../../assets/images/eye-off.svg";
+import { ReactComponent as Settings } from "../../../../assets/images/settings_black.svg";
+import { ReactComponent as View } from "../../../../assets/images/view.svg";
+import { ReactComponent as Pencil } from "../../../../assets/images/pencil.svg";
+import { ReactComponent as Bin } from "../../../../assets/images/trash-2.svg";
+import Menu from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
+import "../User.scss"
+
+
+function TabularLayout({ tableheadData, tableBodyData, manageColumn }) {
+    const [anchorEl, setAnchorEl] = useState(null);
+    const [control, setControl] = useState(null)
+    const [selectedIndex, setSelectedIndex] = useState([]);
+
+    const open = Boolean(anchorEl);
+    const show = Boolean(control);
+    const handleClick = (event) => {
+        setAnchorEl(event.currentTarget);
+    };
+
+    const handleControl = (event) => {
+        
+        setControl(event.currentTarget)
+    }
+    const handleClose = () => {
+        setAnchorEl(null);
+    };
+
+    const handleControlClose = () => {
+        setControl(null)
+    }
+
+    const columns = [
+        { title: 'User ID' },
+        { title: 'Username' },
+        { title: 'Email' },
+        { title: 'Role' },
+        { title: 'Creation date' },
+    ];
+
+    const rows = [
+        {
+            id: "OFO123",
+            name: "Annette Black",
+            email: "sara.cruz@example.com",
+            role: "Branch Manager",
+            date: '26 Oct-2020, 00:00'
+        },
+        {
+            id: "WF2DS3",
+            name: "Darrell Steward",
+            email: "",
+            role: "Regional Manager",
+            date: '19 Apr 2021, 00:00'
+        },
+        {
+            id: "DSVSDF3",
+            name: "Annette Black",
+            email: "sara.cruz@example.com",
+            role: "Branch Manager",
+            date: '26 Oct-2020, 00:00'
+        },
+        {
+            id: "234GH5",
+            name: "Annette Black",
+            email: "sara.cruz@example.com",
+            role: "Branch Manager",
+            date: '26 Oct-2020, 00:00'
+        },
+        {
+            id: "IJ89G4",
+            name: "Annette Black",
+            email: "sara.cruz@example.com",
+            role: "Branch Manager",
+            date: '26 Oct-2020, 00:00'
+        },
+        {
+            id: "ZXCSDC",
+            name: "Annette Black",
+            email: "sara.cruz@example.com",
+            role: "Branch Manager",
+            date: '26 Oct-2020, 00:00'
+        },
+        {
+            id: "OGA323",
+            name: "Annette Black",
+            email: "sara.cruz@example.com",
+            role: "Branch Manager",
+            date: '26 Oct-2020, 00:00'
+        },
+        {
+            id: "SDF23E2",
+            name: "Annette Black",
+            email: "sara.cruz@example.com",
+            role: "Branch Manager",
+            date: '26 Oct-2020, 00:00'
+        },
+
+    ];
+
+    const handleSelected = (index) => {
+        if (selectedIndex.includes(index)) {
+            let filter = selectedIndex.filter((item) => {
+                if (item !== index) {
+                    return item
+                }
+            })
+            setSelectedIndex([...filter])
+        }
+        else {
+            setSelectedIndex([...selectedIndex, index])
+        }
+
+    }
+
+    return (
+        <React.Fragment>
+            <div className='tableFlex_container'>
+                <div className='thead'>
+                    <div className='row'>
+                        <div className='checkbox_block'>
+                            <Checkbox />
+                        </div>
+                        {
+                            tableheadData &&
+                            tableheadData.length > 0 &&
+                            tableheadData.map((item, index) => {
+                                return (
+                                    <div key={index} className={`tcolumn ${(item.title == 'Username' || item.title == "Email" || item.title == "Role") ? 'lg' : 'sm'}`}>
+                                        {item.title == 'User ID' && <span className='pinIcon'><Pin /></span>}
+                                        <span className='title'>{item.title}</span>
+                                        <div className='sort'>
+                                            <span className='arrowUp'><Arrow /></span>
+                                            <span className='arrowDown'><Arrow /></span>
+                                        </div>
+                                        {item.title == 'Username' && <button id='basic-button' onClick={handleClick} type='submit' className='manageOptions'><DotsIcon /></button>}
+
+                                    </div>
+
+                                )
+                            })
+
+                        }
+                        <div className='placeholder'></div>
+                    </div>
+                </div>
+                <div className='tbody'>
+                    {
+                        tableBodyData &&
+                        tableBodyData.length > 0 &&
+                        tableBodyData.map((item, index) => {
+                            return (
+                                <div className={`row ${selectedIndex.includes(index + 1) ? 'selected' : ''}`} key={index}>
+                                    <div className={`check_block`}   >
+                                        <Checkbox onChange={() => handleSelected(index + 1)} />
+                                    </div>
+                                    {
+                                        Object.keys(item).map((key, index) => {
+                                            return (
+                                                <div key={index} className={`tCell ${(tableheadData[index]?.title == 'Username' || tableheadData[index]?.title == "Email" || tableheadData[index]?.title == "Role") ? 'lg' : 'sm'}`}>
+                                                    <div className='data'>{item[key]}</div>
+                                                    {
+                                                        (tableheadData[index].title == 'User ID' || tableheadData[index].title == "Email") ? <div className='copyIcon'><Copy /></div> : null
+                                                    }
+                                                </div>
+                                            )
+                                        })
+                                    }
+                                    <div className='moreOption'>
+                                        <button className='link' id='control-button' type="submit" onClick={handleControl}>
+                                        <DotsIcon />
+                                        </button>
+                                    </div>
+                                </div>
+                            )
+                        })
+                    }
+
+                </div>
+
+
+            </div>
+            {anchorEl && open ? <Menu
+                id="basic-menu"
+                className='moreMenuOptions'
+                anchorEl={anchorEl}
+                open={open}
+                onClose={handleClose}
+                MenuListProps={{
+                    'aria-labelledby': 'basic-button',
+                }}
+            >
+                <MenuItem onClick={handleClose}><span className='icon'><Pin/></span>Pin column</MenuItem>
+                <MenuItem onClick={handleClose}><span className='icon'><EyeOff/></span>Hide column</MenuItem>
+                <MenuItem onClick={() => {
+                    handleClose()
+                    manageColumn()
+                    }}><span className='icon'><Settings/></span>Manage column</MenuItem>
+            </Menu> : null}
+
+            {control && show ? <Menu
+                id="control-menu"
+                className='controlMenuOptions'
+                anchorEl={control}
+                open={show}
+                onClose={handleControlClose}
+                MenuListProps={{
+                    'aria-labelledby': 'control-button',
+                }}
+            >
+                <MenuItem onClick={handleControlClose}><span className='icon'><View/></span>View</MenuItem>
+                <MenuItem onClick={handleControlClose}><span className='icon'><Pencil/></span>Edit</MenuItem>
+                <MenuItem onClick={handleControlClose}><span className='icon'><EyeOff/></span>Delete role</MenuItem>
+            </Menu> : null}
+        </React.Fragment>
+    )
+}
+
+export default TabularLayout;
