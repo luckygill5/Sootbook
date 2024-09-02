@@ -102,7 +102,7 @@ function SignIn(props) {
     } , [])
     return (
         <React.Fragment>
-            <div className='signIn_wrapper'>
+            <div className='signInWrapper'>
                 <div className='header'>
                     <div className='left_logoBlock' onClick={() => {
                         navigate("/")
@@ -122,11 +122,11 @@ function SignIn(props) {
                         <span className='seperator'></span>
                     </button>
                 </div>
-                <div className={`main_container ${signInView && 'signInModal_show'}`}>
+                <div className={`mainContainer ${signInView && 'signInModal_show'}`}>
                     {
                         signInView && (
                             <div className='signIn_formBlock'>
-                                <h2 className='title'>{locales.signin_into_account}</h2>
+                                <h2 className='title'>{"Sign in to your account"}</h2>
                                 <div className='sign_in_google'>
                                     <button className='googleButton' onClick={() => {
                                         setEmailVerify(true);

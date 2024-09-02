@@ -76,8 +76,7 @@ function RegistrationPage(props) {
             subscribeNews: newdata.subscribeNews
         }
         Registration(formData).then((response) => {
-            if (response && response.data) {
-                window.localStorage.setItem('profileData', JSON.stringify(response.data));
+            if (response?.status) {
                 props.continueSubscription()
             }
         })
@@ -192,7 +191,7 @@ function RegistrationPage(props) {
                     <div className='grid_box'>
                         <div className='select_flexbox'>
                             <div className='dropdown'>
-                                <label className='mandate'>Employee Number</label>
+                                <label>Employee Number</label>
                                 <Select
                                     className="country_select"
                                     labelId="demo-simple-select-label"
@@ -208,7 +207,7 @@ function RegistrationPage(props) {
                                 </Select>
                             </div>
                             <div className='dropdown'>
-                                <label className='mandate'>How do you heard about this?</label>
+                                <label>How do you heard about this?</label>
                                 <Select
                                     className="country_select"
                                     labelId="demo-simple-select-label"
@@ -229,7 +228,7 @@ function RegistrationPage(props) {
                         <ul>
                             <li>
                                 <FormControl className='switch_radio'>
-                                    <FormLabel className='mandate' id="demo-radio-buttons-group-label">Do you have multi branches</FormLabel>
+                                    <FormLabel id="demo-radio-buttons-group-label">Do you have multi branches</FormLabel>
                                     <RadioGroup
                                         aria-labelledby="demo-radio-buttons-group-label"
                                         defaultValue="female"
@@ -263,12 +262,7 @@ function RegistrationPage(props) {
                                     newdata.companyTypeData !== "" &&
                                     newdata.countryselectedData !== "" &&
                                     newdata.address !== "" &&
-                                    newdata.tin !== "" &&
-                                    newdata.vat !== "" &&
-                                    newdata.termscondition !== false &&
-                                    newdata.employeeNumber !== "" &&
-                                    newdata.heardValue !== "" &&
-                                    newdata.multibranch !== "") ? false : true
+                                    newdata.termscondition !== false) ? false : true
                             }
                             onClick={() => handleRegistration()}>{locales.continue_to_subscription}</button>
                     </div>

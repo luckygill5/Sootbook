@@ -38,7 +38,7 @@ export function Select({
                 label={label}
                 isRequired={true}
                 name={name}
-                onChange={(props)=>{debugger;onChange(props)}}
+                onChange={(props)=>{onChange(props)}}
             >
                 {selectOptions}
             </MuiSelect>

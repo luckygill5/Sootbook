@@ -1,24 +1,21 @@
 
 import React, { useState } from 'react';
-import DatePicker from "react-datepicker";
+import ReactDatePicker from "react-datepicker";
 
 import "react-datepicker/dist/react-datepicker.css";
 import './common.component.scss'
 
-export default function BasicDatePicker(props) {
+export function DatePicker({ label, name, value, dateFormat, wrapperClass, isRequired, onChange }) {
 
-    const [startDate, setStartDate] = useState(new Date());
+    const [startDate, setStartDate] = useState(value ? new Date(value) : new Date());
     return (
-        <div className={`inputField ${props.wrapperClass}`}>
-            <label>{props.label} 
-                {props.isRequired &&
-                <span style={{
-                color:"#EF4444"
-            }}>*</span>}</label>
-            <DatePicker
-                selected={startDate}
-                onChange={(date) => setStartDate(date)}
-                dateFormat={props.dateFormat} />
+        <div className={`inputField ${wrapperClass}`}>
+            <label>{label}
+                {isRequired && <span style={{ color: "#EF4444" }}>*</span>}</label>
+            <ReactDatePicker
+                selected={new Date(startDate)}
+                onChange={(date) => { setStartDate(new Date(date)); onChange && onChange({name, value: new Date(date).toLocaleDateString()}) }}
+                dateFormat={dateFormat} />
         </div>
     );
 }

@@ -18,10 +18,7 @@ const options = {
 }
 
 
-
-
-const MyUploadButton = ({ setFiles }) => {
-
+export const MyUploadButton = ({ setFiles }) => {
     return (
         <UploadButton
             uploader={uploader}
@@ -36,8 +33,3 @@ const MyUploadButton = ({ setFiles }) => {
     )
 
 }
-
-export default MyUploadButton;
-
-
-

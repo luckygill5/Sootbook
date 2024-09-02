@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
 import * as Yup from "yup";
+import swal from 'sweetalert';
+import { isEmpty } from 'lodash';
 import { useFormik } from "formik";
-import { Input, Select } from "../../../../common";
+import { DatePicker, Input, Select, MyUploadButton } from "../../../../common";
+import { axiosClient } from "../../../../../services/axiosClient";
 import { BLOOD_GROUP_LIST, COUNTRIES_LIST, NATIONALITY_LIST, RELIGION_LIST } from "../../../../../Constants/Contants.common";
 import Avtar from "../../../../../assets/images/avatar-large.png";
-import BasicDatePicker from "../../../../common/DatePicker";
-import MyUploadButton from "../../../../common/UploadButton";
 import "../BasicInformation.scss";
 
 
@@ -29,7 +30,7 @@ const basicInformationInitialValues = {
   city: "",
   postal: "",
   religion: "Hinduism",
-  bloodGroup: "A+",
+  blood_group: "A+",
   nationality: "Indian",
   citizenship: "India",
   address_1: "",
@@ -37,41 +38,35 @@ const basicInformationInitialValues = {
 };
 
 
-function BasicInformationEdit({ setReadMode }) {
-  
+function BasicInformationEdit({ setReadMode, basicInformation, getBasicInfo }) {
+  const [files, setFiles] = useState([])
   const handleFormSubmit = async (values) => {
-    console.log(values)
-    // try{
-    //     let response = await axiosClient.patch(`/profiles/${profileData.profileid}`, JSON.stringify(editformDataPreparer(values, profileData.profileid, userid)));
-    //     if (response.status === 204 ) {
-    //         swal("Success", "Profile updated successfully", "success", {
-    //             buttons: false,
-    //             timer: 2000,
-    //         })
-    //         .then(() => {
-    //             if(values.country) {
-    //                 let country = countries.find(item => item.id === values.country);
-    //                 dispatch(updateCountryInfo({country}));
-    //             }
-    //             if(values.state) {
-    //                 let state = states.find(item => item.id === values.state);
-    //                 dispatch(updateStateInfo({state}));
-    //             }
-    //             if(values.universityid) {
-    //                 let university = universities.find(item => item.id === values.universityid);
-    //                 dispatch(updateUniversityInfo({university}));
-    //             }
-    //             dispatch(updateProfileInfo({profileData: values}))
-    //             navigate('/profile');
-    //         });
-    //     }
-    // }
-    // catch(error) {
-    //     showPopupError(error, 'Oops!')
-    // }
+    console.log(values);
+    if (basicInformation && !isEmpty(basicInformation)) {
+      for (let key in basicInformationInitialValues) {
+        basicInformationInitialValues[key] = basicInformation[key];
+      }
+    }
+    try {
+      const userid = JSON.parse(localStorage.getItem('profileData')).userId
+      let response = await axiosClient.post(`admin/vendor/basicInfo/store`, JSON.stringify({ userId: userid, ...values }));
+      if (response.status === 200) {
+        swal("Success", "Basic Information updated successfully", "success", {
+          buttons: false,
+          timer: 2000,
+        })
+          .then(() => {
+            getBasicInfo();
+            setReadMode(true)
+          });
+      }
+    }
+    catch (error) {
+      swal("Failed", `Error Updating Basic Information`, "error")
+    }
   }
 
-  const { values, handleBlur, handleChange, handleSubmit, errors, touched } =
+  const { values, handleBlur, handleChange, handleSubmit, errors, touched, setFieldValue } =
     useFormik({
       initialValues: basicInformationInitialValues,
       validationSchema: basicInformationEditFormSchema,
@@ -92,14 +87,6 @@ function BasicInformationEdit({ setReadMode }) {
     // });
   }, []);
 
-
-
-  
-  const [files, setFiles] = useState([])
-
-
-
-  
   return (
     <React.Fragment>
       <div className="form_container">
@@ -108,12 +95,12 @@ function BasicInformationEdit({ setReadMode }) {
             <label>Profile Picture</label>
             <div className="flexbox">
               <span className="avtaar">
-                <img src={files[0]?.fileUrl ||Avtar} alt="profile_icon"></img>
+                <img src={files[0]?.fileUrl || basicInformation?.avatar || Avtar} alt="profile_icon"></img>
               </span>
               <button className="uploadbtn" type="button">
                 Upload new picture
-                <MyUploadButton setFiles={setFiles}/>
-                </button>
+                <MyUploadButton setFiles={setFiles} />
+              </button>
               <button className="deleteBtn" onClick={() => setFiles([])}>Delete</button>
             </div>
           </div>
@@ -188,9 +175,9 @@ function BasicInformationEdit({ setReadMode }) {
               label={"Gender"}
               name={"gender"}
               options={[
-                { id: "male", value: "Male" },
-                { id: "female", value: "Female" },
-                { id: "other", value: "Other" },
+                { id: "Male", value: "Male" },
+                { id: "Female", value: "Female" },
+                { id: "Other", value: "Other" },
               ]}
               wrapperClass={"col6"}
               value={values.gender}
@@ -225,10 +212,16 @@ function BasicInformationEdit({ setReadMode }) {
               error={errors.dob}
               touched={touched.dob}
             /> */}
-            <BasicDatePicker 
-            label={"Date of Birth"}
-            dateFormat={"dd/MM/yyyy"}
-            isRequired
+            <DatePicker
+              label={'Date of Birth'}
+              wrapperClass={'col6'}
+              dateFormat={'dd/MM/yyyy'}
+              name={'dob'}
+              value={values.contract_start}
+              onChange={({ name, value }) => setFieldValue(name, value)}
+              isRequired
+              error={errors.contract_start}
+              touched={touched.contract_start}
             />
           </div>
           <div className="input_flexbox">
@@ -287,10 +280,10 @@ function BasicInformationEdit({ setReadMode }) {
             />
             <Select
               label={"Blood Group"}
-              name={"bloodGroup"}
+              name={"blood_group"}
               options={BLOOD_GROUP_LIST}
               wrapperClass={"col6"}
-              value={values.bloodGroup}
+              value={values.blood_group}
               onChange={handleChange}
             />
           </div>

@@ -3,9 +3,8 @@ import PersonalInfoBio from './PersonalInfoBio/PersonalInfoBio';
 import SocialProfile from './SocailProfile/SocailProfile';
 import BankAccount from './BankAccount/BankAccount';
 import EmergencyContact from './EmergencyContact/EmergencyContact';
+import { axiosClient } from '../../../../services/axiosClient';
 import Pen from '../../../../assets/images/pen.svg';
-import { useSelector, useDispatch } from 'react-redux';
-import { Link, useNavigate } from 'react-router-dom';
 import locales from '../../../../Constants/en.json';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
@@ -14,12 +13,58 @@ import './PersonalInformation.scss';
 import '../../../common/common.component.scss';
 
 function PersonalInformation() {
-    const data = useSelector(state => state);
-    const dispatch = useDispatch();
-    const navigate = useNavigate();
     const [editMode, setEditMode] = useState(false);
     const [value, setValue] = useState(0);
     const [selectLabel, setSelectLabel] = useState('Bio');
+    const [bioInfo, setBioInfo] = useState({});
+    const [bankInfo, setBankInfo] = useState({});
+    const [emergencyInfo, setEmergencyInfo] = useState({});
+    const [socialinfo, setSocialinfo] = useState({});
+    const userid = JSON.parse(localStorage.getItem('profileData')).userId
+
+    const getBioInfo = async () => {
+        let response = await axiosClient.post(
+            `admin/vendor/bioInfo`,
+            JSON.stringify({ userId: userid }),
+        );
+        if (response.status === 200) {
+            setBioInfo(response.data?.data || {});
+        }
+    };
+    const getBankInfo = async () => {
+        let response = await axiosClient.post(
+            `admin/vendor/bankInfo`,
+            JSON.stringify({ userId: userid }),
+        );
+        if (response.status === 200) {
+            setBankInfo(response.data?.data?.bank || {});
+        }
+    };
+    const getEmergencyInfo = async () => {
+        let response = await axiosClient.post(
+            `admin/vendor/emergencyInfo`,
+            JSON.stringify({ userId: userid }),
+        );
+        if (response.status === 200) {
+            setEmergencyInfo(response.data?.data?.emergency || {});
+        }
+    };
+    const getSocialinfo = async () => {
+        let response = await axiosClient.post(
+            `admin/vendor/socialinfo`,
+            JSON.stringify({ userId: userid }),
+        );
+        if (response.status === 200) {
+            setSocialinfo(response.data?.data?.social || {});
+        }
+    };
+
+    useEffect(() => {
+        getBankInfo();
+        getBioInfo();
+        getEmergencyInfo();
+        getSocialinfo();
+    }, []);
 
     const tabsData = ['Bio', 'Social Profile', 'Bank Account', 'Emergency Contract'];
 
@@ -89,16 +134,36 @@ function PersonalInformation() {
                             </Tabs>
                         </Box>
                         <CustomTabPanel value={value} index={0} className='tabdataBlock'>
-                            <PersonalInfoBio mode={editMode} setEditMode={setEditMode} />
+                            <PersonalInfoBio
+                                mode={editMode}
+                                setEditMode={setEditMode}
+                                bioInfo={bioInfo}
+                                getBioInfo={getBioInfo}
+                            />
                         </CustomTabPanel>
                         <CustomTabPanel value={value} index={1} className='tabdataBlock'>
-                            <SocialProfile mode={editMode} setEditMode={setEditMode} />
+                            <SocialProfile
+                                mode={editMode}
+                                setEditMode={setEditMode}
+                                socialinfo={socialinfo}
+                                getSocialinfo={getSocialinfo}
+                            />
                         </CustomTabPanel>
                         <CustomTabPanel value={value} index={2} className='tabdataBlock'>
-                            <BankAccount mode={editMode} setEditMode={setEditMode} />
+                            <BankAccount
+                                mode={editMode}
+                                setEditMode={setEditMode}
+                                bankInfo={bankInfo}
+                                getBankInfo={getBankInfo}
+                            />
                         </CustomTabPanel>
                         <CustomTabPanel value={value} index={3} className='tabdataBlock'>
-                            <EmergencyContact mode={editMode} setEditMode={setEditMode} />
+                            <EmergencyContact
+                                mode={editMode}
+                                setEditMode={setEditMode}
+                                emergencyInfo={emergencyInfo}
+                                getEmergencyInfo={getEmergencyInfo}
+                            />
                         </CustomTabPanel>
                     </Box>
                 </div>

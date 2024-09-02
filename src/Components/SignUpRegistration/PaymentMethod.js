@@ -1,72 +1,67 @@
-import React, { useState } from 'react'
-import locales from '../../Constants/en.json'
-import MenuItem from '@mui/material/MenuItem'
-import FormControl from '@mui/material/FormControl'
-import Radio from '@mui/material/Radio'
-import RadioGroup from '@mui/material/RadioGroup'
-import FormControlLabel from '@mui/material/FormControlLabel'
-import FormLabel from '@mui/material/FormLabel'
-import FormGroup from '@mui/material/FormGroup'
-import Checkbox from '@mui/material/Checkbox'
-import Select, { SelectChangeEvent } from '@mui/material/Select'
-import Tabs from '@mui/material/Tabs'
-import Tab from '@mui/material/Tab'
-import Box from '@mui/material/Box'
-import { Purchase } from '../../services/purchase.service'
-import CheckCircle from '../../assets/images/check-circle-blue.svg'
+import React, { useState } from 'react';
+import locales from '../../Constants/en.json';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Radio from '@mui/material/Radio';
+import RadioGroup from '@mui/material/RadioGroup';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import FormLabel from '@mui/material/FormLabel';
+import FormGroup from '@mui/material/FormGroup';
+import Checkbox from '@mui/material/Checkbox';
+import Select, { SelectChangeEvent } from '@mui/material/Select';
+import Tabs from '@mui/material/Tabs';
+import Tab from '@mui/material/Tab';
+import Box from '@mui/material/Box';
+import { Purchase } from '../../services/purchase.service';
+import CheckCircle from '../../assets/images/check-circle-blue.svg';
 import { Link, useNavigate } from 'react-router-dom';
-import BasicDatePicker from '../common/DatePicker'
+import { DatePicker } from '../common/';
 
 function PaymentMethodPage(props) {
-    const [paymentOption, setPaymentOption] = useState('')
-    const [email, setEmail] = useState(JSON.parse(localStorage.getItem('profileData')).email)
-    const [success, setSuccess] = useState(false)
+    const [paymentOption, setPaymentOption] = useState('');
+    const [email, setEmail] = useState('');
+    const [success, setSuccess] = useState(false);
     const [formData, setFormData] = useState({
         nameCard: '',
         cardNumber: '',
         expiryDate: '',
         securityCode: '',
-    })
-    const navigate = useNavigate()
-    const amount = props.paymentvalue
+    });
+    const navigate = useNavigate();
+    const amount = props.paymentvalue;
 
     const handlePayment = () => {
-        const userid = JSON.parse(localStorage.getItem('profileData'))._id
+        const userid = JSON.parse(localStorage.getItem('profileData')).userId;
         const data = {
             userId: userid,
             amount: amount,
-        }
+        };
         Purchase(data).then(response => {
             if (response && response.status == true) {
-                setSuccess(true)
+                setSuccess(true);
             }
-        })
-    }
+        });
+    };
 
     const handlePaymentOption = e => {
-        setPaymentOption(e.target.value)
-    }
+        setPaymentOption(e.target.value);
+    };
 
     const handleChange = e => {
-        const { name, value } = e.target
-        if (
-            e.target.name == 'cardNumber' ||
-            e.target.name == 'expiryDate' ||
-            e.target.name == 'securityCode'
-        ) {
-            if (Number(e.target.value) || e.target.value == '' || e.target.value == 0) {
-                setFormData(prevState => ({
-                    ...prevState,
-                    [name]: value,
-                }))
-            }
-        } else {
+        if (e?.target) {
+            const { name, value } = e.target;
             setFormData(prevState => ({
                 ...prevState,
                 [name]: value,
-            }))
+            }));
+        } else {
+            const { name, value } = e;
+            setFormData(prevState => ({
+                ...prevState,
+                [name]: value,
+            }));
         }
-    }
+    };
 
     return (
         <React.Fragment>
@@ -126,21 +121,13 @@ function PaymentMethodPage(props) {
                         </div>
                         <div className='inputField grid_box'>
                             <div className='flex_item'>
-                                {/* <label>Expiry date</label> */}
-                                {/* <input
-                                    type='text'
-                                    placeholder='MM/YY'
-                                    maxLength={4}
-                                    className='input_text'
-                                    value={formData.expiryDate}
-                                    name='expiryDate'
-                                    onChange={event => handleChange(event)}
-                                ></input> */}
-                                <BasicDatePicker
-                                label={'Expiry date'}
-                                wrapperClass={`expiryDate`}
-                                isRequired
-                                dateFormat={"MM/yyyy"}
+                                <DatePicker
+                                    label={'Expiry date'}
+                                    wrapperClass={`expiryDate`}
+                                    isRequired
+                                    name={"expiryDate"}
+                                    dateFormat={'MM/YYYY'}
+                                    onChange={handleChange}
                                 />
                             </div>
                             <div className='flex_item cvv_code'>
@@ -195,7 +182,7 @@ function PaymentMethodPage(props) {
                 </div>
             )}
         </React.Fragment>
-    )
+    );
 }
 
-export default PaymentMethodPage
+export default PaymentMethodPage;

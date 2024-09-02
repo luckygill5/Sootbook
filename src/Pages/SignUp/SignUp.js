@@ -89,7 +89,7 @@ function SignUp(props) {
                 // setCountryData(response.data)
             }
 
-        })
+        }) 
     }
 
     useEffect(() => {
@@ -119,7 +119,7 @@ function SignUp(props) {
                         <span className='seperator'></span>
                     </button>
                 </div>
-                <div className='main_container'>
+                <div className='mainContainer'>
                     <div className={`content_wrapper 
                         ${createAccount && 'create_account'}
                         ${emailVerifyPage && 'email_verify'} 

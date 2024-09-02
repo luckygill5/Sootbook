@@ -1,16 +1,16 @@
 import React, { useEffect } from 'react';
+import { isEmpty } from 'lodash';
 import { useFormik } from 'formik';
-import MenuItem from '@mui/material/MenuItem';
-import MuiSelect from '@mui/material/Select';
+import swal from 'sweetalert';
+import { axiosClient } from '../../../../../services/axiosClient';
 import { Input, DataList, Select } from '../../../../common/';
-import { ReactComponent as Arrow } from '../../../../../assets/images/chevron-down.svg';
 import '../ContractContent.scss';
 
 const allowanceConfig = [
-    { label: 'Allowance Option', value: 'Non Taxable' },
-    { label: 'Amount Option', value: 'Fixed' },
-    { label: 'Title', value: 'Title' },
-    { label: 'Amount', value: '$1000' },
+    { label: 'Allowance Option', value: 'Non Taxable', name: 'allowance_option' },
+    { label: 'Amount Option', value: 'Fixed', name: 'amount_option' },
+    { label: 'Title', value: 'Title', name: 'title' },
+    { label: 'Amount', value: '$1000', name: 'amount' },
 ];
 
 const allowanceInitialValues = {
@@ -20,9 +20,42 @@ const allowanceInitialValues = {
     amount: '',
 };
 
-function Allowances(props) {
+function Allowances({ mode, setEditMode, allowanceInformation, getAllowanceInfo }) {
+    const userid = JSON.parse(localStorage.getItem('profileData')).userId;
+    if (allowanceInformation && !isEmpty(allowanceInformation)) {
+        for (let key in allowanceInitialValues) {
+            allowanceInitialValues[key] = allowanceInformation[key];
+        }
+    }
+
     const handleFormSubmit = async values => {
-        console.log(values);
+        values.currencyId = '66d13dfd3e088b621d0ea8cc';
+        try {
+            let response = {};
+
+            if (allowanceInformation?._id) {
+                response = await axiosClient.post(
+                    `admin/allowance/update`,
+                    JSON.stringify({ id: allowanceInformation._id, userId: userid, ...values }),
+                );
+            } else {
+                response = await axiosClient.post(
+                    `admin/allowance/create`,
+                    JSON.stringify({ userId: userid, ...values }),
+                );
+            }
+            if (response.status === 200) {
+                swal('Success', 'Allowance updated successfully', 'success', {
+                    buttons: false,
+                    timer: 2000,
+                }).then(() => {
+                    getAllowanceInfo();
+                    setEditMode(false);
+                });
+            }
+        } catch (error) {
+            swal('Failed', `Error Updating Allowance`, 'error');
+        }
     };
 
     const { values, handleChange, handleSubmit } = useFormik({
@@ -40,122 +73,7 @@ function Allowances(props) {
 
     return (
         <div className='allowances_container'>
-            {props.mode ? (
-                <div className='search_fieldbox'>
-                    <input
-                        type='text'
-                        className='search_input'
-                        placeholder='Search Preline'
-                    ></input>
-                </div>
-            ) : null}
-            <div className='table_section'>
-                <div className='table_container'>
-                    <div className='table_head'>
-                        <div className='row col-4'>
-                            <div className='thead'>
-                                <span className='text'>Title</span>
-                                <div className='sort'>
-                                    <span className='up_icon'>
-                                        <Arrow />
-                                    </span>
-                                    <span className='down_icon'>
-                                        <Arrow />
-                                    </span>
-                                </div>
-                            </div>
-                            <div className='thead'>
-                                <span className='text'>Amount</span>
-                                <div className='sort'>
-                                    <span className='up_icon'>
-                                        <Arrow />
-                                    </span>
-                                    <span className='down_icon'>
-                                        <Arrow />
-                                    </span>
-                                </div>
-                            </div>
-                            <div className='thead'>
-                                <span className='text'>Allowance Option</span>
-                                <div className='sort'>
-                                    <span className='up_icon'>
-                                        <Arrow />
-                                    </span>
-                                    <span className='down_icon'>
-                                        <Arrow />
-                                    </span>
-                                </div>
-                            </div>
-                            <div className='thead'>
-                                <span className='text'>Amount Option</span>
-                                <div className='sort'>
-                                    <span className='up_icon'>
-                                        <Arrow />
-                                    </span>
-                                    <span className='down_icon'>
-                                        <Arrow />
-                                    </span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div className='table_body'>
-                        <div className='no_record'>No records available</div>
-                    </div>
-                </div>
-                <div className='pagination_container'>
-                    <div className='navigation'>
-                        <ul className='count_list'>
-                            <li>
-                                <span className='arrow_prev'>
-                                    <Arrow />
-                                </span>
-                            </li>
-                            <li>
-                                <span className='count selected'>1</span>
-                            </li>
-                            <li>
-                                <span className='count'>2</span>
-                            </li>
-                            <li>
-                                <span className='count'>3</span>
-                            </li>
-                            <li>
-                                <span className='count'>...</span>
-                            </li>
-                            <li>
-                                <span className='count'>10</span>
-                            </li>
-                            <li>
-                                <span className='arrow_next'>
-                                    <Arrow />
-                                </span>
-                            </li>
-                        </ul>
-                        <MuiSelect
-                            className='select_pageBox'
-                            labelId='demo-simple-select-label'
-                            id='demo-simple-select'
-                            // value={countryselectedData}
-                            label='Age'
-                            //  onChange={handleChange}
-                        >
-                            <MenuItem name='Single' value='Startup'>
-                                5 page
-                            </MenuItem>
-                            <MenuItem name='Married' value='Startup'>
-                                10 page
-                            </MenuItem>
-                        </MuiSelect>
-                    </div>
-                    <div className='gotopage'>
-                        <span className='label'>Go to</span>
-                        <input className='gotoInput' type='text'></input>
-                        <span className='label'>page</span>
-                    </div>
-                </div>
-            </div>
-            {props.mode ? (
+            {mode ? (
                 <div className='form_container'>
                     <form onSubmit={handleSubmit}>
                         <div className='input_flexbox'>
@@ -203,7 +121,7 @@ function Allowances(props) {
                             />
                         </div>
                         <div className='button-container'>
-                            <button className='cancelBtn' onClick={() => props.setEditMode(false)}>
+                            <button className='cancelBtn' onClick={() => setEditMode(false)}>
                                 Cancel
                             </button>
                             <button className='saveBtn' type='submit' onClick={handleSubmit}>
@@ -213,7 +131,7 @@ function Allowances(props) {
                     </form>
                 </div>
             ) : (
-                <DataList config={allowanceConfig} />
+                <DataList config={allowanceConfig} dataSource={allowanceInformation} />
             )}
         </div>
     );
