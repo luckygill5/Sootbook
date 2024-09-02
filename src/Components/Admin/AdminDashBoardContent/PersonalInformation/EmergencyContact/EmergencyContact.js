@@ -1,13 +1,15 @@
 import React, { useEffect } from 'react';
 import { useFormik } from 'formik';
+import swal from 'sweetalert';
+import { axiosClient } from '../../../../../services/axiosClient';
 import { Input, DataList, TextArea } from '../../../../common';
 import '../PersonalInformation.scss';
 
 const emergencyContactConfig = [
-    { label: 'Full Name', value: 'Full Name' },
-    { label: 'Contact Number', value: '+1 (000) 000-0000' },
-    { label: 'Email', value: 'Email' },
-    { label: 'Address', value: 'Address' },
+    { label: 'Full Name', value: 'Full Name', name: 'name' },
+    { label: 'Contact Number', value: '+1 (000) 000-0000', name: 'email' },
+    { label: 'Email', value: 'Email', name: 'phone' },
+    { label: 'Address', value: 'Address', name: 'address' },
 ];
 
 const emergencyContactInitialValues = {
@@ -17,13 +19,30 @@ const emergencyContactInitialValues = {
     address: '',
 };
 
-function EmergencyContact(props) {
+function EmergencyContact({ mode, setEditMode, emergencyInfo, getEmergencyInfo }) {
     const handleFormSubmit = async values => {
-        console.log(values);
+        try {
+            const userid = JSON.parse(localStorage.getItem('profileData')).userId
+            let response = await axiosClient.post(
+                `admin/vendor/emergencyInfo/store`,
+                JSON.stringify({ userId: userid, ...values }),
+            );
+            if (response.status === 200) {
+                swal('Success', 'Emergency Information updated successfully', 'success', {
+                    buttons: false,
+                    timer: 2000,
+                }).then(() => {
+                    getEmergencyInfo();
+                    setEditMode(false);
+                });
+            }
+        } catch (error) {
+            swal('Failed', `Error Updating Emergency Information`, 'error');
+        }
     };
 
     const { values, handleChange, handleSubmit } = useFormik({
-        initialValues: emergencyContactInitialValues,
+        initialValues: emergencyInfo || emergencyContactInitialValues,
         validateOnChange: true,
         validateOnBlur: false,
         enableReinitialize: true,
@@ -37,7 +56,7 @@ function EmergencyContact(props) {
 
     return (
         <div className='personalinfo_emergencycontact_container'>
-            {props.mode ? (
+            {mode ? (
                 <div className='form_container'>
                     <form onSubmit={handleSubmit}>
                         <div className='input_flexbox'>
@@ -85,7 +104,7 @@ function EmergencyContact(props) {
                             />
                         </div>
                         <div className='button-container'>
-                            <button className='cancelBtn' onClick={() => props.setEditMode(false)}>
+                            <button className='cancelBtn' onClick={() => setEditMode(false)}>
                                 Cancel
                             </button>
                             <button className='savebtn' type='submit' onClick={handleSubmit}>
@@ -95,7 +114,7 @@ function EmergencyContact(props) {
                     </form>
                 </div>
             ) : (
-                <DataList config={emergencyContactConfig} />
+                <DataList config={emergencyContactConfig} dataSource={emergencyInfo} />
             )}
         </div>
     );

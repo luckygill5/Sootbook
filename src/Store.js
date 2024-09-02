@@ -6,7 +6,7 @@ import loginReducer from "./Slices/LoginServiceSlices"
 const store = configureStore({
   reducer: {
     countryIndustrylist: countryReducer,
-    loginData:loginReducer
+    loginData:loginReducer,
   },
 });
 

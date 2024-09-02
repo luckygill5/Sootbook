@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { useFormik } from 'formik';
-import locales from '../../../../../Constants/en.json';
+import swal from 'sweetalert';
+import { axiosClient } from '../../../../../services/axiosClient';
 import FbIcon from '../../../../../assets/images/fb_icon.svg';
 import InstaIcon from '../../../../../assets/images/insta_icon.svg';
 import BehanceIcon from '../../../../../assets/images/behance_icon.svg';
@@ -9,26 +10,43 @@ import { Input, DataList, Button } from '../../../../common';
 import '../PersonalInformation.scss';
 
 const socialProfileConfig = [
-    { label: 'Facebook', value: 'Facebook Link' },
-    { label: 'Instagram', value: 'Instagram Link' },
-    { label: 'Behance', value: 'Behance Link' },
-    { label: 'Gmail', value: 'Gmail Link' },
+    { label: 'Facebook', value: 'Facebook Link', name: 'facebook' },
+    { label: 'Instagram', value: 'Instagram Link', name: 'instagram' },
+    { label: 'Behance', value: 'Behance Link', name: 'behance' },
+    { label: 'Gmail', value: 'Gmail Link', name: 'gmail' },
 ];
 
-const emergencyContactInitialValues = {
+const socialProfileInitialValues = {
     facebook: '',
     instagram: '',
     behance: '',
     gmail: '',
 };
 
-function SocialProfile(props) {
+function SocialProfile({ mode, setEditMode, socialinfo, getSocialinfo }) {
     const handleFormSubmit = async values => {
-        console.log(values);
+        try {
+            const userid = JSON.parse(localStorage.getItem('profileData')).userId
+            let response = await axiosClient.post(
+                `admin/vendor/socialinfo/store`,
+                JSON.stringify({ userId: userid, ...values }),
+            );
+            if (response.status === 200) {
+                swal('Success', 'Social Information updated successfully', 'success', {
+                    buttons: false,
+                    timer: 2000,
+                }).then(() => {
+                    getSocialinfo();
+                    setEditMode(false);
+                });
+            }
+        } catch (error) {
+            swal('Failed', `Error Updating Social Information`, 'error');
+        }
     };
 
     const { values, handleChange, handleSubmit } = useFormik({
-        initialValues: emergencyContactInitialValues,
+        initialValues: socialinfo || socialProfileInitialValues,
         validateOnChange: true,
         validateOnBlur: false,
         enableReinitialize: true,
@@ -43,7 +61,7 @@ function SocialProfile(props) {
     return (
         <React.Fragment>
             <div className='socialProfile_container'>
-                {props.mode ? (
+                {mode ? (
                     <div className='form_container'>
                         <div className='input_flexbox'>
                             <Input
@@ -51,7 +69,7 @@ function SocialProfile(props) {
                                 type={'text'}
                                 name={'facebook'}
                                 id={'facebook'}
-                                value={values.Facebook}
+                                value={values.facebook}
                                 placeholder={'Profile URL'}
                                 icon={FbIcon}
                                 wrapperClass={'col12'}
@@ -98,7 +116,7 @@ function SocialProfile(props) {
                             />
                         </div>
                         <div className='button-container'>
-                            <button className='cancelBtn' onClick={() => props.setEditMode(false)}>
+                            <button className='cancelBtn' onClick={() => setEditMode(false)}>
                                 Cancel
                             </button>
                             <button className='savebtn' type='submit' onClick={handleSubmit}>
@@ -107,7 +125,7 @@ function SocialProfile(props) {
                         </div>
                     </div>
                 ) : (
-                    <DataList config={socialProfileConfig} />
+                    <DataList config={socialProfileConfig} dataSource={socialinfo} />
                 )}
             </div>
         </React.Fragment>

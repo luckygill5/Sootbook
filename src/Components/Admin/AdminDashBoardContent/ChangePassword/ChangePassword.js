@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import Pen from '../../../../assets/images/pen.svg';
-import { useSelector, useDispatch } from 'react-redux';
-import { Link, useNavigate } from 'react-router-dom';
+import swal from 'sweetalert';
+import { axiosClient } from '../../../../services/axiosClient';
 import locales from '../../../../Constants/en.json';
 import Toggle from '../../../../assets/images/eye-off.svg';
 import Alert from '../../../../assets/images/alert-triangle.svg';
@@ -15,23 +15,42 @@ function ChangePassword(props) {
     const RepeatNewPass = useRef(null);
     const [editMode, setEditMode] = useState(false);
     const [formdata, setFormdata] = useState({
-        currentpassword:"",
-        newpassword:'',
-        repeatpassword:''
-    })
-    const [finalPassword, setFinalPassword] = useState("")
+        currentpassword: '',
+        newpassword: '',
+        repeatpassword: '',
+    });
+    const [finalPassword, setFinalPassword] = useState('');
 
-    const handleSubmit = (event) => {
-        if(formdata.newpassword == formdata.repeatpassword){
-            setFinalPassword(formdata.repeatpassword);
+    const handleSubmit = async event => {
+        if (formdata.newpassword == formdata.repeatpassword) {
+            const userid = JSON.parse(localStorage.getItem('profileData')).userId;
+            try {
+                let response = await axiosClient.post(
+                    `admin/vendor/updatePasswordInfo/store`,
+                    JSON.stringify({
+                        userId: userid,
+                        current_password: formdata.currentpassword,
+                        new_password: formdata.newpassword,
+                    }),
+                );
+                if (response.status === 200) {
+                    swal('Success', 'Password updated successfully', 'success', {
+                        buttons: false,
+                        timer: 2000,
+                    }).then(() => {
+                        setEditMode(false);
+                    });
+                }
+            } catch (error) {
+                swal('Failed', `Error Updating Password`, 'error');
+            }
             setFormdata({
-                currentpassword:"",
-                newpassword:'',
-                repeatpassword:''
-            })
+                currentpassword: '',
+                newpassword: '',
+                repeatpassword: '',
+            });
             setEditMode(false);
         }
-        
     };
 
     const handleEdit = () => {
@@ -64,14 +83,13 @@ function ChangePassword(props) {
 
     const CPData = [{ label: 'Password', value: '• • • • • • • • • •' }];
 
-
-    const handleChange = (e) => {
-        const {name, value} = e.target;
-        setFormdata((prevState) => ({
+    const handleChange = e => {
+        const { name, value } = e.target;
+        setFormdata(prevState => ({
             ...prevState,
-            [name] :  value
-        }))
-    }
+            [name]: value,
+        }));
+    };
 
     return (
         <div className='changepassword_container'>
@@ -88,7 +106,6 @@ function ChangePassword(props) {
             )}
             {editMode ? (
                 <div className='form_container'>
-                    <form onSubmit={handleSubmit}>
                         <div className='alert_msg'>
                             <div className='flexbox'>
                                 <div className='icon'>
@@ -107,7 +124,13 @@ function ChangePassword(props) {
                             <div className='inputBox'>
                                 <label>Current Password</label>
                                 <div className='flexbox'>
-                                    <input type='password' className='input_password' name="currentpassword" value={formdata.currentpassword} onChange={handleChange}></input>
+                                    <input
+                                        type='password'
+                                        className='input_password'
+                                        name='currentpassword'
+                                        value={formdata.currentpassword}
+                                        onChange={handleChange}
+                                    ></input>
                                     <span
                                         className='toggleBtn'
                                         ref={passwordRef}
@@ -122,7 +145,13 @@ function ChangePassword(props) {
                             <div className='inputBox'>
                                 <label>New Password</label>
                                 <div className='flexbox'>
-                                    <input type='password' className='input_password' name="newpassword" value={formdata.newpassword} onChange={handleChange}></input>
+                                    <input
+                                        type='password'
+                                        className='input_password'
+                                        name='newpassword'
+                                        value={formdata.newpassword}
+                                        onChange={handleChange}
+                                    ></input>
                                     <span
                                         className='toggleBtn'
                                         ref={newPass}
@@ -135,7 +164,13 @@ function ChangePassword(props) {
                             <div className='inputBox'>
                                 <label>Repeat New Password</label>
                                 <div className='flexbox'>
-                                    <input type='password' className='input_password' name="repeatpassword" value={formdata.repeatpassword} onChange={handleChange}></input>
+                                    <input
+                                        type='password'
+                                        className='input_password'
+                                        name='repeatpassword'
+                                        value={formdata.repeatpassword}
+                                        onChange={handleChange}
+                                    ></input>
                                     <span
                                         className='toggleBtn'
                                         ref={RepeatNewPass}
@@ -147,11 +182,13 @@ function ChangePassword(props) {
                             </div>
                         </div>
                         <div className='button-container'>
-                            <button className='saveBtn' type='submit' onClick={handleSubmit}>
+                            <button className='cancelBtn' onClick={() => setEditMode(false)}>
+                                Cancel
+                            </button>
+                            <button className='savebtn' type='submit' onClick={handleSubmit}>
                                 Save
                             </button>
                         </div>
-                    </form>
                 </div>
             ) : (
                 <DataList config={CPData} />

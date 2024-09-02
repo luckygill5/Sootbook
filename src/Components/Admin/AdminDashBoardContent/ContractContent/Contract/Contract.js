@@ -1,21 +1,25 @@
 import React, { useState, useEffect } from 'react';
+import { isEmpty } from 'lodash';
 import { useFormik } from 'formik';
-import { Input, DataList, Select, TextArea } from '../../../../common/';
+import * as Yup from "yup";
+import swal from 'sweetalert';
+import { axiosClient } from '../../../../../services/axiosClient';
+import { DatePicker, Input, DataList, Select, TextArea } from '../../../../common/';
 import { DEPARTMENTS_LIST } from '../../../../../Constants/Contants.common';
 import '../ContractContent.scss';
 import '../../../../common/common.component.scss';
-import BasicDatePicker from '../../../../common/DatePicker';
 
 const contractConfig = [
-    { label: 'Contract date', value: '24/02/2024' },
-    { label: 'Department', value: 'Human resources' },
-    { label: 'Basic salary', value: '$1500' },
-    { label: 'Hourly Rate', value: '$10.00' },
-    { label: 'Payslip Type', value: 'Per Month' },
-    { label: 'Office Shift', value: 'Morning Shift' },
-    { label: 'Contract End', value: 'Date Of Leaving' },
-    { label: 'Categories', value: 'Badge', valueClass: 'badge green' },
-    { label: 'Role Description', value: 'Description' },
+    { label: 'Contract date', value: '24/02/2024', name: 'contract_start', type: 'date' },
+    { label: 'Department', value: 'Human resources', name: 'department' },
+    { label: 'Designation', value: 'Human resources', name: 'designation' },
+    { label: 'Basic salary', value: '$1500', name: 'basic_salary' },
+    { label: 'Hourly Rate', value: '$10.00', name: 'hourly_rate' },
+    { label: 'Payslip Type', value: 'Per Month', name: 'payslip_type' },
+    { label: 'Office Shift', value: 'Morning Shift', name: 'office_shift' },
+    { label: 'Contract End', value: '24/02/2024', name: 'contract_end', type: 'date' },
+    { label: 'Categories', value: 'Badge', valueClass: 'badge green', name: 'leave_category' },
+    { label: 'Role Description', value: 'Description', name: 'role_description' },
 ];
 
 const contractInitialValues = {
@@ -31,42 +35,58 @@ const contractInitialValues = {
     role_description: '',
 };
 
+const contractFormSchema = Yup.object({
+    contract_start: Yup.string().required("Contract date is required."),
+    department: Yup.string().required("Department is required."),
+    designation: Yup.string().required("Designation is required."),
+    basic_salary: Yup.string().required("Basic salary is required."),
+    office_shift: Yup.string().required("Office Shift is required."),
+    payslip_type: Yup.string().required("Payslip Type is required."),
+    contract_end: Yup.string().required("Contract End Date is required.")
+  });
+
 //selectBox
-function Contract(props) {
+function Contract({ mode, setEditMode, contractInformation, getContractInfo }) {
+    const userid = JSON.parse(localStorage.getItem('profileData')).userId;
+    if (contractInformation && !isEmpty(contractInformation)) {
+        for (let key in contractInitialValues) {
+            contractInitialValues[key] = contractInformation[key];
+        }
+    }
     const handleFormSubmit = async values => {
-        console.log(values);
-        // try{
-        //     let response = await axiosClient.patch(`/profiles/${profileData.profileid}`, JSON.stringify(editformDataPreparer(values, profileData.profileid, userid)));
-        //     if (response.status === 204 ) {
-        //         swal("Success", "Profile updated successfully", "success", {
-        //             buttons: false,
-        //             timer: 2000,
-        //         })
-        //         .then(() => {
-        //             if(values.country) {
-        //                 let country = countries.find(item => item.id === values.country);
-        //                 dispatch(updateCountryInfo({country}));
-        //             }
-        //             if(values.state) {
-        //                 let state = states.find(item => item.id === values.state);
-        //                 dispatch(updateStateInfo({state}));
-        //             }
-        //             if(values.universityid) {
-        //                 let university = universities.find(item => item.id === values.universityid);
-        //                 dispatch(updateUniversityInfo({university}));
-        //             }
-        //             dispatch(updateProfileInfo({profileData: values}))
-        //             navigate('/profile');
-        //         });
-        //     }
-        // }
-        // catch(error) {
-        //     showPopupError(error, 'Oops!')
-        // }
+        values.currencyId = '66d13dfd3e088b621d0ea8cc';
+        try {
+            let response = {};
+
+            if (contractInformation?._id) {
+                response = await axiosClient.post(
+                    `admin/contract/update`,
+                    JSON.stringify({ id: contractInformation._id, userId: userid, ...values }),
+                );
+            } else {
+                response = await axiosClient.post(
+                    `admin/contract/create`,
+                    JSON.stringify({ userId: userid, ...values }),
+                );
+            }
+            if (response.status === 200) {
+                swal('Success', 'Contract updated successfully', 'success', {
+                    buttons: false,
+                    timer: 2000,
+                }).then(() => {
+                    getContractInfo();
+                    setEditMode(false);
+                });
+            }
+        } catch (error) {
+            swal('Failed', `Error Updating Contract`, 'error');
+            setEditMode(false);
+        }
     };
 
-    const { values, handleChange, handleSubmit } = useFormik({
+    const { values, handleChange, handleSubmit, setFieldValue, errors, touched } = useFormik({
         initialValues: contractInitialValues,
+        validationSchema: contractFormSchema,
         validateOnChange: true,
         validateOnBlur: false,
         enableReinitialize: true,
@@ -76,25 +96,22 @@ function Contract(props) {
         },
     });
 
-    useEffect(() => {
-        // const countryCodeOptions = getCountryCode(countries);
-        // setCountryCodes(countryCodeOptions);
-        // axiosClient.get("/universities").then((res) => {
-        //   setUniversities(res.data);
-        // });
-    }, []);
-
     return (
         <div className='contract_container'>
-            {props.mode ? (
+            {mode ? (
                 <div className='form_container'>
                     <form onSubmit={handleSubmit}>
                         <div className='input_flexbox'>
-                            <BasicDatePicker 
-                             label={'Contract Date'}
-                            wrapperClass={'col6'}
-                            dateFormat={"dd/MM/yyyy"}
-                            isRequired
+                            <DatePicker
+                                label={'Contract Date'}
+                                wrapperClass={'col6'}
+                                dateFormat={'dd/MM/yyyy'}
+                                name={'contract_start'}
+                                value={values.contract_start}
+                                onChange={({ name, value }) => setFieldValue(name, value)}
+                                isRequired
+                                error={errors.contract_start}
+                                touched={touched.contract_start}
                             />
                         </div>
                         <div className='input_flexbox'>
@@ -106,6 +123,8 @@ function Contract(props) {
                                 wrapperClass={'col6'}
                                 onChange={handleChange}
                                 isRequired
+                                error={errors.department}
+                                touched={touched.department}
                             />
                             <Input
                                 label={'Designation'}
@@ -116,6 +135,8 @@ function Contract(props) {
                                 wrapperClass={'col6'}
                                 onChange={handleChange}
                                 isRequired
+                                error={errors.designation}
+                                touched={touched.designation}
                             />
                         </div>
                         <div className='input_flexbox'>
@@ -128,6 +149,8 @@ function Contract(props) {
                                 wrapperClass={'col6'}
                                 onChange={handleChange}
                                 isRequired
+                                error={errors.basic_salary}
+                                touched={touched.basic_salary}
                             />
                             <Input
                                 label={'Hourly Rate'}
@@ -140,7 +163,7 @@ function Contract(props) {
                             />
                             <Select
                                 label={'Payslip Type'}
-                                name={'payslipType'}
+                                name={'payslip_type'}
                                 value={values.payslip_type}
                                 options={[
                                     { id: 'week', value: 'Per Week' },
@@ -149,6 +172,8 @@ function Contract(props) {
                                 wrapperClass={'col4'}
                                 onChange={handleChange}
                                 isRequired
+                                error={errors.payslip_type}
+                                touched={touched.payslip_type}
                             />
                         </div>
                         <div className='input_flexbox'>
@@ -164,10 +189,17 @@ function Contract(props) {
                                 wrapperClass={'col6'}
                                 onChange={handleChange}
                                 isRequired
+                                error={errors.office_shift}
+                                touched={touched.office_shift}
                             />
-                            <BasicDatePicker 
-                             label={'Contract End'}
-                             wrapperClass={'col6'}/>
+                            <DatePicker
+                                label={'Contract End'}
+                                wrapperClass={'col6'}
+                                dateFormat={'dd/MM/yyyy'}
+                                name={'contract_end'}
+                                value={values.contract_end}
+                                onChange={({ name, value }) => setFieldValue(name, value)}
+                            />
                         </div>
                         <div className='input_flexbox'>
                             <div className='inputField col12'>
@@ -176,6 +208,7 @@ function Contract(props) {
                                     type='text'
                                     placeholder='24-02-2024'
                                     className='input_element'
+                                    name={'leave_category'}
                                     value={values.leave_category}
                                     onChange={handleChange}
                                 ></input>
@@ -188,16 +221,15 @@ function Contract(props) {
                         <div className='input_flexbox'>
                             <TextArea
                                 label={'Role Description'}
-                                name={'description'}
+                                name={'role_description'}
                                 value={values.role_description}
                                 wrapperClass={'col12'}
                                 onChange={handleChange}
                                 placeholder='Enter role description here..'
-                                isRequired
                             />
                         </div>
                         <div className='button-container'>
-                            <button className='cancelBtn' onClick={() => props.setEditMode(false)}>
+                            <button className='cancelBtn' onClick={() => setEditMode(false)}>
                                 Cancel
                             </button>
                             <button className='saveBtn' type='submit' onClick={handleSubmit}>
@@ -207,7 +239,7 @@ function Contract(props) {
                     </form>
                 </div>
             ) : (
-                <DataList config={contractConfig} />
+                <DataList config={contractConfig} dataSource={contractInformation} />
             )}
         </div>
     );

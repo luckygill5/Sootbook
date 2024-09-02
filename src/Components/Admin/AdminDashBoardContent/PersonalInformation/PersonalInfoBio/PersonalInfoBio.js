@@ -1,11 +1,13 @@
 import React, { useEffect } from 'react';
 import { useFormik } from 'formik';
+import swal from 'sweetalert';
+import { axiosClient } from '../../../../../services/axiosClient';
 import { TextArea, DataList, Select } from '../../../../common/';
 import '../PersonalInformation.scss';
 
 const bankAccountConfig = [
-    { label: 'Bio', value: 'Enter staff bio here..' },
-    { label: 'Experience', value: 'Startup' },
+    { label: 'Bio', value: 'Enter staff bio here..', name: 'bio' },
+    { label: 'Experience', value: 'Startup', name: 'experience' },
 ];
 
 const personalBioInitialValues = {
@@ -13,13 +15,30 @@ const personalBioInitialValues = {
     experience: 'fresher',
 };
 
-function PersonalInfoBio(props) {
+function PersonalInfoBio({ mode, setEditMode, bioInfo, getBioInfo }) {
     const handleFormSubmit = async values => {
-        console.log(values);
+        try {
+            const userid = JSON.parse(localStorage.getItem('profileData')).userId
+            let response = await axiosClient.post(
+                `admin/vendor/bioInfo/store`,
+                JSON.stringify({ userId: userid, ...values }),
+            );
+            if (response.status === 200) {
+                swal('Success', 'Bio Information updated successfully', 'success', {
+                    buttons: false,
+                    timer: 2000,
+                }).then(() => {
+                    getBioInfo();
+                    setEditMode(false);
+                });
+            }
+        } catch (error) {
+            swal('Failed', `Error Updating Bio Information`, 'error');
+        }
     };
 
     const { values, handleChange, handleSubmit } = useFormik({
-        initialValues: personalBioInitialValues,
+        initialValues: bioInfo || personalBioInitialValues,
         validateOnChange: true,
         validateOnBlur: false,
         enableReinitialize: true,
@@ -34,7 +53,7 @@ function PersonalInfoBio(props) {
     return (
         <React.Fragment>
             <div className='personalBioInfo_container'>
-                {props.mode ? (
+                {mode ? (
                     <div className='form_container'>
                         <form onSubmit={handleSubmit}>
                             <div className='input_flexbox'>
@@ -62,10 +81,7 @@ function PersonalInfoBio(props) {
                                 />
                             </div>
                             <div className='button-container'>
-                                <button
-                                    className='cancelBtn'
-                                    onClick={() => props.setEditMode(false)}
-                                >
+                                <button className='cancelBtn' onClick={() => setEditMode(false)}>
                                     Cancel
                                 </button>
                                 <button className='savebtn' type='submit' onClick={handleSubmit}>
@@ -75,7 +91,7 @@ function PersonalInfoBio(props) {
                         </form>
                     </div>
                 ) : (
-                    <DataList config={bankAccountConfig} />
+                    <DataList config={bankAccountConfig} dataSource={bioInfo} />
                 )}
             </div>
         </React.Fragment>

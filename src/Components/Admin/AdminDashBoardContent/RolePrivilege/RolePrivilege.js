@@ -2,41 +2,82 @@ import React, { useState, useEffect, useRef } from 'react';
 import { useFormik } from 'formik';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
-import { DataList, Input, Select } from '../../../common';
+import swal from 'sweetalert';
+import { axiosClient } from '../../../../services/axiosClient';
+import { DataList, DatePicker, Input, Select } from '../../../common';
 import locales from '../../../../Constants/en.json';
 import Pen from '../../../../assets/images/pen.svg';
-import BasicDatePicker from '../../../common/DatePicker';
 import './RolePrivilege.scss';
 
 const rolePrivilegeInitialValues = {
-    name: '',
-    status: '',
+    role: '',
+    status: 'active',
     contractDate: '',
 };
 
+const rolePrivilegeConfig = [
+    { label: 'Role', value: 'Manager', name: 'role' },
+    { label: 'Status', value: 'Active', name: 'status' },
+    { label: 'Contract Date', value: '24-02-2024', name: 'contractDate' },
+    // {
+    //     label: "Privileges", value: "", CheckList: true, ChecklistClass: "check_listing", CheckListData: [
+    //         { label: "Ability to create and manage vendor profiles." },
+    //         { label: "View and update inventory levels, track production." },
+    //         { label: "Monitor the status of shipments." },
+
+    //     ]
+    // },
+];
+
 function RolePrivilege(props) {
     const [editMode, setEditMode] = useState(false);
+    const [rolesInfo, setRolesInfo] = useState({});
+    const userid = JSON.parse(localStorage.getItem('profileData')).userId
 
-    const rolePrivilegeData = [
-        { label: 'Role', value: 'Manager' },
-        { label: 'Status', value: 'Active' },
-        { label: 'Contract Date', value: '24-02-2024' },
-        // {
-        //     label: "Privileges", value: "", CheckList: true, ChecklistClass: "check_listing", CheckListData: [
-        //         { label: "Ability to create and manage vendor profiles." },
-        //         { label: "View and update inventory levels, track production." },
-        //         { label: "Monitor the status of shipments." },
+    const getRolesInfo = async () => {
+        let response = await axiosClient.post(
+            `admin/vendor/rolePreviligesInfo`,
+            JSON.stringify({ userId: userid }),
+        );
+        if (response.status === 200) {
+            setRolesInfo(response.data?.data?.vendor || {});
+        }
+    };
 
-        //     ]
-        // },
-    ];
+    useEffect(() => {
+        getRolesInfo();
+    }, []);
 
     const handleFormSubmit = async values => {
-        console.log(values);
+        delete values.contractDate;
+        values.permission = [];
+        try {
+            let response = {};
+            delete values._id;
+            response = await axiosClient.post(
+                `admin/vendor/rolePreviligesInfo/store`,
+                JSON.stringify({
+                    userId: userid,
+                    ...values,
+                }),
+            );
+            if (response.status === 200) {
+                swal('Success', 'Roles and Privileges updated successfully', 'success', {
+                    buttons: false,
+                    timer: 2000,
+                }).then(() => {
+                    getRolesInfo();
+                    setEditMode(false)
+                });
+            }
+        } catch (error) {
+            swal('Failed', `Error Updating Roles and Privileges`, 'error');
+            setEditMode(false)
+        }
     };
 
     const { values, handleChange, handleSubmit } = useFormik({
-        initialValues: rolePrivilegeInitialValues,
+        initialValues: rolesInfo || rolePrivilegeInitialValues,
         validateOnChange: true,
         validateOnBlur: false,
         enableReinitialize: true,
@@ -55,12 +96,11 @@ function RolePrivilege(props) {
                         <div className='input_flexBox col-2'>
                             <Select
                                 label={'Role'}
-                                name={'name'}
-                                value={values.name}
+                                name={'role'}
+                                value={values.role}
                                 options={[
-                                    { id: 'Startup', value: 'Startup' },
-                                    { id: 'Startup', value: 'Startup' },
-                                    { id: 'Startup', value: 'Startup' },
+                                    { id: '66b79100312fc2996027b129', value: 'Super Admin' },
+                                    { id: '66b79237312fc2996027b142', value: 'Admin' },
                                 ]}
                                 wrapperClass={'col6'}
                                 onChange={handleChange}
@@ -70,19 +110,19 @@ function RolePrivilege(props) {
                                 name={'status'}
                                 value={values.status}
                                 options={[
-                                    { id: 'Startup', value: 'Startup' },
-                                    { id: 'Startup', value: 'Startup' },
-                                    { id: 'Startup', value: 'Startup' },
+                                    { id: 'true', value: 'Active' },
+                                    { id: 'false', value: 'Inactive' },
                                 ]}
                                 wrapperClass={'col6'}
                                 onChange={handleChange}
                             />
                         </div>
                         <div className='input_flexBox w-50'>
-                            <BasicDatePicker 
-                            label={'Contract Date'}
-                            dateFormat={"dd/MM/yyyy"}
-                            wrapperClass={'col12'}/>
+                            <DatePicker
+                                label={'Contract Date'}
+                                dateFormat={'dd/MM/yyyy'}
+                                wrapperClass={'col12'}
+                            />
                         </div>
                         <div className='privilege_section'>
                             <h5 className='title'>Privileges</h5>
@@ -128,7 +168,7 @@ function RolePrivilege(props) {
                             {locales.edit_title}
                         </button>
                     </div>
-                    <DataList config={rolePrivilegeData} />
+                    <DataList config={rolePrivilegeConfig} dataSource={rolesInfo} />
                 </React.Fragment>
             )}
         </div>

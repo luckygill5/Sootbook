@@ -24,7 +24,7 @@ $font-monsterat : 'Montserrat';
     display: inline-flexbox;
 }
 
-.signIn_wrapper {
+.signInWrapper {
     box-sizing: border-box;
     background-color: $white;
 
@@ -91,7 +91,7 @@ $font-monsterat : 'Montserrat';
         }
     }
 
-    .main_container {
+    .mainContainer {
         // padding-top: 0px;
         // height: 100vh;
         position: relative;
@@ -539,7 +539,7 @@ $font-monsterat : 'Montserrat';
 }
 
 @media screen and (max-width:767px) {
-    .signIn_wrapper {
+    .signInWrapper {
         .header {
             padding: 0 16px;
 
@@ -594,7 +594,7 @@ $font-monsterat : 'Montserrat';
             }
         }
 
-        .main_container {
+        .mainContainer {
             &.signInModal_show {
                 .signIn_formBlock {
                     padding: 32px;
@@ -614,8 +614,8 @@ $font-monsterat : 'Montserrat';
 
 
 @media screen and (min-width:1600px) {
-    .signIn_wrapper {
-        .main_container {
+    .signInWrapper {
+        .mainContainer {
             &.signInModal_show {
                 height: 100vh;
 

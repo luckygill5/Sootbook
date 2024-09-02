@@ -1,17 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import * as Yup from 'yup';
+import swal from 'sweetalert';
 import { useFormik } from 'formik';
+import { axiosClient } from '../../../../../services/axiosClient';
 import { Input, DataList } from '../../../../common';
 import '../PersonalInformation.scss';
 
 //accountInfo_listing
 const bankAccountConfig = [
-    { label: 'Account Title', value: 'Account Title' },
-    { label: 'Account Number', value: 'Account Number' },
-    { label: 'Bank Name', value: 'Bank Name' },
-    { label: 'IBAN', value: 'IBAN' },
-    { label: 'Swift Code', value: 'Swift Code' },
-    { label: 'Bank Branch', value: 'Bank Branch' },
+    { label: 'Account Title', value: 'Account Title', name: 'account_title' },
+    { label: 'Account Number', value: 'Account Number', name: 'account_number' },
+    { label: 'Bank Name', value: 'Bank Name', name: 'bank_name' },
+    { label: 'IBAN', value: 'IBAN', name: 'iban' },
+    { label: 'Swift Code', value: 'Swift Code', name: 'swift_code' },
+    { label: 'Bank Branch', value: 'Bank Branch', name: 'bank_branch' },
 ];
 
 const bankAccountEditFormSchema = Yup.object({
@@ -32,13 +34,30 @@ const bankAccountInitialValues = {
     bank_branch: '',
 };
 
-function BankAccount(props) {
+function BankAccount({ mode, setEditMode, bankInfo, getBankInfo }) {
     const handleFormSubmit = async values => {
-        console.log(values);
+        try {
+            const userid = JSON.parse(localStorage.getItem('profileData')).userId
+            let response = await axiosClient.post(
+                `admin/vendor/bankInfo/store`,
+                JSON.stringify({ userId: userid, ...values }),
+            );
+            if (response.status === 200) {
+                swal('Success', 'Bank Information updated successfully', 'success', {
+                    buttons: false,
+                    timer: 2000,
+                }).then(() => {
+                    getBankInfo();
+                    setEditMode(false);
+                });
+            }
+        } catch (error) {
+            swal('Failed', `Error Updating Bank Information`, 'error');
+        }
     };
 
     const { values, handleChange, handleSubmit, handleBlur, errors, touched } = useFormik({
-        initialValues: bankAccountInitialValues,
+        initialValues: bankInfo || bankAccountInitialValues,
         validationSchema: bankAccountEditFormSchema,
         validateOnChange: true,
         validateOnBlur: false,
@@ -53,7 +72,7 @@ function BankAccount(props) {
 
     return (
         <div className='personalinfoBankaccount_container'>
-            {props.mode ? (
+            {mode ? (
                 <div className='form_container' onSubmit={handleSubmit}>
                     <form onSubmit={handleSubmit}>
                         <div className='input_flexbox'>
@@ -141,7 +160,7 @@ function BankAccount(props) {
                             />
                         </div>
                         <div className='button-container'>
-                            <button className='cancelBtn' onClick={() => props.setEditMode(false)}>
+                            <button className='cancelBtn' onClick={() => setEditMode(false)}>
                                 Cancel
                             </button>
                             <button className='savebtn' type='submit' onClick={handleSubmit}>
@@ -151,7 +170,7 @@ function BankAccount(props) {
                     </form>
                 </div>
             ) : (
-                <DataList config={bankAccountConfig} />
+                <DataList config={bankAccountConfig} dataSource={bankInfo} />
             )}
         </div>
     );
