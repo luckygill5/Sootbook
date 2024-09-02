@@ -10,6 +10,8 @@ import './CreateRole.scss';
 function CreateRole({back}){
     const [activeStep, setActiveStep] = useState([1]);
     const [basic, setBasic] = useState(true);
+    const [basicRoleForm, setBasicRoleForm] = useState("");
+    const [permissionForm, setPermissionForm] = useState("");
     const [permissionRole, setPermissionRole] = useState(false);
     const [reviewCreate, setReviewCreate] = useState(false)
 
@@ -36,6 +38,38 @@ function CreateRole({back}){
         setPermissionRole(false);
         setReviewCreate(true)
     }
+
+    const handleFormData = (event) =>{
+        setBasicRoleForm(event)
+    } 
+
+    const handlePermissionForm = (event) => {
+        setPermissionForm(event)
+
+    }
+
+    const handleReviewCreateBack = () => {
+        setActiveStep([1,2]);
+        setBasic(false)
+        setPermissionRole(true);
+        setReviewCreate(false)
+    }
+
+    const handleReviewBasicEdit = () => {
+        setActiveStep([1]);
+        setBasic(true)
+        setPermissionRole(false);
+        setReviewCreate(false)
+    }
+
+    const handleReviewPermissionEdit = () => {
+        setActiveStep([1, 2]);
+        setBasic(false)
+        setPermissionRole(true);
+        setReviewCreate(false)
+    }
+
+
     return (
         <div className='createRole_container'>
             <div className='backHrm-link'>
@@ -60,11 +94,29 @@ function CreateRole({back}){
                     </ul>
                 </div>
                 {
-                    basic ? <BasicRole next={() => handleNext()}/>: permissionRole ? <PermissionRole back={() => handleBack()} next={() => handleReviewCreate()}/> : null
+                    basic ? 
+                    <BasicRole 
+                    formData={(e) => handleFormData(e)} 
+                    next={() => handleNext()}
+                    basicRoleFormData={basicRoleForm}
+                    />
+                    : permissionRole ? <PermissionRole 
+                                        formData={(e) => handlePermissionForm(e)} 
+                                        back={() => handleBack()} 
+                                        next={() => handleReviewCreate()}
+                                        PermissionFormData={permissionForm}
+                                        /> : null
                 }
                 </div>
                 {
-                    reviewCreate && <ReviewCreate  next={() => handleNext()} back={() => handleBack()}/>
+                    reviewCreate && <ReviewCreate  
+                    next={() => handleNext()} 
+                    back={() => handleReviewCreateBack()}
+                    basicFormData={basicRoleForm}
+                    permissionFormData={permissionForm}
+                    ReviewBasicEdit = {() => handleReviewBasicEdit()}
+                    ReviewPermissionEdit = {() => handleReviewPermissionEdit()}
+                    />
                 }
 
         </div>

@@ -9,7 +9,7 @@ function EyeIcon({ showEye, onClick }) {
 
 
 export const Input = ({ label, type, name, placeholder, value, onChange, onBlur, error,
-  touched, className, wrapperClass, hasEye, onEyeClick, showEye, isRequired, disabled, icon }) => {
+  touched, className, wrapperClass, hasEye, onEyeClick, showEye, isRequired, disabled, icon, maxLength, ReadOnly }) => {
   return (
     <div className={`inputField ${wrapperClass}`}>
       <label>
@@ -30,6 +30,8 @@ export const Input = ({ label, type, name, placeholder, value, onChange, onBlur,
           onBlur={onBlur}
           disabled={disabled}
           className="input_element"
+          maxLength={maxLength}
+          readOnly={ReadOnly}
         />
         {hasEye && <EyeIcon onClick={onEyeClick} showEye={showEye} />}
         {touched && error ? (

@@ -59,7 +59,7 @@ function RegistrationPage(props) {
     };
 
     const handleRegistration = () => {
-        const userid = JSON.parse(localStorage.getItem('profileData')).vendor._id;
+        const userid = JSON.parse(localStorage.getItem('profileData')).userId;
         const formData = {
             userid: userid,
             companyname: newdata.companyname,

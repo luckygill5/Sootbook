@@ -3,6 +3,7 @@ import { ReactComponent as UserPlus } from '../../../../assets/images/user-plus.
 import Upload from "../../../../assets/images/upload.svg";
 import Download from "../../../../assets/images/download.svg";
 import Filter from "../../../../assets/images/filter.svg";
+import Equal from "../../../../assets/images/equal.svg";
 import Chip from '@mui/material/Chip';
 import Stack from '@mui/material/Stack';
 import { ReactComponent as Cross } from '../../../../assets/images/x.svg';
@@ -30,18 +31,29 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import '../User.scss'
 import Checkbox from '@mui/material/Checkbox';
 import FormControlLabel from '@mui/material/FormControlLabel';
-import { check } from 'prettier';
+import { Input, Select, TextArea } from '../../../../Components/common';
+import { exportToExcel } from 'react-json-to-excel';
+import { UserList } from '../../../../services/userList.service';
+import { UserSaveList } from '../../../../services/userSaveList.service';
+import { useSelector, useDispatch } from 'react-redux';
+import { setData, addData } from '../../../../Slices/UserListSlice';
+import {addUserSaveList} from "../../../../Slices/UserSaveListSlice"
 
-function UserRolesList({Userhandle}) {
+function UserRolesList({ Userhandle }) {
+    const data = useSelector((state) => state);
+    const dispatch = useDispatch();
     const [Tablehead, setTableHead] = useState('');
     const [TableBody, setTableBody] = useState('');
     const [view, setView] = React.useState('cardview');
     const [RoleFilter, setRoleFilter] = useState({
         Branch_Manager: '',
-        Regional_Manager:'',
-        Organization_Administrator:''
+        Regional_Manager: '',
+        Organization_Administrator: ''
 
-    })
+    });
+
+
+    const manageColumnData = ['User ID', 'Username', 'Email', 'Role', 'Creation date', 'Created by', 'Status']
     const [RolefilterCollect, setRoleFilterCollect] = useState([]);
     const filterDrawer = useRef(null);
     const manageDrawer = useRef(null);
@@ -193,57 +205,57 @@ function UserRolesList({Userhandle}) {
     const tableBody = [
         {
             id: "OFO123",
-            name: "Annette Black",
+            name: `Annette Black`,
             email: "sara.cruz@example.com",
             role: "Branch Manager",
             date: '26 Oct-2020, 00:00'
         },
         {
-            id:"WF2DS3",
-            name:"Darrell Steward",
-            email:"",
-            role:"Regional Manager",
-            date:'19 Apr 2021, 00:00'
+            id: "WF2DS3",
+            name: "Darrell Steward",
+            email: "",
+            role: "Regional Manager",
+            date: '19 Apr 2021, 00:00'
         },
         {
-            id:"DSVSDF3",
-            name:"Eleanor Pena",
-            email:"jessica.hanson@example.com",
+            id: "DSVSDF3",
+            name: "Eleanor Pena",
+            email: "jessica.hanson@example.com",
             role: "Organization Administrator",
-            date:'26 Oct-2020, 00:00'
+            date: '26 Oct-2020, 00:00'
         },
         {
-            id:"234GH5",
-            name:"Leslie Alexander",
-            email:"",
+            id: "234GH5",
+            name: "Leslie Alexander",
+            email: "",
             role: "Trust Administrator",
-            date:'26 Oct-2020, 00:00'
+            date: '26 Oct-2020, 00:00'
         },
         {
-            id:"IJ89G4",
-            name:"Brooklyn Simmons",
-            email:"deanna.curtis@example.com",
+            id: "IJ89G4",
+            name: "Brooklyn Simmons",
+            email: "deanna.curtis@example.com",
             role: "Accountant",
             date: '26 Oct-2020, 00:00'
         },
         {
-            id:"ZXCSDC",
-            name:"Arlene McCoy",
-            email:"kenzi.lawson@example.com",
+            id: "ZXCSDC",
+            name: "Arlene McCoy",
+            email: "kenzi.lawson@example.com",
             role: "Agent",
             date: '26 Oct-2020, 00:00'
         },
         {
-            id:"OGA323",
-            name:"Annette Black",
-            email:"felicia.reid@example.com",
+            id: "OGA323",
+            name: "Annette Black",
+            email: "felicia.reid@example.com",
             role: "Tax Officer",
             date: '26 Oct-2020, 00:00'
         },
         {
-            id:"SDF23E2",
-            name:"Arlene McCoy",
-            email:"tanya.hill@example.com",
+            id: "SDF23E2",
+            name: "Arlene McCoy",
+            email: "tanya.hill@example.com",
             role: "Vice President",
             date: '26 Oct-2020, 00:00'
         },
@@ -271,53 +283,53 @@ function UserRolesList({Userhandle}) {
     }
 
     const handleRoleFilter = (e) => {
-        const {name, checked} = e.target;
+        const { name, checked } = e.target;
         setRoleFilter((prevState) => ({
             ...prevState,
-            [name] : checked
+            [name]: checked
         }))
-        if(RolefilterCollect.includes(name)){
+        if (RolefilterCollect.includes(name)) {
             let refilter = RolefilterCollect.filter((item) => {
-                if(item!==name){
+                if (item !== name) {
                     return item
                 }
             })
             setRoleFilterCollect([...refilter])
         }
-        else{
+        else {
             setRoleFilterCollect([...RolefilterCollect, name])
         }
-        
+
     }
 
 
     const handleFilter = () => {
-        if(RolefilterCollect.length == 0 && (TableBody.length == 0 || TableBody.length > 0) ){
+        if (RolefilterCollect.length == 0 && (TableBody.length == 0 || TableBody.length > 0)) {
             setTableBody(tableBody)
         }
-        else if(RolefilterCollect.length > 0){
-            let  filterData = []; 
+        else if (RolefilterCollect.length > 0) {
+            let filterData = [];
             TableBody.map((item) => {
                 Object.keys(item).map((key) => {
-                    if(RolefilterCollect.includes( item[key].split(" ").join("_"))){
+                    if (RolefilterCollect.includes(item[key].split(" ").join("_"))) {
                         filterData.push(item)
-                        
+
                     }
-                    
+
                 });
             })
             setTableBody(filterData)
         }
-        
+
     }
 
     const handleClearFilter = () => {
 
-        if(RolefilterCollect.length > 0){
+        if (RolefilterCollect.length > 0) {
             RolefilterCollect.map((item) => {
                 setRoleFilter((prevState) => ({
                     ...prevState,
-                    [item] : false
+                    [item]: false
                 }))
             })
         }
@@ -325,23 +337,44 @@ function UserRolesList({Userhandle}) {
     }
 
     useEffect(() => {
-        
-        setTableBody(tableBody)
-        setTableHead(tableHead)
+
+        // setTableBody(tableBody)
+        // setTableHead(tableHead);
+
+        UserList().then((response) => {
+            if(response && response.data){
+                dispatch(addData(response.data));
+            }
+        })
+        UserSaveList().then((response) => {
+            if(response && response.data){
+                dispatch(addUserSaveList(response.data));
+            }
+
+        })
     }, [])
 
 
+    const handleManageColumnFilter = (event) => {
+        const filter = tableHead.filter((item) => {
+            if(item.title!==event){
+                return item
+            }
+        })
+        
+        // setTableHead(filter)
+    }
     return (
         <div className='userRoles_container'>
             <div className='header_flexbox'>
                 <h5 className='title'>Users</h5>
-                <button className='addroleBtn' 
-                onClick={() => Userhandle()}
+                <button className='addroleBtn'
+                    onClick={() => Userhandle()}
                 >
                     <span className='icon'>
                         <UserPlus />
                     </span>
-                    Add Role
+                    Add User
                 </button>
             </div>
             <div className='listcardview_container'>
@@ -350,7 +383,7 @@ function UserRolesList({Userhandle}) {
                         <input type='text' className='search-input' placeholder='Search by keywords'></input>
                     </div>
                     <div className='action_flexBox'>
-                        <button className='actionBtn'>
+                        <button className='actionBtn' type='button' onClick={() => exportToExcel(tableBody, 'downloadfilename')}>
                             <span className='icon'>
                                 <img src={Upload} alt="upload" className='img'></img>
                             </span>
@@ -410,11 +443,11 @@ function UserRolesList({Userhandle}) {
             </div>
             <div className='view_container'>
                 {
-                    view == 'cardview' ? <CardLayout cardData={userCardData} /> :
-                        view == 'listview' ? <TabularLayout  
-                        tableheadData={Tablehead}
-                        tableBodyData={TableBody}
-                        manageColumn={() => handleManageColumn()}
+                    view == 'cardview' ? <CardLayout  employeData={data.userListData?.data?.employees} 
+                    cardData={userCardData} /> :
+                        view == 'listview' ? <TabularLayout
+                            employeData={data.userListData?.data?.employees}
+                            manageColumn={() => handleManageColumn()}
                         /> : null
                 }
             </div>
@@ -439,13 +472,13 @@ function UserRolesList({Userhandle}) {
                             <ul className='role_listing'>
                                 {
                                     Object.keys(RoleFilter).map((item) => {
-                                    return <li className='check_item'><FormControlLabel control={<Checkbox checked={RoleFilter[item]}  name={item} onChange={(event) => handleRoleFilter(event)} />} label={item.split("_").join(" ")} /></li>
+                                        return <li className='check_item'><FormControlLabel control={<Checkbox checked={RoleFilter[item]} name={item} onChange={(event) => handleRoleFilter(event)} />} label={item.split("_").join(" ")} /></li>
                                     })
                                 }
                             </ul>
                         </AccordionDetails>
                     </Accordion>
-                   
+
                     <Accordion>
                         <AccordionSummary
                             expandIcon={<ExpandMoreIcon />}
@@ -455,17 +488,17 @@ function UserRolesList({Userhandle}) {
                             Status
                         </AccordionSummary>
                         <AccordionDetails>
-                         <ul className='status_listing'>
-                         <li className='check_item'><FormControlLabel control={<Checkbox  />} label="Active" /></li>
-                         <li className='check_item'><FormControlLabel control={<Checkbox  />} label="Blocked" /></li>
-                         <li className='check_item'><FormControlLabel control={<Checkbox  />} label="Inactive" /></li>
-                         </ul>
+                            <ul className='status_listing'>
+                                <li className='check_item'><FormControlLabel control={<Checkbox />} label="Active" /></li>
+                                <li className='check_item'><FormControlLabel control={<Checkbox />} label="Blocked" /></li>
+                                <li className='check_item'><FormControlLabel control={<Checkbox />} label="Inactive" /></li>
+                            </ul>
                         </AccordionDetails>
                     </Accordion>
                     <div className='bottom_actions'>
                         <button className='clearFilter' type='submit' onClick={handleClearFilter}>Clear all filter</button>
                         <button className='applyFilter' type='submit' onClick={handleFilter}>Apply filter</button>
-                        </div>
+                    </div>
                 </div>
 
             }
@@ -477,6 +510,35 @@ function UserRolesList({Userhandle}) {
                         <button className='closeBtn' type='submit' onClick={handleCloseManageDrawer}>
                             <img src={CloseX} alt="close" className='img-close'></img>
                         </button>
+                    </div>
+                    <div className='search_flexbox'>
+                        <Input
+                            label={""}
+                            type={"text"}
+                            name={"field_box"}
+                            id={"field_box"}
+                            wrapperClass={"col12"}
+                            value={''}
+                            placeholder={'Find a field'}
+                        //   onChange={handleChange}
+                        //   onBlur={handleBlur}
+                        // isRequired
+                        //   error={errors.first_name}
+                        //   touched={touched.first_name}
+                        />
+                    </div>
+                    <ul className='manageColumnListing'>
+                        {
+                            manageColumnData &&
+                            manageColumnData.length > 0 &&
+                            manageColumnData.map((label, index) => {
+                                return <li key={index} className='list_item'><span className='checkBox'><FormControlLabel control={<Checkbox onChange={() => handleManageColumnFilter(label)}  checked={tableHead[index]?.title && tableHead[index]?.title==label ? true : false}  />} label={label} /></span><span className='bar'><img src={Equal} alt="equal_icon" className='bar_icon'></img></span></li>
+                            })
+                        }
+                    </ul>
+                    <div className='bottom_actions'>
+                        <button className='clearFilter' type='submit' onClick={handleClearFilter}>Clear all filter</button>
+                        <button className='applyFilter' type='submit' onClick={handleFilter}>Apply filter</button>
                     </div>
                 </div>
             }

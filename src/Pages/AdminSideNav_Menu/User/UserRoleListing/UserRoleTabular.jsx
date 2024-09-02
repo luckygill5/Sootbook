@@ -14,7 +14,46 @@ import MenuItem from '@mui/material/MenuItem';
 import "../User.scss"
 
 
-function TabularLayout({ tableheadData, tableBodyData, manageColumn }) {
+function TabularLayout({ tableheadData, tableBodyData, manageColumn, employeData }) {
+    const [tableHeadArray, setTableHeadArray] = useState([]);
+
+
+    useEffect(() => {
+        let filterData;  
+        let filteredUsers;
+        employeData.map((label, index) => {
+            filterData = Object.keys(label).filter((item) => {
+                 if(item == "first_name"){
+                    return item
+                 }
+                //  if(item == "last_name"){
+                //     return item
+                //  }
+                 if(item == "email"){
+                    return item
+                 }
+                 if(item == "role"){
+                    return item
+                 }
+                 if(item == "createdAt"){
+                    return item
+                 }
+                //  if(item == "status"){
+                //     return item
+                //  }
+                //  if(item == "updatedAt"){
+                //     return item
+                //  }
+                 if(item == "_id"){
+                    return item
+                 }
+            })
+            
+        })
+        setTableHeadArray(filterData)           
+    }, [])
+
+ 
     const [anchorEl, setAnchorEl] = useState(null);
     const [control, setControl] = useState(null)
     const [selectedIndex, setSelectedIndex] = useState([]);
@@ -129,18 +168,18 @@ function TabularLayout({ tableheadData, tableBodyData, manageColumn }) {
                             <Checkbox />
                         </div>
                         {
-                            tableheadData &&
-                            tableheadData.length > 0 &&
-                            tableheadData.map((item, index) => {
+                                tableHeadArray && 
+                                tableHeadArray.length > 0 &&
+                                tableHeadArray.map((item, index) => {
                                 return (
                                     <div key={index} className={`tcolumn ${(item.title == 'Username' || item.title == "Email" || item.title == "Role") ? 'lg' : 'sm'}`}>
                                         {item.title == 'User ID' && <span className='pinIcon'><Pin /></span>}
-                                        <span className='title'>{item.title}</span>
+                                        <span className='title'>{item.toUpperCase()}</span>
                                         <div className='sort'>
                                             <span className='arrowUp'><Arrow /></span>
                                             <span className='arrowDown'><Arrow /></span>
                                         </div>
-                                        {item.title == 'Username' && <button id='basic-button' onClick={handleClick} type='submit' className='manageOptions'><DotsIcon /></button>}
+                                        {item == 'first_name' && <button id='basic-button' onClick={handleClick} type='submit' className='manageOptions'><DotsIcon /></button>}
 
                                     </div>
 
@@ -153,9 +192,9 @@ function TabularLayout({ tableheadData, tableBodyData, manageColumn }) {
                 </div>
                 <div className='tbody'>
                     {
-                        tableBodyData &&
-                        tableBodyData.length > 0 &&
-                        tableBodyData.map((item, index) => {
+                            employeData &&
+                            employeData.length > 0 &&
+                            employeData.map((item, index) => {
                             return (
                                 <div className={`row ${selectedIndex.includes(index + 1) ? 'selected' : ''}`} key={index}>
                                     <div className={`check_block`}   >
@@ -164,12 +203,14 @@ function TabularLayout({ tableheadData, tableBodyData, manageColumn }) {
                                     {
                                         Object.keys(item).map((key, index) => {
                                             return (
-                                                <div key={index} className={`tCell ${(tableheadData[index]?.title == 'Username' || tableheadData[index]?.title == "Email" || tableheadData[index]?.title == "Role") ? 'lg' : 'sm'}`}>
-                                                    <div className='data'>{item[key]}</div>
-                                                    {
-                                                        (tableheadData[index].title == 'User ID' || tableheadData[index].title == "Email") ? <div className='copyIcon'><Copy /></div> : null
-                                                    }
-                                                </div>
+                                                <>
+                                                {(tableHeadArray.includes(key) ) ?  <div key={index} className={`tCell sm`}>
+                                                   <div className={`data`}>{ item[key]}</div>
+                                                    {/* {
+                                                        true ? <div className='copyIcon'><Copy /></div> :  null
+                                                    } */}
+                                                </div> : null}
+                                                </>
                                             )
                                         })
                                     }
