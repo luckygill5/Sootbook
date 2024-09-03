@@ -735,6 +735,81 @@ $font-monsterat : 'Montserrat';
     }
 }
 
+/****************** chartZoomModal ********************/
+.MuiDialog-root{
+    &.chartZoomModal{
+        box-sizing: border-box;
+        *{
+            box-sizing: border-box;
+            font-family: $font-monsterat;
+        }
+        .MuiBackdrop-root{
+            backdrop-filter: blur(5px);
+        }
+        .MuiDialog-container{
+            .MuiPaper-root{
+                width: 100%;
+                box-shadow: 0px 20px 13px 0px rgba(0, 0, 0, 0.03), 0px 8px 5px 0px rgba(0, 0, 0, 0.08);
+                border-radius: 16px;
+                background-color: $white;
+                height: calc(70% - 64px);
+                overflow: visible;
+                .modal_body{
+                    position: relative;
+                    padding: 40px;
+                    height: 100%;
+                    .close_btn{
+                        width: 35px;
+                        height: 35px;
+                        background-color: transparent;
+                        border: none;
+                        cursor: pointer;
+                        padding: 0;
+                        @include flexbox();
+                        align-items: center;
+                        justify-content: center;
+                        position: absolute;
+                        right: 10px;
+                        top: 10px;
+                        z-index: 1;
+                        &:focus:not(:focus-visible){
+                            outline: none;
+                        }
+                        svg{
+                            width: 20px;
+                            height: 20px;
+                        }
+                    }
+                    .modal_title {
+                        padding: 0;
+                        text-align: center;
+                        margin-top: 0;
+                        margin-bottom: 20px;
+                        font-size: 24px;
+                        font-style: normal;
+                        font-weight: 700;
+                        line-height: 32px; /* 133.333% */
+                        letter-spacing: 0.12px;
+                        color: $text;                          
+                    }
+                    .chart_container{
+                        @include flexbox();
+                        justify-content: center;
+                        // transform: scale(1.16);
+                        height: 100%;
+                        align-items: center;
+                        height: calc(100% - 52px);
+                        canvas{
+                            // transform: scale(1.5);
+                        }
+                    }
+                }
+            }
+        }
+    }
+} 
+
+/******************************************************/
 
 @media screen and (min-width:1600px) {
     .salepurchase_dashboard {

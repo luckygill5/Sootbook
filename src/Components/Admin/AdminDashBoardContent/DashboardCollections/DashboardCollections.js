@@ -33,10 +33,19 @@ function a11yProps(index) {
 
 function Collection() {
     const [value, setValue] = React.useState(0);
+    const [ChartFilter,  setChartFilter] = useState(false)
 
     const handleChange = (event, newValue) => {
         setValue(newValue);
     };
+
+    const handleChartFilter = () => {
+        setChartFilter(true)
+    }
+
+    const handleFilterClose = () => {
+        setChartFilter(false)
+      }
 
     const tabData = ["Dashboard", "Sales & Purchase", "HRM", "Inventory Report", "Cashbook"]
 
@@ -54,20 +63,23 @@ function Collection() {
                                 })
                             }
                         </Tabs>
-                        <div className='action_flexbox'>
+                        {value == 1 ? <div className='action_flexbox'>
                             <button className='commonBtn' type='button'>Direct sales</button>
                             <button className='commonBtn' type='button'>Online</button>
                             <button className='commonBtn' type='button'>Wholesale</button>
-                            <button className='filterBtn' type='button'>
+                            <button className='filterBtn' type='button' onClick={() => handleChartFilter()}>
                                 <img src={Filter} alt="filter_icon" className='img'></img>
                             </button>
-                        </div>
+                        </div> : null}
                     </Box>
                     <CustomTabPanel value={value} index={0} className="data_container">
                         Item One
                     </CustomTabPanel>
                     <CustomTabPanel value={value} index={1} className="data_container">
-                       <SalesPurchase/>
+                       <SalesPurchase 
+                       ChartFilter={ChartFilter}
+                       ChartFilterClose={() => handleFilterClose()}
+                       />
                     </CustomTabPanel>
                     <CustomTabPanel value={value} index={2} className="data_container">
                         Item Three

@@ -48,7 +48,7 @@ function AdminDashBoardContent(props) {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const [value, setValue] = useState(0);
-    const [selectedMenu, setSelectedMenu] = useState('Contract')
+    const [selectedMenu, setSelectedMenu] = useState('')
     const [pagevalue, setPageValue] = useState('5 Page')
 
     function CustomTabPanel(props) {

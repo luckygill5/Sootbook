@@ -4,6 +4,7 @@ import FileWarm from "../../../../../assets/images/file-warning.svg";
 import Dollar from "../../../../../assets/images/circle-dollar-sign.svg";
 import { ReactComponent as Alert } from "../../../../../assets/images/alert-triangle.svg";
 import { Select } from '../../../../common';
+import { ReactComponent as Close } from "../../../../../assets/images/x.svg"
 import Max from "../../../../../assets/images/maximize.svg";
 import list from "../../../../../assets/images/list.svg";
 import Star from "../../../../../assets/images/star.svg";
@@ -13,6 +14,10 @@ import Team2 from "../../../../../assets/images/team_2.png";
 import Team3 from "../../../../../assets/images/team_3.png";
 import Team4 from "../../../../../assets/images/team_4.png";
 import Draggable from 'react-draggable';
+import DialogTitle from '@mui/material/DialogTitle';
+import Dialog from '@mui/material/Dialog';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Checkbox from '@mui/material/Checkbox';
 import {
   Chart as ChartJS,
   ArcElement,
@@ -26,8 +31,27 @@ import {
   Title,
 } from 'chart.js';
 import './Sales&Purchase.scss'
+import { filter } from 'lodash';
+import { TroubleshootRounded } from '@mui/icons-material';
 
-function SalesPurchase() {
+function SalesPurchase({ ChartFilter, ChartFilterClose }) {
+  const [open, setOpen] = useState(false);
+
+  const [Charttype, setCharttype] = useState('');
+  const [ChartData, setChartData] = useState("");
+  const [ChartOptions, setChartOptions] = useState('');
+  const [ChartTitle, setChartTitle] = useState('');
+  const [ChartRender, setChartRender] = useState({
+    channelChart: true,
+    saleMonthChart: true,
+    saleProductChart: true,
+    SaleCategorydataChart: true,
+    ReturnGoodsChart: true,
+    SaleGrowthChart: true
+  })
+
+
+
   ChartJS.register(ArcElement, Tooltip, Legend, CategoryScale, LinearScale, PointElement, LineElement, BarElement, Title);
 
   const data = {
@@ -48,7 +72,7 @@ function SalesPurchase() {
   };
 
   const options = {
-    responsive: false,
+    responsive: true,
     maintainAspectRatio: false,
     cutout: '70%', // Adjust this value for the thickness of the doughnut
     plugins: {
@@ -73,7 +97,7 @@ function SalesPurchase() {
   };
 
   const verticalBaroptions = {
-    responsive: false,
+    responsive: true,
     maintainAspectRatio: false,
     plugins: {
       legend: {
@@ -115,7 +139,7 @@ function SalesPurchase() {
   };
 
   const saleProductoptions = {
-    responsive: false,
+    responsive: true,
     maintainAspectRatio: false,
     plugins: {
       legend: {
@@ -201,7 +225,7 @@ function SalesPurchase() {
   };
 
   const ReturnGoodoptions = {
-    responsive: false,
+    responsive: true,
     maintainAspectRatio: false,
     cutout: '70%', // Adjust this value for the thickness of the doughnut
     plugins: {
@@ -309,6 +333,99 @@ function SalesPurchase() {
     }
   ]
 
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+
+
+  const handleZoomChart = (type, data, options, title) => {
+    setCharttype(type);
+    setChartData(data);
+    setChartOptions(options);
+    setChartTitle(title)
+    setOpen(true)
+  }
+
+  const renderChart = () => {
+    switch (Charttype) {
+      case 'Doughnut':
+        return <Doughnut data={ChartData} options={ChartOptions} />;
+      case 'Bar':
+        return <Bar data={ChartData} options={ChartOptions} />;
+      case 'Line':
+        return <Line data={ChartData} options={ChartOptions} />;
+      default:
+        return <h1>404 - Not Found</h1>;
+    }
+  }
+
+  const ChartFilterDataList = [
+    {
+      title: 'Sale by channel',
+      name: "channelChart"
+    },
+    {
+      title: 'Sales by month',
+      name: "saleMonthChart"
+    },
+    {
+      title: 'Sales by products',
+      name: "saleProductChart"
+    },
+    {
+      title: 'Sales by Category',
+      name: "SaleCategorydataChart"
+    },
+    {
+      title: 'Return goods',
+      name: "ReturnGoodsChart"
+    },
+    {
+      title: 'Sales Growth',
+      name: "SaleGrowthChart"
+    },
+
+  ]
+  let filterArray = [];
+  const handleFitlerChange = (event) => {
+
+    const {name, checked} = event.target;
+    if( filterArray.includes(name) == true){
+      const newFilter = filterArray.filter((item) => {
+        if(item!== name){
+          return item
+        }
+      })
+      if(newFilter.length == 0 || newFilter.length > 0){
+        filterArray = []
+        filterArray.push( ...newFilter);
+      }
+      
+    }else if( filterArray.includes(name) == false){
+      filterArray.push( name);
+    }
+
+    
+    // setChartRender((prevState) => ({
+    //   ...prevState,
+    //   [name]: checked
+    // }))
+
+  }
+
+  const handleApplyFilter = () => {
+   
+    filterArray.map((item) => {
+      setChartRender(prevState => ({
+        // ...prevState,
+        [item]:false
+      }))
+    })
+  }
+
+  
+
   return (
     <React.Fragment>
       <div className='salepurchase_dashboard'>
@@ -348,69 +465,76 @@ function SalesPurchase() {
           </div>
         </div>
         <div className='draggable_flexContainer'>
-          <Draggable bounds="parent">
-            <div className='salechannel piechart'>
-              <div className='max-view'>
-                <span className='maximize'><img src={Max} alt="maximize_icon" className='icon'></img></span>
+          {
+            ChartRender.channelChart ? <Draggable bounds="parent">
+              <div className='salechannel piechart'>
+                <div className='max-view' >
+                  <span className='maximize' onClick={() => handleZoomChart("Doughnut", data, options, `Sale by channel`)}><img src={Max} alt="maximize_icon" className='icon'></img></span>
+                </div>
+                <h5 className='section_title'>Sale by channel</h5>
+                <div className='chart_container'>
+                  <Doughnut data={data} options={options} />
+                </div>
+                <ul className='indicator_info'>
+                  <li className='indicator_item'>
+                    <span className='circle dark-green'></span>
+                    <span className='text'>Direct sales</span>
+                  </li>
+                  <li className='indicator_item'>
+                    <span className='circle off-green'></span>
+                    <span className='text'>Online</span>
+                  </li>
+                  <li className='indicator_item'>
+                    <span className='circle off-gray'></span>
+                    <span className='text'>Wholesaler</span>
+                  </li>
+                </ul>
               </div>
-              <h5 className='section_title'>Sale by channel</h5>
-              <div className='chart_container'>
-                <Doughnut data={data} options={options} />
-              </div>
-              <ul className='indicator_info'>
-                <li className='indicator_item'>
-                  <span className='circle dark-green'></span>
-                  <span className='text'>Direct sales</span>
-                </li>
-                <li className='indicator_item'>
-                  <span className='circle off-green'></span>
-                  <span className='text'>Online</span>
-                </li>
-                <li className='indicator_item'>
-                  <span className='circle off-gray'></span>
-                  <span className='text'>Wholesaler</span>
-                </li>
-              </ul>
-            </div>
-          </Draggable>
-          <Draggable bounds="parent">
-            <div className='salemonth'>
-              <div className='max-view'>
-                <span className='maximize'><img src={Max} alt="maximize_icon" className='icon'></img></span>
-              </div>
-              <div className='head_flexbox'>
-                <h5 className='section_title'>Sales by month</h5>
-                <div className='selectMonthBox'>
-                  <Select
-                    label={""}
-                    name={"martial_status"}
-                    options={[
-                      { id: "Jan", value: "Jan" },
-                      { id: "Feb", value: "Feb" },
-                    ]}
-                    wrapperClass={"col12"}
+            </Draggable> : null
+          }
+          {
+            ChartRender.saleMonthChart ? <Draggable bounds="parent">
+              <div className='salemonth'>
+                <div className='max-view'>
+                  <span className='maximize' onClick={() => handleZoomChart("Bar", verticalBarThickData, verticalBaroptions, `Sales by month`)}><img src={Max} alt="maximize_icon" className='icon'></img></span>
+                </div>
+                <div className='head_flexbox'>
+                  <h5 className='section_title'>Sales by month</h5>
+                  <div className='selectMonthBox'>
+                    <Select
+                      label={""}
+                      name={"martial_status"}
+                      options={[
+                        { id: "Jan", value: "Jan" },
+                        { id: "Feb", value: "Feb" },
+                      ]}
+                      wrapperClass={"col12"}
                     // value={values.martial_status}
                     // onChange={handleChange}
-                  />
+                    />
+                  </div>
+                </div>
+                <div className='indicator'><span className='mark green'></span><span className='text'>Quantity</span></div>
+                <div className='chart_container'>
+                  <Bar data={verticalBarThickData} options={verticalBaroptions} />
                 </div>
               </div>
-              <div className='indicator'><span className='mark green'></span><span className='text'>Quantity</span></div>
-              <div className='chart_container'>
-                <Bar data={verticalBarThickData} options={verticalBaroptions} />
+            </Draggable> : null
+          }
+          {
+            ChartRender.saleProductChart ? <Draggable bounds="parent">
+              <div className='saleProduct'>
+                <div className='max-view'>
+                  <span className='maximize' onClick={() => handleZoomChart("Bar", saleProductdata, saleProductoptions, `Sales by products`)}><img src={Max} alt="maximize_icon" className='icon'></img></span>
+                </div>
+                <h5 className='section_title'>Sales by products</h5>
+                <div className='chart_container'>
+                  <Bar data={saleProductdata} options={saleProductoptions} />
+                </div>
               </div>
-            </div>
-          </Draggable>
-          <Draggable bounds="parent">
-            <div className='saleProduct'>
-              <div className='max-view'>
-                <span className='maximize'><img src={Max} alt="maximize_icon" className='icon'></img></span>
-              </div>
-              <h5 className='section_title'>Sales by products</h5>
-              <div className='chart_container'>
-                <Bar data={saleProductdata} options={saleProductoptions} />
-              </div>
-            </div>
-          </Draggable>
+            </Draggable> : null
+          }
+
           <Draggable bounds="parent">
             <div className='saleLeaders'>
               <div className='headerFlebox'>
@@ -465,10 +589,10 @@ function SalesPurchase() {
               </ul>
             </div>
           </Draggable>
-          <Draggable bounds="parent">
+          {ChartRender.SaleCategorydataChart ? <Draggable bounds="parent">
             <div className='salecategory'>
               <div className='max-view'>
-                <span className='maximize'><img src={Max} alt="maximize_icon" className='icon'></img></span>
+                <span className='maximize' onClick={() => handleZoomChart("Line", SaleCategorydata, SaleCategoryoptions, `Sales by Category`)}><img src={Max} alt="maximize_icon" className='icon'></img></span>
               </div>
               <div className='head_flexbox'>
                 <h5 className='section_title'>Sales by Category</h5>
@@ -481,8 +605,8 @@ function SalesPurchase() {
                       { id: "Feb", value: "Feb" },
                     ]}
                     wrapperClass={"col12"}
-                    // value={values.martial_status}
-                    // onChange={handleChange}
+                  // value={values.martial_status}
+                  // onChange={handleChange}
                   />
                 </div>
               </div>
@@ -490,11 +614,11 @@ function SalesPurchase() {
                 <Line data={SaleCategorydata} options={SaleCategoryoptions} />
               </div>
             </div>
-          </Draggable>
-          <Draggable bounds="parent">
+          </Draggable> : null}
+          {ChartRender.ReturnGoodsChart ? <Draggable bounds="parent">
             <div className='returnGoods piechart'>
               <div className='max-view'>
-                <span className='maximize'><img src={Max} alt="maximize_icon" className='icon'></img></span>
+                <span className='maximize' onClick={() => handleZoomChart("Doughnut", ReturnGoodData, ReturnGoodoptions, `Return goods`)}><img src={Max} alt="maximize_icon" className='icon'></img></span>
               </div>
               <h5 className='section_title'>Return goods</h5>
               <div className='chart_container'>
@@ -515,11 +639,11 @@ function SalesPurchase() {
                 </li>
               </ul>
             </div>
-          </Draggable>
-          <Draggable bounds="parent">
+          </Draggable> : null}
+          {ChartRender.SaleGrowthChart ? <Draggable bounds="parent">
             <div className='salegrowth'>
               <div className='max-view'>
-                <span className='maximize'><img src={Max} alt="maximize_icon" className='icon'></img></span>
+                <span className='maximize' onClick={() => handleZoomChart("Bar", SaleGrowthData, SaleGrowthoptions, `Sales Growth`)}><img src={Max} alt="maximize_icon" className='icon'></img></span>
               </div>
               <div className='head_flexbox'>
                 <h5 className='section_title'>Sales Growth</h5>
@@ -532,8 +656,8 @@ function SalesPurchase() {
                       { id: "Feb", value: "Feb" },
                     ]}
                     wrapperClass={"col12"}
-                    // value={values.martial_status}
-                    // onChange={handleChange}
+                  // value={values.martial_status}
+                  // onChange={handleChange}
                   />
                 </div>
               </div>
@@ -541,9 +665,49 @@ function SalesPurchase() {
                 <Bar data={SaleGrowthData} options={SaleGrowthoptions} />
               </div>
             </div>
-          </Draggable>
+          </Draggable> : null}
         </div>
       </div>
+
+      {
+        open &&
+        <Dialog onClose={handleClose} className='chartZoomModal' open={open}>
+          <div className='modal_body'>
+            <button className='close_btn' onClick={handleClose}><Close /></button>
+            <DialogTitle className='modal_title'>{ChartTitle}</DialogTitle>
+            <div className='chart_container'>
+              {
+                renderChart()
+              }
+            </div>
+          </div>
+        </Dialog>
+      }
+
+      {
+        ChartFilter &&
+        <Dialog onClose={ChartFilterClose} className='chartFilterModal' open={ChartFilter}>
+          <div className='modal_body'>
+            <button className='close_btn' onClick={ChartFilterClose}><Close /></button>
+            <DialogTitle className='modal_title'>All Filters</DialogTitle>
+            <ul className='filter_listing'>
+              {
+                ChartFilterDataList &&
+                ChartFilterDataList.length > 0 &&
+                ChartFilterDataList.map((item, index) => {
+                  return (
+                      <FormControlLabel control={<Checkbox name={item.name} onChange={handleFitlerChange}     />} label={item.title} />
+                  )
+                })
+
+              }
+            
+            </ul>
+
+            <button type='button' onClick={() => handleApplyFilter()}>Apply</button>
+          </div>
+        </Dialog>
+      }
     </React.Fragment>
   )
 }
