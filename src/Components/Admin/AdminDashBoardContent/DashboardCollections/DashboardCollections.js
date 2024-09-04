@@ -33,7 +33,8 @@ function a11yProps(index) {
 
 function Collection() {
     const [value, setValue] = React.useState(0);
-    const [ChartFilter,  setChartFilter] = useState(false)
+    const [ChartFilter,  setChartFilter] = useState(false);
+    const [selectedSaleTabs, setSelectedSaleTab] = useState("")
 
     const handleChange = (event, newValue) => {
         setValue(newValue);
@@ -49,6 +50,12 @@ function Collection() {
 
     const tabData = ["Dashboard", "Sales & Purchase", "HRM", "Inventory Report", "Cashbook"]
 
+    const saleTabsData = ["Direct sales", "Online", "Wholesale"];
+
+    const handleSaleTabs = (event) => {
+        console.log("handleSaleTabs", event);
+        setSelectedSaleTab(event)
+    }
     return (
         <React.Fragment>
             <div className='collection_container'>
@@ -64,9 +71,16 @@ function Collection() {
                             }
                         </Tabs>
                         {value == 1 ? <div className='action_flexbox'>
-                            <button className='commonBtn' type='button'>Direct sales</button>
-                            <button className='commonBtn' type='button'>Online</button>
-                            <button className='commonBtn' type='button'>Wholesale</button>
+                            {
+                                saleTabsData &&
+                                saleTabsData.length > 0  &&
+                                saleTabsData.map(label => {
+                                    return (
+                                    <button className={`commonBtn ${selectedSaleTabs == label ? 'active' : ''} `} type='button' onClick={() => handleSaleTabs(label)}>{label}</button>
+                                    )
+                                }) 
+                            }
+
                             <button className='filterBtn' type='button' onClick={() => handleChartFilter()}>
                                 <img src={Filter} alt="filter_icon" className='img'></img>
                             </button>
