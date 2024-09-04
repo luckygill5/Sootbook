@@ -4,7 +4,8 @@ import FileWarm from "../../../../../assets/images/file-warning.svg";
 import Dollar from "../../../../../assets/images/circle-dollar-sign.svg";
 import { ReactComponent as Alert } from "../../../../../assets/images/alert-triangle.svg";
 import { Select } from '../../../../common';
-import { ReactComponent as Close } from "../../../../../assets/images/x.svg"
+import { ReactComponent as Close } from "../../../../../assets/images/x.svg";
+import { ReactComponent as Calendar } from "../../../../../assets/images/calendar4-range.svg";
 import Max from "../../../../../assets/images/maximize.svg";
 import list from "../../../../../assets/images/list.svg";
 import Star from "../../../../../assets/images/star.svg";
@@ -18,6 +19,11 @@ import DialogTitle from '@mui/material/DialogTitle';
 import Dialog from '@mui/material/Dialog';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import { TextField, InputAdornment } from '@mui/material';
+import dayjs from 'dayjs';
 import {
   Chart as ChartJS,
   ArcElement,
@@ -31,26 +37,30 @@ import {
   Title,
 } from 'chart.js';
 import './Sales&Purchase.scss'
-import { filter } from 'lodash';
-import { TroubleshootRounded } from '@mui/icons-material';
+
 
 function SalesPurchase({ ChartFilter, ChartFilterClose }) {
   const [open, setOpen] = useState(false);
+  const [selectedDate, setSelectedDate] = useState();
 
   const [Charttype, setCharttype] = useState('');
   const [ChartData, setChartData] = useState("");
   const [ChartOptions, setChartOptions] = useState('');
   const [ChartTitle, setChartTitle] = useState('');
   const [ChartRender, setChartRender] = useState({
-    channelChart: true,
-    saleMonthChart: true,
-    saleProductChart: true,
-    SaleCategorydataChart: true,
-    ReturnGoodsChart: true,
-    SaleGrowthChart: true
-  })
+    channelChart: '',
+    saleMonthChart: '',
+    saleProductChart: '',
+    SaleCategorydataChart: '',
+    ReturnGoodsChart: '',
+    SaleGrowthChart: ''
+  });
+  const [chartvisible, setChartVisible] = useState(true);
+  const [selectedChart, setSelectedChart] = useState([]);
 
-
+  const handleDateChange = (newDate) => {
+    setSelectedDate(newDate);
+  };
 
   ChartJS.register(ArcElement, Tooltip, Legend, CategoryScale, LinearScale, PointElement, LineElement, BarElement, Title);
 
@@ -387,26 +397,23 @@ function SalesPurchase({ ChartFilter, ChartFilterClose }) {
     },
 
   ]
-  let filterArray = [];
+
   const handleFitlerChange = (event) => {
 
-    const {name, checked} = event.target;
-    if( filterArray.includes(name) == true){
-      const newFilter = filterArray.filter((item) => {
-        if(item!== name){
+    const { name, checked } = event.target;
+    if (checked) {
+      setSelectedChart([...selectedChart, name])
+    }
+    if (checked == false && selectedChart.includes(name)) {
+      let filterArray;
+      filterArray = selectedChart.filter(item => {
+        if (item !== name) {
           return item
         }
       })
-      if(newFilter.length == 0 || newFilter.length > 0){
-        filterArray = []
-        filterArray.push( ...newFilter);
-      }
-      
-    }else if( filterArray.includes(name) == false){
-      filterArray.push( name);
+      setSelectedChart(filterArray)
     }
 
-    
     // setChartRender((prevState) => ({
     //   ...prevState,
     //   [name]: checked
@@ -414,24 +421,114 @@ function SalesPurchase({ ChartFilter, ChartFilterClose }) {
 
   }
 
-  const handleApplyFilter = () => {
-   
-    filterArray.map((item) => {
-      setChartRender(prevState => ({
-        // ...prevState,
-        [item]:false
-      }))
+  const handleApplyFilter = (event) => {
+    // if (selectedChart.length > 0) {
+    //   setChartVisible(false);
+    // }
+    // ChartFilterClose()
+    if (selectedChart.length > 0) {
+    setChartVisible(false);
+    setChartRender((prevState) => ({
+      channelChart: '',
+      saleMonthChart: '',
+      saleProductChart: '',
+      SaleCategorydataChart: '',
+      ReturnGoodsChart: '',
+      SaleGrowthChart: ''
+    }))
+
+    event &&
+    event.length > 0 &&
+    event.map(item => {
+      console.log("data--", item)
+      switch (item) {
+        case 'channelChart':
+        setChartRender((prevState) => ({
+      ...prevState,
+      channelChart: item == 'channelChart' ? true : false
+    }))
+          break;
+          
+        case 'saleMonthChart':
+          setChartRender(prevState => ({
+            ...prevState, 
+            saleMonthChart: item == 'saleMonthChart' ? true : false
+          }));
+          break;
+  
+        case 'saleProductChart':
+          setChartRender(prevState => ({
+            ...prevState, 
+            saleProductChart: item == 'saleProductChart' ? true : false
+          }));
+          break;
+
+          case 'SaleCategorydataChart':
+          setChartRender(prevState => ({
+            ...prevState, 
+            SaleCategorydataChart: item == 'SaleCategorydataChart' ? true : false
+          }));
+          break;
+
+          case 'ReturnGoodsChart':
+            setChartRender(prevState => ({
+              ...prevState, 
+              ReturnGoodsChart: item == 'ReturnGoodsChart' ? true : false
+            }));
+            break;
+
+            case 'SaleGrowthChart':
+              setChartRender(prevState => ({
+                ...prevState, 
+                SaleGrowthChart: item == 'SaleGrowthChart' ? true : false
+              }));
+              break;
+          
+        default:
+          break;
+      }
+      
     })
+    ChartFilterClose()
+  }
+}
+
+  const handleClear = () => {
+    setChartVisible(true);
+    setSelectedChart([]);
+    setChartRender(prevState => ({
+      channelChart: false,
+      saleMonthChart: false,
+      saleProductChart: false,
+      SaleCategorydataChart: false,
+      ReturnGoodsChart: false,
+      SaleGrowthChart: false
+    }))
   }
 
-  
-
+  console.log("render", ChartRender)
   return (
     <React.Fragment>
       <div className='salepurchase_dashboard'>
         <div className='upperStatus_flexbox'>
           <div className='selectYear'>
             <label className='label'>Select Year</label>
+            <LocalizationProvider dateAdapter={AdapterDayjs}>
+              <DatePicker
+                label=""
+                value={selectedDate}
+                onChange={handleDateChange}
+                className='dateFilter'
+                renderInput={(params) => <TextField placeholder='Select'  
+                  InputProps={{
+                  startAdornment: (
+                    <InputAdornment position="start">
+                      <Calendar />
+                    </InputAdornment>
+                  ),
+                }} {...params} />}
+              />
+            </LocalizationProvider>
           </div>
           <div className='totalData_flexbox'>
             <div className='icon_block'>
@@ -466,7 +563,7 @@ function SalesPurchase({ ChartFilter, ChartFilterClose }) {
         </div>
         <div className='draggable_flexContainer'>
           {
-            ChartRender.channelChart ? <Draggable bounds="parent">
+            (ChartRender.channelChart || chartvisible) ? <Draggable bounds="parent">
               <div className='salechannel piechart'>
                 <div className='max-view' >
                   <span className='maximize' onClick={() => handleZoomChart("Doughnut", data, options, `Sale by channel`)}><img src={Max} alt="maximize_icon" className='icon'></img></span>
@@ -493,7 +590,7 @@ function SalesPurchase({ ChartFilter, ChartFilterClose }) {
             </Draggable> : null
           }
           {
-            ChartRender.saleMonthChart ? <Draggable bounds="parent">
+            (ChartRender.saleMonthChart || chartvisible) ? <Draggable bounds="parent">
               <div className='salemonth'>
                 <div className='max-view'>
                   <span className='maximize' onClick={() => handleZoomChart("Bar", verticalBarThickData, verticalBaroptions, `Sales by month`)}><img src={Max} alt="maximize_icon" className='icon'></img></span>
@@ -522,7 +619,7 @@ function SalesPurchase({ ChartFilter, ChartFilterClose }) {
             </Draggable> : null
           }
           {
-            ChartRender.saleProductChart ? <Draggable bounds="parent">
+            (ChartRender.saleProductChart || chartvisible) ? <Draggable bounds="parent">
               <div className='saleProduct'>
                 <div className='max-view'>
                   <span className='maximize' onClick={() => handleZoomChart("Bar", saleProductdata, saleProductoptions, `Sales by products`)}><img src={Max} alt="maximize_icon" className='icon'></img></span>
@@ -589,7 +686,7 @@ function SalesPurchase({ ChartFilter, ChartFilterClose }) {
               </ul>
             </div>
           </Draggable>
-          {ChartRender.SaleCategorydataChart ? <Draggable bounds="parent">
+          {(ChartRender.SaleCategorydataChart || chartvisible) ? <Draggable bounds="parent">
             <div className='salecategory'>
               <div className='max-view'>
                 <span className='maximize' onClick={() => handleZoomChart("Line", SaleCategorydata, SaleCategoryoptions, `Sales by Category`)}><img src={Max} alt="maximize_icon" className='icon'></img></span>
@@ -615,7 +712,7 @@ function SalesPurchase({ ChartFilter, ChartFilterClose }) {
               </div>
             </div>
           </Draggable> : null}
-          {ChartRender.ReturnGoodsChart ? <Draggable bounds="parent">
+          {(ChartRender.ReturnGoodsChart || chartvisible) ? <Draggable bounds="parent">
             <div className='returnGoods piechart'>
               <div className='max-view'>
                 <span className='maximize' onClick={() => handleZoomChart("Doughnut", ReturnGoodData, ReturnGoodoptions, `Return goods`)}><img src={Max} alt="maximize_icon" className='icon'></img></span>
@@ -640,7 +737,7 @@ function SalesPurchase({ ChartFilter, ChartFilterClose }) {
               </ul>
             </div>
           </Draggable> : null}
-          {ChartRender.SaleGrowthChart ? <Draggable bounds="parent">
+          {(ChartRender.SaleGrowthChart || chartvisible) ? <Draggable bounds="parent">
             <div className='salegrowth'>
               <div className='max-view'>
                 <span className='maximize' onClick={() => handleZoomChart("Bar", SaleGrowthData, SaleGrowthoptions, `Sales Growth`)}><img src={Max} alt="maximize_icon" className='icon'></img></span>
@@ -686,9 +783,15 @@ function SalesPurchase({ ChartFilter, ChartFilterClose }) {
 
       {
         ChartFilter &&
-        <Dialog onClose={ChartFilterClose} className='chartFilterModal' open={ChartFilter}>
+        <Dialog onClose={() => {
+          // setChartFilterOpen(false)
+          ChartFilterClose()
+        }} className='chartFilterModal' open={ChartFilter}>
           <div className='modal_body'>
-            <button className='close_btn' onClick={ChartFilterClose}><Close /></button>
+            <button className='close_btn' onClick={() => {
+              // setChartFilterOpen(false)
+              ChartFilterClose()
+            }}><Close /></button>
             <DialogTitle className='modal_title'>All Filters</DialogTitle>
             <ul className='filter_listing'>
               {
@@ -696,15 +799,20 @@ function SalesPurchase({ ChartFilter, ChartFilterClose }) {
                 ChartFilterDataList.length > 0 &&
                 ChartFilterDataList.map((item, index) => {
                   return (
-                      <FormControlLabel control={<Checkbox name={item.name} onChange={handleFitlerChange}     />} label={item.title} />
+                    <li className='list_item'>
+                      <FormControlLabel control={<Checkbox name={item.name} onChange={handleFitlerChange} checked={selectedChart.includes(item.name) ? true : false} />} label={item.title} />
+                    </li>
                   )
                 })
 
               }
-            
-            </ul>
 
-            <button type='button' onClick={() => handleApplyFilter()}>Apply</button>
+            </ul>
+            <div className='action_flexbox'>
+              <button type='button' className='clearBtn' onClick={() => handleClear()}>Reset</button>
+              <button type='button' className='applyBtn' onClick={() => handleApplyFilter(selectedChart)}>Apply</button>
+            </div>
+
           </div>
         </Dialog>
       }
