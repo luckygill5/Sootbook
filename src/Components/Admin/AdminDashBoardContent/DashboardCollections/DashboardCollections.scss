@@ -86,6 +86,14 @@ $font-monsterat : 'Montserrat';
                     &:last-child{
                         margin-right: 0;
                     }
+                    &:hover{
+                        background-color: #009859;
+                        color: $white;
+                    }
+                    &.active{
+                        background-color: #009859;
+                        color: $white;
+                    }
                 }
                 .filterBtn{
                     background-color: $white;

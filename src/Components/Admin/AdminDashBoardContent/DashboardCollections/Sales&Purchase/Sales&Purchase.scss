@@ -800,6 +800,9 @@ $font-monsterat : 'Montserrat';
                     position: relative;
                     padding: 40px;
                     height: 100%;
+                    @include flexbox();
+                    flex-direction: column;
+                    align-items: center;
                     .close_btn{
                         width: 35px;
                         height: 35px;
@@ -844,6 +847,60 @@ $font-monsterat : 'Montserrat';
                         canvas{
                             // transform: scale(1.5);
                         }
+                    }
+                    .indicator_info {
+                        margin-top:0px;
+                        margin-bottom: 0;
+                        padding: 0;
+                        width: auto;
+                        margin-left: auto;
+                        margin-right: auto;
+        
+                        .indicator_item {
+                            @include flexbox();
+                            justify-content: flex-start;
+                            align-items: center;
+                            margin-bottom: 4px;
+        
+                            &:last-child {
+                                margin-bottom: 0;
+                            }
+        
+                            .text {
+                                font-size: 14px;
+                                font-style: normal;
+                                font-weight: 600;
+                                line-height: 16px;
+                                /* 133.333% */
+                                letter-spacing: 0.06px;
+                                display: block;
+                                text-align: left;
+                                color: $text;
+                                margin-left: 10px;
+                            }
+        
+                            .circle {
+                                display: inline-block;
+                                border-radius: 50%;
+                                width: 8px;
+                                height: 8px;
+        
+                                &.dark-green {
+                                    background-color: #007746;
+                                }
+        
+                                &.off-green {
+                                    background-color: rgb(0 152 89);
+                                }
+        
+                                &.off-gray {
+                                    background-color: #E5E7EB;
+                                }
+                            }
+        
+        
+                        }
+        
                     }
                 }
             }
@@ -923,6 +980,9 @@ $font-monsterat : 'Montserrat';
                                 margin-right: 0;
                                 .MuiCheckbox-root{
                                     padding:0 20px 0 0px;
+                                    &.Mui-checked{
+                                        color: #009859
+                                    }
 
                                 }
                             }
@@ -937,8 +997,8 @@ $font-monsterat : 'Montserrat';
                             width: 140px;
                             height: 48px;
                             box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
-                            border: 1px solid $buttonColor;
-                            color: $buttonColor;
+                            border: 1px solid #009859;
+                            color: #009859;
                             padding: 14px 16px;
                             border-radius:8px;
                             cursor: pointer;
@@ -958,7 +1018,7 @@ $font-monsterat : 'Montserrat';
                         .applyBtn{
                             width: 140px;
                             height: 48px;
-                            background-color: $buttonColor;
+                            background-color: #009859;
                             border: none;
                             @include flexbox();
                             align-items: center;
