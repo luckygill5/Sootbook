@@ -129,6 +129,13 @@ function AdminSideNav(props) {
     ]
 
     function handleToggleView() {
+        if(document.querySelector(".navMenu_containerWrapper")){
+          if(document.querySelector('.navMenu_containerWrapper.expand_view')){
+            document.querySelector('.navMenu_containerWrapper').classList.remove('expand_view')
+          } else{
+            document.querySelector('.navMenu_containerWrapper').classList.add('expand_view')
+          } 
+        }
         if (document.querySelector('.navMenu_container.expand_view')) {
             document.querySelector('.navMenu_container').classList.remove('expand_view')
             props.expandControl()
