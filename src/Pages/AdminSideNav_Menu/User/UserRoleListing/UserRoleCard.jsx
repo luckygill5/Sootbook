@@ -22,7 +22,7 @@ function CardLayout({ cardData, employeData }) {
                                 <div className='role_info'>
                                     <div className='profile_flex'>
                                         <div className='image_box'>
-                                           {item.avatar ? <img src={item.avatar} alt="profile_icon" className='profile_icon'></img> : <span className='img_placeholder'></span>} 
+                                            {item.avatar ? <img src={item.avatar} alt="profile_icon" className='profile_icon'></img> : <span className='img_placeholder'></span>}
                                         </div>
                                         <div className='information'>
                                             <h5 className='title'>{`${item.first_name} ${item.last_name}`}</h5>
@@ -39,19 +39,19 @@ function CardLayout({ cardData, employeData }) {
                                     <ul>
                                         {item.empId && <li>
                                             <span className='icon'>
-                                                {<FileText/>}
+                                                {<FileText />}
                                             </span>
                                             <span className='text'>{item.empId}</span>
                                         </li>}
                                         {item.phone && <li>
                                             <span className='icon'>
-                                                <Phone/>
+                                                <Phone />
                                             </span>
                                             <span className='text'>{item.phone}</span>
                                         </li>}
                                         {item.email && <li>
                                             <span className='icon'>
-                                                <Mail/>
+                                                <Mail />
                                             </span>
                                             <span className='text'>{item.email}</span>
                                         </li>}

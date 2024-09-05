@@ -19,41 +19,41 @@ function TabularLayout({ tableheadData, tableBodyData, manageColumn, employeData
 
 
     useEffect(() => {
-        let filterData;  
+        let filterData;
         let filteredUsers;
         employeData.map((label, index) => {
             filterData = Object.keys(label).filter((item) => {
-                 if(item == "first_name"){
+                if (item == "first_name") {
                     return item
-                 }
+                }
                 //  if(item == "last_name"){
                 //     return item
                 //  }
-                 if(item == "email"){
+                if (item == "email") {
                     return item
-                 }
-                 if(item == "role"){
+                }
+                if (item == "role") {
                     return item
-                 }
-                 if(item == "createdAt"){
+                }
+                if (item == "createdAt") {
                     return item
-                 }
+                }
                 //  if(item == "status"){
                 //     return item
                 //  }
                 //  if(item == "updatedAt"){
                 //     return item
                 //  }
-                 if(item == "_id"){
+                if (item == "_id") {
                     return item
-                 }
+                }
             })
-            
+
         })
-        setTableHeadArray(filterData)           
+        setTableHeadArray(filterData)
     }, [])
 
- 
+
     const [anchorEl, setAnchorEl] = useState(null);
     const [control, setControl] = useState(null)
     const [selectedIndex, setSelectedIndex] = useState([]);
@@ -65,7 +65,7 @@ function TabularLayout({ tableheadData, tableBodyData, manageColumn, employeData
     };
 
     const handleControl = (event) => {
-        
+
         setControl(event.currentTarget)
     }
     const handleClose = () => {
@@ -168,9 +168,9 @@ function TabularLayout({ tableheadData, tableBodyData, manageColumn, employeData
                             <Checkbox />
                         </div>
                         {
-                                tableHeadArray && 
-                                tableHeadArray.length > 0 &&
-                                tableHeadArray.map((item, index) => {
+                            tableHeadArray &&
+                            tableHeadArray.length > 0 &&
+                            tableHeadArray.map((item, index) => {
                                 return (
                                     <div key={index} className={`tcolumn ${(item.title == 'Username' || item.title == "Email" || item.title == "Role") ? 'lg' : 'sm'}`}>
                                         {item.title == 'User ID' && <span className='pinIcon'><Pin /></span>}
@@ -192,9 +192,9 @@ function TabularLayout({ tableheadData, tableBodyData, manageColumn, employeData
                 </div>
                 <div className='tbody'>
                     {
-                            employeData &&
-                            employeData.length > 0 &&
-                            employeData.map((item, index) => {
+                        employeData &&
+                        employeData.length > 0 &&
+                        employeData.map((item, index) => {
                             return (
                                 <div className={`row ${selectedIndex.includes(index + 1) ? 'selected' : ''}`} key={index}>
                                     <div className={`check_block`}   >
@@ -204,19 +204,19 @@ function TabularLayout({ tableheadData, tableBodyData, manageColumn, employeData
                                         Object.keys(item).map((key, index) => {
                                             return (
                                                 <>
-                                                {(tableHeadArray.includes(key) ) ?  <div key={index} className={`tCell sm`}>
-                                                   <div className={`data`}>{ item[key]}</div>
-                                                    {/* {
+                                                    {(tableHeadArray.includes(key)) ? <div key={index} className={`tCell sm`}>
+                                                        <div className={`data`}>{item[key]}</div>
+                                                        {/* {
                                                         true ? <div className='copyIcon'><Copy /></div> :  null
                                                     } */}
-                                                </div> : null}
+                                                    </div> : null}
                                                 </>
                                             )
                                         })
                                     }
                                     <div className='moreOption'>
                                         <button className='link' id='control-button' type="submit" onClick={handleControl}>
-                                        <DotsIcon />
+                                            <DotsIcon />
                                         </button>
                                     </div>
                                 </div>
@@ -238,12 +238,12 @@ function TabularLayout({ tableheadData, tableBodyData, manageColumn, employeData
                     'aria-labelledby': 'basic-button',
                 }}
             >
-                <MenuItem onClick={handleClose}><span className='icon'><Pin/></span>Pin column</MenuItem>
-                <MenuItem onClick={handleClose}><span className='icon'><EyeOff/></span>Hide column</MenuItem>
+                <MenuItem onClick={handleClose}><span className='icon'><Pin /></span>Pin column</MenuItem>
+                <MenuItem onClick={handleClose}><span className='icon'><EyeOff /></span>Hide column</MenuItem>
                 <MenuItem onClick={() => {
                     handleClose()
                     manageColumn()
-                    }}><span className='icon'><Settings/></span>Manage column</MenuItem>
+                }}><span className='icon'><Settings /></span>Manage column</MenuItem>
             </Menu> : null}
 
             {control && show ? <Menu
@@ -256,9 +256,9 @@ function TabularLayout({ tableheadData, tableBodyData, manageColumn, employeData
                     'aria-labelledby': 'control-button',
                 }}
             >
-                <MenuItem onClick={handleControlClose}><span className='icon'><View/></span>View</MenuItem>
-                <MenuItem onClick={handleControlClose}><span className='icon'><Pencil/></span>Edit</MenuItem>
-                <MenuItem onClick={handleControlClose}><span className='icon'><EyeOff/></span>Delete role</MenuItem>
+                <MenuItem onClick={handleControlClose}><span className='icon'><View /></span>View</MenuItem>
+                <MenuItem onClick={handleControlClose}><span className='icon'><Pencil /></span>Edit</MenuItem>
+                <MenuItem onClick={handleControlClose}><span className='icon'><EyeOff /></span>Delete role</MenuItem>
             </Menu> : null}
         </React.Fragment>
     )
