@@ -1,5 +1,8 @@
 @import "../../BaseStyle/Basestyle.scss";
 
+
+$font-monsterat : 'Montserrat';
+
 .data_listing {
     margin: 0;
     padding: 0;
@@ -138,6 +141,7 @@
             min-height: auto;
             height: 48px;
             box-sizing: border-box;
+            font-family: $font-monsterat;
         }
 
         .search_input {

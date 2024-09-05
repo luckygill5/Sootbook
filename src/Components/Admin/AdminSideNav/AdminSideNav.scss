@@ -25,6 +25,9 @@ $font-monsterat : 'Montserrat';
     width: 100%;
     height: 100vh;
     max-width: 235px;
+    &.expand_view {
+        max-width: 97px;
+    }
 
     .navMenu_container {
         width: 100%;
