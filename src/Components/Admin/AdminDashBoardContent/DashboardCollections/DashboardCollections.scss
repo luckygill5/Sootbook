@@ -8,23 +8,24 @@ $buttonColor: #00A9BB;
 $font-monsterat : 'Montserrat';
 
 .collection_container{
+    height: calc(100vh - 254px);
     box-sizing: border-box;
     *{
         box-sizing: border-box;
         font-family: $font-monsterat;
 
     }
-    padding: 24px;
+    padding: vw(24px);
     box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25), -1px -7px 7px 0px #FFF;
-    border-radius: 12px;
+    border-radius: vw(12px);
     background-color: #F2F5FA;
     .collectionTabBlock{
         .tabsContainer{
             @include flexbox();
-
             .MuiTabs-root{
+                min-height: vw(38px);
                 .MuiTabs-scroller {
-                    height: 38px;
+                    height: vw(38px);
                     text-align: left;
                     .MuiTabs-flexContainer{
                         display: inline-flex;
@@ -35,21 +36,21 @@ $font-monsterat : 'Montserrat';
                             position: absolute;
                             left: 0;
                             bottom: 0;
-                            height: 2px;
+                            height: vw(2px);
                             background-color: #E5E7EB;
                             width: 100%;
                         }
                         .MuiButtonBase-root{
-                            padding: 8px 12px;
+                            padding: vw(8px) vw(12px);
                             font-family: $font-monsterat;
                             text-transform: capitalize;
-                            font-size: 14px;
+                            font-size: vw(14px);
                             font-style: normal;
                             font-weight: 500;
-                            line-height: 20px; /* 142.857% */
+                            line-height: vw(20px); /* 142.857% */
                             letter-spacing: 0.07px;
                             color: #6B7280;
-                            min-height: 38px;
+                            min-height: vw(38px);
                             &.Mui-selected {
                                 color:#14532D; 
                             }
@@ -68,17 +69,17 @@ $font-monsterat : 'Montserrat';
                 .commonBtn{
                     box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25), -1px -7px 7px 0px #FFF;
                     border: none;
-                    border-radius: 8px;
+                    border-radius: vw(8px);
                     background-color: #F2F5FA;
-                    font-size: 14px;
+                    font-size: vw(14px);
                     font-style: normal;
                     font-weight: 400;
-                    line-height: 20px; /* 142.857% */
+                    line-height: vw(20px); /* 142.857% */
                     letter-spacing: 0.07px;
                     color: $text;
-                    padding: 8px 12px; 
-                    margin-right: 4px;
-                    height: 36px;
+                    padding: vw(8px) vw(12px); 
+                    margin-right: vw(4px);
+                    height: vw(36px);
                     cursor: pointer;
                     &:focus:not(:focus-visible){
                         outline: none;
@@ -98,9 +99,9 @@ $font-monsterat : 'Montserrat';
                 .filterBtn{
                     background-color: $white;
                     border: 1px solid #E5E7EB;
-                    border-radius: 8px;
-                    width: 38px;
-                    height: 36px;
+                    border-radius: vw(8px);
+                    width: vw(38px);
+                    height: vw(36px);
                     @include flexbox();
                     align-items: center;
                     justify-content: center;
@@ -114,7 +115,7 @@ $font-monsterat : 'Montserrat';
         }
         .data_container{
             .MuiBox-root{
-                padding-top: 12px;
+                padding-top: vw(12px);
                 padding-right: 0;
                 padding-left: 0;
                 padding-bottom: 0;
