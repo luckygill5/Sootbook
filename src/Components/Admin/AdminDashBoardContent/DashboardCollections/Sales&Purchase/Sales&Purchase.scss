@@ -145,8 +145,8 @@ $font-monsterat : 'Montserrat';
 
         .license_info {
             width: 23%;
-            
-
+            @include flexbox();
+            align-items: flex-start;
             .msg {
             border-radius: vw(4.455px);
             padding: vw(11.9px);
@@ -185,13 +185,22 @@ $font-monsterat : 'Montserrat';
             }
             .resetOpt{
                 text-align: right;
+                margin-left: 10px;
                 .resetBtn{
                     display: inline-block;
                     font-size: vw(12px);
                     font-weight:normal;
                     line-height: normal;
                     color:$colorRed;
-                    cursor: pointer
+                    cursor: pointer;
+                    padding: vw(6px);
+                    border-radius: vw(4.455px);
+                    box-shadow: 0px 2.97px 2.97px 0px rgba(0, 0, 0, 0.25), -0.742px -5.197px 5.197px 0px #FFF;
+                    &.active{
+                        box-shadow: none;
+                        background-color: $colorRed;
+                        color: $white
+                    }
                 }
             }
            
@@ -507,7 +516,8 @@ $font-monsterat : 'Montserrat';
                 .saleLeader_listing {
                     margin: 0 0 auto 0;
                     max-height: vw(132px);
-                    overflow-y: auto;
+                    overflow-y: hidden;
+                    overflow-x: hidden;
                     scrollbar-width: thin;
                     padding: vw(2px);
 
@@ -815,6 +825,154 @@ $font-monsterat : 'Montserrat';
 
                         }
 
+                    }
+
+                    .saleLeader_listing {
+                        margin: 0 0 auto 0;
+                        max-height: initial;
+                        overflow-y: auto;
+                        overflow-x: hidden;
+                        scrollbar-width: thin;
+                        padding: vw(2px);
+                        width: 50%;
+                        .list_item {
+                            list-style: none;
+                            box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25), -1px -7px 7px 0px #FFF;
+                            border-radius: vw(12px);
+                            margin-bottom: vw(6px);
+                            padding: vw(4px) vw(8px);
+    
+                            &:last-child {
+                                margin-bottom: 0
+                            }
+    
+                            .flex_container {
+                                @include flexbox();
+    
+                                .profile_img {
+                                    width: vw(46px);
+                                    height: vw(46px);
+                                    border-radius: 50%;
+                                    margin-right: vw(8px);
+    
+                                    .icon {
+                                        width: 100%;
+                                        max-width: 100%;
+                                        height: 100%;
+                                        border-radius: 50%;
+                                    }
+                                }
+    
+                                .sale_info {
+                                    width: calc(100% - 54px);
+    
+                                    .upper_flexbox {
+                                        margin-bottom: vw(4px);
+                                        @include flexbox();
+                                        align-items: center;
+                                        justify-content: space-between;
+    
+                                        .title {
+                                            margin: 0;
+                                            font-size: vw(14px);
+                                            font-style: normal;
+                                            font-weight: 600;
+                                            line-height: vw(20px);
+                                            /* 142.857% */
+                                            letter-spacing: 0.07px;
+                                            color: #33B981;
+                                        }
+    
+                                        .position {
+                                            display: inline-block;
+                                            font-size: vw(12px);
+                                            font-style: normal;
+                                            font-weight: 400;
+                                            line-height: vw(16px);
+                                            /* 133.333% */
+                                            letter-spacing: 0.06px;
+                                            color: $black;
+                                        }
+                                    }
+    
+                                    .bottom-flexbox {
+                                        .turnover_info {
+                                            margin: 0;
+                                            padding: 0;
+    
+                                            .item {
+                                                list-style: none;
+                                                @include flexbox();
+                                                align-items: center;
+                                                justify-content: space-between;
+                                                width: 100%;
+    
+                                                .dataBlock {
+                                                    @include flexbox();
+                                                    align-items: center;
+                                                    width: 30%;
+    
+                                                    span {
+                                                        display: inline-block;
+    
+                                                        &.label {
+                                                            font-size: vw(12px);
+                                                            font-style: normal;
+                                                            font-weight: 400;
+                                                            line-height: vw(16px);
+                                                            /* 133.333% */
+                                                            letter-spacing: 0.06px;
+                                                            color: #6B7280;
+                                                        }
+    
+                                                        &.value {
+                                                            font-size: vw(12px);
+                                                            font-style: normal;
+                                                            font-weight: 400;
+                                                            line-height: vw(16px);
+                                                            /* 133.333% */
+                                                            letter-spacing: 0.06px;
+                                                            color: #030712;
+                                                            margin-left: vw(4px);
+                                                        }
+                                                    }
+                                                }
+    
+                                                .gmValue {
+                                                    width: 20%;
+                                                    display: inline-block;
+                                                    font-size: vw(12px);
+                                                    font-style: normal;
+                                                    font-weight: 400;
+                                                    line-height: vw(16px);
+                                                    /* 133.333% */
+                                                    letter-spacing: 0.06px;
+                                                    color: $black;
+                                                }
+    
+                                                .ratingPercent {
+                                                    width: 20%;
+                                                    @include flexbox();
+                                                    align-items: center;
+                                                    font-size: vw(12px);
+                                                    font-style: normal;
+                                                    font-weight: 400;
+                                                    line-height: vw(16px);
+                                                    /* 133.333% */
+                                                    letter-spacing: 0.06px;
+                                                    color: #EAB308;
+    
+                                                    .icon {
+                                                        display: inline-block;
+                                                        margin-right: vw(4px);
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
                     }
                 }
             }
