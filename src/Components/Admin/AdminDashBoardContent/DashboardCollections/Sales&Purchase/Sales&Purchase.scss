@@ -4,7 +4,7 @@ $white: #FFF;
 $black: #000;
 $text: #1F2937;
 $buttonColor: #00A9BB;
-$colorRed:#ff073a;
+$colorRed: #ff073a;
 
 $font-monsterat : 'Montserrat';
 
@@ -23,6 +23,7 @@ $font-monsterat : 'Montserrat';
         margin-left: vw(6px);
         margin-right: vw(6px);
         width: calc(100% - vw(12px));
+
         .selectYear {
             width: 15%;
 
@@ -41,6 +42,7 @@ $font-monsterat : 'Montserrat';
 
             .MuiFormControl-root {
                 width: 100%;
+
                 &.dateFilter {
                     .MuiInputBase-root {
                         height: vw(48px);
@@ -48,6 +50,7 @@ $font-monsterat : 'Montserrat';
                         border-radius: vw(8px);
                         border: 1px solid #E5E7EB;
                         width: 100%;
+
                         .MuiInputBase-input {
                             height: vw(48px);
                             padding-left: 10px;
@@ -108,9 +111,10 @@ $font-monsterat : 'Montserrat';
                 align-items: center;
                 justify-content: center;
                 background-color: #009859;
-                .icon-img{
+
+                .icon-img {
                     width: calc(2.3333333333vw - 10px);
-                    height:calc(2.3333333333vw - 10px);
+                    height: calc(2.3333333333vw - 10px);
                 }
             }
 
@@ -147,12 +151,14 @@ $font-monsterat : 'Montserrat';
             width: 23%;
             @include flexbox();
             align-items: flex-start;
+
             .msg {
-            border-radius: vw(4.455px);
-            padding: vw(11.9px);
-            box-shadow: 0px 2.97px 2.97px 0px rgba(0, 0, 0, 0.25), -0.742px -5.197px 5.197px 0px #FFF;
-            @include flexbox();
-            justify-content: center;
+                border-radius: vw(4.455px);
+                padding: vw(11.9px);
+                box-shadow: 0px 2.97px 2.97px 0px rgba(0, 0, 0, 0.25), -0.742px -5.197px 5.197px 0px #FFF;
+                @include flexbox();
+                height: 100%;
+                justify-content: center;
                 margin: 0;
                 @include flexbox();
                 align-items: flex-start;
@@ -183,27 +189,30 @@ $font-monsterat : 'Montserrat';
                     text-align: left;
                 }
             }
-            .resetOpt{
+
+            .resetOpt {
                 text-align: right;
                 margin-left: 10px;
-                .resetBtn{
+
+                .resetBtn {
                     display: inline-block;
                     font-size: vw(12px);
-                    font-weight:normal;
+                    font-weight: normal;
                     line-height: normal;
-                    color:$colorRed;
+                    color: $colorRed;
                     cursor: pointer;
                     padding: vw(6px);
                     border-radius: vw(4.455px);
                     box-shadow: 0px 2.97px 2.97px 0px rgba(0, 0, 0, 0.25), -0.742px -5.197px 5.197px 0px #FFF;
-                    &.active{
+
+                    &.active {
                         box-shadow: none;
                         background-color: $colorRed;
                         color: $white
                     }
                 }
             }
-           
+
 
         }
     }
@@ -226,6 +235,7 @@ $font-monsterat : 'Montserrat';
             z-index: 2;
             @include flexbox();
             flex-direction: column;
+
             .max-view {
                 @include flexbox();
                 justify-content: flex-end;
@@ -242,6 +252,7 @@ $font-monsterat : 'Montserrat';
                 @include flexbox();
                 align-items: center;
                 justify-content: center;
+
                 // margin-top: auto;
                 canvas {
                     width: 100% !important;
@@ -267,7 +278,8 @@ $font-monsterat : 'Montserrat';
                     color: $text;
                     margin: 0px 0px;
                 }
-                .options{
+
+                .options {
                     box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
                     background-color: #F2F5FA;
                     border-radius: vw(8px);
@@ -278,36 +290,43 @@ $font-monsterat : 'Montserrat';
                     align-items: center;
                     justify-content: center;
                     border: none;
-                    &:focus:not(:focus-visible){
+
+                    &:focus:not(:focus-visible) {
                         outline: none;
                     }
                 }
+
                 .selectMonthBox {
                     width: vw(104px);
 
                     .inputField {
                         margin: 0;
                         position: relative;
-                        label{
+
+                        label {
                             display: inline-block;
                             font-size: vw(14px);
                             font-style: normal;
                             font-weight: 400;
-                            line-height: 20px; /* 142.857% */
-                            letter-spacing: 0.07px; 
+                            line-height: 20px;
+                            /* 142.857% */
+                            letter-spacing: 0.07px;
                             color: #6B7280;
                         }
-                        .MuiInputBase-root{
+
+                        .MuiInputBase-root {
                             position: relative;
                             z-index: 1;
-                            &::before{
+
+                            &::before {
                                 content: "Monthly";
                                 display: inline-block;
                                 font-size: vw(14px);
                                 font-style: normal;
                                 font-weight: 400;
-                                line-height: 20px; /* 142.857% */
-                                letter-spacing: 0.07px; 
+                                line-height: 20px;
+                                /* 142.857% */
+                                letter-spacing: 0.07px;
                                 color: #6B7280;
                                 font-family: $font-monsterat;
                                 position: absolute;
@@ -316,9 +335,11 @@ $font-monsterat : 'Montserrat';
                                 transform: translateY(-50%);
                                 z-index: 1;
                             }
-                            .MuiSvgIcon-root{
+
+                            .MuiSvgIcon-root {
                                 right: 3px;
                             }
+
                             .MuiSelect-select {
                                 height: vw(40px);
                                 padding-top: vw(12px);
@@ -331,21 +352,23 @@ $font-monsterat : 'Montserrat';
                                 font-size: vw(14px);
                                 font-style: normal;
                                 font-weight: 400;
-                                line-height: 20px; /* 142.857% */
-                                letter-spacing: 0.07px; 
+                                line-height: 20px;
+                                /* 142.857% */
+                                letter-spacing: 0.07px;
                                 color: #6B7280;
                                 @include flexbox();
                                 align-items: center;
                             }
                         }
-                        &.active{
-                            .MuiInputBase-root{
-                                &::before{
+
+                        &.active {
+                            .MuiInputBase-root {
+                                &::before {
                                     display: none;
                                 }
-                            } 
+                            }
                         }
-                       
+
                     }
                 }
             }
@@ -366,7 +389,7 @@ $font-monsterat : 'Montserrat';
                 margin-top: 0px;
                 margin-bottom: 0;
                 padding: 0;
-                width:auto;
+                width: 90%;
                 margin-left: auto;
                 margin-right: auto;
 
@@ -416,34 +439,40 @@ $font-monsterat : 'Montserrat';
                 }
 
             }
-            .indicator{
+
+            .indicator {
                 text-align: left;
                 @include flexbox();
                 align-items: center;
                 margin-bottom: vw(8px);
-                span{
+
+                span {
                     display: inline-block;
-                    &.text{
+
+                    &.text {
                         font-size: vw(12px);
                         font-style: normal;
                         font-weight: 400;
-                        line-height: vw(16px); /* 133.333% */
+                        line-height: vw(16px);
+                        /* 133.333% */
                         letter-spacing: 0.06px;
-                        margin-left: vw(4px);    
+                        margin-left: vw(4px);
                     }
-                    &.mark{
-                        &.green{
+
+                    &.mark {
+                        &.green {
                             width: vw(8px);
                             height: vw(8px);
                             background-color: #007746;
                             border-radius: 50%;
                         }
-                    } 
+                    }
                 }
             }
 
             &.salecategory {
-            width: calc(43.775% - 12px);
+                width: calc(43.775% - 12px);
+
                 .chart_container {
                     max-height: 5vw;
                     height: 100%;
@@ -457,30 +486,35 @@ $font-monsterat : 'Montserrat';
 
             &.salechannel {
                 width: calc(15% - 12px);
-                .chart_container{
+
+                .chart_container {
                     height: 4.2vw;
                 }
 
             }
+
             &.returnGoods {
-               width: calc(15% - 12px);
-               .chart_container{
-                height: 4.2vw;
-            }
+                width: calc(15% - 12px);
+
+                .chart_container {
+                    height: 4.2vw;
+                }
             }
 
             &.salemonth {
                 width: calc(31.2% - 12px);
-                .chart_container{
-                 max-height:5vw;
-                 height: 100%;
-                 }
+
+                .chart_container {
+                    max-height: 5vw;
+                    height: 100%;
+                }
 
             }
 
             &.salegrowth {
                 width: calc(42% - 12px);
-                 .chart_container {
+
+                .chart_container {
                     max-height: 5vw;
                     height: 100%;
 
@@ -489,15 +523,16 @@ $font-monsterat : 'Montserrat';
                         height: 100% !important;
                     }
                 }
-                
+
             }
 
             &.saleProduct {
                 width: calc(30% - 12px);
-                .chart_container{
-                 max-height: 7vw;
-                 height: 100%;
-                 }
+
+                .chart_container {
+                    max-height: 7vw;
+                    height: 100%;
+                }
             }
 
             &.saleLeaders {
@@ -769,7 +804,7 @@ $font-monsterat : 'Montserrat';
                             // transform: scale(1.5);
                         }
                     }
-                   
+
 
                     .indicator_info {
                         margin-top: 0px;
@@ -780,6 +815,9 @@ $font-monsterat : 'Montserrat';
                         margin-right: auto;
                         display: inline-flex;
                         flex-direction: column;
+                        position: relative;
+                        bottom: 20px;
+
                         .indicator_item {
                             @include flexbox();
                             justify-content: flex-start;
@@ -835,26 +873,27 @@ $font-monsterat : 'Montserrat';
                         scrollbar-width: thin;
                         padding: vw(2px);
                         width: 70%;
+
                         .list_item {
                             list-style: none;
                             box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25), -1px -7px 7px 0px #FFF;
                             border-radius: vw(12px);
                             margin-bottom: vw(6px);
                             padding: vw(4px) vw(8px);
-    
+
                             &:last-child {
                                 margin-bottom: 0
                             }
-    
+
                             .flex_container {
                                 @include flexbox();
-    
+
                                 .profile_img {
                                     width: vw(46px);
                                     height: vw(46px);
                                     border-radius: 50%;
                                     margin-right: vw(8px);
-    
+
                                     .icon {
                                         width: 100%;
                                         max-width: 100%;
@@ -862,16 +901,16 @@ $font-monsterat : 'Montserrat';
                                         border-radius: 50%;
                                     }
                                 }
-    
+
                                 .sale_info {
                                     width: calc(100% - 54px);
-    
+
                                     .upper_flexbox {
                                         margin-bottom: vw(4px);
                                         @include flexbox();
                                         align-items: center;
                                         justify-content: space-between;
-    
+
                                         .title {
                                             margin: 0;
                                             font-size: vw(14px);
@@ -882,7 +921,7 @@ $font-monsterat : 'Montserrat';
                                             letter-spacing: 0.07px;
                                             color: #33B981;
                                         }
-    
+
                                         .position {
                                             display: inline-block;
                                             font-size: vw(12px);
@@ -894,27 +933,27 @@ $font-monsterat : 'Montserrat';
                                             color: $black;
                                         }
                                     }
-    
+
                                     .bottom-flexbox {
                                         .turnover_info {
                                             margin: 0;
                                             padding: 0;
-    
+
                                             .item {
                                                 list-style: none;
                                                 @include flexbox();
                                                 align-items: center;
                                                 justify-content: space-between;
                                                 width: 100%;
-    
+
                                                 .dataBlock {
                                                     @include flexbox();
                                                     align-items: center;
                                                     width: 30%;
-    
+
                                                     span {
                                                         display: inline-block;
-    
+
                                                         &.label {
                                                             font-size: vw(12px);
                                                             font-style: normal;
@@ -924,7 +963,7 @@ $font-monsterat : 'Montserrat';
                                                             letter-spacing: 0.06px;
                                                             color: #6B7280;
                                                         }
-    
+
                                                         &.value {
                                                             font-size: vw(12px);
                                                             font-style: normal;
@@ -937,7 +976,7 @@ $font-monsterat : 'Montserrat';
                                                         }
                                                     }
                                                 }
-    
+
                                                 .gmValue {
                                                     width: 20%;
                                                     display: inline-block;
@@ -949,7 +988,7 @@ $font-monsterat : 'Montserrat';
                                                     letter-spacing: 0.06px;
                                                     color: $black;
                                                 }
-    
+
                                                 .ratingPercent {
                                                     width: 20%;
                                                     @include flexbox();
@@ -961,7 +1000,7 @@ $font-monsterat : 'Montserrat';
                                                     /* 133.333% */
                                                     letter-spacing: 0.06px;
                                                     color: #EAB308;
-    
+
                                                     .icon {
                                                         display: inline-block;
                                                         margin-right: vw(4px);
@@ -1073,15 +1112,16 @@ $font-monsterat : 'Montserrat';
                                     }
 
                                 }
-                                .MuiTypography-root{
+
+                                .MuiTypography-root {
                                     font-size: 14px;
                                     line-height: 20px
-
                                 }
                             }
                         }
                     }
-                    .empty-error{
+
+                    .empty-error {
                         margin-top: 10px;
                         font-size: 12px;
                         color: $colorRed;
@@ -1160,38 +1200,50 @@ $font-monsterat : 'Montserrat';
 @media screen and (min-width:1600px) {
     .salepurchase_dashboard {
         .draggable_flexContainer {
-            .chartFlexbox{
-                &.salechannel , &.returnGoods {
+            .chartFlexbox {
+
+                &.salechannel,
+                &.returnGoods {
                     width: calc(12% - 12px);
-                    .chart_container{
+
+                    .chart_container {
                         height: 6vw;
                     }
                 }
-                &.salecategory , &.salegrowth {
+
+                &.salecategory,
+                &.salegrowth {
                     width: calc(44% - 12px);
-                    .chart_container{
+
+                    .chart_container {
                         max-height: 8vw;
                     }
                 }
+
                 &.saleProduct {
                     width: calc(30% - 12px);
-                    .chart_container{
+
+                    .chart_container {
                         max-height: 10vw;
                     }
                 }
+
                 &.salemonth {
                     width: calc(30% - 12px);
-                    .chart_container{
+
+                    .chart_container {
                         max-height: 8vw;
                     }
                 }
+
                 &.saleLeaders {
                     width: calc(28% - 12px);
-                    .saleLeader_listing{
+
+                    .saleLeader_listing {
                         max-height: 9.5vw;
                     }
                 }
-                
+
             }
         }
     }
