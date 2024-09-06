@@ -1006,23 +1006,31 @@ $font-monsterat : 'Montserrat';
                 &.salechannel , &.returnGoods {
                     width: calc(12% - 12px);
                     .chart_container{
-                        height: 10vw;
+                        height: 6vw;
                     }
                 }
                 &.salecategory , &.salegrowth {
                     width: calc(44% - 12px);
                     .chart_container{
-                        max-height: 12vw;
+                        max-height: 8vw;
                     }
                 }
-                &.saleProduct, &.salemonth {
+                &.saleProduct {
+                    width: calc(30% - 12px);
                     .chart_container{
-                        max-height: 13vw;
+                        max-height: 10vw;
+                    }
+                }
+                &.salemonth {
+                    width: calc(30% - 12px);
+                    .chart_container{
+                        max-height: 8vw;
                     }
                 }
                 &.saleLeaders {
+                    width: calc(28% - 12px);
                     .saleLeader_listing{
-                        max-height: 12vw;
+                        max-height: 9.5vw;
                     }
                 }
                 
