@@ -535,7 +535,7 @@ $font-monsterat : 'Montserrat';
             &.saleProduct {
                 width: calc(30% - 12px);
                 position: absolute;
-                left: 46.2%;
+                left: calc(46.2% - 6px);
                 top: 0;
                 height: 100%;
                 .chart_container {
