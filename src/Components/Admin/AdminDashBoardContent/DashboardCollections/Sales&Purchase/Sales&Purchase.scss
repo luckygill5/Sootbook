@@ -25,7 +25,7 @@ $font-monsterat : 'Montserrat';
         width: calc(100% - vw(12px));
 
         .selectYear {
-            width: 15%;
+            width: 30%;
 
             .label {
                 display: block;
@@ -39,44 +39,50 @@ $font-monsterat : 'Montserrat';
                 color: $text;
                 margin-bottom: vw(8px);
             }
-
-            .MuiFormControl-root {
-                width: 100%;
-
-                &.dateFilter {
-                    .MuiInputBase-root {
-                        height: vw(48px);
-                        box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25), -7px -7px 7px 0px #FFF;
-                        border-radius: vw(8px);
-                        border: 1px solid #E5E7EB;
-                        width: 100%;
-
-                        .MuiInputBase-input {
-                            height: vw(48px);
-                            padding-left: 10px;
-                            padding-top: 0;
-                            padding-bottom: 0;
-                            font-size: vw(14px);
-                            font-style: normal;
-                            font-weight: 400;
-                            line-height: vw(20px);
-                            /* 142.857% */
-                            letter-spacing: 0.07px;
-                            color: #6B7280;
-                            font-family: $font-monsterat;
-                        }
-
-                        fieldset {
-                            display: none;
+            .flexbox{
+                @include flexbox();
+                &.col6{
+                    margin: 0 vw(-5px);
+                    .MuiFormControl-root {
+                        width: 50%;
+                        margin: 0 vw(5px);
+                        &.dateFilter {
+                            .MuiInputBase-root {
+                                height: vw(48px);
+                                box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25), -7px -7px 7px 0px #FFF;
+                                border-radius: vw(8px);
+                                border: 1px solid #E5E7EB;
+                                width: 100%;
+        
+                                .MuiInputBase-input {
+                                    height: vw(48px);
+                                    padding-left: 10px;
+                                    padding-top: 0;
+                                    padding-bottom: 0;
+                                    font-size: vw(14px);
+                                    font-style: normal;
+                                    font-weight: 400;
+                                    line-height: vw(20px);
+                                    /* 142.857% */
+                                    letter-spacing: 0.07px;
+                                    color: #6B7280;
+                                    font-family: $font-monsterat;
+                                }
+        
+                                fieldset {
+                                    display: none;
+                                }
+                            }
                         }
                     }
                 }
             }
+            
 
         }
 
         .totalData_flexbox {
-            width: 20.66%;
+            width: 16.33%;
             position: relative;
             box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25), -1px -7px 7px 0px #FFF;
             border-radius: 6px;
@@ -148,7 +154,7 @@ $font-monsterat : 'Montserrat';
         }
 
         .license_info {
-            width: 23%;
+            width: 21%;
             @include flexbox();
             align-items: flex-start;
 
@@ -471,7 +477,7 @@ $font-monsterat : 'Montserrat';
             }
 
             &.salecategory {
-                width: calc(43.775% - 12px);
+                width: calc(31.2% - 12px);
 
                 .chart_container {
                     max-height: 5vw;
@@ -512,8 +518,8 @@ $font-monsterat : 'Montserrat';
             }
 
             &.salegrowth {
-                width: calc(42% - 12px);
-
+                width: calc(25% - 12px);
+                margin-left: auto;
                 .chart_container {
                     max-height: 5vw;
                     height: 100%;
@@ -528,9 +534,12 @@ $font-monsterat : 'Montserrat';
 
             &.saleProduct {
                 width: calc(30% - 12px);
-
+                position: absolute;
+                left: 46.2%;
+                top: 0;
+                height: 100%;
                 .chart_container {
-                    max-height: 7vw;
+                    max-height: 19vw;
                     height: 100%;
                 }
             }
@@ -547,7 +556,7 @@ $font-monsterat : 'Montserrat';
                 position: relative;
                 background-color: #F2F5FA;
                 z-index: 2;
-
+                margin-left: auto;
                 .saleLeader_listing {
                     margin: 0 0 auto 0;
                     max-height: vw(132px);
@@ -1202,18 +1211,30 @@ $font-monsterat : 'Montserrat';
         .draggable_flexContainer {
             .chartFlexbox {
 
-                &.salechannel,
-                &.returnGoods {
+                &.salechannel{
                     width: calc(12% - 12px);
 
                     .chart_container {
                         height: 6vw;
                     }
                 }
+                &.returnGoods {
+                    width: calc(11.6% - 12px);
 
-                &.salecategory,
+                    .chart_container {
+                        height: 6vw;
+                    }
+                }
+
+                &.salecategory{
+                    width: calc(30.886% - 20px);
+
+                    .chart_container {
+                        max-height: 8vw;
+                    }
+                }
                 &.salegrowth {
-                    width: calc(44% - 12px);
+                    width: calc(28% - 12px);
 
                     .chart_container {
                         max-height: 8vw;
@@ -1222,9 +1243,9 @@ $font-monsterat : 'Montserrat';
 
                 &.saleProduct {
                     width: calc(30% - 12px);
-
+                    left: 42%;
                     .chart_container {
-                        max-height: 10vw;
+                        max-height: 24vw;
                     }
                 }
 
