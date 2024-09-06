@@ -67,6 +67,7 @@ function AddUser({ NewRole, backHRM }) {
                 action.resetForm();
                 setPermissionCheck([]);
                 setPermission([]);
+                backHRM();
             },
         });
 
@@ -175,7 +176,7 @@ function AddUser({ NewRole, backHRM }) {
                 <div className='form_container'>
                     <form>
                         <h4 className='title'>Add user</h4>
-                        <div className='input_flexbox searchBox'>
+                        {/* <div className='input_flexbox searchBox disabled'>
                             <Input
                                 label={'Search for the Employee by Name / Email'}
                                 type={'text'}
@@ -185,6 +186,7 @@ function AddUser({ NewRole, backHRM }) {
                                 value={values.Search_employee}
                                 onChange={e => handleSearchEmployee(e)}
                                 onBlur={handleBlur}
+                                disabled
                                 //   isRequired
                                 error={errors.Search_employee}
                                 touched={touched.Search_employeeirst_name}
@@ -210,7 +212,7 @@ function AddUser({ NewRole, backHRM }) {
                                     </ul>
                                 </div>
                             )}
-                        </div>
+                        </div> */}
                         <div className='input_flexbox'>
                             <Input
                                 label={'Name'}
