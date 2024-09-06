@@ -162,7 +162,7 @@ function SalesPurchase({ ChartFilter, ChartFilterClose }) {
         backgroundColor: ['rgb(0 119 70)', 'rgb(0 152 89)', 'rgb(51 185 129)'],
         borderColor: 'rgb(242 245 250)',
         borderWidth: 1,
-        barThickness: 10, // Set the bar thickness here
+        barThickness: 7, // Set the bar thickness here
       },
     ],
   };
@@ -647,6 +647,7 @@ function SalesPurchase({ ChartFilter, ChartFilterClose }) {
         <div className='upperStatus_flexbox'>
           <div className='selectYear'>
             <label className='label'>Select Year</label>
+            <div className='flexbox col6'>
             <LocalizationProvider dateAdapter={AdapterDayjs}>
               <DatePicker
                 label=""
@@ -663,6 +664,23 @@ function SalesPurchase({ ChartFilter, ChartFilterClose }) {
                   }} {...params} />}
               />
             </LocalizationProvider>
+            <LocalizationProvider dateAdapter={AdapterDayjs}>
+              <DatePicker
+                label=""
+                value={selectedDate}
+                onChange={handleDateChange}
+                className='dateFilter'
+                renderInput={(params) => <TextField placeholder='Select'
+                  InputProps={{
+                    startAdornment: (
+                      <InputAdornment position="start">
+                        <Calendar />
+                      </InputAdornment>
+                    ),
+                  }} {...params} />}
+              />
+            </LocalizationProvider>
+            </div>
           </div>
           <div className='totalData_flexbox'>
             <div className='icon_block'>
