@@ -1,0 +1,146 @@
+@import '../../BaseStyle/Basestyle.scss';
+
+$font-monsterat : 'Montserrat';
+
+.productMaster_container{
+    box-sizing: border-box;
+    *{
+        box-sizing: border-box;
+        font-family: $font-monsterat;
+    }
+
+    .productMaster_content{
+        .headerFlexbox{
+            @include flexbox();
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            .title{
+                margin: 0;
+                font-size: 24px;
+                font-style: normal;
+                font-weight: 500;
+                line-height: 32px; /* 133.333% */
+                letter-spacing: 0.12px;
+                color: $text; 
+                text-align: left; 
+            }
+            .addnewProduct{
+                border: none;
+                cursor: pointer;
+                font-size: 14px;
+                font-style: normal;
+                font-weight: 600;
+                line-height: 20px; /* 142.857% */
+                letter-spacing: 0.07px;
+                color: $white;
+                background-color: #00A9BB;
+                border-radius: 8px;
+                box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+                @include flexbox();
+                align-items: center;
+                white-space: nowrap; 
+                padding: 14px 16px;
+                &:focus:not(:focus-visible){
+                    outline: none;
+                }
+                .icon{
+                    display: inline-flex;
+                    margin-right: 10px;
+                }
+            }
+        }
+        .contentSection{
+            border-radius: 12px;
+            background-color: $white;
+            .head-flexbox{
+                @include flexbox();
+                align-items: center;
+                justify-content: space-between;
+                .searchBox{
+                    width: 40%;
+                    background-color: #f2f5fa;
+                    border-radius: 6px;
+                    padding: 14px 16px 14px 50px;
+                    height: 48px;
+                    outline: none;
+                    font-size: 14px;
+                    font-style: normal;
+                    font-weight: 400;
+                    line-height: 20px; /* 142.857% */
+                    letter-spacing: 0.07px;
+                    color: #6B7280;  
+                    @include flexbox();
+                    align-items: center;
+                    box-shadow: 0px 4px 4px 0px inset rgba(0, 0, 0, 0.25), -7px -7px 7px 0px inset #FFF;
+                    background-image: url('../../assets/images/search_icon.svg');
+                    background-repeat: no-repeat;
+                    background-position: 16px center;
+                    border: none;
+                
+                }
+                .actionFlexBox{
+                    @include flexbox();
+                    align-items: center;
+                    .commonBtn{
+                        white-space: nowrap;
+                        box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+                        border: 1px solid #E5E7EB;
+                        background-color: $white;
+                        border-radius: 8px;
+                        font-size: 14px;
+                        font-style: normal;
+                        font-weight: 600;
+                        line-height: 20px; /* 142.857% */
+                        letter-spacing: 0.07px;
+                        color: $text;
+                        padding: 10px 12px;
+                        margin-right: 20px;
+                        .icon{
+                            display: inline-flex;
+                            margin-right: 10px;
+                            width: 14px;
+                            height: 14px;
+                            svg{
+                                width: 14px;
+                            height: 14px;
+                                g{
+                                    path{
+                                        stroke:$text
+                                    }
+                                }
+                            }
+                        } 
+                        cursor: pointer;
+                        &:focus:not(:focus-visible){
+                            outline: none;
+                        }
+                    }
+                    .toggleView{
+                        border: none;
+                        box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+                        background-color: #F2F5FA;
+                        border-radius: 8px;
+                        cursor: pointer;
+                        width: 44px;
+                        height: 36px;
+                        margin-right: 8px;
+                        &:last-child{
+                            margin-right: 0;
+                        }
+                        &:focus:not(:focus-visible){
+                            outline:none;
+                        }
+                        svg{
+                            g{
+                                path{
+                                    stroke: $text;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

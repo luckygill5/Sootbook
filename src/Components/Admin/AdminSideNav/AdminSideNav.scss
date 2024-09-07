@@ -138,6 +138,7 @@ $font-monsterat : 'Montserrat';
                                 }
 
                                 .caret_icon {
+                                    
                                     svg {
                                         path {
                                             stroke: rgb(34, 229, 145) !important;
@@ -372,6 +373,7 @@ $font-monsterat : 'Montserrat';
                         .menu_link {
                             text-decoration: none;
                             @include flexbox();
+                            justify-content: space-between;
                             align-items: center;
                             color: rgba(229, 231, 235, .5);
                             position: relative;
@@ -454,7 +456,11 @@ $font-monsterat : 'Montserrat';
                                     }
                                 }
                             }
-
+                            .text{
+                                display: inline-block;
+                                margin-right: auto;
+                                text-align: left;
+                            }
                             .count_status {
                                 display: inline-flex;
                                 align-items: center;
@@ -488,7 +494,7 @@ $font-monsterat : 'Montserrat';
 
                             .caret_icon {
                                 display: inline-flex;
-                                margin-left: auto;
+                                margin-left: 4px;
                             }
 
                             &::before {
