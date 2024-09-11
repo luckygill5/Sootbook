@@ -225,7 +225,7 @@ $font-monsterat : 'Montserrat';
 
     .draggable_flexContainer {
         @include flexbox();
-        // align-items: flex-start;
+        align-items: flex-start;
         row-gap: vw(12px);
         flex-wrap: wrap;
         width: 100%;
@@ -478,7 +478,11 @@ $font-monsterat : 'Montserrat';
 
             &.salecategory {
                 width: calc(31.2% - 12px);
-
+                position: absolute;
+                z-index: 2;
+                left: 0;
+                bottom: 0;
+                height: 10.5vw;
                 .chart_container {
                     max-height: 5vw;
                     height: 100%;
@@ -492,7 +496,7 @@ $font-monsterat : 'Montserrat';
 
             &.salechannel {
                 width: calc(15% - 12px);
-
+                height: 10.834vw;
                 .chart_container {
                     height: 4.2vw;
                 }
@@ -501,7 +505,11 @@ $font-monsterat : 'Montserrat';
 
             &.returnGoods {
                 width: calc(15% - 12px);
-
+                position: absolute;
+                left: calc(31.2% - 6px);
+                bottom: 0;
+                z-index: 2;
+                height: 10.5vw;
                 .chart_container {
                     height: 4.2vw;
                 }
@@ -519,7 +527,12 @@ $font-monsterat : 'Montserrat';
 
             &.salegrowth {
                 width: calc(25% - 12px);
-                margin-left: auto;
+                // margin-left: auto;
+                position: absolute;
+                z-index: 2;
+                bottom: 0;
+                right: 0;
+                height: 10.5vw;
                 .chart_container {
                     max-height: 5vw;
                     height: 100%;
@@ -533,11 +546,11 @@ $font-monsterat : 'Montserrat';
             }
 
             &.saleProduct {
-                width: calc(30% - 12px);
-                position: absolute;
-                left: 46.2%;
+                width: calc(30.5% - 12px);
+                position: relative;
+                left: 0;
                 top: 0;
-                height: 100%;
+                height: 22vw;
                 .chart_container {
                     max-height: 19vw;
                     height: 100%;
@@ -553,10 +566,12 @@ $font-monsterat : 'Montserrat';
                 box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25), -1px -7px 7px 0px #FFF;
                 border-radius: vw(12px);
                 padding: vw(12px);
-                position: relative;
+                position: absolute;
+                right: 0;
+                top: 0;
                 background-color: #F2F5FA;
                 z-index: 2;
-                margin-left: auto;
+                // margin-left: auto;
                 .saleLeader_listing {
                     margin: 0 0 auto 0;
                     max-height: vw(132px);
@@ -1213,6 +1228,7 @@ $font-monsterat : 'Montserrat';
 
                 &.salechannel{
                     width: calc(12% - 12px);
+                    height: 13.44vw;
 
                     .chart_container {
                         height: 6vw;
@@ -1220,7 +1236,8 @@ $font-monsterat : 'Montserrat';
                 }
                 &.returnGoods {
                     width: calc(11.6% - 12px);
-
+                    left: calc(30.886% - 6px);
+                    height: 13vw;
                     .chart_container {
                         height: 6vw;
                     }
@@ -1228,6 +1245,7 @@ $font-monsterat : 'Montserrat';
 
                 &.salecategory{
                     width: calc(30.886% - 20px);
+                    height: 13vw;
 
                     .chart_container {
                         max-height: 8vw;
@@ -1235,6 +1253,7 @@ $font-monsterat : 'Montserrat';
                 }
                 &.salegrowth {
                     width: calc(28% - 12px);
+                    height: 13vw;
 
                     .chart_container {
                         max-height: 8vw;
@@ -1243,7 +1262,8 @@ $font-monsterat : 'Montserrat';
 
                 &.saleProduct {
                     width: calc(30% - 12px);
-                    left: 42%;
+                    left: 0;
+                    height: 27vw;
                     .chart_container {
                         max-height: 24vw;
                     }
@@ -1251,7 +1271,7 @@ $font-monsterat : 'Montserrat';
 
                 &.salemonth {
                     width: calc(30% - 12px);
-
+                    height: 13.44vw;
                     .chart_container {
                         max-height: 8vw;
                     }
@@ -1259,7 +1279,7 @@ $font-monsterat : 'Montserrat';
 
                 &.saleLeaders {
                     width: calc(28% - 12px);
-
+                    height: 13.44vw;
                     .saleLeader_listing {
                         max-height: 9.5vw;
                     }
