@@ -3,6 +3,7 @@
 $font-monsterat : 'Montserrat';
 
 .addNewProduct_container {
+    min-height: calc(100vh - 288px);
     box-sizing: border-box;
 
     * {
@@ -27,7 +28,8 @@ $font-monsterat : 'Montserrat';
             color: #6B7280;
 
             .icon {
-                display: inline-block;
+                display: inline-flex;
+                align-items: center;
                 margin-right: 4px;
             }
         }
@@ -38,6 +40,7 @@ $font-monsterat : 'Montserrat';
         background-color: #F2F5FA;
         border-radius: 12px;
         padding: 24px;
+        min-height: calc(100vh - 336px);
 
         .section_title {
             font-size: 24px;
@@ -52,7 +55,10 @@ $font-monsterat : 'Montserrat';
         }
 
         .tabsContainer {
+            min-height: calc(100% - 40px);
+
             .tabFlexContainer {
+                position: relative;
                 .MuiTabs-root {
                     min-height: 40px;
 
@@ -84,14 +90,52 @@ $font-monsterat : 'Montserrat';
                         }
                     }
                 }
+                .editBtn{
+                    position: absolute;
+                    z-index: 1;
+                    right: 0;
+                    top: -5px;
+                    background-color: transparent;
+                    border: 1px solid $buttonColor;
+                    color: $buttonColor;
+                    cursor: pointer;
+                    padding: 14px 16px;
+                    border-radius: 8px;
+                    @include flexbox();
+                    align-items: center;
+                    justify-content: center;
+                    width: 86px;
+                    height: 48px;
+                    white-space: nowrap;
+                    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+                    font-size: 14px;
+                    font-style: normal;
+                    font-weight: 600;
+                    line-height: 20px; /* 142.857% */
+                    letter-spacing: 0.07px;  
+                    .icon{
+                        margin-right: 10px;
+                    display: inline-flex;
+                    svg{
+                        g{
+                            path{
+                                stroke: $buttonColor;
+                            }
+                        }
+                    }
+                    }
+                }
             }
 
             .tabContentContainer {
+                min-height: calc(100% - 42px);
+
                 .MuiBox-root {
                     padding-top: 20px;
                     padding-left: 0;
                     padding-right: 0;
                     padding-bottom: 0;
+                    height: 100%;
 
                     .productDetail_container {
 
@@ -343,8 +387,50 @@ $font-monsterat : 'Montserrat';
                                 }
                             }
                         }
-
-
+                        .inputBox{
+                            .inputField {
+                                .form-error{
+                                    margin-bottom: 0;
+                                    position: relative;
+                                    text-align: left;
+                                }
+                            }
+                        }
+                        &.preview_active{
+                            .inputBox {
+                                .inputField {
+                                    .input_element{
+                                        background-color: transparent;
+                                        box-shadow: none;
+                                        padding: 0;
+                                        height: 24px !important;
+                                    }
+                                    .form-error{
+                                      display: none;
+                                    }
+                                    .MuiInputBase-root{
+                                        .MuiSelect-select{
+                                            &.Mui-disabled{
+                                                background-color: transparent;
+                                                box-shadow: none;
+                                                color: #6B7280;
+                                                -webkit-text-fill-color:#6B7280;
+                                                padding: 0;
+                                                @include flexbox();
+                                                align-items: center;
+                                                height: 24px !important;
+                                                cursor: text;
+                                            }
+                                            
+                                        }
+                                        .MuiSvgIcon-root{
+                                            display: none;
+                                        }
+                                    }
+                                   
+                                }
+                            }
+                        }
                     }
 
                     .eCommerceDetails-container {
@@ -427,6 +513,62 @@ $font-monsterat : 'Montserrat';
 
                         .actionFlexbox {
                             margin-top: 100px;
+                        }
+
+                        &.preview_active{
+                            .canDisplay{
+                                .MuiFormControl-root{
+                                    .MuiFormGroup-root{
+                                        .MuiFormControlLabel-root{
+                                            margin-left: 0;
+                                            margin-right: 0;
+                                            .MuiRadio-root, .MuiTypography-root{
+                                                display: none;
+                                            }
+                                            .MuiRadio-root{
+                                                &.Mui-checked {
+                                                    + .MuiTypography-root{
+                                                        display: inline-block;
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                            .inputBox {
+                                .inputField {
+                                    .input_element{
+                                        background-color: transparent;
+                                        box-shadow: none;
+                                        padding: 0;
+                                        height: 24px !important;
+                                    }
+                                    .form-error{
+                                        display: none;
+                                      }
+                                    .MuiInputBase-root{
+                                        .MuiSelect-select{
+                                            &.Mui-disabled{
+                                                background-color: transparent;
+                                                box-shadow: none;
+                                                color: #6B7280;
+                                                -webkit-text-fill-color:#6B7280;
+                                                padding: 0;
+                                                @include flexbox();
+                                                align-items: center;
+                                                height: 24px !important;
+                                                cursor: text;
+                                            }
+                                            
+                                        }
+                                        .MuiSvgIcon-root{
+                                            display: none;
+                                        }
+                                    }
+                                   
+                                }
+                            }
                         }
                     }
 
@@ -523,19 +665,25 @@ $font-monsterat : 'Montserrat';
                             }
                         }
                     }
-                    .uploadProduct_container{
-                        .section_title{
+
+                    .uploadProduct_container {
+                        height: 100%;
+
+                        .section_title {
                             font-size: 14px;
                             font-style: normal;
                             font-weight: 500;
-                            line-height: 20px; /* 142.857% */
+                            line-height: 20px;
+                            /* 142.857% */
                             letter-spacing: 0.07px;
                             color: $text;
                             margin-top: 0;
-                            margin-bottom: 10px;    
+                            margin-bottom: 10px;
                         }
-                        .uploadBox{
+
+                        .uploadBox {
                             width: 100%;
+                            margin-bottom: 60px;
                             max-width: 672px;
                             height: 162px;
                             border-radius: 12px;
@@ -545,48 +693,56 @@ $font-monsterat : 'Montserrat';
                             @include flexbox();
                             align-items: center;
                             justify-content: center;
-                            .uploadInfo{
+
+                            .uploadInfo {
                                 margin: 0;
                                 @include flexbox();
                                 flex-direction: column;
                                 align-items: center;
                                 cursor: pointer;
-                                .title{
+
+                                .title {
                                     text-align: center;
                                     font-size: 16px;
                                     font-style: normal;
                                     font-weight: 500;
-                                    line-height: 24px; /* 150% */
+                                    line-height: 24px;
+                                    /* 150% */
                                     letter-spacing: 0.08px;
                                     color: $text;
                                     @include flexbox();
                                     justify-content: center;
                                     margin: 0 0 4px 0;
-                                    .blue{
+
+                                    .blue {
                                         display: inline-block;
                                         color: #00A9BB;
                                         margin-left: 5px;
                                         font-size: 16px;
                                         font-style: normal;
                                         font-weight: 600;
-                                        line-height: 24px; /* 150% */
-                                        letter-spacing: 0.08px;  
+                                        line-height: 24px;
+                                        /* 150% */
+                                        letter-spacing: 0.08px;
                                     }
                                 }
-                                .maxlimit{
+
+                                .maxlimit {
                                     display: block;
                                     text-align: center;
                                     font-size: 14px;
                                     font-style: normal;
                                     font-weight: 500;
-                                    line-height: 20px; /* 142.857% */
+                                    line-height: 20px;
+                                    /* 142.857% */
                                     letter-spacing: 0.07px;
                                     color: #9CA3AF;
-                                    width:100%;
-                                    max-width: 230px; 
+                                    width: 100%;
+                                    max-width: 230px;
                                 }
                             }
-                            &.uploaded{
+
+                            &.uploaded {
                                 height: auto;
                                 background-color: transparent;
                                 border: none;
@@ -595,8 +751,9 @@ $font-monsterat : 'Montserrat';
                                 padding: 0;
                                 justify-content: flex-start;
                                 align-items: stretch;
+
                                 // align-items: flex-start;
-                                .dropzone{
+                                .dropzone {
                                     width: calc(20% - 0px);
                                     background-color: $white;
                                     border-radius: 12px;
@@ -604,7 +761,8 @@ $font-monsterat : 'Montserrat';
                                     align-items: center;
                                     justify-content: center;
                                 }
-                                .thumbnail{
+
+                                .thumbnail {
                                     width: calc(20% - 0px);
                                     background-color: $white;
                                     border-radius: 12px;
@@ -612,7 +770,8 @@ $font-monsterat : 'Montserrat';
                                     @include flexbox();
                                     position: relative;
                                     aspect-ratio: 203/142;
-                                    .close{
+
+                                    .close {
                                         cursor: pointer;
                                         display: inline-flex;
                                         position: absolute;
@@ -621,9 +780,132 @@ $font-monsterat : 'Montserrat';
                                         width: 16px;
                                         height: 16px;
                                     }
-                                    .upload-img{
+
+                                    .upload-img {
                                         max-width: 100%;
                                         height: auto;
+                                    }
+                                }
+                            }
+                            &.uploadError{
+                                margin-bottom: 0;
+                            }
+                        }
+
+                        .errorBox {
+                            margin-bottom: 60px;
+                            margin-top: 20px;
+                            box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+                            background-color: #FEE2E2;
+                            border: 1px solid #FECACA;
+                            border-radius: 12px;
+                            padding: 16px;
+                            max-width: 672px;
+                            width: 100%;
+
+                            .container {
+                                column-gap: 20px;
+                                margin: 0;
+                                @include flexbox();
+                                align-items: flex-start;
+                                .icon {
+                                    display: inline-flex;
+
+                                }
+
+                                .text {
+                                    display: inline-block;
+                                    font-size: 18px;
+                                    font-style: normal;
+                                    font-weight: 600;
+                                    line-height: 28px;
+                                    /* 155.556% */
+                                    letter-spacing: 0.09px;
+                                    color: #991B1B;
+                                    text-align: left;
+                                }
+                            }
+
+                        }
+
+                        .button_actions {
+                            margin-top: auto;
+                            @include flexbox();
+                            align-items: center;
+                            justify-content: space-between;
+                            min-width: 114px;
+                            .saveDraftBtn{
+                                border:none;
+                                cursor: pointer;
+                                height: 48px;
+                                &:focus:not(:focus-visible){
+                                    outline: none;
+                                }
+                                white-space: nowrap;
+                                padding: 14px 16px;
+                                border-radius: 8px;
+                                box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+                                background-color: #E6F6F8;
+                                color: #00A9BB;
+
+                            }
+                            .action_flexContainer{
+                                @include flexbox();
+                                align-items: center;
+                                justify-content: space-between;
+                                column-gap: 20px;
+                                .cancelBtn{
+                                    border: none;
+                                    cursor: pointer;
+                                    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+                                    border: 1px solid #00A9BB;
+                                    border-radius: 8px;
+                                    height: 48px;
+                                    white-space: nowrap;
+                                    font-size: 14px;
+                                    font-style: normal;
+                                    font-weight: 600;
+                                    line-height: 20px; /* 142.857% */
+                                    letter-spacing: 0.07px;
+                                    padding: 14px 16px;
+                                    background-color: transparent;
+                                    color: #00A9BB;
+                                    min-width: 114px;
+                                }
+                                .addProductBtn{
+                                    background-color: #00A9BB;
+                                    min-width: 150px;
+                                    cursor: pointer;
+                                    &:focus:not(:focus-visible){
+                                        outline: none;
+                                    }
+                                    height: 48px;
+                                    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+                                    border-radius: 8px;
+                                    font-size: 14px;
+                                    font-style: normal;
+                                    font-weight: 600;
+                                    line-height: 20px; /* 142.857% */
+                                    letter-spacing: 0.07px;
+                                    color: $white; 
+                                    border: none;
+                                }
+                            }
+                        }
+                        &.preview_active{
+                            .uploadFlexbox{
+                                #dropzone{
+                                    cursor: not-allowed;
+                                    .dropzone{
+                                        cursor: not-allowed;
+                                        .uploadInfo{
+                                            cursor: not-allowed;  
+                                        }
+                                    }
+                                    .thumbnail{
+                                        .close{
+                                            cursor: not-allowed;
+                                        }
                                     }
                                 }
                             }

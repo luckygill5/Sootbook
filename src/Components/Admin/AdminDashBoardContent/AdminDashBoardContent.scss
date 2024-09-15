@@ -26,7 +26,9 @@ $font-monsterat : 'Montserrat';
 
 .dashboard_dataWrapper {
     padding-left: 20px;
-    width: calc(100% - 237px);
+    width: calc(100% - 251px);
+    padding: 16px;
+    margin-left: auto;
     transition: width 0.2s ease-in-out;
     box-sizing: border-box;
 

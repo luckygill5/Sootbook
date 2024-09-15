@@ -147,7 +147,7 @@ function AddUser({ NewRole, backHRM }) {
     };
 
     const handleSelectSuggetion = (id, name) => {
-        console.log('selectsuggest', id, name);
+        
     };
 
     useEffect(() => {
@@ -160,7 +160,7 @@ function AddUser({ NewRole, backHRM }) {
         setRoleList(rolelistData);
     }, []);
 
-    console.log('suggestion', suggestionList);
+
 
     return (
         <React.Fragment>

@@ -164,7 +164,7 @@ function AdminSideNav(props) {
         }
     }
 
-    console.log("selected", menuSelected)
+
     return (
         <div className='navMenu_containerWrapper'>
             <div className='navMenu_container'>
@@ -237,7 +237,6 @@ function AdminSideNav(props) {
                                                     <ul className='subMenu'>
                                                         {item?.childItem?.subMenu.map(
                                                             (label, index) => {
-                                                                console.log("item", item?.item)
                                                                 return (
                                                                     <li>
                                                                         <button className={`menu_link ${label.dataLabel == menuSelected ? 'active' : ""}`}  onClick={() => {

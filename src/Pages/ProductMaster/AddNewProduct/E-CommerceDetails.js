@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import locales from "../../../Constants/en.json";
 import { Input, Select, TextArea } from '../../../Components/common';
 import * as Yup from 'yup';
@@ -9,30 +9,34 @@ import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import FormControl from '@mui/material/FormControl';
 import FormLabel from '@mui/material/FormLabel';
+import { axiosClient } from '../../../services/axiosClient';
 import "./AddNewProduct.scss"
 
 
 const eCommerceDetailInitialValues = {
-    Short_Info: "",
-    Long_Info: "",
-    Ingredients: "",
-    Symptoms: "",
-    Dosage: "",
-    Strength: "",
-    Form: "",
-    Discount: "",
-    Classification: "",
-    Body_System: "",
-    Country_Origin: "",
+    canDisplay: "",
+    firstCategory:"",
+    secondCategory:"",
+    thirdCategory:"",
+    shortInfo: "",
+    longInfo: "",
+    ingredient: "",
+    symptom: "",
+    dosage: "",
+    strength: "",
+    dosageForm: "",
+    discount: "",
+    classification: "",
+    bodySystem: "",
+    country: "",
 };
 
 
-function ECommerceDetails() {
-    const [display, setDisplay] = useState('');
+function ECommerceDetails({ProductCreateList, changeTab,ECommerceDetailsData, preview, previewData}) {
 
-    const handleCanDisplay = (event) => {
-        setDisplay(event.target.value);
-    };
+    const [categoryLevel2, setCategoryLevel2] = useState('');
+    const [categoryLevel3, setCategoryLevel3] = useState('');
+
 
     const { values, handleBlur, handleChange, handleSubmit, errors, touched, setFieldValue } =
         useFormik({
@@ -49,77 +53,182 @@ function ECommerceDetails() {
 
 
     const handleFormSubmit = async values => {
-
+        ECommerceDetailsData(values)
+        changeTab(2)
     };
 
-    console.log("display", display)
+
+    const handleFirstCategoryChange = (event) => {
+        const {name, value} = event.target;
+        setFieldValue(name, value);
+        if(value!==""){
+            handleFirstCategory(value);  
+      
+        }
+
+    }
+
+    const handleSecondCategoryChange = (event) => {
+        const {name, value} = event.target;
+        setFieldValue(name, value);
+        if(value!==""){
+            handleSecondCategory(value);  
+      
+        }
+    }
+
+    const handleFirstCategory = async (event) => { 
+        const accessToken =  `Bearer ${sessionStorage.accessToken} ` 
+            try{
+            let response = await axiosClient.post(
+                `admin/category/list`,
+                JSON.stringify({ categoryId: event,}),
+                {
+                    headers : {
+                        'Content-Type': 'application/json',
+                        'x-via-device': true,
+                        'Authorization' : accessToken
+                    },
+                }
+
+            );
+            if(response.status == 200){
+                setCategoryLevel2(response?.data?.data?.category)
+            }
+
+        }catch(error){
+            console.log("error", error)
+        }
+    }
+
+
+    const handleSecondCategory = async (event) => { 
+        const accessToken =  `Bearer ${sessionStorage.accessToken} ` 
+            try{
+            let response = await axiosClient.post(
+                `admin/category/list`,
+                JSON.stringify({ categoryId: event,}),
+                {
+                    headers : {
+                        'Content-Type': 'application/json',
+                        'x-via-device': true,
+                        'Authorization' : accessToken
+                    },
+                }
+
+            );
+            if(response.status == 200){
+                setCategoryLevel3(response?.data?.data?.category)
+            }
+
+        }catch(error){
+            console.log("error", error)
+        }
+    }
+
+
+    useEffect(() => {
+        if(previewData){
+        Object.entries(previewData).map((item) => {
+            setFieldValue(item[0], item[1]);
+        })
+        }
+
+    }, [])
+
+    const handleDraft = () => {
+        changeTab(2)
+    //   addProduct()
+    }
+
 
     return (
-        <div className='eCommerceDetails-container'>
+        <div className={`eCommerceDetails-container ${preview ? 'preview_active' : ''}`}>
             <div className='canDisplay'>
                 <FormControl>
                     <FormLabel id="demo-controlled-radio-buttons-group">Can Display?</FormLabel>
                     <RadioGroup
                         aria-labelledby="demo-controlled-radio-buttons-group"
-                        name="controlled-radio-buttons-group"
-                        value={display}
-                        onChange={handleCanDisplay}
+                        name="canDisplay"
+                        value={values.canDisplay}
+                        onChange={handleChange}
                     >
-                        <FormControlLabel value="Yes" control={<Radio />} label="Yes" />
-                        <FormControlLabel value="No" control={<Radio />} label="No" />
+                        <FormControlLabel value={true} control={<Radio />} label="Yes" />
+                        <FormControlLabel value={false} control={<Radio />} label="No" />
                     </RadioGroup>
                 </FormControl>
             </div>
-            {display == 'Yes' ? <div className='categoryLevelFlexbox'>
+            {values.canDisplay == true || values.canDisplay == "true" ? <div className='categoryLevelFlexbox'>
                 <div className='inputBox sm-30 lg-30'>
-                <Select
+                    <Select
                         label={'Category-Level 1'}
-                        name={'Form'}
-                        options={[
-                            { id: 'IND', value: 'IND' },
-                            { id: 'USA', value: 'USA' },
-                            { id: 'ENG', value: 'ENG' },
-                        ]}
+                        name={'firstCategory'}
+                        options={
+                            ProductCreateList &&
+                            ProductCreateList.category.length > 0 &&
+                            ProductCreateList.category.map((item) => {
+                                return (
+                                    
+                                    { id: item._id, value: item.name }
+                                    
+                                )  
+                            })
+                        }
                         // isRequired
                         wrapperClass={'col12'}
-                        value={values.Form}
-                        onChange={handleChange}
-                        error={errors.Form}
-                        touched={touched.Form}
+                        value={values.firstCategory}
+                        onChange={(e) => handleFirstCategoryChange(e)}
+                        error={errors.firstCategory}
+                        touched={touched.firstCategory}
+                        Disabled={preview ? true :false }
                     />
                 </div>
                 <div className='inputBox sm-30 lg-30'>
-                <Select
+                    <Select
                         label={'Category-Level 2'}
-                        name={'Form'}
-                        options={[
-                            { id: 'IND', value: 'IND' },
-                            { id: 'USA', value: 'USA' },
-                            { id: 'ENG', value: 'ENG' },
-                        ]}
+                        name={'secondCategory'}
+                        options={
+                            categoryLevel2 &&
+                            categoryLevel2.length > 0 &&
+                            categoryLevel2.map((item) => {
+                                return (
+                                    
+                                    { id: item._id, value: item.name }
+                                    
+                                )  
+                            })
+                        }
                         // isRequired
                         wrapperClass={'col12'}
-                        value={values.Form}
-                        onChange={handleChange}
-                        error={errors.Form}
-                        touched={touched.Form}
+                        value={values.secondCategory}
+                        onChange={(e) => handleSecondCategoryChange(e)}
+                        error={errors.secondCategory}
+                        touched={touched.secondCategory}
+                        Disabled={preview ? true :false }
                     />
                 </div>
                 <div className='inputBox sm-30 lg-30'>
-                <Select
+                    <Select
                         label={'Category-Level 3'}
-                        name={'Form'}
-                        options={[
-                            { id: 'IND', value: 'IND' },
-                            { id: 'USA', value: 'USA' },
-                            { id: 'ENG', value: 'ENG' },
-                        ]}
+                        name={'thirdCategory'}
+                        options={
+                            categoryLevel3 &&
+                            categoryLevel3.length > 0 &&
+                            categoryLevel3.map((item) => {
+                                return (
+                                    
+                                    { id: item._id, value: item.name }
+                                    
+                                )  
+                            })
+                        }
                         // isRequired
                         wrapperClass={'col12'}
-                        value={values.Form}
+                        value={values.thirdCategory}
                         onChange={handleChange}
-                        error={errors.Form}
-                        touched={touched.Form}
+                        error={errors.thirdCategory}
+                        touched={touched.thirdCategory}
+                        Disabled={preview ? true :false }
                     />
                 </div>
             </div> : null}
@@ -127,8 +236,8 @@ function ECommerceDetails() {
                 <div className='inputBox sm-50 lg-50'>
                     <TextArea
                         label={'Short Info'}
-                        name={'Short_Info'}
-                        value={values.Short_Info}
+                        name={'shortInfo'}
+                        value={values.shortInfo}
                         wrapperClass={'col12'}
                         onChange={handleChange}
                         placeholder='Enter staff bio here..'
@@ -137,8 +246,8 @@ function ECommerceDetails() {
                 <div className='inputBox sm-50 lg-50'>
                     <TextArea
                         label={'Long Info'}
-                        name={'Long_Info'}
-                        value={values.Long_Info}
+                        name={'longInfo'}
+                        value={values.longInfo}
                         wrapperClass={'col12'}
                         onChange={handleChange}
                         placeholder='Enter staff bio here..'
@@ -147,8 +256,8 @@ function ECommerceDetails() {
                 <div className='inputBox sm-50 lg-50'>
                     <TextArea
                         label={'Ingredients'}
-                        name={'Ingredients'}
-                        value={values.Ingredients}
+                        name={'ingredient'}
+                        value={values.ingredient}
                         wrapperClass={'col12'}
                         onChange={handleChange}
                         placeholder='Enter staff bio here..'
@@ -157,8 +266,8 @@ function ECommerceDetails() {
                 <div className='inputBox sm-50 lg-50'>
                     <TextArea
                         label={'Symptoms'}
-                        name={'Symptoms'}
-                        value={values.Symptoms}
+                        name={'symptom'}
+                        value={values.symptom}
                         wrapperClass={'col12'}
                         onChange={handleChange}
                         placeholder='Enter staff bio here..'
@@ -170,103 +279,116 @@ function ECommerceDetails() {
                     <Input
                         label={'Dosage'}
                         type={'text'}
-                        name={'Dosage'}
-                        id={'Dosage'}
-                        value={values.Dosage}
+                        name={'dosage'}
+                        id={'dosage'}
+                        value={values.dosage}
                         wrapperClass={'col12'}
                         onChange={handleChange}
+                        ReadOnly={preview ? true :false }
                     />
                 </div>
                 <div className='inputBox sm-25 lg-25'>
                     <Input
                         label={'Strength'}
                         type={'text'}
-                        name={'Strength'}
-                        id={'Strength'}
-                        value={values.Strength}
+                        name={'strength'}
+                        id={'strength'}
+                        value={values.strength}
                         wrapperClass={'col12'}
                         onChange={handleChange}
+                        ReadOnly={preview ? true :false }
                     />
                 </div>
                 <div className='inputBox sm-25 lg-25'>
                     <Select
                         label={'Form'}
-                        name={'Form'}
+                        name={'dosageForm'}
                         options={[
-                            { id: 'IND', value: 'IND' },
-                            { id: 'USA', value: 'USA' },
-                            { id: 'ENG', value: 'ENG' },
+                            { id: 'Syrup', value: 'Syrup' },
+                            { id: 'Tablet', value: 'Tablet' },
+                            { id: 'Powder', value: 'Powder' },
                         ]}
                         // isRequired
                         wrapperClass={'col12'}
-                        value={values.Form}
+                        value={values.dosageForm}
                         onChange={handleChange}
-                        error={errors.Form}
-                        touched={touched.Form}
+                        error={errors.dosageForm}
+                        touched={touched.dosageForm}
+                        Disabled={preview ? true :false }
                     />
                 </div>
                 <div className='inputBox sm-25 lg-25'>
                     <Input
                         label={'Discount %'}
                         type={'text'}
-                        name={'Discount'}
-                        id={'Discount'}
-                        value={values.Discount}
+                        name={'discount'}
+                        id={'discount'}
+                        value={values.discount}
                         wrapperClass={'col12'}
                         onChange={handleChange}
+                        ReadOnly={preview ? true :false }
                     />
                 </div>
                 <div className='inputBox sm-25 lg-25'>
                     <Input
                         label={'Classification'}
                         type={'text'}
-                        name={'Classification'}
-                        id={'Classification'}
-                        value={values.Classification}
+                        name={'classification'}
+                        id={'classification'}
+                        value={values.classification}
                         wrapperClass={'col12'}
                         onChange={handleChange}
+                        ReadOnly={preview ? true :false }
                     />
                 </div>
                 <div className='inputBox sm-25 lg-25'>
                     <Select
                         label={'Body System'}
-                        name={'Body_System'}
+                        name={'bodySystem'}
                         options={[
-                            { id: 'IND', value: 'IND' },
-                            { id: 'USA', value: 'USA' },
-                            { id: 'ENG', value: 'ENG' },
+                            { id: 'Musculoskeletal', value: 'Musculoskeletal' },
+                            // { id: 'USA', value: 'USA' },
+                            // { id: 'ENG', value: 'ENG' },
                         ]}
                         // isRequired
                         wrapperClass={'col12'}
-                        value={values.Body_System}
+                        value={values.bodySystem}
                         onChange={handleChange}
-                        error={errors.Body_System}
-                        touched={touched.Body_System}
+                        error={errors.bodySystem}
+                        touched={touched.bodySystem}
+                        Disabled={preview ? true :false }
                     />
                 </div>
                 <div className='inputBox sm-25 lg-25'>
                     <Select
                         label={'Country of Origin'}
-                        name={'Country_Origin'}
-                        options={[
-                            { id: 'IND', value: 'IND' },
-                            { id: 'USA', value: 'USA' },
-                            { id: 'ENG', value: 'ENG' },
-                        ]}
+                        name={'country'}
+                        options={
+                            ProductCreateList &&
+                            ProductCreateList.country.length > 0 &&
+                            ProductCreateList.country.map((item) => {
+                                return (
+                                    
+                                    { id: item._id, value: item.name }
+                                    
+                                )  
+                            })
+                        }
                         // isRequired
                         wrapperClass={'col12'}
-                        value={values.Country_Origin}
+                        value={values.country}
                         onChange={handleChange}
-                        error={errors.Country_Origin}
-                        touched={touched.Country_Origin}
+                        error={errors.country}
+                        touched={touched.country}
+                        Disabled={preview ? true :false }
                     />
                 </div>
             </div>
             <div className='actionFlexbox'>
-                <button type='button' className='draftBtn'>Save Draft</button>
+                <button type='button' className='draftBtn' onClick={handleDraft}>Save Draft</button>
                 <div className='rightCol'>
-                    <button type='button' className='canceltBtn'>Cancel</button>
-                    <button type='button' className='nextBtn'>Next</button>
+                    <button type='button' className='canceltBtn' onClick={() => changeTab(0)}>Cancel</button>
+                    <button type='button' className='nextBtn' onClick={handleSubmit}>Next</button>
                 </div>
             </div>
         </div>

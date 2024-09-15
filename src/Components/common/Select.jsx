@@ -12,6 +12,7 @@ export function Select({
     wrapperClass,
     touched,
     error,
+    Disabled
 }) {
     const selectOptions = options && options.map((item, i) => {
         if(typeof item === 'string')
@@ -39,6 +40,7 @@ export function Select({
                 isRequired={true}
                 name={name}
                 onChange={(props)=>{onChange(props)}}
+                disabled={Disabled}
             >
                 {selectOptions}
             </MuiSelect>

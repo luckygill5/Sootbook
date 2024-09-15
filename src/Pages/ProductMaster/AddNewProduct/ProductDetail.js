@@ -1,48 +1,67 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import locales from "../../../Constants/en.json";
 import { Input, Select } from '../../../Components/common';
 import * as Yup from 'yup';
 import { useFormik } from 'formik';
+import axios from 'axios';
+import { axiosClient } from '../../../services/axiosClient';
 import {ReactComponent as Info} from  "../../../assets/images/info.svg"
 import "./AddNewProduct.scss"
 
 
+const productDetailEditFormSchema = Yup.object({
+    name: Yup.string().required('Product Name is required.'),
+    productType : Yup.string().required('Product Type is required.'),
+    manufacturer: Yup.string().required('Manufacturer is required.'),
+});
+
 const productDetailInitialValues = {
-    Product_Code: '',
-    Category: '',
-    Product_Name: '',
-    Generic_Name:"",
-    Manufacturer:"",
-    Supplier:"",
-    Dispensing_Mode : "",
-    Rack:"",
-    Bar_Code:"",
-    Order_Level:"",
-    Min_order:"",
-    Max_order:"",
-    Buy_Rate:"",
-    MRP:"",
-    Profit:"",
-    Net_price:"",
-    Inv_Rate:"",
-    VAT:"",
-    Sales_Packing:"",
-    Quantity:"",
-    Rate:"",
-    Standart_Exp_Duration:"",
-    Weight:"",
-    Storage_Condition:"",
-    Returnable_status:"",
+    // productCode: '',
+    productType: '',
+    name: '',
+    genericName:"",
+    manufacturer:"",
+    supplier:"",
+    dispensingMode : "",
+    rack:"",
+    barcode:"",
+    orderLevel:"",
+    minOrder:"",
+    maxOrder:"",
+    buyingPrice:"",
+    mrp:"",
+    profit:"",
+    netPrice:"",
+    invPrice:"",
+    vat:"",
+    shelf:"",
+    strength:"",
+    Sales_Packing_1:"",
+    Sales_Packing_2:"",
+    Sales_Packing_3:"",
+    Quantity_1:"",
+    Quantity_2:"",
+    Quantity_3:"",
+    Rate_1:"",
+    Rate_2:"",
+    Rate_3:"",
+    Stock_1:"",
+    Stock_2:"",
+    Stock_3:"",
+    expDuration:"",
+    weight:"",
+    storageCondition:"",
+    returnable:"",
+    isInsurance:""
 
 };
 
-function ProductDetail() {
-
+function ProductDetail({changeTab,ProductCreateList, productDetailData, preview, previewData}) {
 
     const { values, handleBlur, handleChange, handleSubmit, errors, touched, setFieldValue } =
         useFormik({
             initialValues: productDetailInitialValues,
-            // validationSchema: addUserEditFormSchema,
+            validationSchema: productDetailEditFormSchema,
             validateOnChange: true,
             validateOnBlur: false,
             enableReinitialize: true,
@@ -54,133 +73,231 @@ function ProductDetail() {
 
 
     const handleFormSubmit = async values => {
-
+        productDetailData(values)
+        changeTab(1)
     };
+    
+    useEffect(() => {
+        if(previewData){
+        Object.entries(previewData).map((item) => {
+            setFieldValue(item[0], item[1]);
+            if(item[0] == 'packaging' && item[1].length > 0 ){
+                item[1].map((data,index) => {
+                    setFieldValue( `Sales_Packing_${index+1}` , data.packType);  
+                    setFieldValue( `Quantity_${index+1}` , data.quantity);
+                    setFieldValue( `Rate_${index+1}` , data.price);
+                    setFieldValue( `Stock_${index+1}` , data.stock);
+                      
+                    
+                })
+
+
+            }
+        })
+        }
+
+    }, [])
+
+    const handleDraft = () => {
+        // changeTab(1)
+      addProduct()
+    }
+
+    const addProduct = async event => {
+        const {__v, _id, vendor, packaging, productCode, status, createdBy, updatedBy, createdAt, updatedAt,   ...newpreviewData} = previewData
+        const collection = { ...newpreviewData, isDraft: true };
+            const accessToken = `Bearer ${sessionStorage.accessToken} `
+            try {
+                let response = await axiosClient.post(
+                    `admin/product/create`, collection, {
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'x-via-device': true,
+                        'Authorization': accessToken
+                    },
+
+
+                }
+
+                );
+
+                if (response.status == 200) {
+                    // setProductCreateList( response?.data?.data)
+                    // setSucessModal(true)
+                    console.log("statuss", response)
+                }
+
+            } catch (error) {
+                console.log("error", error);
+                // setErrorModal(true);
+                // setErrorMsg(error.response.data.message)
+
+            }
+        
+
+
+    }
+    
 
     return (
-        <div className='productDetail_container'>
+        <div className={`productDetail_container  ${preview ? 'preview_active' : ''}`}>
             <div className='first_flexbox'>
                 <div className='inputBox sm-20 lg-15'>
                     <Input
                         label={'Product Code'}
                         type={'text'}
-                        name={'Product_Code'}
-                        id={'Product_Code'}
-                        value={values.Product_Code}
+                        name={'productCode'}
+                        id={'productCode'}
+                        value={values.productCode}
                         wrapperClass={'col12'}
                         onChange={handleChange}
+                        onBlur={handleBlur}
+                        error={errors.productCode}
+                        touched={touched.productCode}
+                        ReadOnly={preview ? true :false }
                     />
                 </div>
                 <div className='inputBox sm-20 lg-15'>
                     <Select
-                        label={'Category'}
-                        name={'Category'}
-                        options={[
-                            { id: 'IND', value: 'IND' },
-                            { id: 'USA', value: 'USA' },
-                            { id: 'ENG', value: 'ENG' },
-                        ]}
+                        label={'Product Type'}
+                        name={'productType'}
+                        options={
+                            
+                            ProductCreateList &&
+                            ProductCreateList.productType.length > 0 &&
+                            ProductCreateList.productType.map((item) => {
+                                return (
+                                    
+                                    { id: item._id, value: item.name }
+                                    
+                                )  
+                            })
+                            
+                           }
                         // isRequired
                         wrapperClass={'col12'}
-                        value={values.Category}
+                        value={values.productType}
                         onChange={handleChange}
-                        error={errors.Category}
-                        touched={touched.Category}
+                        error={errors.productType}
+                        touched={touched.productType}
+                        Disabled={preview ? true :false }
                     />
                 </div>
                 <div className='inputBox sm-40 lg-50'>
                     <Input
                         label={'Product Name'}
                         type={'text'}
-                        name={'Product_Name'}
+                        name={'name'}
                         id={'Product_Name'}
-                        value={values.Product_Name}
+                        value={values.name}
                         wrapperClass={'col12'}
                         onChange={handleChange}
+                        onBlur={handleBlur}
+                        error={errors.name}
+                        touched={touched.name}
+                        ReadOnly={preview ? true :false }
                     />
                 </div>
                 <div className='inputBox sm-20 lg-20'>
                     <Input
                         label={'Generic Name'}
                         type={'text'}
-                        name={'Generic_Name'}
-                        id={'Generic_Name'}
-                        value={values.Generic_Name}
+                        name={'genericName'}
+                        id={'genericName'}
+                        value={values.genericName}
                         wrapperClass={'col12'}
                         onChange={handleChange}
+                        ReadOnly={preview ? true :false }
                     />
                 </div>
                 <div className='inputBox sm-25 lg-25'>
                     <Select
                         label={'Manufacturer'}
-                        name={'Manufacturer'}
-                        options={[
-                            { id: 'IND', value: 'IND' },
-                            { id: 'USA', value: 'USA' },
-                            { id: 'ENG', value: 'ENG' },
-                        ]}
+                        name={'manufacturer'}
+                        options={
+                            ProductCreateList &&
+                            ProductCreateList.manufacturer.length > 0 &&
+                            ProductCreateList.manufacturer.map((item) => {
+                                return (
+                                    
+                                    { id: item._id, value: item.name }
+                                    
+                                )  
+                            })
+                        }
                         // isRequired
                         wrapperClass={'col12'}
-                        value={values.Manufacturer}
+                        value={values.manufacturer}
                         onChange={handleChange}
-                        error={errors.Manufacturer}
-                        touched={touched.Manufacturer}
+                        error={errors.manufacturer}
+                        touched={touched.manufacturer}
+                        Disabled={preview ? true :false }
                     />
                 </div>
                 <div className='inputBox sm-25 lg-25'>
                     <Select
                         label={'Supplier'}
-                        name={'Supplier'}
-                        options={[
-                            { id: 'IND', value: 'IND' },
-                            { id: 'USA', value: 'USA' },
-                            { id: 'ENG', value: 'ENG' },
-                        ]}
+                        name={'supplier'}
+                        options={
+                            ProductCreateList &&
+                            ProductCreateList.supplier.length > 0 &&
+                            ProductCreateList.supplier.map((item) => {
+                                return (
+                                    
+                                    { id: item._id, value: item.name }
+                                    
+                                )  
+                            })
+                        }
                         // isRequired
                         wrapperClass={'col12'}
-                        value={values.Supplier}
+                        value={values.supplier}
                         onChange={handleChange}
-                        error={errors.Supplier}
-                        touched={touched.Supplier}
+                        error={errors.supplier}
+                        touched={touched.supplier}
+                        Disabled={preview ? true :false }
                     />
                 </div>
                 <div className='inputBox sm-20 lg-20'>
                     <Select
                         label={'Dispensing Mode'}
-                        name={'Dispensing_Mode'}
+                        name={'dispensingMode'}
                         options={[
-                            { id: 'IND', value: 'IND' },
-                            { id: 'USA', value: 'USA' },
-                            { id: 'ENG', value: 'ENG' },
+                            { id: 'Tablet', value: 'Tablet' },
+                            { id: 'Strip', value: 'Strip' },
+                            { id: 'Box', value: 'Box' },
                         ]}
                         // isRequired
                         wrapperClass={'col12'}
-                        value={values.Dispensing_Mode}
+                        value={values.dispensingMode}
                         onChange={handleChange}
-                        error={errors.Dispensing_Mode}
-                        touched={touched.Dispensing_Mode}
+                        error={errors.dispensingMode}
+                        touched={touched.dispensingMode}
+                        Disabled={preview ? true :false }
                     />
                 </div>
                 <div className='inputBox sm-20 lg-20'>
                     <Input
                         label={'Rack'}
                         type={'text'}
-                        name={'Rack'}
-                        id={'Rack'}
-                        value={values.Rack}
+                        name={'rack'}
+                        id={'rack'}
+                        value={values.rack}
                         wrapperClass={'col12'}
                         onChange={handleChange}
+                        ReadOnly={preview ? true :false }
                     />
                 </div>
                 <div className='inputBox sm-10 lg-10'>
                     <Input
                         label={'Shelf'}
                         type={'text'}
-                        name={'Shelf'}
-                        id={'Shelf'}
-                        value={values.Shelf}
+                        name={'shelf'}
+                        id={'shelf'}
+                        value={values.shelf}
                         wrapperClass={'col12'}
                         onChange={handleChange}
+                        ReadOnly={preview ? true :false }
                     />
                 </div>
             </div>
@@ -207,9 +324,9 @@ function ProductDetail() {
                     <Input
                         label={'Bar Code'}
                         type={'text'}
-                        name={'Bar_Code'}
+                        name={'barcode'}
                         id={'title'}
-                        value={values.Bar_Code}
+                        value={values.barcode}
                         wrapperClass={'col12'}
                         onChange={handleChange}
                     />
@@ -218,9 +335,9 @@ function ProductDetail() {
                     <Input
                         label={'Order Level'}
                         type={'text'}
-                        name={'Order_Level'}
+                        name={'orderLevel'}
                         id={'title'}
-                        value={values.Order_Level}
+                        value={values.orderLevel}
                         wrapperClass={'col12'}
                         onChange={handleChange}
                     />
@@ -229,9 +346,9 @@ function ProductDetail() {
                     <Input
                         label={'Min order'}
                         type={'text'}
-                        name={'Min_order'}
+                        name={'minOrder'}
                         id={'title'}
-                        value={values.Min_order}
+                        value={values.minOrder}
                         wrapperClass={'col12'}
                         onChange={handleChange}
                     />
@@ -240,9 +357,9 @@ function ProductDetail() {
                     <Input
                         label={'Max order'}
                         type={'text'}
-                        name={'Max_order'}
+                        name={'maxOrder'}
                         id={'title'}
-                        value={values.Max_order}
+                        value={values.maxOrder}
                         wrapperClass={'col12'}
                         onChange={handleChange}
                     />
@@ -257,66 +374,72 @@ function ProductDetail() {
                     <Input
                         label={'Buy Rate'}
                         type={'text'}
-                        name={'Buy_Rate'}
-                        id={'Buy_Rate'}
-                        value={values.Buy_Rate}
+                        name={'buyingPrice'}
+                        id={'buyingPrice'}
+                        value={values.buyingPrice}
                         wrapperClass={'col12'}
                         onChange={handleChange}
+                        ReadOnly={preview ? true :false }
                     />
                 </div>
                 <div className='inputBox sm-30 lg-30'>
                     <Input
                         label={'MRP'}
                         type={'text'}
-                        name={'MRP'}
-                        id={'MRP'}
-                        value={values.MRP}
+                        name={'mrp'}
+                        id={'mrp'}
+                        value={values.mrp}
                         wrapperClass={'col12'}
                         onChange={handleChange}
+                        ReadOnly={preview ? true :false }
                     />
                 </div>
                 <div className='inputBox sm-30 lg-30'>
                     <Input
                         label={'Profit %'}
                         type={'text'}
-                        name={'Profit'}
-                        id={'Profit'}
-                        value={values.Profit}
+                        name={'profit'}
+                        id={'profit'}
+                        value={values.profit}
                         wrapperClass={'col12'}
                         onChange={handleChange}
+                        ReadOnly={preview ? true :false }
                     />
                 </div>
                 <div className='inputBox sm-30 lg-30'>
                     <Input
                         label={'Net price '}
                         type={'text'}
-                        name={'Net_price '}
-                        id={'Net_price'}
-                        value={values.Net_price}
+                        name={'netPrice'}
+                        id={'netPrice'}
+                        value={values.netPrice}
                         wrapperClass={'col12'}
                         onChange={handleChange}
+                        ReadOnly={preview ? true :false }
                     />
                 </div>
                 <div className='inputBox sm-30 lg-30'>
                     <Input
                         label={'Inv Rate'}
                         type={'text'}
-                        name={'Inv_Rate'}
-                        id={'Inv_Rate'}
-                        value={values.Inv_Rate}
+                        name={'invPrice'}
+                        id={'invPrice'}
+                        value={values.invPrice}
                         wrapperClass={'col12'}
                         onChange={handleChange}
+                        ReadOnly={preview ? true :false }
                     />
                 </div>
                 <div className='inputBox sm-30 lg-30'>
                     <Input
                         label={'VAT %'}
                         type={'text'}
-                        name={'VAT'}
-                        id={'VAT'}
-                        value={values.VAT}
+                        name={'vat'}
+                        id={'vat'}
+                        value={values.vat}
                         wrapperClass={'col12'}
                         onChange={handleChange}
+                        ReadOnly={preview ? true :false }
                     />
                 </div>
                     </div>
@@ -327,151 +450,163 @@ function ProductDetail() {
                 <div className='inputBox sm-30 lg-30'>
                      <Select
                         label={'Sales Packing'}
-                        name={'Sales_Packing'}
+                        name={'Sales_Packing_1'}
                         options={[
-                            { id: 'IND', value: 'IND' },
-                            { id: 'USA', value: 'USA' },
-                            { id: 'ENG', value: 'ENG' },
+                            { id: 'Tablet', value: 'Tablet' },
+                            { id: 'Box', value: 'Box' },
+                            { id: 'Strip', value: 'Strip' },
                         ]}
                         // isRequired
                         wrapperClass={'col12'}
-                        value={values.Sales_Packing}
+                        value={values.Sales_Packing_1}
                         onChange={handleChange}
-                        error={errors.Sales_Packing}
-                        touched={touched.Sales_Packing}
+                        error={errors.Sales_Packing_1}
+                        touched={touched.Sales_Packing_1}
+                        Disabled={preview ? true :false }
                     />
                 </div>
                 <div className='inputBox sm-20 lg-20'>
                     <Input
                         label={'Quantity'}
                         type={'text'}
-                        name={'Quantity'}
-                        id={'Quantity'}
-                        value={values.Quantity}
+                        name={'Quantity_1'}
+                        id={'Quantity_1'}
+                        value={values.Quantity_1}
                         wrapperClass={'col12'}
                         onChange={handleChange}
+                        ReadOnly={preview ? true :false }
                     />
                 </div>
                 <div className='inputBox sm-20 lg-20'>
                     <Input
                         label={'Rate'}
                         type={'text'}
-                        name={'Rate'}
-                        id={'Rate'}
-                        value={values.Rate}
+                        name={'Rate_1'}
+                        id={'Rate_1'}
+                        value={values.Rate_1}
                         wrapperClass={'col12'}
                         onChange={handleChange}
+                        ReadOnly={preview ? true :false }
                     />
                 </div>
                 <div className='inputBox sm-20 lg-20'>
                     <Input
                         label={'Stock'}
                         type={'text'}
-                        name={'Stock'}
-                        id={'Stock'}
-                        value={values.Stock}
+                        name={'Stock_1'}
+                        id={'Stock_1'}
+                        value={values.Stock_1}
                         wrapperClass={'col12'}
                         onChange={handleChange}
+                        ReadOnly={preview ? true :false }
                     />
                 </div>
                 <div className='inputBox sm-30 lg-30'>
                      <Select
                         label={''}
-                        name={'Sales_Packing'}
+                        name={'Sales_Packing_2'}
                         options={[
-                            { id: 'IND', value: 'IND' },
-                            { id: 'USA', value: 'USA' },
-                            { id: 'ENG', value: 'ENG' },
+                            { id: 'Tablet', value: 'Tablet' },
+                            { id: 'Box', value: 'Box' },
+                            { id: 'Strip', value: 'Strip' },
                         ]}
                         // isRequired
                         wrapperClass={'col12'}
-                        value={values.Sales_Packing}
+                        value={values.Sales_Packing_2}
                         onChange={handleChange}
-                        error={errors.Sales_Packing}
-                        touched={touched.Sales_Packing}
+                        error={errors.Sales_Packing_2}
+                        touched={touched.Sales_Packing_2}
+                        Disabled={preview ? true :false }
                     />
                 </div>
                 <div className='inputBox sm-20 lg-20'>
                     <Input
                         label={''}
                         type={'text'}
-                        name={'Quantity'}
-                        id={'Quantity'}
-                        value={values.Quantity}
+                        name={'Quantity_2'}
+                        id={'Quantity_2'}
+                        value={values.Quantity_2}
                         wrapperClass={'col12'}
                         onChange={handleChange}
+                        ReadOnly={preview ? true :false }
                     />
                 </div>
                 <div className='inputBox sm-20 lg-20'>
                     <Input
                         label={''}
                         type={'text'}
-                        name={'Rate'}
-                        id={'Rate'}
-                        value={values.Rate}
+                        name={'Rate_2'}
+                        id={'Rate_2'}
+                        value={values.Rate_2}
                         wrapperClass={'col12'}
                         onChange={handleChange}
+                        ReadOnly={preview ? true :false }
                     />
                 </div>
                 <div className='inputBox sm-20 lg-20'>
                     <Input
                         label={''}
                         type={'text'}
-                        name={'Stock'}
-                        id={'Stock'}
-                        value={values.Stock}
+                        name={'Stock_2'}
+                        id={'Stock_2'}
+                        value={values.Stock_2}
                         wrapperClass={'col12'}
                         onChange={handleChange}
+                        ReadOnly={preview ? true :false }
                     />
                 </div>
                 <div className='inputBox sm-30 lg-30'>
                      <Select
                         label={''}
-                        name={'Sales_Packing'}
+                        name={'Sales_Packing_3'}
                         options={[
-                            { id: 'IND', value: 'IND' },
-                            { id: 'USA', value: 'USA' },
-                            { id: 'ENG', value: 'ENG' },
+                            { id: 'Tablet', value: 'Tablet' },
+                            { id: 'Box', value: 'Box' },
+                            { id: 'Strip', value: 'Strip' },
                         ]}
                         // isRequired
                         wrapperClass={'col12'}
-                        value={values.Sales_Packing}
+                        value={values.Sales_Packing_3}
                         onChange={handleChange}
-                        error={errors.Sales_Packing}
-                        touched={touched.Sales_Packing}
+                        error={errors.Sales_Packing_3}
+                        touched={touched.Sales_Packing_3}
+                        Disabled={preview ? true :false }
                     />
                 </div>
                 <div className='inputBox sm-20 lg-20'>
                     <Input
                         label={''}
                         type={'text'}
-                        name={'Quantity'}
-                        id={'Quantity'}
-                        value={values.Quantity}
+                        name={'Quantity_3'}
+                        id={'Quantity_3'}
+                        value={values.Quantity_3}
                         wrapperClass={'col12'}
                         onChange={handleChange}
+                        ReadOnly={preview ? true :false }
                     />
                 </div>
                 <div className='inputBox sm-20 lg-20'>
                     <Input
                         label={''}
                         type={'text'}
-                        name={'Rate'}
-                        id={'Rate'}
-                        value={values.Rate}
+                        name={'Rate_3'}
+                        id={'Rate_3'}
+                        value={values.Rate_3}
                         wrapperClass={'col12'}
                         onChange={handleChange}
+                        ReadOnly={preview ? true :false }
                     />
                 </div>
                 <div className='inputBox sm-20 lg-20'>
                     <Input
                         label={''}
                         type={'text'}
-                        name={'Stock'}
-                        id={'Stock'}
-                        value={values.Stock}
+                        name={'Stock_3'}
+                        id={'Stock_3'}
+                        value={values.Stock_3}
                         wrapperClass={'col12'}
                         onChange={handleChange}
+                        ReadOnly={preview ? true :false }
                     />
                 </div>
                 </div>
@@ -483,87 +618,91 @@ function ProductDetail() {
                     <Input
                         label={'Standart Exp Duration'}
                         type={'text'}
-                        name={'Standart_Exp_Duration'}
-                        id={'Standart_Exp_Duration'}
-                        value={values.Standart_Exp_Duration}
+                        name={'expDuration'}
+                        id={'expDuration'}
+                        value={values.expDuration}
                         wrapperClass={'col12'}
                         onChange={handleChange}
+                        ReadOnly={preview ? true :false }
                     />
                 </div>
                 <div className='inputBox sm-30 lg-30'>
                     <Select
                         label={'Insurance Status'}
-                        name={'Insurance_Status'}
+                        name={'isInsurance'}
                         options={[
-                            { id: 'IND', value: 'IND' },
-                            { id: 'USA', value: 'USA' },
-                            { id: 'ENG', value: 'ENG' },
+                            { id: 'Covered', value: 'Covered' },
+                            { id: 'Not Insured', value: 'Not Insured' },
                         ]}
                         // isRequired
                         wrapperClass={'col12'}
-                        value={values.Insurance_Status}
+                        value={values.isInsurance}
                         onChange={handleChange}
-                        error={errors.Insurance_Status}
-                        touched={touched.Insurance_Status}
+                        error={errors.isInsurance}
+                        touched={touched.isInsurance}
+                        Disabled={preview ? true :false }
                     />
                 </div>
                 <div className='inputBox sm-30 lg-30'>
                     <Input
                         label={'Weight'}
                         type={'text'}
-                        name={'Weight'}
-                        id={'Weight'}
-                        value={values.Weight}
+                        name={'weight'}
+                        id={'weight'}
+                        value={values.weight}
                         wrapperClass={'col12'}
                         onChange={handleChange}
+                        ReadOnly={preview ? true :false }
                     />
                 </div>
                 <div className='inputBox sm-30 lg-30'>
                     <Input
                         label={'Storage Condition'}
                         type={'text'}
-                        name={'Storage_Condition'}
-                        id={'Storage_Condition'}
-                        value={values.Storage_Condition}
+                        name={'storageCondition'}
+                        id={'storageCondition'}
+                        value={values.storageCondition}
                         wrapperClass={'col12'}
                         onChange={handleChange}
+                        ReadOnly={preview ? true :false }
                     />
                 </div>
                 <div className='inputBox sm-30 lg-30'>
                     <Select
                         label={'Returnable status'}
-                        name={'Returnable_status'}
+                        name={'returnable'}
                         options={[
-                            { id: 'IND', value: 'IND' },
-                            { id: 'USA', value: 'USA' },
-                            { id: 'ENG', value: 'ENG' },
+                            { id: true, value: 'Yes' },
+                            { id: false, value: 'No' },
                         ]}
                         // isRequired
                         wrapperClass={'col12'}
-                        value={values.Returnable_status}
+                        value={values.returnable}
                         onChange={handleChange}
-                        error={errors.Returnable_status}
-                        touched={touched.Returnable_status}
+                        error={errors.returnable}
+                        touched={touched.returnable}
+                        Disabled={preview ? true :false }
                     />
                 </div>
                 <div className='inputBox sm-30 lg-30'>
                     <Input
                         label={'Strength'}
                         type={'text'}
-                        name={'Strength'}
-                        id={'Strength'}
-                        value={values.Strength}
+                        name={'strength'}
+                        id={'strength'}
+                        value={values.strength}
                         wrapperClass={'col12'}
                         onChange={handleChange}
+                        ReadOnly={preview ? true :false }
                     />
                 </div>
                 </div>
             </div>
             <div className='actionFlexbox'>
-                <button type='button' className='draftBtn'>Save Draft</button>
+                <button type='button' className='draftBtn' onClick={handleDraft}>Save Draft</button>
                 <div className='rightCol'>
                 <button type='button' className='canceltBtn'>Cancel</button>
-                <button type='button' className='nextBtn'>Next</button> 
+                <button type='button' className='nextBtn' onClick={handleSubmit}>Next</button> 
                 </div>
             </div>
         </div>
