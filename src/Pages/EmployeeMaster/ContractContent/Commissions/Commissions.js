@@ -2,45 +2,45 @@ import React, { useEffect } from 'react';
 import { isEmpty } from 'lodash';
 import { useFormik } from 'formik';
 import swal from 'sweetalert';
-import { axiosClient } from '../../../../../services/axiosClient';
-import { Input, DataList, Select } from '../../../../common/';
+import { axiosClient } from '../../../../services/axiosClient';
+import { Input , DataList, Select} from '../../../../Components/common';
 import '../ContractContent.scss';
 
-const allowanceConfig = [
-    { label: 'Allowance Option', value: 'Non Taxable', name: 'allowance_option' },
+const commissionConfig = [
+    { label: 'Commission Option', value: 'Non Taxable', name: 'commission_option' },
     { label: 'Amount Option', value: 'Fixed', name: 'amount_option' },
     { label: 'Title', value: 'Title', name: 'title' },
     { label: 'Amount', value: '$1000', name: 'amount' },
 ];
 
-const allowanceInitialValues = {
-    allowance_option: 'Taxable',
+const commissionInitialValues = {
+    commission_option: 'Taxable',
     amount_option: 'Fixed',
     title: '',
     amount: '',
 };
 
-function Allowances({ mode, setEditMode, allowanceInformation, getAllowanceInfo }) {
+function Commissions({ mode, setEditMode, commissionInformation, getCommissionInfo }) {
     const userid = JSON.parse(localStorage.getItem('profileData'))?.userId;
-    if (allowanceInformation && !isEmpty(allowanceInformation)) {
-        for (let key in allowanceInitialValues) {
-            allowanceInitialValues[key] = allowanceInformation[key];
+    if (commissionInformation && !isEmpty(commissionInformation)) {
+        for (let key in commissionInitialValues) {
+            commissionInitialValues[key] = commissionInformation[key];
         }
     }
 
     const handleFormSubmit = async values => {
-        values.currencyId = '66d13dfd3e088b621d0ea8cc';
+        values.currencyId="66d13dfd3e088b621d0ea8cc";
         try {
             let response = {};
 
-            if (allowanceInformation?._id) {
+            if (commissionInformation?._id) {
                 response = await axiosClient.post(
-                    `admin/allowance/update`,
-                    JSON.stringify({ id: allowanceInformation._id, userId: userid, ...values }),
+                    `admin/commission/update`,
+                    JSON.stringify({id: commissionInformation._id, userId: userid, ...values }),
                 );
             } else {
                 response = await axiosClient.post(
-                    `admin/allowance/create`,
+                    `admin/commission/create`,
                     JSON.stringify({ userId: userid, ...values }),
                 );
             }
@@ -49,7 +49,7 @@ function Allowances({ mode, setEditMode, allowanceInformation, getAllowanceInfo 
                     buttons: false,
                     timer: 2000,
                 }).then(() => {
-                    getAllowanceInfo();
+                    getCommissionInfo();
                     setEditMode(false);
                 });
             }
@@ -59,7 +59,7 @@ function Allowances({ mode, setEditMode, allowanceInformation, getAllowanceInfo 
     };
 
     const { values, handleChange, handleSubmit } = useFormik({
-        initialValues: allowanceInitialValues,
+        initialValues: commissionInitialValues,
         validateOnChange: true,
         validateOnBlur: false,
         enableReinitialize: true,
@@ -72,15 +72,15 @@ function Allowances({ mode, setEditMode, allowanceInformation, getAllowanceInfo 
     useEffect(() => {}, []);
 
     return (
-        <div className='allowances_container'>
+        <div className='commissions_container'>
             {mode ? (
                 <div className='form_container'>
                     <form onSubmit={handleSubmit}>
                         <div className='input_flexbox'>
                             <Select
-                                label={'Allowance Option'}
-                                name={'allowance_option'}
-                                value={values.allowance_option}
+                                label={'Commission Option'}
+                                name={'commission_option'}
+                                value={values.commission_option}
                                 options={[
                                     { id: 'Taxable', value: 'Taxable' },
                                     { id: 'Non Taxable', value: 'Non Taxable' },
@@ -131,10 +131,10 @@ function Allowances({ mode, setEditMode, allowanceInformation, getAllowanceInfo 
                     </form>
                 </div>
             ) : (
-                <DataList config={allowanceConfig} dataSource={allowanceInformation} />
+                <DataList config={commissionConfig} dataSource={commissionInformation} />
             )}
         </div>
     );
 }
 
-export default Allowances;
+export default Commissions;

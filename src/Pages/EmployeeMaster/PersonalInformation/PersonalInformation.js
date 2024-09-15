@@ -1,19 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import PersonalInfoBio from './PersonalInfoBio/PersonalInfoBio';
-import SocialProfile from './SocailProfile/SocailProfile';
-import BankAccount from './BankAccount/BankAccount';
-import EmergencyContact from './EmergencyContact/EmergencyContact';
-import { axiosClient } from '../../../../services/axiosClient';
-import Pen from '../../../../assets/images/pen.svg';
-import locales from '../../../../Constants/en.json';
+import SocialProfile from '../PersonalInformation/SocailProfile/SocailProfile';
+import BankAccount from "../PersonalInformation/BankAccount/BankAccount";
+import EmergencyContact from "../PersonalInformation/EmergencyContact/EmergencyContact";
+import { axiosClient } from '../../../services/axiosClient';
+import Pen from '../../../assets/images/pen.svg';
+import locales from '../../../Constants/en.json';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Box from '@mui/material/Box';
 import './PersonalInformation.scss';
-import '../../../common/common.component.scss';
+import '../../../Components/common/common.component.scss';
 
-function PersonalInformation( {initialEditMode = false }) {
-    const [editMode, setEditMode] = useState(initialEditMode);
+function PersonalInformation( {initialEditMode = true }) {
+    const [editMode, setEditMode] = useState(true);
     const [value, setValue] = useState(0);
     const [selectLabel, setSelectLabel] = useState('Bio');
     const [bioInfo, setBioInfo] = useState({});
@@ -69,12 +69,12 @@ function PersonalInformation( {initialEditMode = false }) {
         getSocialinfo();
     }, []);
 
-    const tabsData = ['Bio', 'Social Profile', 'Bank Account', 'Emergency Contract'];
+    const tabsData = ['Bio', 'Social Profile', 'Bank Account', 'Emergency Contact'];
 
     const handleChange = (event, newValue) => {
         setValue(newValue);
         setSelectLabel(event.target.innerText);
-        setEditMode(false);
+        setEditMode(true);
     };
 
     function CustomTabPanel(props) {
@@ -108,12 +108,7 @@ function PersonalInformation( {initialEditMode = false }) {
             <div className='personalInformation_container'>
                 <div className='header_flex'>
                     <h5 className='title'>Personal Information</h5>
-                    <button className='edit_btn' onClick={() => handleEdit()}>
-                        <span className='icon'>
-                            <img src={Pen} alt='edit'></img>
-                        </span>
-                        {locales.edit_title}
-                    </button>
+                   
                 </div>
                 <div className='body_section'>
                     <Box sx={{ width: '100%' }} className='tabsBlock'>

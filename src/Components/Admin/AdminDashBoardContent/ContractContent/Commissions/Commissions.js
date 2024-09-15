@@ -21,7 +21,7 @@ const commissionInitialValues = {
 };
 
 function Commissions({ mode, setEditMode, commissionInformation, getCommissionInfo }) {
-    const userid = JSON.parse(localStorage.getItem('profileData')).userId;
+    const userid = JSON.parse(localStorage.getItem('profileData'))?.userId;
     if (commissionInformation && !isEmpty(commissionInformation)) {
         for (let key in commissionInitialValues) {
             commissionInitialValues[key] = commissionInformation[key];

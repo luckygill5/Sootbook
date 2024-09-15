@@ -2,8 +2,8 @@ import React, { useEffect } from 'react';
 import { isEmpty } from 'lodash';
 import { useFormik } from 'formik';
 import swal from 'sweetalert';
-import { axiosClient } from '../../../../../services/axiosClient';
-import { Input, DataList, Select } from '../../../../common/';
+import { axiosClient } from '../../../../services/axiosClient';
+import { Input , DataList, Select} from '../../../../Components/common';
 import '../ContractContent.scss';
 
 const allowanceConfig = [
@@ -50,7 +50,7 @@ function Allowances({ mode, setEditMode, allowanceInformation, getAllowanceInfo 
                     timer: 2000,
                 }).then(() => {
                     getAllowanceInfo();
-                    setEditMode(false);
+                    setEditMode(true);
                 });
             }
         } catch (error) {

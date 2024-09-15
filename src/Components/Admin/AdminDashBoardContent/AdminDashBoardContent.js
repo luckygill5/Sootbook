@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import EmployeeMaster from '../../../Pages/EmployeeMaster/EmployeeMaster.js';
 import SearchIcon from "../../../assets/images/search_icon.svg";
 import BellIcon from "../../../assets/images/bell_icon.svg";
 import AvtaarIcon from "../../../assets/images/avatar-large.png";
@@ -36,6 +37,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from "react-router-dom";
 import Collection from './DashboardCollections/DashboardCollections.js';
 import './AdminDashBoardContent.scss'
+import AddNewEmployee from '../../../Pages/EmployeeMaster/AddNewEmployee/AddNewEmployee.js';
 
 // interface TabPanelProps {
 //     children?: React.ReactNode;
@@ -179,7 +181,9 @@ function AdminDashBoardContent(props) {
                         <Typography color='text.primary'>Applications</Typography>
                     </Breadcrumbs>
                 </div>
-                {
+                { props.viewcontrol == "Employee" ? (
+                    <EmployeeMaster/>
+                ) :
                     props.viewcontrol == "Dashboard" ? (
                         <Collection />
                     ) :

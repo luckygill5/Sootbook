@@ -1,30 +1,30 @@
 import React, { useEffect } from 'react';
-import { isEmpty } from 'lodash';
 import { useFormik } from 'formik';
+import { isEmpty } from 'lodash';
 import swal from 'sweetalert';
-import { axiosClient } from '../../../../../services/axiosClient';
-import { Input, DataList, Select } from '../../../../common/';
+import { axiosClient } from '../../../../services/axiosClient';
+import { Input , DataList, Select} from '../../../../Components/common';
 import '../ContractContent.scss';
 
-const allowanceConfig = [
-    { label: 'Allowance Option', value: 'Non Taxable', name: 'allowance_option' },
+const reimbursementConfig = [
+    { label: 'Reimbursements Option', value: 'Non Taxable', name: 'reimbursement_option' },
     { label: 'Amount Option', value: 'Fixed', name: 'amount_option' },
     { label: 'Title', value: 'Title', name: 'title' },
     { label: 'Amount', value: '$1000', name: 'amount' },
 ];
 
-const allowanceInitialValues = {
-    allowance_option: 'Taxable',
+const reimbursementInitialValues = {
+    reimbursement_option: 'Taxable',
     amount_option: 'Fixed',
     title: '',
     amount: '',
 };
 
-function Allowances({ mode, setEditMode, allowanceInformation, getAllowanceInfo }) {
+function Reimbursements({ mode, setEditMode, reimbursementInformation, getReimbursementInfo }) {
     const userid = JSON.parse(localStorage.getItem('profileData'))?.userId;
-    if (allowanceInformation && !isEmpty(allowanceInformation)) {
-        for (let key in allowanceInitialValues) {
-            allowanceInitialValues[key] = allowanceInformation[key];
+    if (reimbursementInformation && !isEmpty(reimbursementInformation)) {
+        for (let key in reimbursementInitialValues) {
+            reimbursementInitialValues[key] = reimbursementInformation[key];
         }
     }
 
@@ -33,33 +33,33 @@ function Allowances({ mode, setEditMode, allowanceInformation, getAllowanceInfo 
         try {
             let response = {};
 
-            if (allowanceInformation?._id) {
+            if (reimbursementInformation?._id) {
                 response = await axiosClient.post(
-                    `admin/allowance/update`,
-                    JSON.stringify({ id: allowanceInformation._id, userId: userid, ...values }),
+                    `admin/reimbursement/update`,
+                    JSON.stringify({ id: reimbursementInformation._id, userId: userid, ...values }),
                 );
             } else {
                 response = await axiosClient.post(
-                    `admin/allowance/create`,
+                    `admin/reimbursement/create`,
                     JSON.stringify({ userId: userid, ...values }),
                 );
             }
             if (response.status === 200) {
-                swal('Success', 'Allowance updated successfully', 'success', {
+                swal('Success', 'Reimbursements updated successfully', 'success', {
                     buttons: false,
                     timer: 2000,
                 }).then(() => {
-                    getAllowanceInfo();
+                    getReimbursementInfo();
                     setEditMode(false);
                 });
             }
         } catch (error) {
-            swal('Failed', `Error Updating Allowance`, 'error');
+            swal('Failed', `Error Updating Reimbursements`, 'error');
         }
     };
 
     const { values, handleChange, handleSubmit } = useFormik({
-        initialValues: allowanceInitialValues,
+        initialValues: reimbursementInitialValues,
         validateOnChange: true,
         validateOnBlur: false,
         enableReinitialize: true,
@@ -72,15 +72,15 @@ function Allowances({ mode, setEditMode, allowanceInformation, getAllowanceInfo 
     useEffect(() => {}, []);
 
     return (
-        <div className='allowances_container'>
+        <div className='reimbursements_container'>
             {mode ? (
                 <div className='form_container'>
                     <form onSubmit={handleSubmit}>
                         <div className='input_flexbox'>
                             <Select
-                                label={'Allowance Option'}
-                                name={'allowance_option'}
-                                value={values.allowance_option}
+                                label={'Reimbursement Option'}
+                                name={'reimbursement_option'}
+                                value={values.reimbursement_option}
                                 options={[
                                     { id: 'Taxable', value: 'Taxable' },
                                     { id: 'Non Taxable', value: 'Non Taxable' },
@@ -131,10 +131,10 @@ function Allowances({ mode, setEditMode, allowanceInformation, getAllowanceInfo 
                     </form>
                 </div>
             ) : (
-                <DataList config={allowanceConfig} dataSource={allowanceInformation} />
+                <DataList config={reimbursementConfig} dataSource={reimbursementInformation} />
             )}
         </div>
     );
 }
 
-export default Allowances;
+export default Reimbursements;
