@@ -39,7 +39,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { setData, addData } from '../../../../Slices/UserListSlice';
 import { addUserSaveList } from '../../../../Slices/UserSaveListSlice';
 
-function UserRolesList({ Userhandle }) {
+function UserRolesList({ Userhandle, setEditUserData }) {
     const data = useSelector(state => state);
     const dispatch = useDispatch();
     const [Tablehead, setTableHead] = useState('');
@@ -51,15 +51,7 @@ function UserRolesList({ Userhandle }) {
         Organization_Administrator: '',
     });
 
-    const manageColumnData = [
-        'User ID',
-        'Username',
-        'Email',
-        'Role',
-        'Creation date',
-        'Created by',
-        'Status',
-    ];
+    const manageColumnData = ['User ID', 'Username', 'Email', 'Role', 'Creation date', 'Created by', 'Status'];
     const [RolefilterCollect, setRoleFilterCollect] = useState([]);
     const filterDrawer = useRef(null);
     const manageDrawer = useRef(null);
@@ -76,136 +68,7 @@ function UserRolesList({ Userhandle }) {
         console.info('You clicked the delete icon.');
     };
 
-    const userCardData = [
-        {
-            profileImg: UserAvtar1,
-            name: 'Miles, Esther',
-            designation: 'Product manager',
-            status: 'Active',
-            SubData: [
-                {
-                    item: '23CSDC',
-                    icon: <FileText />,
-                },
-                {
-                    item: '+4369010013603',
-                    icon: <Phone />,
-                },
-                {
-                    item: 'product@gmail.com',
-                    icon: <Mail />,
-                },
-            ],
-        },
-        {
-            profileImg: UserAvtar2,
-            name: 'Nguyen, Shane',
-            designation: 'Product manager',
-            status: 'Active',
-            SubData: [
-                {
-                    item: '23CSDC',
-                    icon: <FileText />,
-                },
-                {
-                    item: '+4369010013603',
-                    icon: <Phone />,
-                },
-                {
-                    item: 'product@gmail.com',
-                    icon: <Mail />,
-                },
-            ],
-        },
-        {
-            profileImg: UserAvtar3,
-            name: 'Henry, Arthur',
-            designation: 'Product manager',
-            status: 'Active',
-            SubData: [
-                {
-                    item: '23CSDC',
-                    icon: <FileText />,
-                },
-                {
-                    item: '+4369010013603',
-                    icon: <Phone />,
-                },
-                {
-                    item: 'product@gmail.com',
-                    icon: <Mail />,
-                },
-            ],
-        },
-        {
-            profileImg: UserAvtar4,
-            name: 'Flores, Juanita',
-            designation: 'Product manager',
-            status: 'Active',
-            SubData: [
-                {
-                    item: '23CSDC',
-                    icon: <FileText />,
-                },
-                {
-                    item: '+4369010013603',
-                    icon: <Phone />,
-                },
-                {
-                    item: 'product@gmail.com',
-                    icon: <Mail />,
-                },
-            ],
-        },
-        {
-            profileImg: UserAvtar5,
-            name: 'Cooper, Kristin',
-            designation: 'Product manager',
-            status: 'Active',
-            SubData: [
-                {
-                    item: '23CSDC',
-                    icon: <FileText />,
-                },
-                {
-                    item: '+4369010013603',
-                    icon: <Phone />,
-                },
-                {
-                    item: 'product@gmail.com',
-                    icon: <Mail />,
-                },
-            ],
-        },
-        {
-            profileImg: UserAvtar6,
-            name: 'Black, Marvin',
-            designation: 'Product manager',
-            status: 'Active',
-            SubData: [
-                {
-                    item: '23CSDC',
-                    icon: <FileText />,
-                },
-                {
-                    item: '+4369010013603',
-                    icon: <Phone />,
-                },
-                {
-                    item: 'product@gmail.com',
-                    icon: <Mail />,
-                },
-            ],
-        },
-    ];
-
-    const tableHead = [
-        { title: 'User ID' },
-        { title: 'Username' },
-        { title: 'Email' },
-        { title: 'Role' },
-        { title: 'Creation date' },
-    ];
+    const tableHead = [{ title: 'User ID' }, { title: 'Username' }, { title: 'Email' }, { title: 'Role' }, { title: 'Creation date' }];
 
     const tableBody = [
         {
@@ -371,18 +234,10 @@ function UserRolesList({ Userhandle }) {
             <div className='listcardview_container'>
                 <div className='header_section'>
                     <div className='searchBox'>
-                        <input
-                            type='text'
-                            className='search-input'
-                            placeholder='Search by keywords'
-                        ></input>
+                        <input type='text' className='search-input' placeholder='Search by keywords'></input>
                     </div>
                     <div className='action_flexBox'>
-                        <button
-                            className='actionBtn'
-                            type='button'
-                            onClick={() => exportToExcel(tableBody, 'downloadfilename')}
-                        >
+                        <button className='actionBtn' type='button' onClick={() => exportToExcel(tableBody, 'downloadfilename')}>
                             <span className='icon'>
                                 <img src={Upload} alt='upload' className='img'></img>
                             </span>
@@ -394,11 +249,7 @@ function UserRolesList({ Userhandle }) {
                             </span>
                             Import
                         </button>
-                        <button
-                            className='actionBtn'
-                            type='submit'
-                            onClick={() => handleFilterDrawer()}
-                        >
+                        <button className='actionBtn' type='submit' onClick={() => handleFilterDrawer()}>
                             <span className='icon'>
                                 <img src={Filter} alt='upload' className='img'></img>
                             </span>
@@ -409,18 +260,8 @@ function UserRolesList({ Userhandle }) {
                 <div className='viewManage_section'>
                     <div className='chip_flebox'>
                         <Stack direction='row' spacing={1}>
-                            <Chip
-                                label='Account Manager'
-                                onClick={handleClick}
-                                onDelete={handleDelete}
-                                deleteIcon={<Cross />}
-                            ></Chip>
-                            <Chip
-                                label='Active'
-                                onClick={handleClick}
-                                onDelete={handleDelete}
-                                deleteIcon={<Cross />}
-                            />
+                            <Chip label='Account Manager' onClick={handleClick} onDelete={handleDelete} deleteIcon={<Cross />}></Chip>
+                            <Chip label='Active' onClick={handleClick} onDelete={handleDelete} deleteIcon={<Cross />} />
                         </Stack>
                         <span className='clearallBtn'>Clear all</span>
                     </div>
@@ -445,14 +286,13 @@ function UserRolesList({ Userhandle }) {
             </div>
             <div className='view_container'>
                 {view == 'cardview' ? (
-                    <CardLayout
-                        employeData={data.userListData?.data?.employees}
-                        cardData={userCardData}
-                    />
+                    <CardLayout employeData={data.userListData?.data?.employees} setEditUserData={setEditUserData} Userhandle={Userhandle} />
                 ) : view == 'listview' ? (
                     <TabularLayout
                         employeData={data.userListData?.data?.employees}
                         manageColumn={() => handleManageColumn()}
+                        setEditUserData={setEditUserData}
+                        Userhandle={Userhandle}
                     />
                 ) : null}
             </div>
@@ -466,11 +306,7 @@ function UserRolesList({ Userhandle }) {
                     </div>
 
                     <Accordion>
-                        <AccordionSummary
-                            expandIcon={<ExpandMoreIcon />}
-                            aria-controls='panel1-content'
-                            id='panel1-header'
-                        >
+                        <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls='panel1-content' id='panel1-header'>
                             Role
                         </AccordionSummary>
                         <AccordionDetails>
@@ -480,11 +316,7 @@ function UserRolesList({ Userhandle }) {
                                         <li className='check_item'>
                                             <FormControlLabel
                                                 control={
-                                                    <Checkbox
-                                                        checked={RoleFilter[item]}
-                                                        name={item}
-                                                        onChange={event => handleRoleFilter(event)}
-                                                    />
+                                                    <Checkbox checked={RoleFilter[item]} name={item} onChange={event => handleRoleFilter(event)} />
                                                 }
                                                 label={item.split('_').join(' ')}
                                             />
@@ -496,11 +328,7 @@ function UserRolesList({ Userhandle }) {
                     </Accordion>
 
                     <Accordion>
-                        <AccordionSummary
-                            expandIcon={<ExpandMoreIcon />}
-                            aria-controls='panel1-content'
-                            id='panel2-header'
-                        >
+                        <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls='panel1-content' id='panel2-header'>
                             Status
                         </AccordionSummary>
                         <AccordionDetails>
@@ -532,11 +360,7 @@ function UserRolesList({ Userhandle }) {
                 <div className='manageDrawer' ref={manageDrawer}>
                     <div className='headerFlexbox'>
                         <h5 className='title'>Choose Column</h5>
-                        <button
-                            className='closeBtn'
-                            type='submit'
-                            onClick={handleCloseManageDrawer}
-                        >
+                        <button className='closeBtn' type='submit' onClick={handleCloseManageDrawer}>
                             <img src={CloseX} alt='close' className='img-close'></img>
                         </button>
                     </div>
@@ -566,26 +390,15 @@ function UserRolesList({ Userhandle }) {
                                             <FormControlLabel
                                                 control={
                                                     <Checkbox
-                                                        onChange={() =>
-                                                            handleManageColumnFilter(label)
-                                                        }
-                                                        checked={
-                                                            tableHead[index]?.title &&
-                                                            tableHead[index]?.title == label
-                                                                ? true
-                                                                : false
-                                                        }
+                                                        onChange={() => handleManageColumnFilter(label)}
+                                                        checked={tableHead[index]?.title && tableHead[index]?.title == label ? true : false}
                                                     />
                                                 }
                                                 label={label}
                                             />
                                         </span>
                                         <span className='bar'>
-                                            <img
-                                                src={Equal}
-                                                alt='equal_icon'
-                                                className='bar_icon'
-                                            ></img>
+                                            <img src={Equal} alt='equal_icon' className='bar_icon'></img>
                                         </span>
                                     </li>
                                 );

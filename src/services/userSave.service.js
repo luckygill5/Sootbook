@@ -3,24 +3,19 @@ import axios from 'axios';
 
 export const UserSave = (values, country, permission) => {
     const UserSaveUrl = `${apiUrl}:${port}/api/admin/vendor/user/save`;
-   const accessToken =  `Bearer ${sessionStorage.accessToken} `
+    const accessToken = `Bearer ${sessionStorage.accessToken} `;
     return (
         axios(UserSaveUrl, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
                 'x-via-device': true,
-                'Authorization' : accessToken
+                Authorization: accessToken,
             },
             data: {
-                name:values.Name, 
-                email:values.Email,
-                phone:values.Contact_Number,
-                password:values.password,
-                role:values.Role,
-                status:values.Status,
-                permissions:permission ? permission : [],
-                country:country == "IND" ? "India" : ''
+                role:values.role,
+                status:values.status,
+                permissions:[]
             }
         }) // Handle the response from backend here
             .then(res => {

@@ -123,6 +123,22 @@ $font-monsterat : 'Montserrat';
         width: 33.3%;
     }
 
+    .col6 {
+        width: 50%;
+    }
+
+    .col4 {
+        width: 33.3%;
+    }
+
+    .col2 {
+        width: 20%;
+    }
+
+    .col8 {
+        width: 80%;
+    }
+
     .select_fieldBox {
         width: 100%;
 
@@ -173,6 +189,46 @@ $font-monsterat : 'Montserrat';
         font-size: 12px;
         color: red;
     }
+
+    &.disabled {
+        .input_element, .MuiSelect-select{
+            cursor: not-allowed;
+            box-shadow: none;
+            background-color: #ddd;
+        }
+    }
+}
+
+
+.contactNumber {
+    @include flexbox();
+    flex-direction: column;
+    margin: 0 10px;
+
+    .flexbox {
+        @include flexbox();
+        border-radius: 8px;
+
+        .inputField {
+            margin-left: 0;
+            margin-right: 0;
+
+            &.col2 {
+                width: 20%;
+            }
+            
+            .select_fieldBox {
+                .MuiSelect-select{
+                    border-radius: 8px 0 0 8px;
+                }
+            }
+
+            .input_element{
+                border-radius: 0 8px 8px 0;
+            }
+        }
+    }
+
 }
 
 .react-datepicker-wrapper{

@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import UserRoleList from './UserRoleListing/UserRoleListing';
 import UserAdd from './AddUser/AddUser';
+import AddNewUser from './AddUser/AddNewUser';
 import CreateRole from './CreateRole/CreateRole';
 import './User.scss';
 
 function User(props) {
     const [AddUser, setAddUser] = useState(false);
     const [NewRole, setNewRole] = useState(false);
+    const [editUserData, setEditUserData] = useState(null);
 
     const handleAddUser = () => {
         setAddUser(true);
@@ -31,9 +33,9 @@ function User(props) {
             {NewRole ? (
                 <CreateRole back={() => handleBack()} />
             ) : AddUser ? (
-                <UserAdd backHRM={() => handleBackHRM()} NewRole={() => handleUserNewRole()} />
+                <AddNewUser backHRM={() => handleBackHRM()} editUserData={editUserData} NewRole={() => handleUserNewRole()} />
             ) : (
-                <UserRoleList Userhandle={() => handleAddUser()} />
+                <UserRoleList Userhandle={() => handleAddUser()} setEditUserData={setEditUserData} />
             )}
         </div>
     );
