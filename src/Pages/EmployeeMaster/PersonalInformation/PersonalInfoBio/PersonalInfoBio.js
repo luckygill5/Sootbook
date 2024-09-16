@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react';
 import { useFormik } from 'formik';
 import swal from 'sweetalert';
-import { axiosClient } from '../../../../../services/axiosClient';
-import { TextArea, DataList, Select } from '../../../../common/';
+import { axiosClient } from '../../../../services/axiosClient';
+import { TextArea, DataList, Select } from '../../../../Components/common';
 import '../PersonalInformation.scss';
 
 const bankAccountConfig = [

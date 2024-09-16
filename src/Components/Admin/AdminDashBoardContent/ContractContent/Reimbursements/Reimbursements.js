@@ -21,7 +21,7 @@ const reimbursementInitialValues = {
 };
 
 function Reimbursements({ mode, setEditMode, reimbursementInformation, getReimbursementInfo }) {
-    const userid = JSON.parse(localStorage.getItem('profileData')).userId;
+    const userid = JSON.parse(localStorage.getItem('profileData'))?.userId;
     if (reimbursementInformation && !isEmpty(reimbursementInformation)) {
         for (let key in reimbursementInitialValues) {
             reimbursementInitialValues[key] = reimbursementInformation[key];

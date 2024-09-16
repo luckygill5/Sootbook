@@ -7,15 +7,15 @@ import Allowances from './Allowances/Allowances';
 import Commissions from './Commissions/Commissions';
 import StatutoryDeductions from './StatutoryDeductions/StatutoryDeductions';
 import Reimbursements from './Reimbursements/Reimbursements';
-import { axiosClient } from '../../../../services/axiosClient';
-import { ReactComponent as DotsIcon } from '../../../../assets/images/bullets.svg';
-import Pen from '../../../../assets/images/pen.svg';
-import locales from '../../../../Constants/en.json';
+import { axiosClient } from '../../../services/axiosClient';
+import { ReactComponent as DotsIcon } from '../../../assets/images/bullets.svg';
+import Pen from '../../../assets/images/pen.svg';
+import locales from "../../../Constants/en.json";
 import './ContractContent.scss';
-import '../../../common/common.component.scss';
+import '../../../Components/common/common.component.scss';
 
-function ContractContent({initialEditMode=false}) {
-    const [editMode, setEditMode] = useState(initialEditMode);
+function ContractContent({initialEditMode = true }) {
+    const [editMode, setEditMode] = useState(true);
     const [value, setValue] = useState(0);
     const [selectLabel, setSelectLabel] = useState('Bio');
     const userid = JSON.parse(localStorage.getItem('profileData'))?.userId;
@@ -90,13 +90,13 @@ function ContractContent({initialEditMode=false}) {
         'Allowances',
         'Commissions',
         'Statutory deductions',
-        'Reimbursements',
+        'Reimbursements'
     ];
 
     const handleChange = (event, newValue) => {
         setValue(newValue);
         setSelectLabel(event.target.innerText);
-        setEditMode(false);
+        setEditMode(true);
     };
 
     function CustomTabPanel(props) {
@@ -125,14 +125,7 @@ function ContractContent({initialEditMode=false}) {
         <div className='contractContent_container'>
             <div className='header_flex'>
                 <h5 className='title'>Contract</h5>
-                {editMode && (
-                    <button className='edit_btn' onClick={() => setEditMode(true)}>
-                        <span className='icon'>
-                            <img src={Pen} alt='edit'></img>
-                        </span>
-                        {locales.edit_title}
-                    </button>
-                )}
+               
             </div>
 
             <div className='body_section'>

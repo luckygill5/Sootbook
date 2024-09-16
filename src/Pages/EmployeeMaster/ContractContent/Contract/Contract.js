@@ -3,11 +3,11 @@ import { isEmpty } from 'lodash';
 import { useFormik } from 'formik';
 import * as Yup from "yup";
 import swal from 'sweetalert';
-import { axiosClient } from '../../../../../services/axiosClient';
-import { DatePicker, Input, DataList, Select, TextArea } from '../../../../common/';
-import { DEPARTMENTS_LIST } from '../../../../../Constants/Contants.common';
+import { axiosClient } from '../../../../services/axiosClient';
+import {  DatePicker, Input, DataList, Select, TextArea} from '../../../../Components/common';
+import { DEPARTMENTS_LIST } from '../../../../Constants/Contants.common';
 import '../ContractContent.scss';
-import '../../../../common/common.component.scss';
+import '../../../../Components/common/common.component.scss';
 
 const contractConfig = [
     { label: 'Contract date', value: '24/02/2024', name: 'contract_start', type: 'date' },
@@ -113,8 +113,6 @@ function Contract({ mode, setEditMode, contractInformation, getContractInfo }) {
                                 error={errors.contract_start}
                                 touched={touched.contract_start}
                             />
-                        </div>
-                        <div className='input_flexbox'>
                             <Select
                                 label={'Department'}
                                 name={'department'}
@@ -139,6 +137,7 @@ function Contract({ mode, setEditMode, contractInformation, getContractInfo }) {
                                 touched={touched.designation}
                             />
                         </div>
+                        
                         <div className='input_flexbox'>
                             <Input
                                 label={'Basic Salary'}
@@ -186,7 +185,7 @@ function Contract({ mode, setEditMode, contractInformation, getContractInfo }) {
                                     { id: 'Afternoon', value: 'Afternoon' },
                                     { id: 'Evening', value: 'Evening' },
                                 ]}
-                                wrapperClass={'col4'}
+                                wrapperClass={'col6'}
                                 onChange={handleChange}
                                 isRequired
                                 error={errors.office_shift}
@@ -194,7 +193,7 @@ function Contract({ mode, setEditMode, contractInformation, getContractInfo }) {
                             />
                             <DatePicker
                                 label={'Contract End'}
-                                wrapperClass={'col4'}
+                                wrapperClass={'col6'}
                                 dateFormat={'dd/MM/yyyy'}
                                 name={'contract_end'}
                                 value={values.contract_end}
@@ -223,7 +222,7 @@ function Contract({ mode, setEditMode, contractInformation, getContractInfo }) {
                                 label={'Role Description'}
                                 name={'role_description'}
                                 value={values.role_description}
-                                wrapperClass={'col8'}
+                                wrapperClass={'col12'}
                                 onChange={handleChange}
                                 placeholder='Enter role description here..'
                             />
