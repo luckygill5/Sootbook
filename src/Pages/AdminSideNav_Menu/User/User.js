@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import UserRoleList from './UserRoleListing/UserRoleListing';
-import UserAdd from './AddUser/AddUser';
 import AddNewUser from './AddUser/AddNewUser';
 import CreateRole from './CreateRole/CreateRole';
 import './User.scss';
