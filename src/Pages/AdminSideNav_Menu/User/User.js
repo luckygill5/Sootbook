@@ -16,6 +16,7 @@ function User(props) {
     const handleUserNewRole = () => {
         setNewRole(true);
         setAddUser(false);
+        setEditUserData(null);
     };
 
     const handleBack = () => {
@@ -25,6 +26,7 @@ function User(props) {
     const handleBackHRM = () => {
         setNewRole(false);
         setAddUser(false);
+        setEditUserData(null);
     };
 
     return (

@@ -15,6 +15,7 @@ import SuccessIcon from '../../../../assets/images/Static Icon.svg';
 import ErrorModal from '../../../../Components/CommonErrorModal/ErrorModal';
 import locales from '../../../../Constants/en.json';
 import LeftArrow from '../../../../assets/images/arrow-left.svg';
+import './AddUser.scss';
 
 const addUserEditFormSchema = Yup.object({
     Role: Yup.string().required('Role is required.'),
