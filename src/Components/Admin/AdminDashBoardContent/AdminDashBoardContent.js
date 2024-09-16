@@ -150,6 +150,7 @@ function AdminDashBoardContent(props) {
     ]
 
 
+
     return (
         <React.Fragment>
             <div className={`dashboard_dataWrapper ${props.viewManage && 'expand_view'}`}>
@@ -179,10 +180,16 @@ function AdminDashBoardContent(props) {
                         <Link underline='hover' color='inherit' href='/'>
                             home
                         </Link>
-                        <Typography color='text.primary'>Applications</Typography>
+                        {
+                            props.breadcrumbUpdateData &&
+                            props.breadcrumbUpdateData.length > 0 ? props.breadcrumbUpdateData.map((data, index) => {
+                                return   <Typography key={index} color='text.primary'>{data}</Typography>
+                            }) : <Typography color='text.primary'>Applications</Typography>
+                        }
+                        
                     </Breadcrumbs>
                 </div>
-                { props.viewcontrol == "Product Master" ? (
+                { props.viewcontrol == "Products" ? (
                     <ProductMaster/>
                 ):
                  props.viewcontrol == "Employee" ? (

@@ -7,7 +7,8 @@ import './AdminDashboard.scss'
 function AdminDashboard(props){
 
     const [expandView, setExpandView] = useState(false);
-    const [MenuSelected, setMenuSelected] = useState('')
+    const [MenuSelected, setMenuSelected] = useState('');
+    const [breadcrumbUpdate, setBreadCrumbUpdate] = useState("")
 
     function handleExpandView(){
         setExpandView(!expandView)
@@ -15,6 +16,11 @@ function AdminDashboard(props){
 
     const handleSelecteMenu = (event) => {
         setMenuSelected(event)
+    }
+    
+    const handleUpdateBreadCrumb = (event) => {
+
+        setBreadCrumbUpdate(event)
     }
 
     useEffect(() => {
@@ -27,10 +33,12 @@ return(
             <AdminSideNav 
             expandControl={() => handleExpandView()} 
             SelecteMenuOption={(e) => handleSelecteMenu(e)}
+            updateBreadCrumb ={(e) => handleUpdateBreadCrumb(e)}
             />
             <AdminContentWrapper 
             viewManage={expandView}
             viewcontrol={MenuSelected}
+            breadcrumbUpdateData={breadcrumbUpdate}
             />
         </div>
     </React.Fragment>

@@ -5,7 +5,9 @@ import * as Yup from 'yup';
 import { useFormik } from 'formik';
 import axios from 'axios';
 import { axiosClient } from '../../../services/axiosClient';
-import {ReactComponent as Info} from  "../../../assets/images/info.svg"
+import {ReactComponent as Info} from  "../../../assets/images/info.svg";
+import {ReactComponent as Barcode} from  "../../../assets/images/sample-bar-code.svg";
+import QRcode from "../../../assets/images/sample-qr-code.png"
 import "./AddNewProduct.scss"
 
 
@@ -51,12 +53,13 @@ const productDetailInitialValues = {
     expDuration:"",
     weight:"",
     storageCondition:"",
-    returnable:"",
+    returnable:false,
     isInsurance:""
 
 };
 
-function ProductDetail({changeTab,ProductCreateList, productDetailData, preview, previewData}) {
+function ProductDetail({changeTab,ProductCreateList, productDetailData, preview, previewData, back, productBackData}) {
+
 
     const { values, handleBlur, handleChange, handleSubmit, errors, touched, setFieldValue } =
         useFormik({
@@ -67,7 +70,7 @@ function ProductDetail({changeTab,ProductCreateList, productDetailData, preview,
             enableReinitialize: true,
             onSubmit: (values, action) => {
                 handleFormSubmit(values);
-                action.resetForm();
+                // action.resetForm();
             },
         });
 
@@ -95,12 +98,29 @@ function ProductDetail({changeTab,ProductCreateList, productDetailData, preview,
             }
         })
         }
+        if(productBackData){
+            Object.entries(productBackData).map((item) => {
+                setFieldValue(item[0], item[1]);
+                if(item[0] == 'packaging' && item[1].length > 0 ){
+                    item[1].map((data,index) => {
+                        setFieldValue( `Sales_Packing_${index+1}` , data.packType);  
+                        setFieldValue( `Quantity_${index+1}` , data.quantity);
+                        setFieldValue( `Rate_${index+1}` , data.price);
+                        setFieldValue( `Stock_${index+1}` , data.stock);
+                          
+                        
+                    })
+    
+    
+                }
+            })
+        }
 
     }, [])
 
     const handleDraft = () => {
         // changeTab(1)
-      addProduct()
+    //   addProduct()
     }
 
     const addProduct = async event => {
@@ -151,10 +171,10 @@ function ProductDetail({changeTab,ProductCreateList, productDetailData, preview,
                         value={values.productCode}
                         wrapperClass={'col12'}
                         onChange={handleChange}
-                        onBlur={handleBlur}
                         error={errors.productCode}
                         touched={touched.productCode}
                         ReadOnly={preview ? true :false }
+                        
                     />
                 </div>
                 <div className='inputBox sm-20 lg-15'>
@@ -174,7 +194,7 @@ function ProductDetail({changeTab,ProductCreateList, productDetailData, preview,
                             })
                             
                            }
-                        // isRequired
+                        isRequired
                         wrapperClass={'col12'}
                         value={values.productType}
                         onChange={handleChange}
@@ -192,10 +212,10 @@ function ProductDetail({changeTab,ProductCreateList, productDetailData, preview,
                         value={values.name}
                         wrapperClass={'col12'}
                         onChange={handleChange}
-                        onBlur={handleBlur}
                         error={errors.name}
                         touched={touched.name}
                         ReadOnly={preview ? true :false }
+                        isRequired
                     />
                 </div>
                 <div className='inputBox sm-20 lg-20'>
@@ -208,6 +228,7 @@ function ProductDetail({changeTab,ProductCreateList, productDetailData, preview,
                         wrapperClass={'col12'}
                         onChange={handleChange}
                         ReadOnly={preview ? true :false }
+                        placeholder={preview && values.genericName=="" ? '-' : "Please type"}
                     />
                 </div>
                 <div className='inputBox sm-25 lg-25'>
@@ -225,7 +246,7 @@ function ProductDetail({changeTab,ProductCreateList, productDetailData, preview,
                                 )  
                             })
                         }
-                        // isRequired
+                        isRequired
                         wrapperClass={'col12'}
                         value={values.manufacturer}
                         onChange={handleChange}
@@ -286,6 +307,7 @@ function ProductDetail({changeTab,ProductCreateList, productDetailData, preview,
                         wrapperClass={'col12'}
                         onChange={handleChange}
                         ReadOnly={preview ? true :false }
+                        placeholder={preview && values.rack=="" ? '-' : "Please type"}
                     />
                 </div>
                 <div className='inputBox sm-10 lg-10'>
@@ -298,38 +320,49 @@ function ProductDetail({changeTab,ProductCreateList, productDetailData, preview,
                         wrapperClass={'col12'}
                         onChange={handleChange}
                         ReadOnly={preview ? true :false }
+                        placeholder={preview && values.shelf=="" ? '-' : "Please type"}
                     />
                 </div>
             </div>
             <div className='second_flexbox'>
-                <div className='leftCol'>
+                <div className={`leftCol ${preview && 'preview'}`}>
                     <div className='qrCodeFlexBox'>
                         <div className='leftCol'>
-                        <h5 className='title'>QR Code <span className='icon'><Info/></span></h5>
-                        <ul className='qrcodeinfo_list'>
+                        <h5 className='title'>QR Code {preview? null : <span className='icon'><Info/></span>}</h5>
+                        {preview ? <div className='qrCode_container'>
+                            <img src={QRcode} alt="qrcode" className='qrcode-icon'></img>
+                        </div> : <ul className='qrcodeinfo_list'>
                             <li>When clicking on “Scan QR code” point your camera at the QR code.</li>
                             <li>When clicking on “Auto generate” a new generated QR code will be displayed.</li>
-                        </ul>
+                        </ul>}
                         </div>
-                        <div className='rightCol'>
+                        {preview ? null : <div className='rightCol'>
                             <div className='actions'>
                                 <button type='button' className='autoBtn'>Auto generate</button>
                                 <button type='button' className='scanBtn'>Scan QR Code</button>
                             </div>
-                        </div>
+                        </div>}
                     </div>
                 </div>
-                <div className='rightCol'>
+                <div className={`rightCol ${preview && 'preview'}`}>
                 <div className='inputBox sm-40 lg-40'>
-                    <Input
-                        label={'Bar Code'}
-                        type={'text'}
-                        name={'barcode'}
-                        id={'title'}
-                        value={values.barcode}
-                        wrapperClass={'col12'}
-                        onChange={handleChange}
-                    />
+                   {
+                    preview ? <div className='barcode_box'>
+                        <label className='label'>Bar Code</label>
+                        <div className='barcode_container'>
+                            <Barcode/>
+                        </div>
+                    </div> :  <Input
+                    label={'Bar Code'}
+                    type={'text'}
+                    name={'barcode'}
+                    id={'title'}
+                    value={values.barcode}
+                    wrapperClass={'col12'}
+                    onChange={handleChange}
+                    placeholder={preview && values.barcode=="" ? '-' : "Please type"}
+                />
+                   }
                 </div>
                 <div className='inputBox sm-20 lg-20'>
                     <Input
@@ -340,6 +373,7 @@ function ProductDetail({changeTab,ProductCreateList, productDetailData, preview,
                         value={values.orderLevel}
                         wrapperClass={'col12'}
                         onChange={handleChange}
+                        placeholder={preview && values.orderLevel=="" ? '-' : "Please type"}
                     />
                 </div>
                 <div className='inputBox sm-20 lg-20'>
@@ -351,6 +385,7 @@ function ProductDetail({changeTab,ProductCreateList, productDetailData, preview,
                         value={values.minOrder}
                         wrapperClass={'col12'}
                         onChange={handleChange}
+                        placeholder={preview && values.minOrder=="" ? '-' : "Please type"}
                     />
                 </div>
                 <div className='inputBox sm-20 lg-20'>
@@ -362,6 +397,7 @@ function ProductDetail({changeTab,ProductCreateList, productDetailData, preview,
                         value={values.maxOrder}
                         wrapperClass={'col12'}
                         onChange={handleChange}
+                        placeholder={preview && values.maxOrder=="" ? '-' : "Please type"}
                     />
                 </div>
                 </div>
@@ -380,6 +416,7 @@ function ProductDetail({changeTab,ProductCreateList, productDetailData, preview,
                         wrapperClass={'col12'}
                         onChange={handleChange}
                         ReadOnly={preview ? true :false }
+                        placeholder={preview && values.buyingPrice=="" ? '-' : "Please type"}
                     />
                 </div>
                 <div className='inputBox sm-30 lg-30'>
@@ -392,6 +429,7 @@ function ProductDetail({changeTab,ProductCreateList, productDetailData, preview,
                         wrapperClass={'col12'}
                         onChange={handleChange}
                         ReadOnly={preview ? true :false }
+                        placeholder={preview && values.mrp=="" ? '-' : "Please type"}
                     />
                 </div>
                 <div className='inputBox sm-30 lg-30'>
@@ -404,6 +442,7 @@ function ProductDetail({changeTab,ProductCreateList, productDetailData, preview,
                         wrapperClass={'col12'}
                         onChange={handleChange}
                         ReadOnly={preview ? true :false }
+                        placeholder={preview && values.profit=="" ? '-' : "Please type"}
                     />
                 </div>
                 <div className='inputBox sm-30 lg-30'>
@@ -416,6 +455,7 @@ function ProductDetail({changeTab,ProductCreateList, productDetailData, preview,
                         wrapperClass={'col12'}
                         onChange={handleChange}
                         ReadOnly={preview ? true :false }
+                        placeholder={preview && values.netPrice=="" ? '-' : "Please type"}
                     />
                 </div>
                 <div className='inputBox sm-30 lg-30'>
@@ -428,6 +468,7 @@ function ProductDetail({changeTab,ProductCreateList, productDetailData, preview,
                         wrapperClass={'col12'}
                         onChange={handleChange}
                         ReadOnly={preview ? true :false }
+                        placeholder={preview && values.invPrice=="" ? '-' : "Please type"}
                     />
                 </div>
                 <div className='inputBox sm-30 lg-30'>
@@ -440,6 +481,7 @@ function ProductDetail({changeTab,ProductCreateList, productDetailData, preview,
                         wrapperClass={'col12'}
                         onChange={handleChange}
                         ReadOnly={preview ? true :false }
+                        placeholder={preview && values.vat=="" ? '-' : "Please type"}
                     />
                 </div>
                     </div>
@@ -475,6 +517,7 @@ function ProductDetail({changeTab,ProductCreateList, productDetailData, preview,
                         wrapperClass={'col12'}
                         onChange={handleChange}
                         ReadOnly={preview ? true :false }
+                        placeholder={preview && values.Quantity_1=="" ? '-' : "Please type"}
                     />
                 </div>
                 <div className='inputBox sm-20 lg-20'>
@@ -487,6 +530,7 @@ function ProductDetail({changeTab,ProductCreateList, productDetailData, preview,
                         wrapperClass={'col12'}
                         onChange={handleChange}
                         ReadOnly={preview ? true :false }
+                        placeholder={preview && values.Rate_1=="" ? '-' : "Please type"}
                     />
                 </div>
                 <div className='inputBox sm-20 lg-20'>
@@ -499,6 +543,7 @@ function ProductDetail({changeTab,ProductCreateList, productDetailData, preview,
                         wrapperClass={'col12'}
                         onChange={handleChange}
                         ReadOnly={preview ? true :false }
+                        placeholder={preview && values.Stock_1=="" ? '-' : "Please type"}
                     />
                 </div>
                 <div className='inputBox sm-30 lg-30'>
@@ -529,6 +574,7 @@ function ProductDetail({changeTab,ProductCreateList, productDetailData, preview,
                         wrapperClass={'col12'}
                         onChange={handleChange}
                         ReadOnly={preview ? true :false }
+                        placeholder={preview && values.Quantity_2=="" ? '-' : "Please type"}
                     />
                 </div>
                 <div className='inputBox sm-20 lg-20'>
@@ -541,6 +587,7 @@ function ProductDetail({changeTab,ProductCreateList, productDetailData, preview,
                         wrapperClass={'col12'}
                         onChange={handleChange}
                         ReadOnly={preview ? true :false }
+                        placeholder={preview && values.Rate_2=="" ? '-' : "Please type"}
                     />
                 </div>
                 <div className='inputBox sm-20 lg-20'>
@@ -553,6 +600,7 @@ function ProductDetail({changeTab,ProductCreateList, productDetailData, preview,
                         wrapperClass={'col12'}
                         onChange={handleChange}
                         ReadOnly={preview ? true :false }
+                        placeholder={preview && values.Stock_2=="" ? '-' : "Please type"}
                     />
                 </div>
                 <div className='inputBox sm-30 lg-30'>
@@ -583,6 +631,7 @@ function ProductDetail({changeTab,ProductCreateList, productDetailData, preview,
                         wrapperClass={'col12'}
                         onChange={handleChange}
                         ReadOnly={preview ? true :false }
+                        placeholder={preview && values.Quantity_3=="" ? '-' : "Please type"}
                     />
                 </div>
                 <div className='inputBox sm-20 lg-20'>
@@ -595,6 +644,7 @@ function ProductDetail({changeTab,ProductCreateList, productDetailData, preview,
                         wrapperClass={'col12'}
                         onChange={handleChange}
                         ReadOnly={preview ? true :false }
+                        placeholder={preview && values.Rate_3=="" ? '-' : "Please type"}
                     />
                 </div>
                 <div className='inputBox sm-20 lg-20'>
@@ -607,6 +657,7 @@ function ProductDetail({changeTab,ProductCreateList, productDetailData, preview,
                         wrapperClass={'col12'}
                         onChange={handleChange}
                         ReadOnly={preview ? true :false }
+                        placeholder={preview && values.Stock_3=="" ? '-' : "Please type"}
                     />
                 </div>
                 </div>
@@ -624,6 +675,7 @@ function ProductDetail({changeTab,ProductCreateList, productDetailData, preview,
                         wrapperClass={'col12'}
                         onChange={handleChange}
                         ReadOnly={preview ? true :false }
+                        placeholder={preview && values.expDuration=="" ? '-' : "Please type"}
                     />
                 </div>
                 <div className='inputBox sm-30 lg-30'>
@@ -653,6 +705,7 @@ function ProductDetail({changeTab,ProductCreateList, productDetailData, preview,
                         wrapperClass={'col12'}
                         onChange={handleChange}
                         ReadOnly={preview ? true :false }
+                        placeholder={preview && values.weight=="" ? '-' : "Please type"}
                     />
                 </div>
                 <div className='inputBox sm-30 lg-30'>
@@ -665,6 +718,7 @@ function ProductDetail({changeTab,ProductCreateList, productDetailData, preview,
                         wrapperClass={'col12'}
                         onChange={handleChange}
                         ReadOnly={preview ? true :false }
+                        placeholder={preview && values.storageCondition=="" ? '-' : "Please type"}
                     />
                 </div>
                 <div className='inputBox sm-30 lg-30'>
@@ -694,16 +748,17 @@ function ProductDetail({changeTab,ProductCreateList, productDetailData, preview,
                         wrapperClass={'col12'}
                         onChange={handleChange}
                         ReadOnly={preview ? true :false }
+                        placeholder={preview && values.strength=="" ? '-' : "Please type"}
                     />
                 </div>
                 </div>
             </div>
             <div className='actionFlexbox'>
-                <button type='button' className='draftBtn' onClick={handleDraft}>Save Draft</button>
+                {preview ? null : <React.Fragment><button type='button' className='draftBtn' onClick={handleDraft}>Save Draft</button>
                 <div className='rightCol'>
-                <button type='button' className='canceltBtn'>Cancel</button>
-                <button type='button' className='nextBtn' onClick={handleSubmit}>Next</button> 
-                </div>
+                <button type='button' className='canceltBtn' onClick={() => back()}>Back</button>
+                <button type='button' className='nextBtn' onClick={handleSubmit}>Next</button>  
+                </div> </React.Fragment>}
             </div>
         </div>
     )

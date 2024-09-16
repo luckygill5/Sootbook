@@ -11,11 +11,12 @@ import UploadProduct from './UploadProduct';
 import { axiosClient } from '../../../services/axiosClient';
 import './AddNewProduct.scss'
 
-function AddNewProduct({back, preview, previewData,removePreviewMode }) {
+function AddNewProduct({ back, preview, previewData, removePreviewMode, successModalClose }) {
     const [value, setValue] = useState(0);
     const [productCreateList, setProductCreateList] = useState("");
-    const [ecommercedata, setEcommerceData] =  useState("")
-    const [productDetailsCollection, setProductDetailsCollection] = useState("")
+    const [ecommercedata, setEcommerceData] = useState("")
+    const [productDetailsCollection, setProductDetailsCollection] = useState("");
+
     const handleChange = (event, newValue) => {
         setValue(newValue);
     };
@@ -44,31 +45,31 @@ function AddNewProduct({back, preview, previewData,removePreviewMode }) {
     }
 
     const handleProductCreateList = async event => {
-        const accessToken =  `Bearer ${sessionStorage.accessToken} `
-        try{
+        const accessToken = `Bearer ${sessionStorage.accessToken} `
+        try {
             let response = await axiosClient.get(
                 `admin/product/create/list`, {
-                    headers : {
-                        'Content-Type': 'application/json',
-                        'x-via-device': true,
-                        'Authorization' : accessToken
-                    },
-                }
-
-            );
-            if(response.status == 200){
-                setProductCreateList( response?.data?.data)
+                headers: {
+                    'Content-Type': 'application/json',
+                    'x-via-device': true,
+                    'Authorization': accessToken
+                },
             }
 
-        }catch(error){
+            );
+            if (response.status == 200) {
+                setProductCreateList(response?.data?.data)
+            }
+
+        } catch (error) {
             console.log("error", error)
         }
-       
+
     }
 
     useEffect(() => {
         handleProductCreateList()
-    },[])
+    }, [])
 
 
     const handleTabs = (event) => {
@@ -80,10 +81,12 @@ function AddNewProduct({back, preview, previewData,removePreviewMode }) {
     }
 
     const handleEcommerceData = (event) => {
-        setEcommerceData(event) 
+        setEcommerceData(event)
     }
-    const AddProductTabs = ['Product Details', "E-commerce Details", "Images"]
 
+
+    const AddProductTabs = ['Product Details', "E-commerce Details", "Images"]
+    
     return (
         <div className='addNewProduct_container'>
             <div className='backLink'>
@@ -94,13 +97,34 @@ function AddNewProduct({back, preview, previewData,removePreviewMode }) {
                     Back to Product Master
                 </span>
             </div>
-            <div className='container_section'>
-                <h1 className='section_title'>Add New Product</h1>
+            <div className={`container_section ${preview ? 'preview':''}`}>
+                {preview ? <div className='header_section'>
+                    <div className='section_flexbox'>
+                        <div className='leftInfo_flexbox'>
+                            <div className='imgBox'>
+                                <img src={previewData && previewData.image[0]} alt="thumbnail" className='preview'></img>
+                            </div>
+                            <div className='info'>
+                                <div className='flexbox'>
+                                    <h5 className='title'>{previewData && previewData.name}</h5><span className='status green'>Available</span>
+                                </div>
+                                <span className='lastUpdated'>
+                                    Last Updated on {new Date(`${previewData && previewData.updatedAt}`).toDateString()}
+                                </span>
+                            </div>
+                        </div>
+                        <div className='rightInfo_flexbox'>
+                            <button className='histroyBtn' type='button'>Transaction History</button>
+                            <button className='stockBtn' type='button'>Stock</button>
+                        </div>
+                    </div>
+                </div> :
+                    <h1 className='section_title'>Add New Product</h1>}
                 <Box className="tabsContainer" sx={{ width: '100%' }}>
                     <Box className="tabFlexContainer">
-                        <Tabs value={value} 
-                        onChange={preview ? handleChange : ''} 
-                        aria-label="basic tabs example">
+                        <Tabs value={value}
+                            onChange={preview ? handleChange : ''}
+                            aria-label="basic tabs example">
                             {
                                 AddProductTabs &&
                                 AddProductTabs.length > 0 &&
@@ -112,23 +136,23 @@ function AddNewProduct({back, preview, previewData,removePreviewMode }) {
                             }
                         </Tabs>
                         {
-                        preview ? <button className='editBtn' onClick={() => removePreviewMode()}>
-                            <span className='icon'>
-                                <Edit/>
-                            </span>
-                            Edit
-                        </button> : ""
-                    }
+                            preview ? <button className='editBtn' onClick={() => removePreviewMode()}>
+                                <span className='icon'>
+                                    <Edit />
+                                </span>
+                                Edit
+                            </button> : ""
+                        }
                     </Box>
-                   
+
                     <CustomTabPanel value={value} index={0} className="tabContentContainer">
-                      <ProductDetail preview={preview} previewData={previewData} productDetailData={(e) => handleProductDetailData(e)} ProductCreateList={productCreateList} changeTab={(e) => handleTabs(e)}/>
+                        <ProductDetail preview={preview} previewData={previewData} productDetailData={(e) => handleProductDetailData(e)} ProductCreateList={productCreateList} changeTab={(e) => handleTabs(e)} back={back} productBackData={productDetailsCollection} />
                     </CustomTabPanel>
                     <CustomTabPanel value={value} index={1} className="tabContentContainer">
-                     <ECommerceDetails preview={preview} previewData={previewData} ECommerceDetailsData={(e) => handleEcommerceData(e)} ProductCreateList={productCreateList} changeTab={(e) => handleTabs(e)}/>
+                        <ECommerceDetails preview={preview} previewData={previewData} ECommerceDetailsData={(e) => handleEcommerceData(e)} ProductCreateList={productCreateList} changeTab={(e) => handleTabs(e)} ecommerceBackData={ecommercedata} />
                     </CustomTabPanel>
                     <CustomTabPanel value={value} index={2} className="tabContentContainer">
-                        <UploadProduct preview={preview} previewData={previewData} productData={productDetailsCollection} ecommerceData={ecommercedata} changeTab={(e) => handleTabs(e)}/>
+                        <UploadProduct preview={preview} previewData={previewData} productData={productDetailsCollection} ecommerceData={ecommercedata} changeTab={(e) => handleTabs(e)} successModalClose={() => successModalClose()} />
                     </CustomTabPanel>
                 </Box>
             </div>

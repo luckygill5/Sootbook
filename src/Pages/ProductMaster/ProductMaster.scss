@@ -244,8 +244,12 @@ $font-monsterat : 'Montserrat';
                                         border-radius: 12px;
                                         background-color: $white;
                                         padding: 16px;
+                                        @include flexbox();
+                                        align-items: flex-start;
+                                        flex-direction: column;
                                         .head_flexbox{
                                             @include flexbox();
+                                            width: 100%;
                                             justify-content: space-between;
                                             .thumbnail{
                                                 width: 80px;
@@ -269,6 +273,13 @@ $font-monsterat : 'Montserrat';
                                                     @include flexbox();
                                                     align-items: center;
                                                     justify-content: center;
+                                                    svg{
+                                                        g{
+                                                            path{
+                                                                stroke: #6B7280;
+                                                            }
+                                                        }
+                                                    }
                                                 }
                                             }
                                         }
@@ -282,6 +293,9 @@ $font-monsterat : 'Montserrat';
                                             margin-top: 16px;
                                             margin-bottom: 4px;
                                             text-align:left;    
+                                            display: inline-block;
+                                            margin-right: auto;
+                                            cursor: pointer;
                                         }
                                         .subtitle{
                                             display: block;
@@ -297,6 +311,7 @@ $font-monsterat : 'Montserrat';
                                             padding: 16px;
                                             border-radius: 8px;
                                             background-color: #F3F4F6;
+                                            width: 100%;
                                             ul{
                                                 margin: 0;
                                                 padding: 0;
@@ -338,6 +353,112 @@ $font-monsterat : 'Montserrat';
                                         width: 100%;
                                     }
                                 }
+                            }
+                            .paginationsection{
+                                @include flexbox();
+                                align-items: center;
+                                justify-content: space-between;
+                                margin-top: 8px;
+                                .leftCol{
+                                   .navigation_listing{
+                                   margin: 0;
+                                   padding: 0;
+                                   @include flexbox();
+                                   li{
+                                    list-style: none;
+                                    .text{
+                                        width: 38px;
+                                        height: 43px;
+                                        @include flexbox();
+                                        align-items: center;
+                                        justify-content: center;
+                                        font-size: 16px;
+                                        font-style: normal;
+                                        font-weight: 500;
+                                        line-height: 24px; /* 150% */
+                                        letter-spacing: 0.08px;
+                                        color: #6B7280;
+                                        cursor: pointer;
+                                        &.select {
+                                            background-color: #E5E7EB;
+                                            border-radius: 8px;
+                                        }
+                                        &.more{
+                                            padding-bottom: 10px;
+                                        }
+
+                                    }
+                                    .pev-arrow{
+                                        width: 38px;
+                                        height: 43px;
+                                        @include flexbox();
+                                        align-items: center;
+                                        justify-content: center;
+                                        cursor: pointer;
+                                        svg{
+                                            transform: rotate(180deg)
+                                        } 
+                                    }
+                                    .next-arrow{
+                                        width: 38px;
+                                        height: 43px;
+                                        @include flexbox();
+                                        align-items: center;
+                                        justify-content: center;
+                                        cursor: pointer;
+                                        svg{
+                                            transform: rotate(0deg)
+                                        }  
+                                    }
+                                   }
+                                } 
+                                }
+                                .rightCol{
+                                    .flexbox{
+                                        @include flexbox();
+                                        align-items: center;
+                                        .label{
+                                            display: inline-block;
+                                            font-size: 16px;
+                                            font-style: normal;
+                                            font-weight: 500;
+                                            line-height: 24px; /* 150% */
+                                            letter-spacing: 0.08px;
+                                            color: #6B7280;  
+                                        }
+                                        input[type=text]{
+                                            margin: 0 12px;
+                                            width: 64px;
+                                            height: 40px;
+                                            box-shadow: 0px 4px 4px 0px inset rgba(0, 0, 0, 0.25), -7px -7px 7px 0px inset #FFF;
+                                            background-color: #f2f5fa;
+                                            padding: 10px 12px;
+                                            border-radius: 6px;
+                                            border: none;
+                                            outline: none;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        
+    }
+    &.editMode{
+
+        .addNewProduct_container{
+            .container_section {
+                .tabsContainer {
+                    .tabContentContainer{
+                        .MuiBox-root{
+                            .draftBtn, .saveDraftBtn{
+                                display: none;
+                            }
+                            .rightCol, .action_flexContainer{
+                                margin-left: auto;
                             }
                         }
                     }

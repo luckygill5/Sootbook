@@ -14,7 +14,7 @@ import "./AddNewProduct.scss"
 
 
 const eCommerceDetailInitialValues = {
-    canDisplay: "",
+    canDisplay: "false",
     firstCategory:"",
     secondCategory:"",
     thirdCategory:"",
@@ -32,7 +32,7 @@ const eCommerceDetailInitialValues = {
 };
 
 
-function ECommerceDetails({ProductCreateList, changeTab,ECommerceDetailsData, preview, previewData}) {
+function ECommerceDetails({ProductCreateList, changeTab,ECommerceDetailsData, preview, previewData, ecommerceBackData}) {
 
     const [categoryLevel2, setCategoryLevel2] = useState('');
     const [categoryLevel3, setCategoryLevel3] = useState('');
@@ -47,7 +47,7 @@ function ECommerceDetails({ProductCreateList, changeTab,ECommerceDetailsData, pr
             enableReinitialize: true,
             onSubmit: (values, action) => {
                 handleFormSubmit(values);
-                action.resetForm();
+                // action.resetForm();
             },
         });
 
@@ -132,6 +132,11 @@ function ECommerceDetails({ProductCreateList, changeTab,ECommerceDetailsData, pr
         Object.entries(previewData).map((item) => {
             setFieldValue(item[0], item[1]);
         })
+        }
+        if(ecommerceBackData){
+            Object.entries(ecommerceBackData).map((item) => {
+                setFieldValue(item[0], item[1]);
+            })  
         }
 
     }, [])
@@ -385,11 +390,14 @@ function ECommerceDetails({ProductCreateList, changeTab,ECommerceDetailsData, pr
                 </div>
             </div>
             <div className='actionFlexbox'>
+               { preview ? null : <React.Fragment>
                 <button type='button' className='draftBtn' onClick={handleDraft}>Save Draft</button>
                 <div className='rightCol'>
-                    <button type='button' className='canceltBtn' onClick={() => changeTab(0)}>Cancel</button>
+                    <button type='button' className='canceltBtn' onClick={() => changeTab(0)}>Back</button>
                     <button type='button' className='nextBtn' onClick={handleSubmit}>Next</button>
                 </div>
+                </React.Fragment>
+               } 
             </div>
         </div>
     )
