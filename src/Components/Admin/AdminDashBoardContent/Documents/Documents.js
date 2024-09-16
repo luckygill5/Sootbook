@@ -17,10 +17,10 @@ const documentInitialValues = {
     document_expiry: '',
 };
 
-function Documents(props) {
+function Documents({initialEditMode=false}) {
     const fileTypes = ['JPG', 'PNG', 'GIF'];
     const [file, setFile] = useState(null);
-    const [editMode, setEditMode] = useState(false);
+    const [editMode, setEditMode] = useState(initialEditMode);
     const [formData, setFormData] = useState({ Search: '' });
 
     const handleFormSubmit = async values => {
@@ -48,7 +48,7 @@ function Documents(props) {
             :{' '}
             <div className='header_flex'>
                 <h5 className='title'>Documents</h5>
-                {editMode ? null : (
+                {editMode ? "" : (
                     <button className='edit_btn' onClick={() => setEditMode(true)}>
                         <span className='icon'>
                             <img src={Pen} alt='edit'></img>

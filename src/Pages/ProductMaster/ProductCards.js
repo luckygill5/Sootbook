@@ -13,8 +13,7 @@ function ProductCards({ productData }) {
     return (
         <div className='productCard_container'>
             <div className='card_flexContainer'>
-                {productData &&
-                    productData.length > 0 ?
+                {productData ?
                     productData &&
                     productData.length > 0 &&
                     productData.map((data) => {

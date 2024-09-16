@@ -20,7 +20,7 @@ function ProductMaster() {
     const [value, setValue] = useState(0);
     const [addProduct, setAddProduct] = useState(false);
     const [toggleView, setToggleView] = useState("Card");
-    const [productListCard, setProductListCard] =  useState("");
+    const [productListCard, setProductListCard] =  useState(null);
     const [draftListData, setDraftListData] =  useState("");
     const [tableFilterHeader, setTableFilterHeader] =  useState("");
     const [previewMode, setPreviewMode] = useState();

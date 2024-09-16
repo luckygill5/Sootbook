@@ -1,4 +1,5 @@
 export * from './Button'
+export * from './SelectWithInput'
 export * from './DataList'
 export * from './DatePicker'
 export * from './Input'

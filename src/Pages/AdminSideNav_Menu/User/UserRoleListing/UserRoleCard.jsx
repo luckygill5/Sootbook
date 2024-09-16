@@ -7,7 +7,7 @@ import { ReactComponent as Mail } from "../../../../assets/images/mail.svg";
 import "../User.scss"
 
 
-function CardLayout({ cardData, employeData }) {
+function CardLayout({ employeData, setEditUserData, Userhandle}) {
 
     return (
         <div className='cardview_flexbox'>
@@ -32,7 +32,7 @@ function CardLayout({ cardData, employeData }) {
                                     <div className='actions'>
                                         <span className='statusLabel'>{item.status}</span>
                                         <button className='actionBtn'><Bin /></button>
-                                        <button className='actionBtn'><Pen /></button>
+                                        <button className='actionBtn' onClick={() => {Userhandle();setEditUserData(item)} }><Pen /></button>
                                     </div>
                                 </div>
                                 <div className='personal_info'>

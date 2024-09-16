@@ -4,6 +4,7 @@ $white: #FFF;
 $black: #000;
 $text: #1F2937;
 $buttonColor: #00A9BB;
+$colorRed: #ff073a;
 
 $font-monsterat : 'Montserrat';
 
@@ -17,110 +18,133 @@ $font-monsterat : 'Montserrat';
 
     .upperStatus_flexbox {
         @include flexbox();
-        column-gap: 12px;
-        margin-bottom: 12px;
+        column-gap: vw(12px);
+        margin-bottom: vw(12px);
+        margin-left: vw(6px);
+        margin-right: vw(6px);
+        width: calc(100% - vw(12px));
 
         .selectYear {
-            width: 15%;
+            width: 30%;
 
             .label {
                 display: block;
                 text-align: left;
-                font-size: 14px;
+                font-size: vw(14px);
                 font-style: normal;
                 font-weight: 500;
-                line-height: 20px;
+                line-height: vw(20px);
                 /* 142.857% */
                 letter-spacing: 0.07px;
                 color: $text;
-                margin-bottom: 8px;
+                margin-bottom: vw(8px);
             }
-            .MuiFormControl-root{
-                &.dateFilter{
-                    .MuiInputBase-root {
-                        height: 48px;
-                        box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25), -7px -7px 7px 0px #FFF;
-                        border-radius: 8px;
-                        border: 1px solid #E5E7EB;
-                        .MuiInputBase-input {
-                            height: 48px; 
-                            padding-left: 10px;
-                            padding-top: 0;
-                            padding-bottom: 0;
-                            font-size: 14px;
-                            font-style: normal;
-                            font-weight: 400;
-                            line-height: 20px; /* 142.857% */
-                            letter-spacing: 0.07px;
-                            color: #6B7280; 
-                            font-family: $font-monsterat;
-                        }
-                        fieldset{
-                            display: none;
+            .flexbox{
+                @include flexbox();
+                &.col6{
+                    margin: 0 vw(-5px);
+                    .MuiFormControl-root {
+                        width: 50%;
+                        margin: 0 vw(5px);
+                        &.dateFilter {
+                            .MuiInputBase-root {
+                                height: vw(48px);
+                                box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25), -7px -7px 7px 0px #FFF;
+                                border-radius: vw(8px);
+                                border: 1px solid #E5E7EB;
+                                width: 100%;
+        
+                                .MuiInputBase-input {
+                                    height: vw(48px);
+                                    padding-left: 10px;
+                                    padding-top: 0;
+                                    padding-bottom: 0;
+                                    font-size: vw(14px);
+                                    font-style: normal;
+                                    font-weight: 400;
+                                    line-height: vw(20px);
+                                    /* 142.857% */
+                                    letter-spacing: 0.07px;
+                                    color: #6B7280;
+                                    font-family: $font-monsterat;
+                                }
+        
+                                fieldset {
+                                    display: none;
+                                }
+                            }
                         }
                     }
                 }
             }
-             
+            
+
         }
 
         .totalData_flexbox {
-            width: 19%;
+            width: 16.33%;
             position: relative;
             box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25), -1px -7px 7px 0px #FFF;
             border-radius: 6px;
-            padding: 12px 16px 12px 20px;
+            padding: vw(12px) vw(16px) vw(12px) vw(20px);
             @include flexbox();
             justify-content: space-between;
             align-items: center;
-            &:nth-child(3){
-                &::before{
+
+            &:nth-child(3) {
+                &::before {
                     background-color: #5ada86;
                 }
             }
+
             &::before {
                 content: '';
                 display: inline-block;
                 position: absolute;
                 left: 0;
                 top: 0;
-                width: 8px;
+                width: vw(8px);
                 height: 100%;
                 background-color: #009859;
                 border-radius: 6px 0px 0px 6px;
             }
 
             .icon_block {
-                width: 64px;
-                height: 64px;
+                width: 2.3333333333vw;
+                height: 2.3333333333vw;
                 border-radius: 50%;
                 @include flexbox();
                 align-items: center;
                 justify-content: center;
                 background-color: #009859;
+
+                .icon-img {
+                    width: calc(2.3333333333vw - 10px);
+                    height: calc(2.3333333333vw - 10px);
+                }
             }
 
             .info {
                 .title {
                     margin-top: 0;
-                    font-size: 14px;
+                    font-size: vw(14px);
                     font-style: normal;
                     font-weight: 600;
-                    line-height: 20px;
+                    line-height: vw(20px);
                     /* 142.857% */
                     letter-spacing: 0.07px;
                     color: #4B5563;
-                    margin-bottom: 4px;
+                    margin-bottom: vw(4px);
                     text-align: right;
                 }
 
                 .value {
                     display: block;
                     text-align: right;
-                    font-size: 26px;
+                    font-size: vw(26px);
                     font-style: normal;
                     font-weight: 600;
-                    line-height: 28px;
+                    line-height: vw(28px);
                     /* 147.368% */
                     letter-spacing: 0.095px;
                     color: #009859;
@@ -130,16 +154,17 @@ $font-monsterat : 'Montserrat';
         }
 
         .license_info {
-            width: 23%;
-            border-radius: 4.455px;
-            padding: 11.9px;
-            box-shadow: 0px 2.97px 2.97px 0px rgba(0, 0, 0, 0.25), -0.742px -5.197px 5.197px 0px #FFF;
-            height: 105px;
+            width: 21%;
             @include flexbox();
-            align-items: center;
-            justify-content: center;
+            align-items: flex-start;
 
             .msg {
+                border-radius: vw(4.455px);
+                padding: vw(11.9px);
+                box-shadow: 0px 2.97px 2.97px 0px rgba(0, 0, 0, 0.25), -0.742px -5.197px 5.197px 0px #FFF;
+                @include flexbox();
+                height: 100%;
+                justify-content: center;
                 margin: 0;
                 @include flexbox();
                 align-items: flex-start;
@@ -151,7 +176,7 @@ $font-monsterat : 'Montserrat';
                     svg {
                         g {
                             path {
-                                stroke: #F87171;
+                                stroke: $colorRed;
                             }
                         }
                     }
@@ -160,77 +185,214 @@ $font-monsterat : 'Montserrat';
 
                 .text {
                     display: inline-flex;
-                    font-size: 14px;
+                    font-size: vw(14px);
                     font-style: normal;
                     font-weight: 400;
-                    line-height: 20px;
+                    line-height: vw(20px);
                     /* 142.857% */
                     letter-spacing: 0.07px;
-                    color: #F87171;
+                    color: $colorRed;
                     text-align: left;
                 }
             }
+
+            .resetOpt {
+                text-align: right;
+                margin-left: 10px;
+
+                .resetBtn {
+                    display: inline-block;
+                    font-size: vw(12px);
+                    font-weight: normal;
+                    line-height: normal;
+                    color: $colorRed;
+                    cursor: pointer;
+                    padding: vw(6px);
+                    border-radius: vw(4.455px);
+                    box-shadow: 0px 2.97px 2.97px 0px rgba(0, 0, 0, 0.25), -0.742px -5.197px 5.197px 0px #FFF;
+
+                    &.active {
+                        box-shadow: none;
+                        background-color: $colorRed;
+                        color: $white
+                    }
+                }
+            }
+
 
         }
     }
 
     .draggable_flexContainer {
         @include flexbox();
-        // align-items: flex-start;
-        row-gap: 12px;
+        align-items: flex-start;
+        row-gap: vw(12px);
         flex-wrap: wrap;
         width: 100%;
         position: relative;
 
-        .salechannel, .returnGoods {
-            width: calc(17% - 12px);
-            margin: 0 6px;
+        .chartFlexbox {
+            margin: 0 vw(6px);
             box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25), -1px -7px 7px 0px #FFF;
-            border-radius: 12px;
-            padding: 12px;
+            border-radius: vw(12px);
+            padding: vw(12px);
             background-color: #F2F5FA;
             position: relative;
             z-index: 2;
+            @include flexbox();
+            flex-direction: column;
 
             .max-view {
                 @include flexbox();
                 justify-content: flex-end;
 
                 .maximize {
-                    width: 8px;
-                    height: 8px;
+                    width: vw(8px);
+                    height: vw(8px);
                     display: inline-flex;
                     cursor: pointer;
                 }
             }
 
             .chart_container {
-                margin: 0 -12px;
-                // width: 100%;
                 @include flexbox();
                 align-items: center;
                 justify-content: center;
-                // transform: scale(1.5) translateY(8px);
-                // canvas{
-                //     width: 100% !important;
-                //     height: 100% !important;
 
-                // }
+                // margin-top: auto;
+                canvas {
+                    width: 100% !important;
+                    height: 100% !important;
+                }
+            }
+
+            .head_flexbox {
+                margin-bottom: auto;
+                @include flexbox();
+                align-items: center;
+                justify-content: space-between;
+                margin-bottom: vw(8px);
+                margin-top: vw(8px);
+
+                .section_title {
+                    font-size: vw(14px);
+                    font-style: normal;
+                    font-weight: 600;
+                    line-height: vw(20px);
+                    /* 142.857% */
+                    letter-spacing: 0.07px;
+                    color: $text;
+                    margin: 0px 0px;
+                }
+
+                .options {
+                    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+                    background-color: #F2F5FA;
+                    border-radius: vw(8px);
+                    cursor: pointer;
+                    width: vw(44px);
+                    height: vw(36px);
+                    @include flexbox();
+                    align-items: center;
+                    justify-content: center;
+                    border: none;
+
+                    &:focus:not(:focus-visible) {
+                        outline: none;
+                    }
+                }
+
+                .selectMonthBox {
+                    width: vw(104px);
+
+                    .inputField {
+                        margin: 0;
+                        position: relative;
+
+                        label {
+                            display: inline-block;
+                            font-size: vw(14px);
+                            font-style: normal;
+                            font-weight: 400;
+                            line-height: 20px;
+                            /* 142.857% */
+                            letter-spacing: 0.07px;
+                            color: #6B7280;
+                        }
+
+                        .MuiInputBase-root {
+                            position: relative;
+                            z-index: 1;
+
+                            &::before {
+                                content: "Monthly";
+                                display: inline-block;
+                                font-size: vw(14px);
+                                font-style: normal;
+                                font-weight: 400;
+                                line-height: 20px;
+                                /* 142.857% */
+                                letter-spacing: 0.07px;
+                                color: #6B7280;
+                                font-family: $font-monsterat;
+                                position: absolute;
+                                left: 5px;
+                                top: 50%;
+                                transform: translateY(-50%);
+                                z-index: 1;
+                            }
+
+                            .MuiSvgIcon-root {
+                                right: 3px;
+                            }
+
+                            .MuiSelect-select {
+                                height: vw(40px);
+                                padding-top: vw(12px);
+                                padding-bottom: vw(12px);
+                                // box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.05);
+                                border: 1px solid #E5E7EB;
+                                position: relative;
+                                padding-left: vw(10px);
+                                padding-right: vw(32px);
+                                font-size: vw(14px);
+                                font-style: normal;
+                                font-weight: 400;
+                                line-height: 20px;
+                                /* 142.857% */
+                                letter-spacing: 0.07px;
+                                color: #6B7280;
+                                @include flexbox();
+                                align-items: center;
+                            }
+                        }
+
+                        &.active {
+                            .MuiInputBase-root {
+                                &::before {
+                                    display: none;
+                                }
+                            }
+                        }
+
+                    }
+                }
             }
 
             .section_title {
-                font-size: 14px;
+                font-size: vw(14px);
                 font-style: normal;
                 font-weight: 600;
-                line-height: 20px;
+                line-height: vw(20px);
                 /* 142.857% */
                 letter-spacing: 0.07px;
                 color: $text;
-                margin: 8px 0px 8px 0px;
+                margin: vw(8px) vw(0px);
+                text-align: left;
             }
 
             .indicator_info {
-                margin-top:0px;
+                margin-top: 0px;
                 margin-bottom: 0;
                 padding: 0;
                 width: 90%;
@@ -241,30 +403,30 @@ $font-monsterat : 'Montserrat';
                     @include flexbox();
                     justify-content: flex-start;
                     align-items: center;
-                    margin-bottom: 4px;
+                    margin-bottom: vw(4px);
 
                     &:last-child {
                         margin-bottom: 0;
                     }
 
                     .text {
-                        font-size: 12px;
+                        font-size: vw(12px);
                         font-style: normal;
                         font-weight: 600;
-                        line-height: 16px;
+                        line-height: vw(16px);
                         /* 133.333% */
                         letter-spacing: 0.06px;
                         display: block;
                         text-align: left;
                         color: $text;
-                        margin-left: 10px;
+                        margin-left: vw(10px);
                     }
 
                     .circle {
                         display: inline-block;
                         border-radius: 50%;
-                        width: 8px;
-                        height: 8px;
+                        width: vw(8px);
+                        height: vw(8px);
 
                         &.dark-green {
                             background-color: #007746;
@@ -283,408 +445,272 @@ $font-monsterat : 'Montserrat';
                 }
 
             }
-        }
 
-        .salemonth {
-            @include flexbox();
-            margin: 0 6px;
-            flex-direction: column;
-            justify-content: space-between;
-            width: calc(41.5% - 12px);
-            box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25), -1px -7px 7px 0px #FFF;
-            border-radius: 12px;
-            padding: 12px;
-            background-color: #F2F5FA;
-            position: relative;
-            z-index: 2;
-
-            .max-view {
-                @include flexbox();
-                justify-content: flex-end;
-
-                .maximize {
-                    width: 8px;
-                    height: 8px;
-                    display: inline-flex;
-                    cursor: pointer;
-                }
-            }
-
-            .chart_container {
-                @include flexbox();
-                align-items: center;
-                justify-content: center;
-
-                canvas {
-                    width: 100% !important;
-                    height: 100% !important;
-                }
-            }
-
-            .head_flexbox {
-                margin-bottom: auto;
-                @include flexbox();
-                align-items: center;
-                justify-content: space-between;
-                margin-bottom: 8px;
-                margin-top: 8px;
-                .section_title {
-                    font-size: 14px;
-                    font-style: normal;
-                    font-weight: 600;
-                    line-height: 20px;
-                    /* 142.857% */
-                    letter-spacing: 0.07px;
-                    color: $text;
-                    margin: 0px 0px;
-                }
-                .selectMonthBox{
-                    width: 104px;
-                    .inputField {
-                        margin:0;
-                        .MuiSelect-select{
-                            height: 40px;
-                            padding-top: 12px;
-                            padding-bottom: 12px;
-                            // box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.05);
-                            border: 1px solid #E5E7EB;
-
-                        }
-                    }
-                }
-            }
-            .indicator{
-                margin-bottom: 8px;
-                @include flexbox();
-                align-items: center;
-                span{
-                display: inline-block;
-                &.mark{
-                    width: 8px;
-                    height: 8px;
-                    border-radius: 50%;
-                    &.green{
-                        background-color:#007746;
-                    }
-                }
-                &.text{
-                    font-size: 12px;
-                    font-style: normal;
-                    font-weight: 400;
-                    line-height: 16px; /* 133.333% */
-                    letter-spacing: 0.06px;
-                    color: #6B7280;
-                    margin-left: 4px
-                }
-                }
-            }
-        }
-
-        .salegrowth{
-            @include flexbox();
-            margin: 0 6px;
-            flex-direction: column;
-            justify-content: space-between;
-            width: calc(82% - 12px);
-            box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25), -1px -7px 7px 0px #FFF;
-            border-radius: 12px;
-            padding: 12px;
-            background-color: #F2F5FA;
-            position: relative;
-            z-index: 2;
-
-            .max-view {
-                @include flexbox();
-                justify-content: flex-end;
-
-                .maximize {
-                    width: 8px;
-                    height: 8px;
-                    display: inline-flex;
-                    cursor: pointer;
-                }
-            }
-
-            .chart_container {
-                @include flexbox();
-                align-items: center;
-                justify-content: center;
-                max-height:180px ;
-                height: 100%;
-                canvas {
-                    width: 100% !important;
-                    height: 100% !important;
-                }
-            }
-
-            .head_flexbox {
-                margin-bottom: auto;
-                @include flexbox();
-                align-items: center;
-                justify-content: space-between;
-                margin-bottom: 8px;
-                margin-top: 8px;
-                .section_title {
-                    font-size: 14px;
-                    font-style: normal;
-                    font-weight: 600;
-                    line-height: 20px;
-                    /* 142.857% */
-                    letter-spacing: 0.07px;
-                    color: $text;
-                    margin: 0px 0px;
-                }
-                .selectMonthBox{
-                    width: 104px;
-                    .inputField {
-                        margin:0;
-                        .MuiSelect-select{
-                            height: 40px;
-                            padding-top: 12px;
-                            padding-bottom: 12px;
-                            // box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.05);
-                            border: 1px solid #E5E7EB;
-
-                        }
-                    }
-                }
-            }
-        }
-
-        .saleProduct {
-            margin: 0 6px;
-            @include flexbox();
-            flex-direction: column;
-            justify-content: space-between;
-            width: calc(41.5% - 12px);
-            box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25), -1px -7px 7px 0px #FFF;
-            border-radius: 12px;
-            padding: 12px;
-            background-color: #F2F5FA;
-            position: relative;
-            z-index: 2;
-
-            .max-view {
-                @include flexbox();
-                justify-content: flex-end;
-
-                .maximize {
-                    width: 8px;
-                    height: 8px;
-                    display: inline-flex;
-                    cursor: pointer;
-                }
-            }
-
-            .section_title {
-                font-size: 14px;
-                font-style: normal;
-                font-weight: 600;
-                line-height: 20px;
-                /* 142.857% */
-                letter-spacing: 0.07px;
-                color: $text;
-                margin: 8px 0px;
+            .indicator {
                 text-align: left;
-                margin-bottom: auto
-            }
-
-            .chart_container {
                 @include flexbox();
                 align-items: center;
-                justify-content: center;
+                margin-bottom: vw(8px);
 
-                canvas {
-                    width: 100% !important;
-                    height: 100% !important;
-                }
-            }
-        }
+                span {
+                    display: inline-block;
 
-        .saleLeaders {
-            margin: 0 6px;
-            @include flexbox();
-            flex-direction: column;
-            justify-content: space-between;
-            width: calc(35% - 12px);
-            box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25), -1px -7px 7px 0px #FFF;
-            border-radius: 12px;
-            padding: 12px;
-            position: relative;
-            background-color: #F2F5FA;
-            z-index: 2;
-
-            .headerFlebox {
-                @include flexbox();
-                justify-content: space-between;
-                align-items: center;
-                margin-bottom: 7px;
-
-                .title {
-                    margin: 0;
-                    font-size: 14px;
-                    font-style: normal;
-                    font-weight: 600;
-                    line-height: 20px;
-                    /* 142.857% */
-                    letter-spacing: 0.07px;
-                    color: $text;
-                }
-
-                .options {
-                    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25), -1px -7px 7px 0px #FFF;
-                    background-color: #F2F5FA;
-                    border-radius: 8px;
-                    width: 44px;
-                    height: 36px;
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    border: none;
-                    cursor: pointer;
-
-                    &:focus:not(:focus-visible) {
-                        outline: none;
-                    }
-                }
-            }
-
-            .saleLeader_listing {
-                margin: 0 0 auto 0;
-                max-height: 240px;
-                overflow-y: auto;
-                scrollbar-width: thin;
-                padding:  2px;
-                .list_item {
-                    list-style: none;
-                    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25), -1px -7px 7px 0px #FFF;
-                    border-radius: 12px;
-                    margin-bottom: 6px;
-                    padding: 4px 8px;
-
-                    &:last-child {
-                        margin-bottom: 0
+                    &.text {
+                        font-size: vw(12px);
+                        font-style: normal;
+                        font-weight: 400;
+                        line-height: vw(16px);
+                        /* 133.333% */
+                        letter-spacing: 0.06px;
+                        margin-left: vw(4px);
                     }
 
-                    .flex_container {
-                        @include flexbox();
-
-                        .profile_img {
-                            width: 46px;
-                            height: 46px;
+                    &.mark {
+                        &.green {
+                            width: vw(8px);
+                            height: vw(8px);
+                            background-color: #007746;
                             border-radius: 50%;
-                            margin-right: 8px;
+                        }
+                    }
+                }
+            }
 
-                            .icon {
-                                width: 100%;
-                                max-width: 100%;
-                                height: 100%;
-                                border-radius: 50%;
-                            }
+            &.salecategory {
+                width: calc(31.2% - 12px);
+                position: absolute;
+                z-index: 2;
+                left: 0;
+                bottom: 0;
+                height: 10.5vw;
+                .chart_container {
+                    max-height: 5vw;
+                    height: 100%;
+
+                    canvas {
+                        width: 100% !important;
+                        height: 100% !important;
+                    }
+                }
+            }
+
+            &.salechannel {
+                width: calc(15% - 12px);
+                height: 10.834vw;
+                .chart_container {
+                    height: 4.2vw;
+                }
+
+            }
+
+            &.returnGoods {
+                width: calc(15% - 12px);
+                position: absolute;
+                left: calc(31.2% - 6px);
+                bottom: 0;
+                z-index: 2;
+                height: 10.5vw;
+                .chart_container {
+                    height: 4.2vw;
+                }
+            }
+
+            &.salemonth {
+                width: calc(31.2% - 12px);
+
+                .chart_container {
+                    max-height: 5vw;
+                    height: 100%;
+                }
+
+            }
+
+            &.salegrowth {
+                width: calc(25% - 12px);
+                // margin-left: auto;
+                position: absolute;
+                z-index: 2;
+                bottom: 0;
+                right: 0;
+                height: 10.5vw;
+                .chart_container {
+                    max-height: 5vw;
+                    height: 100%;
+
+                    canvas {
+                        width: 100% !important;
+                        height: 100% !important;
+                    }
+                }
+
+            }
+
+            &.saleProduct {
+                width: calc(30.5% - 12px);
+                position: relative;
+                left: 0;
+                top: 0;
+                height: 22vw;
+                .chart_container {
+                    max-height: 19vw;
+                    height: 100%;
+                }
+            }
+
+            &.saleLeaders {
+                margin: 0 vw(6px);
+                @include flexbox();
+                flex-direction: column;
+                justify-content: space-between;
+                width: calc(25% - 12px);
+                box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25), -1px -7px 7px 0px #FFF;
+                border-radius: vw(12px);
+                padding: vw(12px);
+                position: absolute;
+                right: 0;
+                top: 0;
+                background-color: #F2F5FA;
+                z-index: 2;
+                // margin-left: auto;
+                .saleLeader_listing {
+                    margin: 0 0 auto 0;
+                    max-height: vw(132px);
+                    overflow-y: hidden;
+                    overflow-x: hidden;
+                    scrollbar-width: thin;
+                    padding: vw(2px);
+
+                    .list_item {
+                        list-style: none;
+                        box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25), -1px -7px 7px 0px #FFF;
+                        border-radius: vw(12px);
+                        margin-bottom: vw(6px);
+                        padding: vw(4px) vw(8px);
+
+                        &:last-child {
+                            margin-bottom: 0
                         }
 
-                        .sale_info {
-                            width: calc(100% - 54px);
+                        .flex_container {
+                            @include flexbox();
 
-                            .upper_flexbox {
-                                margin-bottom: 4px;
-                                @include flexbox();
-                                align-items: center;
-                                justify-content: space-between;
+                            .profile_img {
+                                width: vw(46px);
+                                height: vw(46px);
+                                border-radius: 50%;
+                                margin-right: vw(8px);
 
-                                .title {
-                                    margin: 0;
-                                    font-size: 14px;
-                                    font-style: normal;
-                                    font-weight: 600;
-                                    line-height: 20px;
-                                    /* 142.857% */
-                                    letter-spacing: 0.07px;
-                                    color: #33B981;
-                                }
-
-                                .position {
-                                    display: inline-block;
-                                    font-size: 12px;
-                                    font-style: normal;
-                                    font-weight: 400;
-                                    line-height: 16px;
-                                    /* 133.333% */
-                                    letter-spacing: 0.06px;
-                                    color: $black;
+                                .icon {
+                                    width: 100%;
+                                    max-width: 100%;
+                                    height: 100%;
+                                    border-radius: 50%;
                                 }
                             }
 
-                            .bottom-flexbox {
-                                .turnover_info {
-                                    margin: 0;
-                                    padding: 0;
+                            .sale_info {
+                                width: calc(100% - 54px);
 
-                                    .item {
-                                        list-style: none;
-                                        @include flexbox();
-                                        align-items: center;
-                                        justify-content: space-between;
-                                        width: 100%;
+                                .upper_flexbox {
+                                    margin-bottom: vw(4px);
+                                    @include flexbox();
+                                    align-items: center;
+                                    justify-content: space-between;
 
-                                        .dataBlock {
+                                    .title {
+                                        margin: 0;
+                                        font-size: vw(14px);
+                                        font-style: normal;
+                                        font-weight: 600;
+                                        line-height: vw(20px);
+                                        /* 142.857% */
+                                        letter-spacing: 0.07px;
+                                        color: #33B981;
+                                    }
+
+                                    .position {
+                                        display: inline-block;
+                                        font-size: vw(12px);
+                                        font-style: normal;
+                                        font-weight: 400;
+                                        line-height: vw(16px);
+                                        /* 133.333% */
+                                        letter-spacing: 0.06px;
+                                        color: $black;
+                                    }
+                                }
+
+                                .bottom-flexbox {
+                                    .turnover_info {
+                                        margin: 0;
+                                        padding: 0;
+
+                                        .item {
+                                            list-style: none;
                                             @include flexbox();
                                             align-items: center;
-                                            width: 30%;
+                                            justify-content: space-between;
+                                            width: 100%;
 
-                                            span {
-                                                display: inline-block;
+                                            .dataBlock {
+                                                @include flexbox();
+                                                align-items: center;
+                                                width: 30%;
 
-                                                &.label {
-                                                    font-size: 12px;
-                                                    font-style: normal;
-                                                    font-weight: 400;
-                                                    line-height: 16px;
-                                                    /* 133.333% */
-                                                    letter-spacing: 0.06px;
-                                                    color: #6B7280;
-                                                }
+                                                span {
+                                                    display: inline-block;
 
-                                                &.value {
-                                                    font-size: 12px;
-                                                    font-style: normal;
-                                                    font-weight: 400;
-                                                    line-height: 16px;
-                                                    /* 133.333% */
-                                                    letter-spacing: 0.06px;
-                                                    color: #030712;
-                                                    margin-left: 4px;
+                                                    &.label {
+                                                        font-size: vw(12px);
+                                                        font-style: normal;
+                                                        font-weight: 400;
+                                                        line-height: vw(16px);
+                                                        /* 133.333% */
+                                                        letter-spacing: 0.06px;
+                                                        color: #6B7280;
+                                                    }
+
+                                                    &.value {
+                                                        font-size: vw(12px);
+                                                        font-style: normal;
+                                                        font-weight: 400;
+                                                        line-height: vw(16px);
+                                                        /* 133.333% */
+                                                        letter-spacing: 0.06px;
+                                                        color: #030712;
+                                                        margin-left: vw(4px);
+                                                    }
                                                 }
                                             }
-                                        }
 
-                                        .gmValue {
-                                            width: 20%;
-                                            display: inline-block;
-                                            font-size: 12px;
-                                            font-style: normal;
-                                            font-weight: 400;
-                                            line-height: 16px;
-                                            /* 133.333% */
-                                            letter-spacing: 0.06px;
-                                            color: $black;
-                                        }
-
-                                        .ratingPercent {
-                                            width: 20%;
-                                            @include flexbox();
-                                            align-items: center;
-                                            font-size: 12px;
-                                            font-style: normal;
-                                            font-weight: 400;
-                                            line-height: 16px;
-                                            /* 133.333% */
-                                            letter-spacing: 0.06px;
-                                            color: #EAB308;
-
-                                            .icon {
+                                            .gmValue {
+                                                width: 20%;
                                                 display: inline-block;
-                                                margin-right: 4px;
+                                                font-size: vw(12px);
+                                                font-style: normal;
+                                                font-weight: 400;
+                                                line-height: vw(16px);
+                                                /* 133.333% */
+                                                letter-spacing: 0.06px;
+                                                color: $black;
+                                            }
+
+                                            .ratingPercent {
+                                                width: 20%;
+                                                @include flexbox();
+                                                align-items: center;
+                                                font-size: vw(12px);
+                                                font-style: normal;
+                                                font-weight: 400;
+                                                line-height: vw(16px);
+                                                /* 133.333% */
+                                                letter-spacing: 0.06px;
+                                                color: #EAB308;
+
+                                                .icon {
+                                                    display: inline-block;
+                                                    margin-right: vw(4px);
+                                                }
                                             }
                                         }
                                     }
@@ -695,80 +721,26 @@ $font-monsterat : 'Montserrat';
                 }
             }
         }
-        .salecategory {
-            margin: 0 6px;
-            @include flexbox();
-            flex-direction: column;
-            justify-content: space-between;
-            width: calc(65% - 12px);
-            box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25), -1px -7px 7px 0px #FFF;
-            border-radius: 12px;
-            padding: 12px;
-            position: relative;
-            background-color: #F2F5FA;
-            z-index: 2;
-            .max-view {
-                @include flexbox();
-                justify-content: flex-end;
 
-                .maximize {
-                    width: 8px;
-                    height: 8px;
-                    display: inline-flex;
-                    cursor: pointer;
-                }
-            }
-            .head_flexbox {
-                margin-bottom: auto;
-                @include flexbox();
-                align-items: center;
-                justify-content: space-between;
-                margin-bottom: 8px;
-                margin-top: 8px;
-                .section_title {
-                    font-size: 14px;
-                    font-style: normal;
-                    font-weight: 600;
-                    line-height: 20px;
-                    /* 142.857% */
-                    letter-spacing: 0.07px;
-                    color: $text;
-                    margin: 0px 0px;
-                }
-                .selectMonthBox{
-                    width: 104px;
-                    .inputField {
-                        margin:0;
-                        .MuiSelect-select{
-                            height: 40px;
-                            padding-top: 12px;
-                            padding-bottom: 12px;
-                            // box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.05);
-                            border: 1px solid #E5E7EB;
 
-                        }
-                    }
-                }
-            }
-            .chart_container{
-                max-height: 235px;
-                height: 100%;
-                canvas{
-                    width: 100% !important;
-                    height: 100% !important;
-                }
-            }
-        }
+
+
+
+
+
+
+
+
     }
 }
 
 
 
-.MuiDateCalendar-root{
-    .MuiDateCalendar-viewTransitionContainer{
-        .MuiDayCalendar-monthContainer{
-            .MuiButtonBase-root{
-                &.MuiPickersDay-today{
+.MuiDateCalendar-root {
+    .MuiDateCalendar-viewTransitionContainer {
+        .MuiDayCalendar-monthContainer {
+            .MuiButtonBase-root {
+                &.MuiPickersDay-today {
                     background-color: $buttonColor;
                     color: $white;
                     border: none;
@@ -777,35 +749,39 @@ $font-monsterat : 'Montserrat';
         }
     }
 }
-/****************** chartZoomModal ********************/
-.MuiDialog-root{
-    &.chartZoomModal{
+
+/****************** modal css ********************/
+.MuiDialog-root {
+    &.chartZoomModal {
         box-sizing: border-box;
-        *{
+
+        * {
             box-sizing: border-box;
             font-family: $font-monsterat;
         }
-        .MuiBackdrop-root{
+
+        .MuiBackdrop-root {
             backdrop-filter: blur(5px);
         }
-        .MuiDialog-container{
-            .MuiPaper-root{
+
+        .MuiDialog-container {
+            .MuiPaper-root {
                 width: 100%;
                 box-shadow: 0px 20px 13px 0px rgba(0, 0, 0, 0.03), 0px 8px 5px 0px rgba(0, 0, 0, 0.08);
-                border-radius: 16px;
+                border-radius: vw(16px);
                 background-color: $white;
                 height: calc(70% - 64px);
                 overflow: visible;
-                .modal_body{
+
+                .modal_body {
                     position: relative;
-                    padding: 40px;
+                    padding: vw(40px);
                     height: 100%;
-                    @include flexbox();
-                    flex-direction: column;
-                    align-items: center;
-                    .close_btn{
-                        width: 35px;
-                        height: 35px;
+
+
+                    .close_btn {
+                        width: vw(35px);
+                        height: vw(35px);
                         background-color: transparent;
                         border: none;
                         cursor: pointer;
@@ -817,60 +793,70 @@ $font-monsterat : 'Montserrat';
                         right: 10px;
                         top: 10px;
                         z-index: 1;
-                        &:focus:not(:focus-visible){
+
+                        &:focus:not(:focus-visible) {
                             outline: none;
                         }
-                        svg{
-                            width: 20px;
-                            height: 20px;
+
+                        svg {
+                            width: vw(20px);
+                            height: vw(20px);
                         }
                     }
+
                     .modal_title {
                         padding: 0;
                         text-align: center;
                         margin-top: 0;
-                        margin-bottom: 20px;
-                        font-size: 24px;
+                        margin-bottom: vw(20px);
+                        font-size: vw(24px);
                         font-style: normal;
                         font-weight: 700;
-                        line-height: 32px; /* 133.333% */
+                        line-height: vw(32px);
+                        /* 133.333% */
                         letter-spacing: 0.12px;
-                        color: $text;                          
+                        color: $text;
                     }
-                    .chart_container{
+
+                    .chart_container {
                         @include flexbox();
                         justify-content: center;
-                        // transform: scale(1.16);
-                        height: 100%;
                         align-items: center;
-                        height: calc(100% - 52px);
-                        canvas{
+                        height: calc(100% - 80px);
+
+                        canvas {
                             // transform: scale(1.5);
                         }
                     }
+
+
                     .indicator_info {
-                        margin-top:0px;
+                        margin-top: 0px;
                         margin-bottom: 0;
                         padding: 0;
                         width: auto;
                         margin-left: auto;
                         margin-right: auto;
-        
+                        display: inline-flex;
+                        flex-direction: column;
+                        position: relative;
+                        bottom: 20px;
+
                         .indicator_item {
                             @include flexbox();
                             justify-content: flex-start;
                             align-items: center;
-                            margin-bottom: 4px;
-        
+                            margin-bottom: vw(4px);
+
                             &:last-child {
                                 margin-bottom: 0;
                             }
-        
+
                             .text {
-                                font-size: 14px;
+                                font-size: vw(14px);
                                 font-style: normal;
                                 font-weight: 600;
-                                line-height: 16px;
+                                line-height: vw(16px);
                                 /* 133.333% */
                                 letter-spacing: 0.06px;
                                 display: block;
@@ -878,45 +864,198 @@ $font-monsterat : 'Montserrat';
                                 color: $text;
                                 margin-left: 10px;
                             }
-        
+
                             .circle {
                                 display: inline-block;
                                 border-radius: 50%;
-                                width: 8px;
-                                height: 8px;
-        
+                                width: vw(8px);
+                                height: vw(8px);
+
                                 &.dark-green {
                                     background-color: #007746;
                                 }
-        
+
                                 &.off-green {
                                     background-color: rgb(0 152 89);
                                 }
-        
+
                                 &.off-gray {
                                     background-color: #E5E7EB;
                                 }
                             }
-        
-        
+
+
                         }
-        
+
+                    }
+
+                    .saleLeader_listing {
+                        margin: 0 0 auto 0;
+                        max-height: initial;
+                        overflow-y: auto;
+                        overflow-x: hidden;
+                        scrollbar-width: thin;
+                        padding: vw(2px);
+                        width: 70%;
+
+                        .list_item {
+                            list-style: none;
+                            box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25), -1px -7px 7px 0px #FFF;
+                            border-radius: vw(12px);
+                            margin-bottom: vw(6px);
+                            padding: vw(4px) vw(8px);
+
+                            &:last-child {
+                                margin-bottom: 0
+                            }
+
+                            .flex_container {
+                                @include flexbox();
+
+                                .profile_img {
+                                    width: vw(46px);
+                                    height: vw(46px);
+                                    border-radius: 50%;
+                                    margin-right: vw(8px);
+
+                                    .icon {
+                                        width: 100%;
+                                        max-width: 100%;
+                                        height: 100%;
+                                        border-radius: 50%;
+                                    }
+                                }
+
+                                .sale_info {
+                                    width: calc(100% - 54px);
+
+                                    .upper_flexbox {
+                                        margin-bottom: vw(4px);
+                                        @include flexbox();
+                                        align-items: center;
+                                        justify-content: space-between;
+
+                                        .title {
+                                            margin: 0;
+                                            font-size: vw(14px);
+                                            font-style: normal;
+                                            font-weight: 600;
+                                            line-height: vw(20px);
+                                            /* 142.857% */
+                                            letter-spacing: 0.07px;
+                                            color: #33B981;
+                                        }
+
+                                        .position {
+                                            display: inline-block;
+                                            font-size: vw(12px);
+                                            font-style: normal;
+                                            font-weight: 400;
+                                            line-height: vw(16px);
+                                            /* 133.333% */
+                                            letter-spacing: 0.06px;
+                                            color: $black;
+                                        }
+                                    }
+
+                                    .bottom-flexbox {
+                                        .turnover_info {
+                                            margin: 0;
+                                            padding: 0;
+
+                                            .item {
+                                                list-style: none;
+                                                @include flexbox();
+                                                align-items: center;
+                                                justify-content: space-between;
+                                                width: 100%;
+
+                                                .dataBlock {
+                                                    @include flexbox();
+                                                    align-items: center;
+                                                    width: 30%;
+
+                                                    span {
+                                                        display: inline-block;
+
+                                                        &.label {
+                                                            font-size: vw(12px);
+                                                            font-style: normal;
+                                                            font-weight: 400;
+                                                            line-height: vw(16px);
+                                                            /* 133.333% */
+                                                            letter-spacing: 0.06px;
+                                                            color: #6B7280;
+                                                        }
+
+                                                        &.value {
+                                                            font-size: vw(12px);
+                                                            font-style: normal;
+                                                            font-weight: 400;
+                                                            line-height: vw(16px);
+                                                            /* 133.333% */
+                                                            letter-spacing: 0.06px;
+                                                            color: #030712;
+                                                            margin-left: vw(4px);
+                                                        }
+                                                    }
+                                                }
+
+                                                .gmValue {
+                                                    width: 20%;
+                                                    display: inline-block;
+                                                    font-size: vw(12px);
+                                                    font-style: normal;
+                                                    font-weight: 400;
+                                                    line-height: vw(16px);
+                                                    /* 133.333% */
+                                                    letter-spacing: 0.06px;
+                                                    color: $black;
+                                                }
+
+                                                .ratingPercent {
+                                                    width: 20%;
+                                                    @include flexbox();
+                                                    align-items: center;
+                                                    font-size: vw(12px);
+                                                    font-style: normal;
+                                                    font-weight: 400;
+                                                    line-height: vw(16px);
+                                                    /* 133.333% */
+                                                    letter-spacing: 0.06px;
+                                                    color: #EAB308;
+
+                                                    .icon {
+                                                        display: inline-block;
+                                                        margin-right: vw(4px);
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
                     }
                 }
             }
         }
     }
+
     &.chartFilterModal {
         box-sizing: border-box;
-        *{
+
+        * {
             box-sizing: border-box;
             font-family: $font-monsterat;
-        }  
-        .MuiBackdrop-root{
+        }
+
+        .MuiBackdrop-root {
             backdrop-filter: blur(5px);
         }
-        .MuiDialog-container{
-            .MuiPaper-root{
+
+        .MuiDialog-container {
+            .MuiPaper-root {
                 width: 100%;
                 box-shadow: 0px 20px 13px 0px rgba(0, 0, 0, 0.03), 0px 8px 5px 0px rgba(0, 0, 0, 0.08);
                 border-radius: 16px;
@@ -924,13 +1063,15 @@ $font-monsterat : 'Montserrat';
                 overflow-y: auto;
                 max-width: 450px;
                 scrollbar-width: thin;
-                .modal_body{
+
+                .modal_body {
                     position: relative;
-                    padding: 40px;
+                    padding: vw(40px);
                     height: 100%;
-                    .close_btn{
-                        width: 35px;
-                        height: 35px;
+
+                    .close_btn {
+                        width: vw(35px);
+                        height: vw(35px);
                         background-color: transparent;
                         border: none;
                         cursor: pointer;
@@ -942,131 +1083,208 @@ $font-monsterat : 'Montserrat';
                         right: 10px;
                         top: 10px;
                         z-index: 1;
-                        &:focus:not(:focus-visible){
+
+                        &:focus:not(:focus-visible) {
                             outline: none;
                         }
-                        svg{
-                            width: 20px;
-                            height: 20px;
+
+                        svg {
+                            width: vw(20px);
+                            height: vw(20px);
                         }
                     }
+
                     .modal_title {
                         padding: 0;
                         text-align: center;
                         margin-top: 0;
-                        margin-bottom: 20px;
-                        font-size: 24px;
+                        margin-bottom: vw(20px);
+                        font-size: vw(24px);
                         font-style: normal;
                         font-weight: 700;
-                        line-height: 32px; /* 133.333% */
+                        line-height: vw(32px);
+                        /* 133.333% */
                         letter-spacing: 0.12px;
-                        color: $text;                          
+                        color: $text;
                     }
-                    .filter_listing{
+
+                    .filter_listing {
                         margin: 0;
                         padding: 0;
                         width: 100%;
-                        .list_item{
+
+                        .list_item {
                             list-style: none;
-                            padding: 10px;
-                            border-radius: 4px;
+                            padding: vw(10px);
+                            border-radius: vw(4px);
                             border: 1px solid #E5E7EB;
-                            margin-bottom: 6px;
-                            &:last-child{
+                            margin-bottom: vw(6px);
+
+                            &:last-child {
                                 margin-bottom: 0;
                             }
+
                             .MuiFormControlLabel-root {
                                 margin-left: 0;
                                 margin-right: 0;
-                                .MuiCheckbox-root{
-                                    padding:0 20px 0 0px;
-                                    &.Mui-checked{
+
+                                .MuiCheckbox-root {
+                                    padding: 0 vw(20px) 0 0px;
+
+                                    &.Mui-checked {
                                         color: #009859
                                     }
 
                                 }
+
+                                .MuiTypography-root {
+                                    font-size: 14px;
+                                    line-height: 20px
+                                }
                             }
                         }
                     }
-                    .action_flexbox{
+
+                    .empty-error {
+                        margin-top: 10px;
+                        font-size: 12px;
+                        color: $colorRed;
+                        font-weight: normal;
+                        line-height: normal;
+                        display: block
+                    }
+
+                    .action_flexbox {
                         @include flexbox();
                         justify-content: center;
-                        margin-top: 30px;
-                        .clearBtn{
+                        margin-top: vw(30px);
+
+                        .clearBtn {
                             background-color: $white;
-                            width: 140px;
-                            height: 48px;
+                            width: vw(140px);
+                            height: vw(48px);
                             box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
                             border: 1px solid #009859;
                             color: #009859;
-                            padding: 14px 16px;
-                            border-radius:8px;
+                            padding: vw(14px) vw(16px);
+                            border-radius: vw(8px);
                             cursor: pointer;
-                            font-size: 14px;
+                            font-size: vw(14px);
                             font-style: normal;
                             font-weight: 600;
-                            line-height: 20px; /* 142.857% */
+                            line-height: vw(20px);
+                            /* 142.857% */
                             letter-spacing: 0.07px;
                             @include flexbox();
                             align-items: center;
                             justify-content: center;
-                            &:focus:not(:focus-visible){
+
+                            &:focus:not(:focus-visible) {
                                 outline: none;
                             }
+
                             margin: 0 10px;
                         }
-                        .applyBtn{
-                            width: 140px;
-                            height: 48px;
+
+                        .applyBtn {
+                            width: vw(140px);
+                            height: vw(48px);
                             background-color: #009859;
                             border: none;
                             @include flexbox();
                             align-items: center;
                             justify-content: center;
                             box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
-                            padding: 14px 16px;
-                            border-radius: 8px;
+                            padding: vw(14px) vw(16px);
+                            border-radius: vw(8px);
                             color: $white;
                             cursor: pointer;
-                            &:focus:not(:focus-visible){
+
+                            &:focus:not(:focus-visible) {
                                 outline: none;
                             }
-                            margin: 0 10px;
-                            font-size: 14px;
+
+                            margin: 0 vw(10px);
+                            font-size: vw(14px);
                             font-style: normal;
                             font-weight: 600;
-                            line-height: 20px; /* 142.857% */
-                            letter-spacing: 0.07px  
+                            line-height: vw(20px);
+                            /* 142.857% */
+                            letter-spacing: 0.07px
                         }
                     }
                 }
             }
         }
     }
-} 
+}
 
 /******************************************************/
 
 @media screen and (min-width:1600px) {
     .salepurchase_dashboard {
         .draggable_flexContainer {
-            .salechannel, .returnGoods {
-                width: calc(13% - 12px);
-            }
+            .chartFlexbox {
 
-            .salemonth,
-            .saleProduct {
-                width: calc(32.3% - 12px);
-            }
+                &.salechannel{
+                    width: calc(12% - 12px);
+                    height: 13.44vw;
 
-            .saleLeaders {
-                width: calc(22% - 12px);
-            }
-            .salecategory, .salegrowth {
-                width: calc(43.5% - 12px);
-                .chart_container{
-                    max-height: 230px;
+                    .chart_container {
+                        height: 6vw;
+                    }
                 }
+                &.returnGoods {
+                    width: calc(11.6% - 12px);
+                    left: calc(30.886% - 6px);
+                    height: 13vw;
+                    .chart_container {
+                        height: 6vw;
+                    }
+                }
+
+                &.salecategory{
+                    width: calc(30.886% - 20px);
+                    height: 13vw;
+
+                    .chart_container {
+                        max-height: 8vw;
+                    }
+                }
+                &.salegrowth {
+                    width: calc(28% - 12px);
+                    height: 13vw;
+
+                    .chart_container {
+                        max-height: 8vw;
+                    }
+                }
+
+                &.saleProduct {
+                    width: calc(30% - 12px);
+                    left: 0;
+                    height: 27vw;
+                    .chart_container {
+                        max-height: 24vw;
+                    }
+                }
+
+                &.salemonth {
+                    width: calc(30% - 12px);
+                    height: 13.44vw;
+                    .chart_container {
+                        max-height: 8vw;
+                    }
+                }
+
+                &.saleLeaders {
+                    width: calc(28% - 12px);
+                    height: 13.44vw;
+                    .saleLeader_listing {
+                        max-height: 9.5vw;
+                    }
+                }
+
             }
         }
     }

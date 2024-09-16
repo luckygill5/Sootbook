@@ -180,7 +180,7 @@ function ECommerceDetails({ProductCreateList, changeTab,ECommerceDetailsData, pr
                         onChange={(e) => handleFirstCategoryChange(e)}
                         error={errors.firstCategory}
                         touched={touched.firstCategory}
-                        Disabled={preview ? true :false }
+                        disabled={preview ? true :false }
                     />
                 </div>
                 <div className='inputBox sm-30 lg-30'>
@@ -204,7 +204,7 @@ function ECommerceDetails({ProductCreateList, changeTab,ECommerceDetailsData, pr
                         onChange={(e) => handleSecondCategoryChange(e)}
                         error={errors.secondCategory}
                         touched={touched.secondCategory}
-                        Disabled={preview ? true :false }
+                        disabled={preview ? true :false }
                     />
                 </div>
                 <div className='inputBox sm-30 lg-30'>
@@ -228,7 +228,7 @@ function ECommerceDetails({ProductCreateList, changeTab,ECommerceDetailsData, pr
                         onChange={handleChange}
                         error={errors.thirdCategory}
                         touched={touched.thirdCategory}
-                        Disabled={preview ? true :false }
+                        disabled={preview ? true :false }
                     />
                 </div>
             </div> : null}
@@ -314,7 +314,7 @@ function ECommerceDetails({ProductCreateList, changeTab,ECommerceDetailsData, pr
                         onChange={handleChange}
                         error={errors.dosageForm}
                         touched={touched.dosageForm}
-                        Disabled={preview ? true :false }
+                        disabled={preview ? true :false }
                     />
                 </div>
                 <div className='inputBox sm-25 lg-25'>
@@ -356,7 +356,7 @@ function ECommerceDetails({ProductCreateList, changeTab,ECommerceDetailsData, pr
                         onChange={handleChange}
                         error={errors.bodySystem}
                         touched={touched.bodySystem}
-                        Disabled={preview ? true :false }
+                        disabled={preview ? true :false }
                     />
                 </div>
                 <div className='inputBox sm-25 lg-25'>
@@ -380,7 +380,7 @@ function ECommerceDetails({ProductCreateList, changeTab,ECommerceDetailsData, pr
                         onChange={handleChange}
                         error={errors.country}
                         touched={touched.country}
-                        Disabled={preview ? true :false }
+                        disabled={preview ? true :false }
                     />
                 </div>
             </div>

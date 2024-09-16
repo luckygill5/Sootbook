@@ -12,15 +12,18 @@ import Box from '@mui/material/Box';
 import './PersonalInformation.scss';
 import '../../../common/common.component.scss';
 
-function PersonalInformation() {
-    const [editMode, setEditMode] = useState(false);
+function PersonalInformation( {initialEditMode = false }) {
+    const [editMode, setEditMode] = useState(initialEditMode);
     const [value, setValue] = useState(0);
     const [selectLabel, setSelectLabel] = useState('Bio');
     const [bioInfo, setBioInfo] = useState({});
     const [bankInfo, setBankInfo] = useState({});
     const [emergencyInfo, setEmergencyInfo] = useState({});
     const [socialinfo, setSocialinfo] = useState({});
-    const userid = JSON.parse(localStorage.getItem('profileData')).userId
+    const userid = JSON.parse(localStorage.getItem('profileData'))?.userId 
+    // const profileData = localStorage.getItem('profileData');  
+    // const userid = profileData ? JSON.parse(profileData)?.userId : null;
+
 
     const getBioInfo = async () => {
         let response = await axiosClient.post(

@@ -47,7 +47,7 @@ const contractFormSchema = Yup.object({
 
 //selectBox
 function Contract({ mode, setEditMode, contractInformation, getContractInfo }) {
-    const userid = JSON.parse(localStorage.getItem('profileData')).userId;
+    const userid = JSON.parse(localStorage.getItem('profileData'))?.userId;
     if (contractInformation && !isEmpty(contractInformation)) {
         for (let key in contractInitialValues) {
             contractInitialValues[key] = contractInformation[key];
@@ -186,7 +186,7 @@ function Contract({ mode, setEditMode, contractInformation, getContractInfo }) {
                                     { id: 'Afternoon', value: 'Afternoon' },
                                     { id: 'Evening', value: 'Evening' },
                                 ]}
-                                wrapperClass={'col6'}
+                                wrapperClass={'col4'}
                                 onChange={handleChange}
                                 isRequired
                                 error={errors.office_shift}
@@ -194,7 +194,7 @@ function Contract({ mode, setEditMode, contractInformation, getContractInfo }) {
                             />
                             <DatePicker
                                 label={'Contract End'}
-                                wrapperClass={'col6'}
+                                wrapperClass={'col4'}
                                 dateFormat={'dd/MM/yyyy'}
                                 name={'contract_end'}
                                 value={values.contract_end}
@@ -223,7 +223,7 @@ function Contract({ mode, setEditMode, contractInformation, getContractInfo }) {
                                 label={'Role Description'}
                                 name={'role_description'}
                                 value={values.role_description}
-                                wrapperClass={'col12'}
+                                wrapperClass={'col8'}
                                 onChange={handleChange}
                                 placeholder='Enter role description here..'
                             />

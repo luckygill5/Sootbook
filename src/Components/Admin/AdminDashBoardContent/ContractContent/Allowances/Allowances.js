@@ -21,7 +21,7 @@ const allowanceInitialValues = {
 };
 
 function Allowances({ mode, setEditMode, allowanceInformation, getAllowanceInfo }) {
-    const userid = JSON.parse(localStorage.getItem('profileData')).userId;
+    const userid = JSON.parse(localStorage.getItem('profileData'))?.userId;
     if (allowanceInformation && !isEmpty(allowanceInformation)) {
         for (let key in allowanceInitialValues) {
             allowanceInitialValues[key] = allowanceInformation[key];

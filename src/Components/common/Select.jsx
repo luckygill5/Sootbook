@@ -1,4 +1,5 @@
 import React from "react";
+import classNames from 'classnames';
 import MuiSelect from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
 
@@ -12,11 +13,11 @@ export function Select({
     wrapperClass,
     touched,
     error,
-    Disabled
+    disabled
 }) {
     const selectOptions = options && options.map((item, i) => {
-        if(typeof item === 'string')
-          return(<MenuItem name={item + "" + i} value={item}>{item}</MenuItem>);
+        if (typeof item === 'string')
+            return (<MenuItem name={item + "" + i} value={item}>{item}</MenuItem>);
         return (
             <MenuItem name={item.id + "" + i} value={item.id}>
                 {item.value}
@@ -24,11 +25,11 @@ export function Select({
         );
     }) || [];
     return (
-        <div className={`inputField ${wrapperClass}`}>
+        <div className={classNames('inputField', wrapperClass, { "disabled": disabled })}>
             <label>
                 {label}
                 {isRequired && <em style={{
-                    color:'rgb(239, 68, 68)'
+                    color: 'rgb(239, 68, 68)'
                 }}>*</em>}
             </label>
             <MuiSelect
@@ -38,9 +39,9 @@ export function Select({
                 value={value}
                 label={label}
                 isRequired={true}
+                disabled={disabled}
                 name={name}
-                onChange={(props)=>{onChange(props)}}
-                disabled={Disabled}
+                onChange={(props) => { onChange(props) }}
             >
                 {selectOptions}
             </MuiSelect>

@@ -14,11 +14,11 @@ import locales from '../../../../Constants/en.json';
 import './ContractContent.scss';
 import '../../../common/common.component.scss';
 
-function ContractContent(props) {
-    const [editMode, setEditMode] = useState(false);
+function ContractContent({initialEditMode=false}) {
+    const [editMode, setEditMode] = useState(initialEditMode);
     const [value, setValue] = useState(0);
     const [selectLabel, setSelectLabel] = useState('Bio');
-    const userid = JSON.parse(localStorage.getItem('profileData')).userId;
+    const userid = JSON.parse(localStorage.getItem('profileData'))?.userId;
 
     const [allowanceInformation, setAllowanceInformation] = useState({});
     const [contractInformation, setContractInformation] = useState({});
@@ -125,7 +125,7 @@ function ContractContent(props) {
         <div className='contractContent_container'>
             <div className='header_flex'>
                 <h5 className='title'>Contract</h5>
-                {!editMode && (
+                {editMode && (
                     <button className='edit_btn' onClick={() => setEditMode(true)}>
                         <span className='icon'>
                             <img src={Pen} alt='edit'></img>

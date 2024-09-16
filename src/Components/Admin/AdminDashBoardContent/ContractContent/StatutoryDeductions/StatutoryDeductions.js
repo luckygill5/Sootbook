@@ -19,7 +19,7 @@ const deductionInitialValues = {
 };
 
 function StatutoryDeductions({ mode, setEditMode, deductionInformation, getDeductionInfo }) {
-    const userid = JSON.parse(localStorage.getItem('profileData')).userId;
+    const userid = JSON.parse(localStorage.getItem('profileData'))?.userId;
     if (deductionInformation && !isEmpty(deductionInformation)) {
         for (let key in deductionInitialValues) {
             deductionInitialValues[key] = deductionInformation[key];

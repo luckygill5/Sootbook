@@ -14,7 +14,7 @@ import MenuItem from '@mui/material/MenuItem';
 import "../User.scss"
 
 
-function TabularLayout({ tableheadData, tableBodyData, manageColumn, employeData }) {
+function TabularLayout({ manageColumn, employeData, setEditUserData, Userhandle }) {
     const [tableHeadArray, setTableHeadArray] = useState([]);
 
 
@@ -75,74 +75,6 @@ function TabularLayout({ tableheadData, tableBodyData, manageColumn, employeData
     const handleControlClose = () => {
         setControl(null)
     }
-
-    const columns = [
-        { title: 'User ID' },
-        { title: 'Username' },
-        { title: 'Email' },
-        { title: 'Role' },
-        { title: 'Creation date' },
-    ];
-
-    const rows = [
-        {
-            id: "OFO123",
-            name: "Annette Black",
-            email: "sara.cruz@example.com",
-            role: "Branch Manager",
-            date: '26 Oct-2020, 00:00'
-        },
-        {
-            id: "WF2DS3",
-            name: "Darrell Steward",
-            email: "",
-            role: "Regional Manager",
-            date: '19 Apr 2021, 00:00'
-        },
-        {
-            id: "DSVSDF3",
-            name: "Annette Black",
-            email: "sara.cruz@example.com",
-            role: "Branch Manager",
-            date: '26 Oct-2020, 00:00'
-        },
-        {
-            id: "234GH5",
-            name: "Annette Black",
-            email: "sara.cruz@example.com",
-            role: "Branch Manager",
-            date: '26 Oct-2020, 00:00'
-        },
-        {
-            id: "IJ89G4",
-            name: "Annette Black",
-            email: "sara.cruz@example.com",
-            role: "Branch Manager",
-            date: '26 Oct-2020, 00:00'
-        },
-        {
-            id: "ZXCSDC",
-            name: "Annette Black",
-            email: "sara.cruz@example.com",
-            role: "Branch Manager",
-            date: '26 Oct-2020, 00:00'
-        },
-        {
-            id: "OGA323",
-            name: "Annette Black",
-            email: "sara.cruz@example.com",
-            role: "Branch Manager",
-            date: '26 Oct-2020, 00:00'
-        },
-        {
-            id: "SDF23E2",
-            name: "Annette Black",
-            email: "sara.cruz@example.com",
-            role: "Branch Manager",
-            date: '26 Oct-2020, 00:00'
-        },
-
-    ];
 
     const handleSelected = (index) => {
         if (selectedIndex.includes(index)) {
@@ -257,7 +189,7 @@ function TabularLayout({ tableheadData, tableBodyData, manageColumn, employeData
                 }}
             >
                 <MenuItem onClick={handleControlClose}><span className='icon'><View /></span>View</MenuItem>
-                <MenuItem onClick={handleControlClose}><span className='icon'><Pencil /></span>Edit</MenuItem>
+                <MenuItem onClick={(e) => {console.log(e);setEditUserData();Userhandle();handleControlClose();}}><span className='icon'><Pencil /></span>Edit</MenuItem>
                 <MenuItem onClick={handleControlClose}><span className='icon'><EyeOff /></span>Delete role</MenuItem>
             </Menu> : null}
         </React.Fragment>

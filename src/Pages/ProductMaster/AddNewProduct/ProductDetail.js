@@ -180,7 +180,7 @@ function ProductDetail({changeTab,ProductCreateList, productDetailData, preview,
                         onChange={handleChange}
                         error={errors.productType}
                         touched={touched.productType}
-                        Disabled={preview ? true :false }
+                        disabled={preview ? true :false }
                     />
                 </div>
                 <div className='inputBox sm-40 lg-50'>
@@ -231,7 +231,7 @@ function ProductDetail({changeTab,ProductCreateList, productDetailData, preview,
                         onChange={handleChange}
                         error={errors.manufacturer}
                         touched={touched.manufacturer}
-                        Disabled={preview ? true :false }
+                        disabled={preview ? true :false }
                     />
                 </div>
                 <div className='inputBox sm-25 lg-25'>
@@ -255,7 +255,7 @@ function ProductDetail({changeTab,ProductCreateList, productDetailData, preview,
                         onChange={handleChange}
                         error={errors.supplier}
                         touched={touched.supplier}
-                        Disabled={preview ? true :false }
+                        disabled={preview ? true :false }
                     />
                 </div>
                 <div className='inputBox sm-20 lg-20'>
@@ -273,7 +273,7 @@ function ProductDetail({changeTab,ProductCreateList, productDetailData, preview,
                         onChange={handleChange}
                         error={errors.dispensingMode}
                         touched={touched.dispensingMode}
-                        Disabled={preview ? true :false }
+                        disabled={preview ? true :false }
                     />
                 </div>
                 <div className='inputBox sm-20 lg-20'>
@@ -462,7 +462,7 @@ function ProductDetail({changeTab,ProductCreateList, productDetailData, preview,
                         onChange={handleChange}
                         error={errors.Sales_Packing_1}
                         touched={touched.Sales_Packing_1}
-                        Disabled={preview ? true :false }
+                        disabled={preview ? true :false }
                     />
                 </div>
                 <div className='inputBox sm-20 lg-20'>
@@ -516,7 +516,7 @@ function ProductDetail({changeTab,ProductCreateList, productDetailData, preview,
                         onChange={handleChange}
                         error={errors.Sales_Packing_2}
                         touched={touched.Sales_Packing_2}
-                        Disabled={preview ? true :false }
+                        disabled={preview ? true :false }
                     />
                 </div>
                 <div className='inputBox sm-20 lg-20'>
@@ -570,7 +570,7 @@ function ProductDetail({changeTab,ProductCreateList, productDetailData, preview,
                         onChange={handleChange}
                         error={errors.Sales_Packing_3}
                         touched={touched.Sales_Packing_3}
-                        Disabled={preview ? true :false }
+                        disabled={preview ? true :false }
                     />
                 </div>
                 <div className='inputBox sm-20 lg-20'>
@@ -640,7 +640,7 @@ function ProductDetail({changeTab,ProductCreateList, productDetailData, preview,
                         onChange={handleChange}
                         error={errors.isInsurance}
                         touched={touched.isInsurance}
-                        Disabled={preview ? true :false }
+                        disabled={preview ? true :false }
                     />
                 </div>
                 <div className='inputBox sm-30 lg-30'>
@@ -681,7 +681,7 @@ function ProductDetail({changeTab,ProductCreateList, productDetailData, preview,
                         onChange={handleChange}
                         error={errors.returnable}
                         touched={touched.returnable}
-                        Disabled={preview ? true :false }
+                        disabled={preview ? true :false }
                     />
                 </div>
                 <div className='inputBox sm-30 lg-30'>
