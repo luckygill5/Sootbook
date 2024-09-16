@@ -14,8 +14,7 @@ export const UserSave = (values, country, permission) => {
             },
             data: {
                 role:values.role,
-                status:values.status,
-                permissions:[]
+                status:values.status
             }
         }) // Handle the response from backend here
             .then(res => {
