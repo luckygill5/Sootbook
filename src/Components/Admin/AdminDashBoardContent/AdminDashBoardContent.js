@@ -33,6 +33,7 @@ import Documents from './Documents/Documents';
 import ChangePassword from './ChangePassword/ChangePassword';
 import RolePrivilege from './RolePrivilege/RolePrivilege';
 import User from '../../../Pages/AdminSideNav_Menu/User/User';
+import ProductMaster from '../../../Pages/ProductMaster/ProductMaster.js';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from "react-router-dom";
 import Collection from './DashboardCollections/DashboardCollections.js';
@@ -181,7 +182,10 @@ function AdminDashBoardContent(props) {
                         <Typography color='text.primary'>Applications</Typography>
                     </Breadcrumbs>
                 </div>
-                { props.viewcontrol == "Employee" ? (
+                { props.viewcontrol == "Product Master" ? (
+                    <ProductMaster/>
+                ):
+                 props.viewcontrol == "Employee" ? (
                     <EmployeeMaster/>
                 ) :
                     props.viewcontrol == "Dashboard" ? (

@@ -1,0 +1,348 @@
+@import '../../BaseStyle/Basestyle.scss';
+
+$font-monsterat : 'Montserrat';
+
+.productMaster_container {
+    min-height: calc(100vh - 288px);
+    box-sizing: border-box;
+
+    * {
+        box-sizing: border-box;
+        font-family: $font-monsterat;
+    }
+
+    .productMaster_content {
+        .headerFlexbox {
+            @include flexbox();
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 8px;
+
+            .title {
+                margin: 0;
+                font-size: 24px;
+                font-style: normal;
+                font-weight: 500;
+                line-height: 32px;
+                /* 133.333% */
+                letter-spacing: 0.12px;
+                color: $text;
+                text-align: left;
+            }
+
+            .addnewProduct {
+                border: none;
+                cursor: pointer;
+                font-size: 14px;
+                font-style: normal;
+                font-weight: 600;
+                line-height: 20px;
+                /* 142.857% */
+                letter-spacing: 0.07px;
+                color: $white;
+                background-color: #00A9BB;
+                border-radius: 8px;
+                box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+                @include flexbox();
+                align-items: center;
+                white-space: nowrap;
+                padding: 14px 16px;
+
+                &:focus:not(:focus-visible) {
+                    outline: none;
+                }
+
+                .icon {
+                    display: inline-flex;
+                    margin-right: 10px;
+                }
+            }
+        }
+
+        .contentSection {
+            border-radius: 12px;
+            padding: 0 12px 12px 12px;
+            background-color: $white;
+
+            .head-flexbox {
+                @include flexbox();
+                align-items: center;
+                justify-content: space-between;
+
+                .searchBox {
+                    width: 40%;
+                    background-color: #f2f5fa;
+                    border-radius: 6px;
+                    padding: 14px 16px 14px 50px;
+                    height: 48px;
+                    outline: none;
+                    font-size: 14px;
+                    font-style: normal;
+                    font-weight: 400;
+                    line-height: 20px;
+                    /* 142.857% */
+                    letter-spacing: 0.07px;
+                    color: #6B7280;
+                    @include flexbox();
+                    align-items: center;
+                    box-shadow: 0px 4px 4px 0px inset rgba(0, 0, 0, 0.25), -7px -7px 7px 0px inset #FFF;
+                    background-image: url('../../assets/images/search_icon.svg');
+                    background-repeat: no-repeat;
+                    background-position: 16px center;
+                    border: none;
+
+                }
+
+                .actionFlexBox {
+                    @include flexbox();
+                    align-items: center;
+
+                    .commonBtn {
+                        white-space: nowrap;
+                        box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+                        border: 1px solid #E5E7EB;
+                        background-color: $white;
+                        border-radius: 8px;
+                        font-size: 14px;
+                        font-style: normal;
+                        font-weight: 600;
+                        line-height: 20px;
+                        /* 142.857% */
+                        letter-spacing: 0.07px;
+                        color: $text;
+                        padding: 10px 12px;
+                        margin-right: 20px;
+                        @include flexbox();
+                        align-items: center;
+                        justify-content: center;
+
+                        .icon {
+                            display: inline-flex;
+                            margin-right: 10px;
+                            width: 14px;
+                            height: 14px;
+
+                            svg {
+                                width: 14px;
+                                height: 14px;
+
+                                g {
+                                    path {
+                                        stroke: $text
+                                    }
+                                }
+                            }
+                        }
+
+                        cursor: pointer;
+
+                        &:focus:not(:focus-visible) {
+                            outline: none;
+                        }
+                    }
+
+                    .toggleView {
+                        border: none;
+                        box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+                        background-color: #F2F5FA;
+                        border-radius: 8px;
+                        cursor: pointer;
+                        width: 44px;
+                        height: 36px;
+                        margin-right: 8px;
+                        @include flexbox();
+                        align-items: center;
+                        justify-content: center;
+
+                        &:last-child {
+                            margin-right: 0;
+                        }
+
+                        &:focus:not(:focus-visible) {
+                            outline: none;
+                        }
+
+                        svg {
+                            g {
+                                path {
+                                    stroke: $text;
+                                }
+                            }
+                        }
+                        &.active{
+                            background-color: $buttonColor;
+                            svg {
+                                g {
+                                    path {
+                                        stroke: $white;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            .productMasterListingTabs {
+                margin-top: 8px;
+
+                .tabsContainer {
+                    .tabFlexContainer {
+                        .MuiTabs-root {
+                            min-height: 38px;
+
+                            .MuiTabs-scroller {
+                                .MuiTabs-flexContainer {
+                                    .MuiButtonBase-root {
+                                        font-size: 14px;
+                                        font-style: normal;
+                                        font-weight: 500;
+                                        line-height: 20px;
+                                        /* 142.857% */
+                                        letter-spacing: 0.07px;
+                                        color: $text;
+                                        font-family: $font-monsterat;
+                                        padding: 8px 12px;
+                                        min-height: 38px;
+                                        border-bottom: 2px solid #E5E7EB;
+                                        text-transform: capitalize;
+
+                                        &.Mui-selected {
+                                            color: rgb(34, 229, 145);
+                                        }
+                                    }
+                                }
+
+                                .MuiTabs-indicator {
+                                    background-color: rgb(34, 229, 145);
+                                }
+                            }
+                        }
+                    }
+
+                    .tabContentContainer {
+                        .MuiBox-root {
+                            padding-top: 8px;
+                            padding-bottom: 0;
+                            padding-left: 0;
+                            padding-right: 0;
+
+                            .productCard_container {
+                                .card_flexContainer {
+                                    width: 100%;
+                                    @include flexbox();
+                                    column-gap: 24px;
+                                    row-gap: 12px;
+                                    flex-wrap: wrap;
+
+                                    .card_item {
+                                        @media screen and (min-width:1500px) {
+                                            width: calc(25% - 18px);
+                                        }
+                                        width: calc(33.33% - 16px);
+                                        box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+                                        border-radius: 12px;
+                                        background-color: $white;
+                                        padding: 16px;
+                                        .head_flexbox{
+                                            @include flexbox();
+                                            justify-content: space-between;
+                                            .thumbnail{
+                                                width: 80px;
+                                                height: 80px;
+                                                img{
+                                                    max-width: 100%;
+                                                    height: auto;
+                                                    width: 100%;
+                                                }
+                                            }
+                                            .action_flex{
+                                                @include flexbox();
+                                                column-gap: 8px;
+                                                .commonBtn{
+                                                    border: none;
+                                                    cursor: pointer;
+                                                    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+                                                    width: 38px;
+                                                    height: 38px;
+                                                    border-radius: 8px;
+                                                    @include flexbox();
+                                                    align-items: center;
+                                                    justify-content: center;
+                                                }
+                                            }
+                                        }
+                                        
+                                        .title{
+                                            font-size: 16px;
+                                            font-style: normal;
+                                            font-weight: 500;
+                                            line-height: 24px; /* 150% */
+                                            letter-spacing: 0.08px;
+                                            margin-top: 16px;
+                                            margin-bottom: 4px;
+                                            text-align:left;    
+                                        }
+                                        .subtitle{
+                                            display: block;
+                                            text-align: left;
+                                            font-size: 16px;
+                                            font-style: normal;
+                                            font-weight: 400;
+                                            line-height: 24px; /* 150% */
+                                            letter-spacing: 0.08px;
+                                            margin-bottom: 16px;  
+                                        }
+                                        .moreInfo{
+                                            padding: 16px;
+                                            border-radius: 8px;
+                                            background-color: #F3F4F6;
+                                            ul{
+                                                margin: 0;
+                                                padding: 0;
+                                                row-gap: 8px;
+                                                li{
+                                                    list-style: none;
+                                                    @include flexbox();
+                                                    .label{
+                                                        display: inline-block;
+                                                        font-size: 14px;
+                                                        font-style: normal;
+                                                        font-weight: 500;
+                                                        line-height: 20px; /* 142.857% */
+                                                        letter-spacing: 0.07px;
+                                                        color: $text;
+                                                        margin-right: 8px;  
+                                                        text-align: left;
+                                                    }
+                                                    .text{
+                                                        display: inline-block;
+                                                        font-size: 14px;
+                                                        font-style: normal;
+                                                        font-weight: 400;
+                                                        line-height: 20px; /* 142.857% */
+                                                        letter-spacing: 0.07px;
+                                                        color: $text;  
+                                                        text-align: left;
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+
+                                    .loader_container{
+                                        justify-content: center;
+                                        height: 200px;
+                                        align-items: center;
+                                        @include flexbox();
+                                        width: 100%;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

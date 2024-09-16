@@ -12,7 +12,8 @@ import { ReactComponent as VendorsIcon } from '../../../assets/images/vendors_gr
 import { ReactComponent as FinanceIcon } from '../../../assets/images/finances_green.svg'
 import { ReactComponent as ReportIcon } from '../../../assets/images/reports.svg'
 import { ReactComponent as DownArrow } from '../../../assets/images/chevron-down.svg'
-import { ReactComponent as LogoutIcon } from '../../../assets/images/logout.svg'
+import { ReactComponent as LogoutIcon } from '../../../assets/images/logout.svg';
+import { ReactComponent as Boxes } from '../../../assets/images/boxes.svg';
 import fogoLogo from '../../../assets/images/fogo_logo.svg'
 import CompactLogo from '../../../assets/images/compact_logo.svg'
 import Tooltip from '@mui/material/Tooltip'
@@ -28,6 +29,7 @@ function AdminSideNav(props) {
     const [menuState, setMenuState] = useState([]);
     const [menuSelected, setMenuSelected] = useState('');
     const [subMenuOption, setSubMenuOption] = useState(false);
+    const [subMenuParent, setSubMenuParent] = useState('')
 
     function handleMenuItem(event, name, subMenu = false) {
         if(subMenu == true){
@@ -85,10 +87,27 @@ function AdminSideNav(props) {
             childItem: {
                 subMenu: [
                     {
-                        item: 'User',
+                        dataLabel: 'User',
                     },
                     {
-                        item: 'Employee',
+                        dataLabel: 'Employee',
+                    },
+                ],
+            },
+        },
+        {
+            item: 'Product Master',
+            icon: <Boxes />,
+            childItem: {
+                subMenu: [
+                    {
+                        dataLabel: 'Product List',
+                    },
+                    {
+                        dataLabel: 'Bulk Product Creation',
+                    },
+                    {
+                        dataLabel: 'Auto Product Creation',
                     },
                 ],
             },
@@ -186,7 +205,10 @@ function AdminSideNav(props) {
                                                     
                                                              ${item.item == menuSelected && 'active'}
                                                     `}
-                                                onClick={() => handleMenuItem(index, item.item)}
+                                                onClick={() => {
+                                                    handleMenuItem(index, item.item);
+                                                    setSubMenuParent('')
+                                                }}
                                             >
                                                 <Tooltip
                                                     className='tooltip'
@@ -207,17 +229,21 @@ function AdminSideNav(props) {
                                                 )}
                                             </button>
                                             {
-                                                (item.item == menuSelected || subMenuOption) &&
+                                                
+                                                (item.item == menuSelected || item.item == subMenuParent) &&
                                             // index == menuState && 
                                                 item?.childItem?.subMenu &&
                                                 item?.childItem?.subMenu.length > 0 && (
                                                     <ul className='subMenu'>
                                                         {item?.childItem?.subMenu.map(
-                                                            (item, index) => {
+                                                            (label, index) => {
                                                                 return (
                                                                     <li>
-                                                                        <button className={`menu_link ${item.item == menuSelected ? 'active' : ""}`}  onClick={() => handleMenuItem(index, item.item, true)}>
-                                                                            {item.item}
+                                                                        <button className={`menu_link ${label.dataLabel == menuSelected ? 'active' : ""}`}  onClick={() => {
+                                                                            handleMenuItem(index, label.dataLabel, true);
+                                                                            setSubMenuParent(item?.item)
+                                                                            }}>
+                                                                            {label.dataLabel}
                                                                         </button>
                                                                     </li>
                                                                 )
