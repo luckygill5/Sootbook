@@ -1,0 +1,68 @@
+@import "../../BaseStyle/Basestyle.scss";
+
+$white: #FFF;
+$black: #000;
+$text: #1F2937;
+$buttonColor: #00A9BB;
+
+$font-monsterat : 'Montserrat';
+
+
+.MuiDialog-root{
+    &.commonError_Modal{
+        box-sizing: border-box;
+        *{
+            font-family: $font-monsterat;
+            box-sizing: border-box;
+        }
+        .MuiPaper-root{
+            max-width: 450px;
+            width: 100%;
+            border-radius: 16px;
+            padding: 40px;
+            box-shadow: 0px 20px 13px 0px rgba(0, 0, 0, 0.03), 0px 8px 5px 0px rgba(0, 0, 0, 0.08);
+            background-color: $white;
+            .close_btn{
+                position: absolute;
+                width: 38px;
+                height: 38px;
+                padding: 0;
+                z-index: 1;
+                background-color: transparent;
+                border: none;
+                right: 10px;
+                top: 10px;
+                cursor: pointer;
+                @include flexbox();
+                align-items: center;
+                justify-content: center;
+                &:focus:not(:focus-visible){
+                    outline: none;
+                }
+            }
+            .error_iconBlock{
+                width: 62px;
+                height: 62px;
+                margin:0 auto;
+                .error_img{
+                    max-width: 100%;
+                    width: 100%;
+                    height: 100%;
+                }
+            }
+            .error_msg{
+                font-size: 24px;
+                font-style: normal;
+                font-weight: 700;
+                line-height: 32px; /* 133.333% */
+                letter-spacing: 0.12px;
+                color: $text;
+                font-family: $font-monsterat;   
+                text-align: center; 
+                margin-top: 20px;
+                margin-bottom: 10px;
+                padding: 0;
+            }
+        }
+    }
+} 

@@ -48,6 +48,8 @@
     "success_info" : "Thanks! If admin2000@gmail.com matches an email address we have on file, then we've sent you an email containing further instructions for resetting your password.",
     "go_dashboard" : "Go to dashboard",
     "account_doesnotExist" : "User account does not exist",
-    "edit_title" : "Edit"
+    "edit_title" : "Edit",
+    "cancel_label": "Cancel",
+    "save_label" : "Save"
 
 }
