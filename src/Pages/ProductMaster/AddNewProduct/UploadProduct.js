@@ -14,7 +14,7 @@ import ErrorModal from '../../../Components/CommonErrorModal/ErrorModal';
 import "./AddNewProduct.scss"
 
 
-function UploadProduct({ productData, ecommerceData, preview, previewData, changeTab }) {
+function UploadProduct({ productData, ecommerceData, preview, previewData, changeTab, successModalClose }) {
     const fileTypes = ["JPG", "PNG", "GIF"];
     const [base64, setBase64] = useState('');
     const [errorModal, setErrorModal] = useState(false);
@@ -115,33 +115,41 @@ function UploadProduct({ productData, ecommerceData, preview, previewData, chang
             reader.onloadend = () => {
                 const base64String = reader.result.replace('data:', '').replace(/^.+,/, '');
                 base64Array.push(`data:image/png;base64,${base64String}`)
-                setBase64(base64Array);
+                
             };
-
+            setBase64(base64Array);
             reader.readAsDataURL(blob);
         } catch (error) {
             console.error('Error converting blob to base64:', error);
         }
     };
 
+    useEffect(() => {
+        
+       if(uploadedFile &&
+        uploadedFile.length > 0){
+            uploadedFile.map((item) => {
+                convertBlobToBase64(item);
+            })
+       }  
+              
+    }, [uploadedFile])
+
+
     const handleAddProduct = () => {
 
-        setAddproductFormData("");
+        // setAddproductFormData("");
 
-        if (uploadedFile.length == 0) {
+        if (uploadedFile && uploadedFile.length == 0) {
             setUploadAlert("Please upload at least one image. Adding an image is required to proceed")
         }
-        else if (uploadedFile.length > 0) {
-            uploadedFile &&
-                uploadedFile.length > 0 &&
-                uploadedFile.map((item) => {
-                    convertBlobToBase64(item);
-                })
+        else if (uploadedFile && uploadedFile.length > 0 && base64 && base64.length > 0) {           
             let uploadImageData = {
-                image: base64 ? base64 : []
+                image: base64 
             }
 
-            if (uploadImageData) {
+            if (uploadImageData && uploadImageData.image.length > 0) {
+
                 const Packaging = {
                     packaging: [
 
@@ -168,8 +176,9 @@ function UploadProduct({ productData, ecommerceData, preview, previewData, chang
                 }
                 const { Sales_Packing_1, Sales_Packing_2, Sales_Packing_3, Quantity_1, Quantity_2, Quantity_3, Rate_1, Rate_2, Rate_3, Stock_1, Stock_2, Stock_3, ...newproductData } = productData;
                 const collection = { ...newproductData, ...Packaging, ...ecommerceData, ...uploadImageData, isDraft: false };
+
                 setAddproductFormData(collection);
-                addProduct()
+               
 
             }
 
@@ -179,8 +188,12 @@ function UploadProduct({ productData, ecommerceData, preview, previewData, chang
     }
 
 
+    useEffect(() => {
+        addProduct()
+    },[addproductFormData] )
 
     const addProduct = async event => {
+
         if (addproductFormData !== "") {
             const accessToken = `Bearer ${sessionStorage.accessToken} `
             try {
@@ -214,7 +227,8 @@ function UploadProduct({ productData, ecommerceData, preview, previewData, chang
     }
 
     const handleSuccessPopupClose = () => {
-        setSucessModal(false)
+        setSucessModal(false);
+        successModalClose()
     }
 
     const handleModalErrorPopUP = () => {
@@ -227,6 +241,7 @@ function UploadProduct({ productData, ecommerceData, preview, previewData, chang
         handleAddProduct()
     }
 
+ 
 
     useEffect(() => {
         if (previewData && previewData.image) {
@@ -234,7 +249,7 @@ function UploadProduct({ productData, ecommerceData, preview, previewData, chang
 
             let newCollection = [];
             previewData.image.map((item) => {
-                if (item.includes("ata:image/png;base64")) {
+                if (item.includes("data:image/png;base64")) {
                     newCollection.push(`${item}`)
                 } else {
                     newCollection.push(`data:image/png;base64,${item}`)
@@ -294,11 +309,16 @@ function UploadProduct({ productData, ecommerceData, preview, previewData, chang
                     </p>
                 </div>}
                 <div className='button_actions'>
-                    <button className='saveDraftBtn' type='button' onClick={handleDraft}>Save Draft</button>
+                    { preview ? null :
+                        <React.Fragment>
+                        <button className='saveDraftBtn' type='button' onClick={handleDraft}>Save Draft</button>
                     <div className='action_flexContainer'>
-                        <button className='cancelBtn' type='button' onClick={() => changeTab(1)}>Cancel</button>
-                        <button className='addProductBtn' onClick={handleAddProduct}>Add Product</button>
+                        <button className='cancelBtn' type='button' onClick={() => changeTab(1)}>Back</button>
+                        <button className='addProductBtn' onClick={() => handleAddProduct()}>Add Product</button>
                     </div>
+                    </React.Fragment>
+                    }
+                    
                 </div>
             </div>
             {

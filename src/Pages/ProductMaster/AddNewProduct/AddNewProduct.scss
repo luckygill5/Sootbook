@@ -41,6 +41,10 @@ $font-monsterat : 'Montserrat';
         border-radius: 12px;
         padding: 24px;
         min-height: calc(100vh - 336px);
+        &.preview{
+            box-shadow: none;
+            padding: 0;
+        }
 
         .section_title {
             font-size: 24px;
@@ -54,6 +58,130 @@ $font-monsterat : 'Montserrat';
             text-align: left;
         }
 
+        .header_section{
+            .section_flexbox{
+                @include flexbox();
+                margin-bottom: 20px;
+                align-items: center;
+                justify-content: space-between;
+                border-radius: 12px 12px 0px 0px;
+                padding: 8px 20px;
+                background-color: #F2F5FA;
+                box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+
+                .leftInfo_flexbox{
+                    @include flexbox(); 
+                    .imgBox{
+                        width: 56px;
+                        height: 56px;
+                        margin-right: 20px;
+                        .preview{
+                            max-width: 100%;
+                            height: auto;
+                            width: 100%;
+
+                        }
+                    }
+                    .info{
+                        .flexbox{
+                            @include flexbox();
+                            .title{
+                                font-size: 20px;
+                                font-style: normal;
+                                font-weight: 500;
+                                line-height: 28px; /* 140% */
+                                letter-spacing: 0.1px;
+                                color: $text;
+                                margin: 0;
+
+                            }
+                            .status {
+                                margin-left: 20px;
+                                height: 28px;
+                                border-radius: 6px;
+                                &.green{
+                                    background-color: #CCFBF1;
+                                    padding: 6px 6px 6px 22px;
+                                    position: relative;
+                                    &::before{
+                                        content: '';
+                                        display: inline-block;
+                                        position: absolute;
+                                        width: 6px;
+                                        height: 6px;
+                                        background-color:#134E4A ;
+                                        border-radius: 50%;
+                                        left: 6px;
+                                        top: 50%;
+                                        transform: translateY(-50%);
+
+                                    }
+                                    font-size: 12px;
+                                    font-style: normal;
+                                    font-weight: 400;
+                                    line-height: 16px; /* 133.333% */
+                                    letter-spacing: 0.06px;  
+                                    color: #134E4A ;     
+                                }
+                            }
+                        }
+                        .lastUpdated{
+                            display: block;
+                            font-size: 12px;
+                            font-style: normal;
+                            font-weight: 400;
+                            line-height: 16px; /* 133.333% */
+                            letter-spacing: 0.06px;
+                            color: #6B7280;  
+                            margin-top: 8px;
+                        }
+                    }
+                }
+                .rightInfo_flexbox{
+                    @include flexbox();
+                    align-items: center;
+                    column-gap: 8px;
+                    .histroyBtn{
+                        border-radius:8px ;
+                        padding: 10px 12px;
+                        box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+                        border: none;
+                        height: 40px;
+                        cursor: pointer;
+                        background-color: $buttonColor;
+                        color: $white;
+                        font-size: 14px;
+                        font-style: normal;
+                        font-weight: 600;
+                        line-height: 20px; /* 142.857% */
+                        letter-spacing: 0.07px;
+                        white-space: nowrap;   
+                        &:focus:not(:focus-visible){
+                            outline: none;
+                        }
+                    }
+                    .stockBtn{
+                        height: 40px;
+                        cursor: pointer;
+                        border-radius:8px ;
+                        padding: 10px 12px;
+                        box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+                        white-space: nowrap;
+                        background-color: #E6F6F8;
+                        &:focus:not(:focus-visible){
+                            outline: none;
+                        }
+                        font-size: 14px;
+                        font-style: normal;
+                        font-weight: 600;
+                        line-height: 20px; /* 142.857% */
+                        letter-spacing: 0.07px;
+                        color: $buttonColor;
+                        border: none;  
+                    }
+                }
+            }
+        }
         .tabsContainer {
             min-height: calc(100% - 40px);
 
@@ -157,7 +285,23 @@ $font-monsterat : 'Montserrat';
                             .leftCol {
                                 width: 40%;
                                 padding-right: 10px;
-
+                                &.preview{
+                                    width: 20%;
+                                    .qrCodeFlexBox{
+                                        .leftCol{
+                                            width: 100%;
+                                        }
+                                        .qrCode_container{
+                                            width: 60px;
+                                            height: 60px;
+                                            .qrcode-icon{
+                                                width:100%;
+                                                max-width: 100%;
+                                                height: auto
+                                            }
+                                        }
+                                    }
+                                }
                                 .qrCodeFlexBox {
                                     @include flexbox();
 
@@ -269,7 +413,10 @@ $font-monsterat : 'Montserrat';
                                 width: 60%;
                                 margin-right: -10px;
                                 margin-left: 10px;
-                                @include flexbox()
+                                @include flexbox();
+                                &.preview{
+                                    width: 80%;
+                                }
                             }
                         }
 
@@ -399,6 +546,11 @@ $font-monsterat : 'Montserrat';
                         &.preview_active{
                             .inputBox {
                                 .inputField {
+                                    >label{
+                                        font-size: 16px;
+                                        font-weight: 500;
+                                        line-height: 24px;
+                                    }
                                     .input_element{
                                         background-color: transparent;
                                         box-shadow: none;
@@ -429,7 +581,45 @@ $font-monsterat : 'Montserrat';
                                     }
                                    
                                 }
+                                .barcode_box{
+                                    .label{
+                                        font-size: 16px;
+                                        font-style: normal;
+                                        font-weight: 500;
+                                        line-height: 24px; /* 150% */
+                                        letter-spacing: 0.08px;
+                                        display: block;
+                                        color: $text;
+                                        text-align: left;
+                                        margin-bottom: 4px;
+
+                                    }
+                                }
                             }
+                            .first_flexbox{
+                                row-gap: 30px;
+                                position: relative;
+                                padding-bottom: 20px;
+                                border-bottom: 1px solid #D1D5DB;
+                                &::after{
+                                    content: '';
+                                    display: inline-block;
+                                    position: absolute;
+                                    left: 0;
+                                    top: 45%;
+                                    transform: translateY(-50%);
+                                    width: 100%;
+                                    height: 1px;
+                                    background-color: #D1D5DB;
+                                }
+                               
+
+                            }
+                            .second_flexbox{
+                                position: relative;
+                                padding-bottom: 20px;
+                                border-bottom: 1px solid #D1D5DB; 
+                            } 
                         }
                     }
 
@@ -517,7 +707,11 @@ $font-monsterat : 'Montserrat';
 
                         &.preview_active{
                             .canDisplay{
+                                margin-bottom: 20px;
                                 .MuiFormControl-root{
+                                    .MuiFormLabel-root{
+                                        color: rgb(34, 229, 145);
+                                    }
                                     .MuiFormGroup-root{
                                         .MuiFormControlLabel-root{
                                             margin-left: 0;
@@ -567,6 +761,45 @@ $font-monsterat : 'Montserrat';
                                         }
                                     }
                                    
+                                }
+                            }
+                            .categoryLevelFlexbox{
+                                 padding-bottom: 10px;
+                                border-bottom: 1px solid #D1D5DB; 
+                                margin-bottom: 20px;
+                            }
+                            .second_flexbox{
+                                row-gap: 30px;
+                                position: relative;
+                                // padding-bottom: 20px;
+                                // border-bottom: 1px solid #D1D5DB;
+                                &::after{
+                                    content: '';
+                                    display: inline-block;
+                                    position: absolute;
+                                    left: 0;
+                                    top: 45%;
+                                    transform: translateY(-50%);
+                                    width: 100%;
+                                    height: 1px;
+                                    background-color: #D1D5DB;
+                                }
+                            }
+                            .bottom_flexbox{
+                                row-gap: 30px;
+                                position: relative;
+                                padding-bottom: 20px;
+                                // border-bottom: 1px solid #D1D5DB;
+                                &::after{
+                                    content: '';
+                                    display: inline-block;
+                                    position: absolute;
+                                    left: 0;
+                                    top: 50%;
+                                    transform: translateY(-50%);
+                                    width: 100%;
+                                    height: 1px;
+                                    background-color: #D1D5DB;
                                 }
                             }
                         }

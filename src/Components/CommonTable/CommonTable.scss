@@ -35,6 +35,12 @@
                    
                 }
             }
+            .moreOptions{
+                width: 44px;
+                height: 56px;
+                background-color: #F8FAFC;
+                border-bottom: 1px solid #E5E7EB;  
+            }
 
             .thead {
                 height: 56px;
@@ -93,7 +99,11 @@
                     background-color: #E6F6F8;
                     ~ .tableCell{
                         background-color: #E6F6F8;
+                        ~ .moreOptions{
+                            background-color: #E6F6F8; 
+                        }
                     }
+
                 }
                
             }
@@ -124,11 +134,54 @@
                     }
                 }
             }
+            .moreOptions{
+                width: 44px;
+                height: 56px;
+                @include flexbox();
+                align-items: center;
+                justify-content: center;
+                border-bottom: 1px solid #E5E7EB;
+                position: sticky;
+                right: 0;
+                z-index: 1;
+                .icon{
+                    display: inline-block;
+                    cursor: pointer;
+
+                }
+            }
 
         }
     }
 }
 
+
+.editMenu {
+    .MuiPaper-root{
+        .MuiList-root{
+            .MuiButtonBase-root{
+                font-size: 14px;
+                font-style: normal;
+                font-weight: 500;
+                line-height: 20px; /* 142.857% */
+                letter-spacing: 0.07px;
+                color: $text;    
+                font-family: $font-monsterat;
+                .icon{
+                    @include flexbox();
+                    margin-right: 12px;
+                    svg{
+                        g{
+                            path{
+                                stroke: $text;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
 .loader_container{
     justify-content: center;
     height: 200px;

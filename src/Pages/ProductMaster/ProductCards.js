@@ -6,9 +6,21 @@ import CircularProgress from '@mui/material/CircularProgress';
 import Box from '@mui/material/Box';
 import './ProductMaster.scss'
 
-function ProductCards({ productData }) {
+function ProductCards({ productData, dataPopulate, editDataPopulate,deleteProductData }) {
 
 
+const handleDataPopulate = (event) => {
+    dataPopulate(event)
+}
+
+const handleEditProduct = (event) => {
+    editDataPopulate(event)
+}
+
+const handleDeleProduct = (id) => {
+    deleteProductData(id);
+    
+}
 
     return (
         <div className='productCard_container'>
@@ -24,12 +36,12 @@ function ProductCards({ productData }) {
                                         <img src={data.image[0]} alt="thumbnail"></img>
                                     </div>
                                     <div className='action_flex'>
-                                        <button className='commonBtn'><Trash /></button>
-                                        <button className='commonBtn'><Pencil /></button>
+                                        <button className='commonBtn' onClick={() => handleDeleProduct(data._id)}><Trash /></button>
+                                        <button className='commonBtn' onClick={() => handleEditProduct(data.productCode)}><Pencil /></button>
 
                                     </div>
                                 </div>
-                                <h5 className='title'>{data.name}</h5>
+                                <h5 className='title' onClick={() => handleDataPopulate(data.productCode)}>{data.name}</h5>
                                 <span className='subtitle'>{data.genericName}</span>
                                 <div className='moreInfo'>
                                     <ul>

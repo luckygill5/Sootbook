@@ -6,7 +6,9 @@ import { ReactComponent as Download } from "../../assets/images/download.svg";
 import { ReactComponent as Setting } from "../../assets/images/settings.svg";
 import { ReactComponent as List } from "../../assets/images/list.svg";
 import { ReactComponent as UserSquare } from "../../assets/images/user-square-2.svg";
+import { ReactComponent as Arrow } from "../../assets/images/chevron-right.svg";
 import CommonTable from '../../Components/CommonTable/CommonTable';
+import SuccessModal from '../../Components/CommonSuccessModal/SuccessModal';
 import { axiosClient } from '../../services/axiosClient';
 import ProductCards from './ProductCards';
 import Tabs from '@mui/material/Tabs';
@@ -24,21 +26,23 @@ function ProductMaster() {
     const [draftListData, setDraftListData] =  useState("");
     const [tableFilterHeader, setTableFilterHeader] =  useState("");
     const [previewMode, setPreviewMode] = useState();
-    const [previewData, setPreviewData] = useState('')
+    const [previewData, setPreviewData] = useState('');
+    const [productlistUpdate, setProductListUpdate] = useState(false);
+    const [successModal,  setSuccessModal] = useState('');
+    const [SuccessModalMsg , setSuccessModalMsg] = useState("");
+    const [editMode, setEditMode] = useState(false);
 
 
     let tableHeader = ["name", "genericName", "productCode", 'manufacturer', "netPrice",]
 
     const handleAddNewProduct = () => {
-        setAddProduct(true)
+        setAddProduct(true);
+        setProductListUpdate(false)
     }
 
     const handleBack = () => {
         setAddProduct(false);
-        // if(previewMode){
-        //     setPreviewData([])
-        //     setPreviewMode(false);
-        // }
+        setEditMode(false)
         setPreviewData([])
         setPreviewMode(false);
     }
@@ -154,7 +158,6 @@ function ProductMaster() {
     }, [productListCard])
 
     const handleDataPopulate = (index) => {
-
         let filter;
        filter =  productListCard.filter((item) => {
             if(item.productCode == index){
@@ -166,15 +169,90 @@ function ProductMaster() {
         setAddProduct(true)
     }
 
-    const handleRemovePreview =() => {
-        setPreviewMode(false)
+    const handleEditDataPopulate = (index) => {
+        let filter;
+       filter =  productListCard.filter((item) => {
+            if(item.productCode == index){
+                return item
+            }
+        })
+        setPreviewData(filter[0])
+        setPreviewMode(false);
+        setAddProduct(true);
+        handleRemovePreview()
+
     }
+
+    const handleEditProductData = (index) => {
+        let filter;
+       filter =  productListCard.filter((item) => {
+            if(item.productCode == index){
+                return item
+            }
+        })
+        setPreviewData(filter[0])
+        setAddProduct(true);
+       
+    }
+
+    const handleRemovePreview =() => {
+        setPreviewMode(false);
+        setEditMode(true)
+    }
+
+    const handleSuccessModalClose  = () => {
+        setProductListUpdate(true);
+        setAddProduct(false)
+    }
+
+    useEffect(() => {
+        if(productlistUpdate == true || successModal == true){
+            handleProductList();
+            handleDraftList()
+        }
+     
+    }, [productlistUpdate, successModal])
+
+    const handleDeleteProductData = async event => {
+        const accessToken =  `Bearer ${sessionStorage.accessToken} `
+        try{
+            let response = await axiosClient.post(
+                `admin/product/delete`, 
+                JSON.stringify({ id:event}), 
+                {
+                    headers : {
+                        'Content-Type': 'application/json',
+                        'x-via-device': true,
+                        'Authorization' : accessToken
+                    },
+                }
+
+            );
+            if(response.status == 200){
+                setSuccessModal(true);
+                setSuccessModalMsg(response?.data?.message)
+                // setDraftListData( response?.data?.data?.products)
+            }
+
+        }catch(error){
+            console.log("error", error)
+        }
+       
+    } 
+
+    const handleDeleteSuccessModalClose = () => {
+        setSuccessModal(false);
+        setSuccessModalMsg('')
+    }
+    
+
     const ProductMasterTabs = ['Products', "Drafts",]
 
 
     return (
-        <div className='productMaster_container'>
-            {addProduct ? <AddNewProduct preview={previewMode} removePreviewMode={() => handleRemovePreview()} previewData={previewData} back={handleBack} /> :
+        <React.Fragment>
+        <div className={`productMaster_container ${editMode ? "editMode" : ''}`}>
+            {addProduct ? <AddNewProduct successModalClose={() => handleSuccessModalClose()} preview={previewMode} removePreviewMode={() => handleRemovePreview()} previewData={previewData} back={handleBack} /> :
                 <div className='productMaster_content'>
                     <div className='headerFlexbox'>
                         <h5 className='title'>Product Master</h5>
@@ -227,10 +305,44 @@ function ProductMaster() {
                                     </Tabs>
                                 </Box>
                                 <CustomTabPanel value={value} index={0} className="tabContentContainer">
-                                    {toggleView == 'Card' ? <ProductCards productData={productListCard}/> 
+                                    {toggleView == 'Card' ? <ProductCards deleteProductData={(e) => handleDeleteProductData(e)} editDataPopulate={(e) => handleEditProductData(e)} dataPopulate={(e) => handleDataPopulate(e)} productData={productListCard}/> 
                                     : 
-                                    toggleView == 'List' ? <CommonTable dataPopulate={(e) => handleDataPopulate(e)} header={tableFilterHeader} productData={productListCard}/> 
+                                    toggleView == 'List' ? <CommonTable deleteProductData={(e) => handleDeleteProductData(e)} dataEditPopulate={(e) => handleEditDataPopulate(e)} dataPopulate={(e) => handleDataPopulate(e)} header={tableFilterHeader} productData={productListCard}/> 
                                     : ''}
+                                    <div className='paginationsection'>
+                                        <div className='leftCol'>
+                                            <ul className='navigation_listing'>
+                                                <li>
+                                                    <span className='pev-arrow'><Arrow/></span>
+                                                </li>
+                                                <li>
+                                                    <span className='select text'>1</span>
+                                                </li>
+                                                <li>
+                                                <span className='text'>2</span>
+                                                </li>
+                                                <li>
+                                                <span className='text'>3</span>
+                                                </li>
+                                                <li>
+                                                <span className='text more'>...</span>
+                                                </li>
+                                                <li>
+                                                <span className='text'>10</span>
+                                                </li>
+                                                <li>
+                                                    <span className='next-arrow'><Arrow/></span>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <div className='rightCol'>
+                                            <div className='flexbox'>
+                                                <span className='label'>Go to</span>
+                                                <input type="text"></input>
+                                                <span className='label'>page</span>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </CustomTabPanel>
                                 <CustomTabPanel value={value} index={1} className="tabContentContainer">
                                     <DraftList/>
@@ -242,6 +354,18 @@ function ProductMaster() {
                 </div>
             }
         </div>
+
+        {
+                successModal &&
+                <SuccessModal
+                    handleSuccessClose={handleDeleteSuccessModalClose}
+                    SuccessPopUp={successModal}
+                    SuccessTitle={SuccessModalMsg}
+                    // SuccessMsg={SuccessModalMsg}
+                 
+                />
+            }
+        </React.Fragment>
     )
 }
 

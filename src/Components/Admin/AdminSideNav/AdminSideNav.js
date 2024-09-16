@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useRef } from 'react'
 import Zoomview from '../../../assets/images/zoomview.svg'
 import ExpandView from '../../../assets/images/expand_view.svg'
 import { ReactComponent as Dashboard } from '../../../assets/images/home.svg';
@@ -30,7 +30,7 @@ function AdminSideNav(props) {
     const [menuSelected, setMenuSelected] = useState('');
     const [subMenuOption, setSubMenuOption] = useState(false);
     const [subMenuParent, setSubMenuParent] = useState('')
-
+    
     function handleMenuItem(event, name, subMenu = false) {
         if(subMenu == true){
             setMenuState([event]);
@@ -61,6 +61,12 @@ function AdminSideNav(props) {
             props.SelecteMenuOption(name)
         }}
         
+        if(document.querySelector(`.${name}`)?.parentElement?.parentElement.className == 'subMenu'){
+            let breadcrumbData=[];
+            breadcrumbData.push(document.querySelector(`.${name}`).parentElement?.parentElement?.previousElementSibling.querySelector(".text").innerHTML);
+            breadcrumbData.push(document.querySelector(`.${name}`).innerHTML)
+            props.updateBreadCrumb(breadcrumbData)
+        }
     }
 
     const handleLogout = () => {
@@ -96,18 +102,24 @@ function AdminSideNav(props) {
             },
         },
         {
-            item: 'Product Master',
+            item: 'Masters',
             icon: <Boxes />,
             childItem: {
                 subMenu: [
                     {
-                        dataLabel: 'Product List',
+                        dataLabel: 'Products',
                     },
                     {
-                        dataLabel: 'Bulk Product Creation',
+                        dataLabel: 'Attributes',
                     },
                     {
-                        dataLabel: 'Auto Product Creation',
+                        dataLabel: 'Manufacturers',
+                    },
+                    {
+                        dataLabel: 'Suppliers',
+                    },
+                    {
+                        dataLabel: 'Categories',
                     },
                 ],
             },
@@ -163,6 +175,7 @@ function AdminSideNav(props) {
             props.expandControl()
         }
     }
+
 
 
     return (
@@ -239,7 +252,7 @@ function AdminSideNav(props) {
                                                             (label, index) => {
                                                                 return (
                                                                     <li>
-                                                                        <button className={`menu_link ${label.dataLabel == menuSelected ? 'active' : ""}`}  onClick={() => {
+                                                                        <button className={`menu_link ${label.dataLabel} ${label.dataLabel == menuSelected ? 'active' : ""}`}  onClick={() => {
                                                                             handleMenuItem(index, label.dataLabel, true);
                                                                             setSubMenuParent(item?.item)
                                                                             }}>
