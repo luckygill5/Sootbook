@@ -173,7 +173,7 @@ function ProductDetail({changeTab,ProductCreateList, productDetailData, preview,
                         onChange={handleChange}
                         error={errors.productCode}
                         touched={touched.productCode}
-                        ReadOnly={preview ? true :false }
+                        ReadOnly={true }
                         
                     />
                 </div>
