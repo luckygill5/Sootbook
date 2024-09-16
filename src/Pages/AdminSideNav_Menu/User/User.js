@@ -34,7 +34,7 @@ function User(props) {
             {NewRole ? (
                 <CreateRole back={() => handleBack()} />
             ) : AddUser ? (
-                <AddNewUser backHRM={() => handleBackHRM()} editUserData={editUserData} NewRole={() => handleUserNewRole()} />
+                <AddNewUser backHRM={handleBackHRM} editUserData={editUserData} NewRole={() => handleUserNewRole()} />
             ) : (
                 <UserRoleList Userhandle={() => handleAddUser()} setEditUserData={setEditUserData} />
             )}

@@ -13,6 +13,7 @@ export const UserSave = (values, country, permission) => {
                 Authorization: accessToken,
             },
             data: {
+                userId:values.userId,
                 role:values.role,
                 status:values.status
             }

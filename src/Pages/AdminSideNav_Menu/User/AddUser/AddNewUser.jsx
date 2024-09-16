@@ -23,6 +23,7 @@ const addUserEditFormSchema = Yup.object({
 });
 
 const addUserInitialValues = {
+    userId: '',
     name: '',
     email: '',
     phone: '',
@@ -87,6 +88,9 @@ export default function AddNewUser({ NewRole, backHRM, editUserData }) {
                 if (key === 'name') {
                     values[key] = emp['first_name'] + emp['last_name'];
                 }
+                if (key === 'userId') {
+                    values[key] = emp['_id'];
+                }
             }
             setFormDisabled(false);
         }
@@ -113,6 +117,9 @@ export default function AddNewUser({ NewRole, backHRM, editUserData }) {
                 values[key] = editUserData[key];
                 if (key === 'name') {
                     values[key] = editUserData['first_name'] + editUserData['last_name'];
+                }
+                if (key === 'userId') {
+                    values[key] = editUserData['_id'];
                 }
             }
             setFormDisabled(false);
@@ -226,12 +233,7 @@ export default function AddNewUser({ NewRole, backHRM, editUserData }) {
                             </button>
                             <button
                                 className={classNames('saveBtn', { disabled: formDisabled })}
-                                type='submit'
                                 disabled={formDisabled}
-                                onClick={() => {
-                                    console.log('CLICKED');
-                                    handleSubmit();
-                                }}
                             >
                                 {locales.save_label}
                             </button>
@@ -242,10 +244,10 @@ export default function AddNewUser({ NewRole, backHRM, editUserData }) {
             {userAdded && (
                 <Dialog
                     className='addUser_successModal'
-                    onClose={()=>{setUserAdded(false)}}
+                    onClose={()=>{setUserAdded(false);backHRM();console.log('CLICKED1');}}
                     open={userAdded}
                 >
-                    <button className='close_btn' type='submit' onClick={() => setUserAdded(false)}>
+                    <button className='close_btn' type='submit' onClick={()=>{setUserAdded(false);backHRM();console.log('CLICKED2');}}>
                         <img src={CloseX} alt='close_icon' className='close_img'></img>
                     </button>
                     <div className='successiconBlock'>
@@ -259,7 +261,7 @@ export default function AddNewUser({ NewRole, backHRM, editUserData }) {
             )}
             {errorModal && (
                 <ErrorModal
-                    handleErrorClose={()=>{SetErrorModal(false)}}
+                    handleErrorClose={()=>{SetErrorModal(false);backHRM();}}
                     ErrorPopUp={errorModal}
                     ErrorMsg={errorModalMsg}
                 />
