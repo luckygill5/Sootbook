@@ -39,6 +39,7 @@ import { useNavigate } from "react-router-dom";
 import Collection from './DashboardCollections/DashboardCollections.js';
 import './AdminDashBoardContent.scss'
 import AddNewEmployee from '../../../Pages/EmployeeMaster/AddNewEmployee/AddNewEmployee.js';
+import Employee from '../../../Pages/AdminSideNav_Menu/Employee/Employee.js';
 
 // interface TabPanelProps {
 //     children?: React.ReactNode;
@@ -193,7 +194,7 @@ function AdminDashBoardContent(props) {
                     <ProductMaster/>
                 ):
                  props.viewcontrol == "Employee" ? (
-                    <EmployeeMaster/>
+                    <Employee/>
                 ) :
                     props.viewcontrol == "Dashboard" ? (
                         <Collection />

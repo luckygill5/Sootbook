@@ -74,7 +74,7 @@ function Commissions({ mode, setEditMode, commissionInformation, getCommissionIn
     return (
         <div className='commissions_container'>
             {mode ? (
-                <div className='form_container'>
+                
                     <form onSubmit={handleSubmit}>
                         <div className='input_flexbox'>
                             <Select
@@ -129,7 +129,7 @@ function Commissions({ mode, setEditMode, commissionInformation, getCommissionIn
                             </button>
                         </div>
                     </form>
-                </div>
+               
             ) : (
                 <DataList config={commissionConfig} dataSource={commissionInformation} />
             )}

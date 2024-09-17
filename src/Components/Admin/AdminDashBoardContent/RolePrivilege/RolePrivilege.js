@@ -125,7 +125,6 @@ function RolePrivilege(props) {
                             />
                         </div>
                         <div className='privilege_section'>
-                            <h5 className='title'>Privileges</h5>
                             <ul className='check_listing'>
                                 <li className='check_item'>
                                     <FormControlLabel

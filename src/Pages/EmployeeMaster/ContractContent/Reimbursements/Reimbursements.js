@@ -74,7 +74,6 @@ function Reimbursements({ mode, setEditMode, reimbursementInformation, getReimbu
     return (
         <div className='reimbursements_container'>
             {mode ? (
-                <div className='form_container'>
                     <form onSubmit={handleSubmit}>
                         <div className='input_flexbox'>
                             <Select
@@ -129,7 +128,7 @@ function Reimbursements({ mode, setEditMode, reimbursementInformation, getReimbu
                             </button>
                         </div>
                     </form>
-                </div>
+               
             ) : (
                 <DataList config={reimbursementConfig} dataSource={reimbursementInformation} />
             )}

@@ -48,7 +48,7 @@ function BasicInformationEdit({ setReadMode, basicInformation, getBasicInfo }) {
       }
     }
     try {
-      const userid = JSON.parse(localStorage.getItem('profileData')).userId
+      const userid = JSON.parse(localStorage.getItem('profileData'))?.userId
       let response = await axiosClient.post(`admin/vendor/basicInfo/store`, JSON.stringify({ userId: userid, ...values }));
       if (response.status === 200) {
         swal("Success", "Basic Information updated successfully", "success", {

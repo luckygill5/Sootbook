@@ -123,11 +123,6 @@ function ContractContent({initialEditMode = true }) {
     }
     return (
         <div className='contractContent_container'>
-            <div className='header_flex'>
-                <h5 className='title'>Contract</h5>
-               
-            </div>
-
             <div className='body_section'>
                 <Box sx={{ width: '100%' }} className='tabsBlock'>
                     <Box className='tabsFlexbox'>
@@ -140,9 +135,9 @@ function ContractContent({initialEditMode = true }) {
                                     );
                                 })}
                         </Tabs>
-                        <button className='moreBtn'>
+                        {/* <button className='moreBtn'>
                             <DotsIcon />
-                        </button>
+                        </button> */}
                     </Box>
                     <CustomTabPanel value={value} index={0} className='tabdataBlock'>
                         <Contract
@@ -186,6 +181,10 @@ function ContractContent({initialEditMode = true }) {
                     </CustomTabPanel>
                 </Box>
             </div>
+
+      
+
+            
         </div>
     );
 }

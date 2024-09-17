@@ -36,7 +36,7 @@ const basicInfoConfig = [
 ];
 
 function BasicInformation() {
-  const userid = JSON.parse(localStorage.getItem('profileData')).userId
+  const userid = JSON.parse(localStorage.getItem('profileData'))?.userId
   const [readMode, setReadMode] = useState(true);
 
   const [basicInformation, setBasicInformation] = useState({});

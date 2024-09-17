@@ -4,14 +4,15 @@ import locales from "../../../Constants/en.json";
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Box from '@mui/material/Box';
-import { ArrowLeft } from '@mui/icons-material';
+import {ReactComponent as LeftArrow} from "../../../assets/images/arrow-left.svg";
 // import BasicInformation_Employee from './BasicInformation_Employee';
 import BasicInformationEdit from '../BasicInformation/BasicInformationInfo/BasicInformationEdit';
 import PersonalInformation from '../PersonalInformation/PersonalInformation';
 import RolePrivilege from '../RolePrivilege/RolePrivilege';
 import Documents from '../../../Components/Admin/AdminDashBoardContent/Documents/Documents';
 import ContractContent from '../ContractContent/ContractContent';
-function AddNewEmployee() {
+import "./AddEmployee.scss";
+function AddNewEmployee({EmployeeHandle, backHRM}) {
     const [value, setValue] = useState(0);
 
     const handleChange = (event, newValue) => {
@@ -44,9 +45,19 @@ function AddNewEmployee() {
     const AddEmployeeTabs = ['Basic Information', "Personal Information", "Contract", "Roles and Privileges", "Documents"]
 
     return (
-        <div className='addNewEmployee_container'>
-            <div className='container_section'>
-                <h2 className='section_title'>Add New Employee</h2>
+        <React.Fragment>
+        <div className='addUser_container'>
+        <div className='backHrm-link'>
+                    <button className='backBtn' type='button' onClick={() => backHRM()}>
+                        <span className='icon'>
+                            {/* <img src={LeftArrow} alt='left-arrow' className='img_block'></img> */}
+                        </span>
+                        Back to HRM
+                    </button>
+        </div>
+            
+        <div className='form_container'>
+                <h3 className='title' style={{"width":"200px"}}>Add New Employee</h3>
                 <Box className="tabsContainer" sx={{ width: '100%' }}>
                     <Box className="tabFlexContainer">
                         <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
@@ -79,6 +90,36 @@ function AddNewEmployee() {
                 </Box>
             </div>
         </div>
+              
+     
+        {/* {userAdded && (
+            <Dialog
+                className='addUser_successModal'
+                onClose={handleDialogClose}
+                open={userAdded}
+            >
+                <button className='close_btn' type='submit' onClick={() => handleDialogClose()}>
+                    <img src={CloseX} alt='close_icon' className='close_img'></img>
+                </button>
+                <div className='successiconBlock'>
+                    <img src={SuccessIcon} alt='static_icon' className='success_icon'></img>
+                </div>
+                <DialogTitle className='modal_title'>
+                    User has been assigned successfully
+                </DialogTitle>
+                <p className='message'>The user has been successfully added with the role.</p>
+            </Dialog>
+        )}
+
+        {errorModal && (
+            <ErrorModal
+                handleErrorClose={handleModalErrorPopUP}
+                ErrorPopUp={errorModal}
+                ErrorMsg={errorModalMsg}
+            />
+        )} */}
+    </React.Fragment>
+       
     )
 }
 
