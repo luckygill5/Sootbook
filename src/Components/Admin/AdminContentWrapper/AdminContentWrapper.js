@@ -10,6 +10,7 @@ const {viewManage} = props;
             <AdminDashBoardContent 
             viewManage={props.viewManage}
             viewcontrol={props.viewcontrol}
+            breadcrumbUpdateData={props.breadcrumbUpdateData}
             />
         </React.Fragment>
     )

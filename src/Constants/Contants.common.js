@@ -425,3 +425,9 @@ export const DEPARTMENTS_LIST = [
     "Environmental Health & Safety (EHS)",
     "Facilities Management"
 ]
+
+export const STATUS_LIST = [
+    "Active",
+    "Inactive",
+    "Blocked"
+]

@@ -28,7 +28,9 @@ $font-monsterat : 'Montserrat';
 
 .dashboard_dataWrapper {
     padding-left: 20px;
-    width: calc(100% - 237px);
+    width: calc(100% - 251px);
+    padding: 16px;
+    margin-left: auto;
     transition: width 0.2s ease-in-out;
     box-sizing: border-box;
 
@@ -383,7 +385,6 @@ $font-monsterat : 'Montserrat';
                                 height: 39px;
                                 position: relative;
                                 white-space: nowrap;
-                                color: #687382;
                                 font-family: $font-monsterat;
                                 .icon{
                                     display: inline-flex;
@@ -392,6 +393,31 @@ $font-monsterat : 'Montserrat';
                                     margin-right: 10px;
                                     width: 16px;
                                     height: 16px;
+                                }
+                                &:hover{
+                                    border: none;
+                                    &::before {
+                                        border-radius: 6px;
+                                        box-shadow: -3px -4px 6px 0 #fffc;
+                                        content: "";
+                                        display: inline-block;
+                                        height: 100%;
+                                        left: 0;
+                                        position: absolute;
+                                        top: 0;
+                                        width: 100%;
+                                    }
+                                    &::after {
+                                        border-radius: 6px;
+                                        box-shadow: 3px 3px 6px 0 #1211114d;
+                                        content: "";
+                                        display: inline-block;
+                                        height: 100%;
+                                        left: 0;
+                                        position: absolute;
+                                        top: 0;
+                                        width: 100%;
+                                    }
                                 }
                             }
                         }

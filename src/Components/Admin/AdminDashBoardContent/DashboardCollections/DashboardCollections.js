@@ -53,7 +53,6 @@ function Collection() {
     const saleTabsData = ["Direct sales", "Online", "Wholesale"];
 
     const handleSaleTabs = (event) => {
-        console.log("handleSaleTabs", event);
         setSelectedSaleTab(event)
     }
     return (
