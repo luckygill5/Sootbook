@@ -194,7 +194,7 @@ function AdminDashBoardContent(props) {
                     <ProductMaster/>
                 ):
                  props.viewcontrol == "Employee" ? (
-                    <EmployeeMaster/>
+                    <Employee/>
                 ) :
                     props.viewcontrol == "Dashboard" ? (
                         <Collection />
