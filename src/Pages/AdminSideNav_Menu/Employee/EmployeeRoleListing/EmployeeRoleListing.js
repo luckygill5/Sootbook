@@ -341,11 +341,11 @@ function EmployeeRolesList({ Employeehandle }) {
                 dispatch(addData(response.data));
             }
         });
-        EmployeeSaveList().then(response => {
-            if (response && response.data) {
-                dispatch(addEmployeeSaveList(response.data));
-            }
-        });
+        // EmployeeSaveList().then(response => {
+        //     if (response && response.data) {
+        //         dispatch(addEmployeeSaveList(response.data));
+        //     }
+        // });
     }, []);
 
     const handleManageColumnFilter = event => {
