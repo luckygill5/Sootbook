@@ -62,12 +62,12 @@ function PersonalInformation( {initialEditMode = true }) {
         }
     };
 
-    useEffect(() => {
-        getBankInfo();
-        getBioInfo();
-        getEmergencyInfo();
-        getSocialinfo();
-    }, []);
+    // useEffect(() => {
+    //     getBankInfo();
+    //     getBioInfo();
+    //     getEmergencyInfo();
+    //     getSocialinfo();
+    // }, []);
 
     const tabsData = ['Bio', 'Social Profile', 'Bank Account', 'Emergency Contact'];
 

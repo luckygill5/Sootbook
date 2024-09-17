@@ -12,7 +12,7 @@ import RolePrivilege from '../RolePrivilege/RolePrivilege';
 import Documents from '../../../Components/Admin/AdminDashBoardContent/Documents/Documents';
 import ContractContent from '../ContractContent/ContractContent';
 import "./AddEmployee.scss";
-function AddNewEmployee({EmployeeHandle, backHRM}) {
+function AddNewEmployee({EmployeeHandle, handleBackHRM}) {
     const [value, setValue] = useState(0);
 
     const handleChange = (event, newValue) => {
@@ -48,7 +48,7 @@ function AddNewEmployee({EmployeeHandle, backHRM}) {
         <React.Fragment>
         <div className='addUser_container'>
         <div className='backHrm-link'>
-                    <button className='backBtn' type='button' onClick={() => backHRM()}>
+                    <button className='backBtn' type='button' onClick={() => handleBackHRM()}>
                         <span className='icon'>
                             {/* <img src={LeftArrow} alt='left-arrow' className='img_block'></img> */}
                         </span>

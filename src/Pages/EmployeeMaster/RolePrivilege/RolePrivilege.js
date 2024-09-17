@@ -42,9 +42,9 @@ function RolePrivilege({initialEditMode = true }) {
         }
     };
 
-    useEffect(() => {
-        getRolesInfo();
-    }, []);
+    // useEffect(() => {
+    //     getRolesInfo();
+    // }, []);
 
     const handleFormSubmit = async values => {
         delete values.contractDate;

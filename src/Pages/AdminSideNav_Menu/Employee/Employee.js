@@ -10,8 +10,6 @@ function Employee(props) {
     const handleAddEmployee = () => {
         setAddEmployee(true);
     };
-
-
     // const handleBack = () => {
     //     setNewRole(false);
     //     setAddEmployee(true);
@@ -23,7 +21,7 @@ function Employee(props) {
     return (
         <div className='user_container'>
             {AddEmployee ? (
-                <EmployeeMaster backHRM={() => handleBackHRM()} />
+                <EmployeeMaster handleBackHRM={() => handleBackHRM()} />
             ) : (
                 <EmployeeRolesList Employeehandle={() => handleAddEmployee()} />
             )}

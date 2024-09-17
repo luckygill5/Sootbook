@@ -169,6 +169,7 @@ function BasicInformationEdit({ setReadMode, basicInformation, getBasicInfo }) {
               value={values.password}
               onChange={handleChange}
               onBlur={handleBlur}
+              isRequired
             />
             
             <DatePicker

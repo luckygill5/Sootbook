@@ -7,7 +7,7 @@ import { ReactComponent as List } from "../../assets/images/list.svg";
 import { ReactComponent as UserSquare } from "../../assets/images/user-square-2.svg";
 
 
-function EmployeeMaster() {
+function EmployeeMaster({handleBackHRM}) {
 
     const [addEmployee, setAddEmployee] = useState(true)
 
@@ -18,7 +18,7 @@ function EmployeeMaster() {
 
     return (
         <div className='form_container'>
-            {addEmployee ? <AddNewEmployee /> :
+            {addEmployee ? <AddNewEmployee handleBackHRM={handleBackHRM} /> :
                 
                     ""}
         </div>

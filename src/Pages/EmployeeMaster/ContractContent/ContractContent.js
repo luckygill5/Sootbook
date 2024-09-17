@@ -77,13 +77,13 @@ function ContractContent({initialEditMode = true }) {
         }
     };
 
-    useEffect(() => {
-        getAllowanceInfo();
-        getContractInfo();
-        getCommissionInfo();
-        getDeductionInfo();
-        getReimbursementInfo();
-    }, []);
+    // useEffect(() => {
+    //     getAllowanceInfo();
+    //     getContractInfo();
+    //     getCommissionInfo();
+    //     getDeductionInfo();
+    //     getReimbursementInfo();
+    // }, []);
 
     const tabsData = [
         'Contract',
