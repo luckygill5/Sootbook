@@ -41,15 +41,16 @@ import { addUserSaveList } from '../../../../Slices/UserSaveListSlice';
 
 function UserRolesList({ Userhandle, setEditUserData }) {
     const data = useSelector(state => state);
+    const { employees } = data.userListData?.data;
+    const { rolePermissionList = [] } = data.userSaveList?.data;
     const dispatch = useDispatch();
-    const [Tablehead, setTableHead] = useState('');
-    const [TableBody, setTableBody] = useState('');
     const [view, setView] = React.useState('cardview');
     const [RoleFilter, setRoleFilter] = useState({
         Branch_Manager: '',
         Regional_Manager: '',
         Organization_Administrator: '',
     });
+    const [searchTerm, setSearchTerm] = useState('');
 
     const manageColumnData = ['User ID', 'Username', 'Email', 'Role', 'Creation date', 'Created by', 'Status'];
     const [RolefilterCollect, setRoleFilterCollect] = useState([]);
@@ -69,65 +70,6 @@ function UserRolesList({ Userhandle, setEditUserData }) {
     };
 
     const tableHead = [{ title: 'User ID' }, { title: 'Username' }, { title: 'Email' }, { title: 'Role' }, { title: 'Creation date' }];
-
-    const tableBody = [
-        {
-            id: 'OFO123',
-            name: `Annette Black`,
-            email: 'sara.cruz@example.com',
-            role: 'Branch Manager',
-            date: '26 Oct-2020, 00:00',
-        },
-        {
-            id: 'WF2DS3',
-            name: 'Darrell Steward',
-            email: '',
-            role: 'Regional Manager',
-            date: '19 Apr 2021, 00:00',
-        },
-        {
-            id: 'DSVSDF3',
-            name: 'Eleanor Pena',
-            email: 'jessica.hanson@example.com',
-            role: 'Organization Administrator',
-            date: '26 Oct-2020, 00:00',
-        },
-        {
-            id: '234GH5',
-            name: 'Leslie Alexander',
-            email: '',
-            role: 'Trust Administrator',
-            date: '26 Oct-2020, 00:00',
-        },
-        {
-            id: 'IJ89G4',
-            name: 'Brooklyn Simmons',
-            email: 'deanna.curtis@example.com',
-            role: 'Accountant',
-            date: '26 Oct-2020, 00:00',
-        },
-        {
-            id: 'ZXCSDC',
-            name: 'Arlene McCoy',
-            email: 'kenzi.lawson@example.com',
-            role: 'Agent',
-            date: '26 Oct-2020, 00:00',
-        },
-        {
-            id: 'OGA323',
-            name: 'Annette Black',
-            email: 'felicia.reid@example.com',
-            role: 'Tax Officer',
-            date: '26 Oct-2020, 00:00',
-        },
-        {
-            id: 'SDF23E2',
-            name: 'Arlene McCoy',
-            email: 'tanya.hill@example.com',
-            role: 'Vice President',
-            date: '26 Oct-2020, 00:00',
-        },
-    ];
 
     const handleFilterDrawer = () => {
         filterDrawer.current.classList.add('slide');
@@ -167,22 +109,6 @@ function UserRolesList({ Userhandle, setEditUserData }) {
         }
     };
 
-    const handleFilter = () => {
-        if (RolefilterCollect.length == 0 && (TableBody.length == 0 || TableBody.length > 0)) {
-            setTableBody(tableBody);
-        } else if (RolefilterCollect.length > 0) {
-            let filterData = [];
-            TableBody.map(item => {
-                Object.keys(item).map(key => {
-                    if (RolefilterCollect.includes(item[key].split(' ').join('_'))) {
-                        filterData.push(item);
-                    }
-                });
-            });
-            setTableBody(filterData);
-        }
-    };
-
     const handleClearFilter = () => {
         if (RolefilterCollect.length > 0) {
             RolefilterCollect.map(item => {
@@ -196,14 +122,14 @@ function UserRolesList({ Userhandle, setEditUserData }) {
     };
 
     useEffect(() => {
-        // setTableBody(tableBody)
-        // setTableHead(tableHead);
-
-        UserList().then(response => {
+        UserList(searchTerm?.length > 2 ? searchTerm : '').then(response => {
             if (response && response.data) {
                 dispatch(addData(response.data));
             }
         });
+    }, [searchTerm]);
+
+    useEffect(() => {
         UserSaveList().then(response => {
             if (response && response.data) {
                 dispatch(addUserSaveList(response.data));
@@ -217,8 +143,6 @@ function UserRolesList({ Userhandle, setEditUserData }) {
                 return item;
             }
         });
-
-        // setTableHead(filter)
     };
     return (
         <div className='userRoles_container'>
@@ -234,10 +158,17 @@ function UserRolesList({ Userhandle, setEditUserData }) {
             <div className='listcardview_container'>
                 <div className='header_section'>
                     <div className='searchBox'>
-                        <input type='text' className='search-input' placeholder='Search by keywords'></input>
+                        <input
+                            type='text'
+                            className='search-input'
+                            onChange={({ target: { value } }) => {
+                                setSearchTerm(value);
+                            }}
+                            placeholder='Search by keywords'
+                        ></input>
                     </div>
                     <div className='action_flexBox'>
-                        <button className='actionBtn' type='button' onClick={() => exportToExcel(tableBody, 'downloadfilename')}>
+                        <button className='actionBtn' type='button' onClick={() => exportToExcel(employees, 'downloadfilename')}>
                             <span className='icon'>
                                 <img src={Upload} alt='upload' className='img'></img>
                             </span>
@@ -286,10 +217,16 @@ function UserRolesList({ Userhandle, setEditUserData }) {
             </div>
             <div className='view_container'>
                 {view == 'cardview' ? (
-                    <CardLayout employeData={data.userListData?.data?.employees} setEditUserData={setEditUserData} Userhandle={Userhandle} />
+                    <CardLayout
+                        employeData={employees}
+                        rolePermissionList={rolePermissionList}
+                        setEditUserData={setEditUserData}
+                        Userhandle={Userhandle}
+                    />
                 ) : view == 'listview' ? (
                     <TabularLayout
-                        employeData={data.userListData?.data?.employees}
+                        employeData={employees}
+                        rolePermissionList={rolePermissionList}
                         manageColumn={() => handleManageColumn()}
                         setEditUserData={setEditUserData}
                         Userhandle={Userhandle}
@@ -349,7 +286,7 @@ function UserRolesList({ Userhandle, setEditUserData }) {
                         <button className='clearFilter' type='submit' onClick={handleClearFilter}>
                             Clear all filter
                         </button>
-                        <button className='applyFilter' type='submit' onClick={handleFilter}>
+                        <button className='applyFilter' type='submit'>
                             Apply filter
                         </button>
                     </div>
@@ -408,7 +345,7 @@ function UserRolesList({ Userhandle, setEditUserData }) {
                         <button className='clearFilter' type='submit' onClick={handleClearFilter}>
                             Clear all filter
                         </button>
-                        <button className='applyFilter' type='submit' onClick={handleFilter}>
+                        <button className='applyFilter' type='submit'>
                             Apply filter
                         </button>
                     </div>

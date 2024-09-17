@@ -1,7 +1,7 @@
 import { apiUrl, port } from './constants.servics';
 import axios from 'axios';
 
-export const UserList = () => {
+export const UserList = (searchTerm = '') => {
     const UserListUrl = `${apiUrl}:${port}/api/admin/vendor/userList`;
     const accessToken = `Bearer ${sessionStorage.accessToken} `;
     return (
@@ -13,7 +13,7 @@ export const UserList = () => {
                 Authorization: accessToken,
             },
             data: {
-                search: '',
+                search: searchTerm,
                 filter: [],
                 columnList: [],
                 page: '1',
