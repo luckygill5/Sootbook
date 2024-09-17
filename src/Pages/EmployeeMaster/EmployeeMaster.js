@@ -17,7 +17,7 @@ function EmployeeMaster() {
 
 
     return (
-        <div className='EmployeeMaster_container'>
+        <div className='form_container'>
             {addEmployee ? <AddNewEmployee /> :
                 
                     ""}

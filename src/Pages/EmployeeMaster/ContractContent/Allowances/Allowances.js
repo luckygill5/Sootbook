@@ -74,7 +74,6 @@ function Allowances({ mode, setEditMode, allowanceInformation, getAllowanceInfo 
     return (
         <div className='allowances_container'>
             {mode ? (
-                <div className='form_container'>
                     <form onSubmit={handleSubmit}>
                         <div className='input_flexbox'>
                             <Select
@@ -129,7 +128,7 @@ function Allowances({ mode, setEditMode, allowanceInformation, getAllowanceInfo 
                             </button>
                         </div>
                     </form>
-                </div>
+                
             ) : (
                 <DataList config={allowanceConfig} dataSource={allowanceInformation} />
             )}

@@ -99,7 +99,7 @@ function Contract({ mode, setEditMode, contractInformation, getContractInfo }) {
     return (
         <div className='contract_container'>
             {mode ? (
-                <div className='form_container'>
+                <div className='container'>
                     <form onSubmit={handleSubmit}>
                         <div className='input_flexbox'>
                             <DatePicker

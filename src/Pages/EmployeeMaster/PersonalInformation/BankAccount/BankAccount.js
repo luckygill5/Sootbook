@@ -73,7 +73,6 @@ function BankAccount({ mode, setEditMode, bankInfo, getBankInfo }) {
     return (
         <div className='personalinfoBankaccount_container'>
             {mode ? (
-                <div className='form_container' onSubmit={handleSubmit}>
                     <form onSubmit={handleSubmit}>
                         <div className='input_flexbox'>
                             <Input
@@ -168,7 +167,7 @@ function BankAccount({ mode, setEditMode, bankInfo, getBankInfo }) {
                             </button>
                         </div>
                     </form>
-                </div>
+               
             ) : (
                 <DataList config={bankAccountConfig} dataSource={bankInfo} />
             )}

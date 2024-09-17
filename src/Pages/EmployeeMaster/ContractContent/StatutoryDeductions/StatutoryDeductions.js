@@ -72,7 +72,6 @@ function StatutoryDeductions({ mode, setEditMode, deductionInformation, getDeduc
     return (
         <div className='satutoryDeductions_container'>
             {mode ? (
-                <div className='form_container'>
                     <form onSubmit={handleSubmit}>
                         <div className='input_flexbox'>
                             <Select
@@ -114,7 +113,7 @@ function StatutoryDeductions({ mode, setEditMode, deductionInformation, getDeduc
                             </button>
                         </div>
                     </form>
-                </div>
+                
             ) : (
                 <DataList config={statutoryDeductionsConfig} dataSource={deductionInformation} />
             )}

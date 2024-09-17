@@ -24,6 +24,7 @@ const basicInformationInitialValues = {
   phone: "",
   gender: "male",
   empId: "",
+  password:"",
   dob: "",
   martial_status: "Single",
   state: "",
@@ -89,7 +90,6 @@ function BasicInformationEdit({ setReadMode, basicInformation, getBasicInfo }) {
 
   return (
     <React.Fragment>
-      <div className="form_container">
         <form onSubmit={handleSubmit}>
           <div className="profile_uploadSection">
             <label>Profile Picture</label>
@@ -161,15 +161,16 @@ function BasicInformationEdit({ setReadMode, basicInformation, getBasicInfo }) {
               touched={touched.empId}
             />
             <Input
-              label={"City"}
+              label={"Password"}
               type={"text"}
-              name={"city"}
-              id={"city"}
+              name={"password"}
+              id={"password"}
               wrapperClass={"col6"}
-              value={values.city}
+              value={values.password}
               onChange={handleChange}
               onBlur={handleBlur}
             />
+            
             <DatePicker
               label={'Date of Birth'}
               wrapperClass={'col6'}
@@ -217,6 +218,17 @@ function BasicInformationEdit({ setReadMode, basicInformation, getBasicInfo }) {
               onChange={handleChange}
               onBlur={handleBlur}
             />
+            <Input
+              label={"City"}
+              type={"text"}
+              name={"city"}
+              id={"city"}
+              wrapperClass={"col6"}
+              value={values.city}
+              onChange={handleChange}
+              onBlur={handleBlur}
+            />
+            
           </div>
           <div className="input_flexbox">
             <Select
@@ -286,7 +298,7 @@ function BasicInformationEdit({ setReadMode, basicInformation, getBasicInfo }) {
             <button className="savebtn" type="submit" onClick={handleSubmit}>Save</button>
           </div>
         </form>
-      </div>
+      
     </React.Fragment>
   );
 }

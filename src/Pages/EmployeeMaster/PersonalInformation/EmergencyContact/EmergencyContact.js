@@ -57,7 +57,6 @@ function EmergencyContact({ mode, setEditMode, emergencyInfo, getEmergencyInfo }
     return (
         <div className='personalinfo_emergencycontact_container'>
             {mode ? (
-                <div className='form_container'>
                     <form onSubmit={handleSubmit}>
                         <div className='input_flexbox'>
                             <Input
@@ -69,6 +68,8 @@ function EmergencyContact({ mode, setEditMode, emergencyInfo, getEmergencyInfo }
                                 placeholder={'Full Name'}
                                 wrapperClass={'col12'}
                                 onChange={handleChange}
+                                isRequired
+
                             />
                         </div>
                         <div className='input_flexbox'>
@@ -81,6 +82,8 @@ function EmergencyContact({ mode, setEditMode, emergencyInfo, getEmergencyInfo }
                                 placeholder={'Contact Number'}
                                 wrapperClass={'col6'}
                                 onChange={handleChange}
+                                isRequired
+
                             />
                             <Input
                                 label={'Email'}
@@ -91,6 +94,8 @@ function EmergencyContact({ mode, setEditMode, emergencyInfo, getEmergencyInfo }
                                 value={values.email}
                                 wrapperClass={'col6'}
                                 onChange={handleChange}
+                                isRequired
+
                             />
                         </div>
                         <div className='input_flexbox'>
@@ -100,6 +105,8 @@ function EmergencyContact({ mode, setEditMode, emergencyInfo, getEmergencyInfo }
                                 value={values.address}
                                 wrapperClass={'col12'}
                                 onChange={handleChange}
+                                isRequired
+
                                 placeholder='Address'
                             />
                         </div>
@@ -112,7 +119,7 @@ function EmergencyContact({ mode, setEditMode, emergencyInfo, getEmergencyInfo }
                             </button>
                         </div>
                     </form>
-                </div>
+                
             ) : (
                 <DataList config={emergencyContactConfig} dataSource={emergencyInfo} />
             )}

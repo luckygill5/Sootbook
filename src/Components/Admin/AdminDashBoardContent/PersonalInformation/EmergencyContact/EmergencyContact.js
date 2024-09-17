@@ -57,7 +57,6 @@ function EmergencyContact({ mode, setEditMode, emergencyInfo, getEmergencyInfo }
     return (
         <div className='personalinfo_emergencycontact_container'>
             {mode ? (
-                <div className='form_container'>
                     <form onSubmit={handleSubmit}>
                         <div className='input_flexbox'>
                             <Input
@@ -112,7 +111,7 @@ function EmergencyContact({ mode, setEditMode, emergencyInfo, getEmergencyInfo }
                             </button>
                         </div>
                     </form>
-                </div>
+                
             ) : (
                 <DataList config={emergencyContactConfig} dataSource={emergencyInfo} />
             )}

@@ -54,7 +54,6 @@ function PersonalInfoBio({ mode, setEditMode, bioInfo, getBioInfo }) {
         <React.Fragment>
             <div className='personalBioInfo_container'>
                 {mode ? (
-                    <div className='form_container'>
                         <form onSubmit={handleSubmit}>
                             <div className='input_flexbox'>
                                 <TextArea
@@ -64,6 +63,8 @@ function PersonalInfoBio({ mode, setEditMode, bioInfo, getBioInfo }) {
                                     wrapperClass={'col12'}
                                     onChange={handleChange}
                                     placeholder='Enter staff bio here..'
+                                    isRequired
+
                                 />
                             </div>
                             <div className='input_flexbox'>
@@ -78,6 +79,8 @@ function PersonalInfoBio({ mode, setEditMode, bioInfo, getBioInfo }) {
                                     ]}
                                     wrapperClass={'col6'}
                                     onChange={handleChange}
+                                    isRequired
+
                                 />
                             </div>
                             <div className='button-container'>
@@ -89,7 +92,7 @@ function PersonalInfoBio({ mode, setEditMode, bioInfo, getBioInfo }) {
                                 </button>
                             </div>
                         </form>
-                    </div>
+                   
                 ) : (
                     <DataList config={bankAccountConfig} dataSource={bioInfo} />
                 )}

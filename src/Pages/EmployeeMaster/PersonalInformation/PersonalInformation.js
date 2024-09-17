@@ -105,11 +105,7 @@ function PersonalInformation( {initialEditMode = true }) {
     };
     return (
         <React.Fragment>
-            <div className='personalInformation_container'>
-                <div className='header_flex'>
-                    <h5 className='title'>Personal Information</h5>
-                   
-                </div>
+            <div className='personalInformation_container'>              
                 <div className='body_section'>
                     <Box sx={{ width: '100%' }} className='tabsBlock'>
                         <Box>
