@@ -467,3 +467,129 @@ $font-monsterat : 'Montserrat';
         }
     }
 }
+
+.draftList_container{
+    box-sizing: border-box;
+    *{
+        box-sizing: border-box;
+        font-family: $font-monsterat;
+    }
+    .draftTable{
+        width: 100%;
+        .tableHead{
+            width: 100%;
+            .row{
+                @include flexbox();
+                justify-items: flex-end;
+                .tabCheckBox{
+                    width: 48px;
+                    height:56px;
+                    @include flexbox();
+                    align-items: center;
+                    justify-content: center;
+                    background-color: #F8FAFC;
+                    border-bottom: 1px solid #E5E7EB;
+                    // border-left: 1px solid #E5E7EB;
+                    .Mui-checked{
+                        color: #00A9BB;
+                    }
+                
+                }
+                .thead{
+                    height: 56px;
+                    @include flexbox();
+                    width: calc(33.33% - 16px);
+                    align-items: center;
+                    background-color: #F8FAFC;
+                    border-bottom: 1px solid #E5E7EB;
+                    border-left: 1px solid #E5E7EB;
+                    padding: 10px 16px;
+                    .text{
+                        display: inline-block;
+                        font-size: 14px;
+                        font-style: normal;
+                        font-weight: 500;
+                        line-height: 20px; /* 142.857% */
+                        letter-spacing: 0.07px;
+                        color: #6B7280;
+                        margin-right: 4px;  
+                    }
+                    .sort{
+                        display: inline-flex;
+                    }
+                }
+            }
+        }
+        .tableBody{
+            .row{
+                @include flexbox();
+                .tabCheckBox{
+                    width: 48px;
+                    height: 56px;
+                    @include flexbox();
+                    align-items: center;
+                    border-bottom: 1px solid #E5E7EB;
+                    &.checked{
+                        .Mui-checked{
+                            color: #00A9BB;
+                        }
+                    }
+                }
+                .tabCell{
+                    height: 56px;
+                    padding: 10px 16px;
+                    background-color: $white;
+                    border-bottom: 1px solid #E5E7EB;
+                    border-left: 1px solid #E5E7EB;
+                    @include flexbox();
+                    align-items: center;
+                    width: calc(33.33% - 16px);
+                    .text{
+                        display: inline-block;
+                        font-size: 14px;
+                        font-style: normal;
+                        font-weight: 400;
+                        line-height: 20px; /* 142.857% */
+                        letter-spacing: 0.07px;
+                        color: $text; 
+                    }
+                    .copy{
+                        display: inline-flex;
+                        margin-left: auto;
+                        cursor: pointer;
+                    }
+                }
+                .actionCell{
+                    width: calc(33.33% - 16px);
+                    @include flexbox();
+                    align-items: center;
+                    height: 56px;
+                    padding: 10px 16px;
+                    border-left: 1px solid #E5E7EB;
+                    border-bottom: 1px solid #E5E7EB;
+                    .edit{
+                        display: block;
+                        color: #14B8A6;
+                        font-size: 14px;
+                        font-style: normal;
+                        font-weight: 600;
+                        line-height: 20px; /* 142.857% */
+                        letter-spacing: 0.07px; 
+                        margin-right: 32px;
+                        cursor: pointer; 
+                    }
+                    .delete{
+                        display: block;
+                        color: #EF4444;
+                        font-size: 14px;
+                        font-style: normal;
+                        font-weight: 600;
+                        line-height: 20px; /* 142.857% */
+                        letter-spacing: 0.07px;  
+                        cursor: pointer;  
+                    }
+                }
+            }
+        }
+    }
+}
