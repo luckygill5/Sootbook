@@ -422,6 +422,14 @@ $font-monsterat : 'Montserrat';
 
                         .first_flexbox {
                             margin: 0 -10px 14px -10px;
+                            .inputBox {
+                                #productCode{
+                                    color: #D1D5DB;
+                                    &::placeholder{
+                                        color: #D1D5DB;
+                                    }
+                                }
+                            }
                         }
 
                         .third_flexbox {
@@ -613,12 +621,39 @@ $font-monsterat : 'Montserrat';
                                     background-color: #D1D5DB;
                                 }
                                
-
+                                .inputBox{
+                                    &.manufacturer, &.productCode{
+                                        width: 17%;
+                                    }
+                                     &.supplier, &.Product_Name {
+                                        width: 20%;
+                                    }
+                                    &.genericName {
+                                        width: 20%;
+                                        margin-right: 20%;
+                                    }
+                                } 
                             }
                             .second_flexbox{
                                 position: relative;
                                 padding-bottom: 20px;
-                                border-bottom: 1px solid #D1D5DB; 
+                                border-bottom: 1px solid #D1D5DB;
+                                .leftCol{
+                                    &.preview{
+                                        width: 17%;
+                                    }
+                                } 
+                                .inputBox{
+                                    width: 25%;
+                                    &.barcode_section {
+                                        width: 25%;
+                                    }
+                                }
+                                .rightCol{
+                                    &.preview{
+                                        margin-left: 0;
+                                    }
+                                } 
                             } 
                         }
                     }

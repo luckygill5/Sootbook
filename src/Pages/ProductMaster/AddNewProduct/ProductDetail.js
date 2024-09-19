@@ -162,7 +162,7 @@ function ProductDetail({changeTab,ProductCreateList, productDetailData, preview,
     return (
         <div className={`productDetail_container  ${preview ? 'preview_active' : ''}`}>
             <div className='first_flexbox'>
-                <div className='inputBox sm-20 lg-15'>
+                <div className='inputBox productCode sm-20 lg-15'>
                     <Input
                         label={'Product Code'}
                         type={'text'}
@@ -203,7 +203,7 @@ function ProductDetail({changeTab,ProductCreateList, productDetailData, preview,
                         disabled={preview ? true :false }
                     />
                 </div>
-                <div className='inputBox sm-40 lg-50'>
+                <div className='inputBox Product_Name sm-40 lg-50'>
                     <Input
                         label={'Product Name'}
                         type={'text'}
@@ -218,7 +218,7 @@ function ProductDetail({changeTab,ProductCreateList, productDetailData, preview,
                         isRequired
                     />
                 </div>
-                <div className='inputBox sm-20 lg-20'>
+                <div className='inputBox genericName sm-20 lg-20'>
                     <Input
                         label={'Generic Name'}
                         type={'text'}
@@ -231,7 +231,7 @@ function ProductDetail({changeTab,ProductCreateList, productDetailData, preview,
                         placeholder={preview && values.genericName=="" ? '-' : "Please type"}
                     />
                 </div>
-                <div className='inputBox sm-25 lg-25'>
+                <div className='inputBox manufacturer sm-25 lg-25'>
                     <Select
                         label={'Manufacturer'}
                         name={'manufacturer'}
@@ -255,7 +255,7 @@ function ProductDetail({changeTab,ProductCreateList, productDetailData, preview,
                         disabled={preview ? true :false }
                     />
                 </div>
-                <div className='inputBox sm-25 lg-25'>
+                <div className='inputBox supplier sm-25 lg-25'>
                     <Select
                         label={'Supplier'}
                         name={'supplier'}
@@ -345,7 +345,7 @@ function ProductDetail({changeTab,ProductCreateList, productDetailData, preview,
                     </div>
                 </div>
                 <div className={`rightCol ${preview && 'preview'}`}>
-                <div className='inputBox sm-40 lg-40'>
+                <div className='inputBox barcode_section sm-40 lg-40'>
                    {
                     preview ? <div className='barcode_box'>
                         <label className='label'>Bar Code</label>

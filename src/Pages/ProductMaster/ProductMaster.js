@@ -192,6 +192,8 @@ function ProductMaster() {
         })
         setPreviewData(filter[0])
         setAddProduct(true);
+        setPreviewMode(false);
+        setEditMode(true)
        
     }
 
@@ -211,7 +213,7 @@ function ProductMaster() {
             handleDraftList()
         }
      
-    }, [productlistUpdate, successModal])
+    }, [productlistUpdate, successModal, addProduct])
 
     const handleDeleteProductData = async event => {
         const accessToken =  `Bearer ${sessionStorage.accessToken} `
@@ -252,7 +254,7 @@ function ProductMaster() {
     return (
         <React.Fragment>
         <div className={`productMaster_container ${editMode ? "editMode" : ''}`}>
-            {addProduct ? <AddNewProduct successModalClose={() => handleSuccessModalClose()} preview={previewMode} removePreviewMode={() => handleRemovePreview()} previewData={previewData} back={handleBack} /> :
+            {addProduct ? <AddNewProduct successModalClose={() => handleSuccessModalClose()} preview={previewMode} removePreviewMode={() => handleRemovePreview()} previewData={previewData} back={handleBack} EditData={editMode} /> :
                 <div className='productMaster_content'>
                     <div className='headerFlexbox'>
                         <h5 className='title'>Product Master</h5>
@@ -309,7 +311,7 @@ function ProductMaster() {
                                     : 
                                     toggleView == 'List' ? <CommonTable deleteProductData={(e) => handleDeleteProductData(e)} dataEditPopulate={(e) => handleEditDataPopulate(e)} dataPopulate={(e) => handleDataPopulate(e)} header={tableFilterHeader} productData={productListCard}/> 
                                     : ''}
-                                    <div className='paginationsection'>
+                                   {(productListCard || productListCard) ? <div className='paginationsection'>
                                         <div className='leftCol'>
                                             <ul className='navigation_listing'>
                                                 <li>
@@ -334,7 +336,7 @@ function ProductMaster() {
                                                     <span className='next-arrow'><Arrow/></span>
                                                 </li>
                                             </ul>
-                                        </div>
+                                        </div> 
                                         <div className='rightCol'>
                                             <div className='flexbox'>
                                                 <span className='label'>Go to</span>
@@ -342,7 +344,7 @@ function ProductMaster() {
                                                 <span className='label'>page</span>
                                             </div>
                                         </div>
-                                    </div>
+                                    </div>: ''}
                                 </CustomTabPanel>
                                 <CustomTabPanel value={value} index={1} className="tabContentContainer">
                                     <DraftList/>
