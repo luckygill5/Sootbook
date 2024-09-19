@@ -11,7 +11,7 @@ import UploadProduct from './UploadProduct';
 import { axiosClient } from '../../../services/axiosClient';
 import './AddNewProduct.scss'
 
-function AddNewProduct({ back, preview, previewData, removePreviewMode, successModalClose }) {
+function AddNewProduct({ back, preview, previewData, removePreviewMode, successModalClose, EditData }) {
     const [value, setValue] = useState(0);
     const [productCreateList, setProductCreateList] = useState("");
     const [ecommercedata, setEcommerceData] = useState("")
@@ -119,7 +119,7 @@ function AddNewProduct({ back, preview, previewData, removePreviewMode, successM
                         </div>
                     </div>
                 </div> :
-                    <h1 className='section_title'>Add New Product</h1>}
+                    <h1 className='section_title'>{`${EditData ? "Edit" :"Add"} New Product`}</h1>}
                 <Box className="tabsContainer" sx={{ width: '100%' }}>
                     <Box className="tabFlexContainer">
                         <Tabs value={value}
@@ -152,7 +152,7 @@ function AddNewProduct({ back, preview, previewData, removePreviewMode, successM
                         <ECommerceDetails preview={preview} previewData={previewData} ECommerceDetailsData={(e) => handleEcommerceData(e)} ProductCreateList={productCreateList} changeTab={(e) => handleTabs(e)} ecommerceBackData={ecommercedata} />
                     </CustomTabPanel>
                     <CustomTabPanel value={value} index={2} className="tabContentContainer">
-                        <UploadProduct preview={preview} previewData={previewData} productData={productDetailsCollection} ecommerceData={ecommercedata} changeTab={(e) => handleTabs(e)} successModalClose={() => successModalClose()} />
+                        <UploadProduct preview={preview} previewData={previewData} productData={productDetailsCollection} ecommerceData={ecommercedata} changeTab={(e) => handleTabs(e)} successModalClose={() => successModalClose()} EditMode={EditData} />
                     </CustomTabPanel>
                 </Box>
             </div>

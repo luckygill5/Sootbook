@@ -14,19 +14,25 @@ import ErrorModal from '../../../Components/CommonErrorModal/ErrorModal';
 import "./AddNewProduct.scss"
 
 
-function UploadProduct({ productData, ecommerceData, preview, previewData, changeTab, successModalClose }) {
+function UploadProduct({ productData, ecommerceData, preview, previewData, changeTab, successModalClose, EditMode }) {
     const fileTypes = ["JPG", "PNG", "GIF"];
     const [base64, setBase64] = useState('');
     const [errorModal, setErrorModal] = useState(false);
     const [errorMsg, setErrorMsg] = useState("");
+    const [updateClicked, SetUpdateClicked] = useState(false);
     const [file, setFile] = useState(null);
     const [uploadAlert, setUploadAlert] = useState(false);
     const [uploadedFile, setUploadedFile] = useState([]);
     const [removeFile, setRemoveFile] = useState(false)
     const [addproductFormData, setAddproductFormData] = useState("")
     const [successModal, setSucessModal] = useState("");
-    const [draft, setDraft] = useState("")
-
+    const [draft, setDraft] = useState("");
+    const [ecommerceDataState, setEcommerceDataState] = useState(ecommerceData)
+    const [packagingData, setPackagingData] = useState("");
+    const [uploadImageState, setUploadImageState] = useState('');
+    const [SuccessMsg,  setSuccessMsg] = useState("");
+    const [SuccessTitle, setSuccessTitle] = useState("");
+    const [productAddAPIcall, setProductAddAPIcall] =  useState(false)
     // const handleFileChange = (event) => {
     //     const selectedFiles = event;
     //     const filePreviews = selectedFiles.map(file => ({
@@ -38,6 +44,8 @@ function UploadProduct({ productData, ecommerceData, preview, previewData, chang
     //     })
     //     setFile(filePreviews);
     // };
+
+    
 
     const maxFiles = 5; // Limit the number of files to 3
     let fileCollection = [];
@@ -148,7 +156,7 @@ function UploadProduct({ productData, ecommerceData, preview, previewData, chang
                 image: base64 
             }
 
-            if (uploadImageData && uploadImageData.image.length > 0) {
+            if (uploadImageData && uploadImageData.image.length > 0 && productData) {
 
                 const Packaging = {
                     packaging: [
@@ -174,10 +182,49 @@ function UploadProduct({ productData, ecommerceData, preview, previewData, chang
 
                     ]
                 }
-                const { Sales_Packing_1, Sales_Packing_2, Sales_Packing_3, Quantity_1, Quantity_2, Quantity_3, Rate_1, Rate_2, Rate_3, Stock_1, Stock_2, Stock_3, ...newproductData } = productData;
-                const collection = { ...newproductData, ...Packaging, ...ecommerceData, ...uploadImageData, isDraft: false };
+                let collection
+                if(EditMode){
 
-                setAddproductFormData(collection);
+
+                    delete productData.Sales_Packing_1;
+                    delete productData.Sales_Packing_2;
+                    delete productData.Sales_Packing_3;
+                    delete productData.Quantity_1;
+                    delete productData.Quantity_2;
+                    delete productData.Quantity_3;
+                    delete productData.Rate_1;
+                    delete productData.Rate_2;
+                    delete productData.Rate_3;
+                    delete productData.Stock_1;
+                    delete productData.Stock_2;
+                    delete productData.Stock_3;
+                    setPackagingData({...Packaging});
+                    setUploadImageState({...uploadImageData})
+                    setAddproductFormData({...productData})
+
+                }else{
+                    const { Sales_Packing_1, Sales_Packing_2, Sales_Packing_3, Quantity_1, Quantity_2, Quantity_3, Rate_1, Rate_2, Rate_3, Stock_1, Stock_2, Stock_3, ...newproductData } = productData;
+                     collection = { ...newproductData, ...Packaging, ...ecommerceData, ...uploadImageData, isDraft: false };
+    
+                    setAddproductFormData(collection);
+
+                    // delete productData.Sales_Packing_1;
+                    // delete productData.Sales_Packing_2;
+                    // delete productData.Sales_Packing_3;
+                    // delete productData.Quantity_1;
+                    // delete productData.Quantity_2;
+                    // delete productData.Quantity_3;
+                    // delete productData.Rate_1;
+                    // delete productData.Rate_2;
+                    // delete productData.Rate_3;
+                    // delete productData.Stock_1;
+                    // delete productData.Stock_2;
+                    // delete productData.Stock_3;
+                    // setPackagingData({...Packaging});
+                    // setUploadImageState({...uploadImageData})
+                    // setAddproductFormData({...productData})
+                }
+              
                
 
             }
@@ -189,12 +236,18 @@ function UploadProduct({ productData, ecommerceData, preview, previewData, chang
 
 
     useEffect(() => {
-        addProduct()
-    },[addproductFormData] )
+        if(EditMode || updateClicked){
+            handleEditProduct({addproductFormData,ecommerceDataState, packagingData, uploadImageState, isDraft: false })
+        }else{
+            addProduct()
+        }
+       
+    },[addproductFormData, ecommerceDataState, packagingData, uploadImageState] )
 
     const addProduct = async event => {
 
-        if (addproductFormData !== "") {
+        if (addproductFormData !== "" && productAddAPIcall == false) {
+            setProductAddAPIcall(true)
             const accessToken = `Bearer ${sessionStorage.accessToken} `
             try {
                 let response = await axiosClient.post(
@@ -212,7 +265,10 @@ function UploadProduct({ productData, ecommerceData, preview, previewData, chang
 
                 if (response.status == 200) {
                     // setProductCreateList( response?.data?.data)
-                    setSucessModal(true)
+                    setSucessModal(true);
+                    setSuccessMsg("The new product has been added into the system");
+                    setSuccessTitle("Product has been added successfully");
+                    setProductAddAPIcall(false)
                 }
 
             } catch (error) {
@@ -242,6 +298,54 @@ function UploadProduct({ productData, ecommerceData, preview, previewData, chang
     }
 
  
+    const  handleUpdateProduct = () => {
+        handleAddProduct();
+        SetUpdateClicked(true)
+
+
+    }
+
+    const handleEditProduct = async (event) => {
+        if (addproductFormData !== "") {
+            const accessToken = `Bearer ${sessionStorage.accessToken} `
+            try {
+                let response = await axiosClient.post(
+                    `admin/product/update`, addproductFormData, {
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'x-via-device': true,
+                        'Authorization': accessToken
+                    },
+
+
+                }
+
+                );
+
+                if (response.status == 200) {
+                    // setProductCreateList( response?.data?.data)
+                    setSucessModal(true);
+                    SetUpdateClicked(false);
+                    setAddproductFormData("");
+                    setEcommerceDataState("");
+                    setUploadImageState("");
+                    setPackagingData("");
+                    setSuccessMsg("The product has been updated into the system");
+                    setSuccessTitle("Product has been updated successfully")
+                }
+
+            } catch (error) {
+                console.log("error", error);
+                setErrorModal(true);
+                setErrorMsg(error.response.data.message);
+                setAddproductFormData("");
+                setEcommerceDataState("");
+                setUploadImageState("");
+                setPackagingData("")
+
+            }
+        }
+    }
 
     useEffect(() => {
         if (previewData && previewData.image) {
@@ -314,7 +418,14 @@ function UploadProduct({ productData, ecommerceData, preview, previewData, chang
                         <button className='saveDraftBtn' type='button' onClick={handleDraft}>Save Draft</button>
                     <div className='action_flexContainer'>
                         <button className='cancelBtn' type='button' onClick={() => changeTab(1)}>Back</button>
-                        <button className='addProductBtn' onClick={() => handleAddProduct()}>Add Product</button>
+                        <button className='addProductBtn' onClick={() => {
+                            if(EditMode){
+                                handleUpdateProduct()
+                            }else{
+                                handleAddProduct()
+                            }
+                            
+                            }}>{`${EditMode? 'Update' : `Add Product`}`}</button>
                     </div>
                     </React.Fragment>
                     }
@@ -326,8 +437,8 @@ function UploadProduct({ productData, ecommerceData, preview, previewData, chang
                 <SuccessModal
                     handleSuccessClose={handleSuccessPopupClose}
                     SuccessPopUp={successModal}
-                    SuccessMsg="The new product has been added into the system"
-                    SuccessTitle="Product has been added successfully"
+                    SuccessMsg={SuccessMsg}
+                    SuccessTitle={SuccessTitle}
                 />
             }
             {errorModal && (
