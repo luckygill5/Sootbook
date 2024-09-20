@@ -254,3 +254,90 @@ $font-monsterat : 'Montserrat';
         }
     }
 }
+
+.paginationsection{
+    @include flexbox();
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 8px;
+    .leftCol{
+       .navigation_listing{
+       margin: 0;
+       padding: 0;
+       @include flexbox();
+       li{
+        list-style: none;
+        .text{
+            width: 38px;
+            height: 43px;
+            @include flexbox();
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            font-style: normal;
+            font-weight: 500;
+            line-height: 24px; /* 150% */
+            letter-spacing: 0.08px;
+            color: #6B7280;
+            cursor: pointer;
+            &.select {
+                background-color: #E5E7EB;
+                border-radius: 8px;
+            }
+            &.more{
+                padding-bottom: 10px;
+            }
+
+        }
+        .pev-arrow{
+            width: 38px;
+            height: 43px;
+            @include flexbox();
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            svg{
+                transform: rotate(180deg)
+            } 
+        }
+        .next-arrow{
+            width: 38px;
+            height: 43px;
+            @include flexbox();
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            svg{
+                transform: rotate(0deg)
+            }  
+        }
+       }
+    } 
+    }
+    .rightCol{
+        .flexbox{
+            @include flexbox();
+            align-items: center;
+            .label{
+                display: inline-block;
+                font-size: 16px;
+                font-style: normal;
+                font-weight: 500;
+                line-height: 24px; /* 150% */
+                letter-spacing: 0.08px;
+                color: #6B7280;  
+            }
+            input[type=text]{
+                margin: 0 12px;
+                width: 64px;
+                height: 40px;
+                box-shadow: 0px 4px 4px 0px inset rgba(0, 0, 0, 0.25), -7px -7px 7px 0px inset #FFF;
+                background-color: #f2f5fa;
+                padding: 10px 12px;
+                border-radius: 6px;
+                border: none;
+                outline: none;
+            }
+        }
+    }
+}
