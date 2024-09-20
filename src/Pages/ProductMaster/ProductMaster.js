@@ -15,6 +15,7 @@ import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Box from '@mui/material/Box';
 import DraftList from './DraftList';
+import Pagination from '../../Components/common/pagination';
 import './ProductMaster.scss'
 
 
@@ -31,6 +32,7 @@ function ProductMaster() {
     const [successModal,  setSuccessModal] = useState('');
     const [SuccessModalMsg , setSuccessModalMsg] = useState("");
     const [editMode, setEditMode] = useState(false);
+    const [showDraftList, setShowDrafList] = useState(false)
 
 
     let tableHeader = ["name", "genericName", "productCode", 'manufacturer', "netPrice",]
@@ -50,6 +52,9 @@ function ProductMaster() {
 
     const handleChange = (event, newValue) => {
         setValue(newValue);
+        // if(showDraftList){
+        //     setShowDrafList(false)
+        // }
     };
 
     function CustomTabPanel(props) {
@@ -183,6 +188,19 @@ function ProductMaster() {
 
     }
 
+    const handleEditDraftData = (data) => {
+        let filter;
+       filter =  draftListData.filter((item, index) => {
+            if( index == data){
+                return item
+            }
+        }) 
+        setPreviewData(filter[0])
+        setPreviewMode(false);
+        setAddProduct(true);
+        handleRemovePreview()
+    }
+
     const handleEditProductData = (index) => {
         let filter;
        filter =  productListCard.filter((item) => {
@@ -208,12 +226,12 @@ function ProductMaster() {
     }
 
     useEffect(() => {
-        if(productlistUpdate == true || successModal == true){
+        if(productlistUpdate == true || successModal == true || showDraftList == true || addProduct == true){
             handleProductList();
             handleDraftList()
         }
      
-    }, [productlistUpdate, successModal, addProduct])
+    }, [productlistUpdate, successModal, addProduct, showDraftList])
 
     const handleDeleteProductData = async event => {
         const accessToken =  `Bearer ${sessionStorage.accessToken} `
@@ -247,6 +265,15 @@ function ProductMaster() {
         setSuccessModalMsg('')
     }
     
+    const handleDraftSuccessPopUpclose = () => {
+        setAddProduct(false);
+        // setValue(1);
+        setShowDrafList(true)
+    }
+
+    const handleDeleteDraft = (event) => {
+        handleDeleteProductData(event)
+    }
 
     const ProductMasterTabs = ['Products', "Drafts",]
 
@@ -254,7 +281,7 @@ function ProductMaster() {
     return (
         <React.Fragment>
         <div className={`productMaster_container ${editMode ? "editMode" : ''}`}>
-            {addProduct ? <AddNewProduct successModalClose={() => handleSuccessModalClose()} preview={previewMode} removePreviewMode={() => handleRemovePreview()} previewData={previewData} back={handleBack} EditData={editMode} /> :
+            {addProduct ? <AddNewProduct successModalClose={() => handleSuccessModalClose()} preview={previewMode} removePreviewMode={() => handleRemovePreview()} previewData={previewData} back={handleBack} EditData={editMode} draftSuccessPopUpClose={() => handleDraftSuccessPopUpclose()} /> :
                 <div className='productMaster_content'>
                     <div className='headerFlexbox'>
                         <h5 className='title'>Product Master</h5>
@@ -311,77 +338,11 @@ function ProductMaster() {
                                     : 
                                     toggleView == 'List' ? <CommonTable deleteProductData={(e) => handleDeleteProductData(e)} dataEditPopulate={(e) => handleEditDataPopulate(e)} dataPopulate={(e) => handleDataPopulate(e)} header={tableFilterHeader} productData={productListCard}/> 
                                     : ''}
-                                   {(productListCard || productListCard) ? <div className='paginationsection'>
-                                        <div className='leftCol'>
-                                            <ul className='navigation_listing'>
-                                                <li>
-                                                    <span className='pev-arrow'><Arrow/></span>
-                                                </li>
-                                                <li>
-                                                    <span className='select text'>1</span>
-                                                </li>
-                                                <li>
-                                                <span className='text'>2</span>
-                                                </li>
-                                                <li>
-                                                <span className='text'>3</span>
-                                                </li>
-                                                <li>
-                                                <span className='text more'>...</span>
-                                                </li>
-                                                <li>
-                                                <span className='text'>10</span>
-                                                </li>
-                                                <li>
-                                                    <span className='next-arrow'><Arrow/></span>
-                                                </li>
-                                            </ul>
-                                        </div> 
-                                        <div className='rightCol'>
-                                            <div className='flexbox'>
-                                                <span className='label'>Go to</span>
-                                                <input type="text"></input>
-                                                <span className='label'>page</span>
-                                            </div>
-                                        </div>
-                                    </div>: ''}
+                                   {productListCard ? <Pagination/>: ''}
                                 </CustomTabPanel>
                                 <CustomTabPanel value={value} index={1} className="tabContentContainer">
-                                    <DraftList draftData={draftListData}/>
-                                    {(draftListData) ? <div className='paginationsection'>
-                                        <div className='leftCol'>
-                                            <ul className='navigation_listing'>
-                                                <li>
-                                                    <span className='pev-arrow'><Arrow/></span>
-                                                </li>
-                                                <li>
-                                                    <span className='select text'>1</span>
-                                                </li>
-                                                <li>
-                                                <span className='text'>2</span>
-                                                </li>
-                                                <li>
-                                                <span className='text'>3</span>
-                                                </li>
-                                                <li>
-                                                <span className='text more'>...</span>
-                                                </li>
-                                                <li>
-                                                <span className='text'>10</span>
-                                                </li>
-                                                <li>
-                                                    <span className='next-arrow'><Arrow/></span>
-                                                </li>
-                                            </ul>
-                                        </div> 
-                                        <div className='rightCol'>
-                                            <div className='flexbox'>
-                                                <span className='label'>Go to</span>
-                                                <input type="text"></input>
-                                                <span className='label'>page</span>
-                                            </div>
-                                        </div>
-                                    </div>: ''}
+                                    <DraftList draftData={draftListData} deleteDataPopulate={(e) => handleDeleteDraft(e)} editDataPopulate={(e) => handleEditDraftData(e)}/>
+                                    {draftListData ? <Pagination/>: ''}
                                 </CustomTabPanel>
 
                             </Box>

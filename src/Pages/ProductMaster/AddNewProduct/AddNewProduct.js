@@ -11,12 +11,11 @@ import UploadProduct from './UploadProduct';
 import { axiosClient } from '../../../services/axiosClient';
 import './AddNewProduct.scss'
 
-function AddNewProduct({ back, preview, previewData, removePreviewMode, successModalClose, EditData }) {
+function AddNewProduct({ back, preview, previewData, removePreviewMode, successModalClose, EditData, draftSuccessPopUpClose }) {
     const [value, setValue] = useState(0);
     const [productCreateList, setProductCreateList] = useState("");
     const [ecommercedata, setEcommerceData] = useState("")
     const [productDetailsCollection, setProductDetailsCollection] = useState("");
-
     const handleChange = (event, newValue) => {
         setValue(newValue);
     };
@@ -67,6 +66,9 @@ function AddNewProduct({ back, preview, previewData, removePreviewMode, successM
 
     }
 
+    const handleDraftPopUpClose = () => {
+        draftSuccessPopUpClose()
+    }
     useEffect(() => {
         handleProductCreateList()
     }, [])
@@ -146,13 +148,13 @@ function AddNewProduct({ back, preview, previewData, removePreviewMode, successM
                     </Box>
 
                     <CustomTabPanel value={value} index={0} className="tabContentContainer">
-                        <ProductDetail preview={preview} previewData={previewData} productDetailData={(e) => handleProductDetailData(e)} ProductCreateList={productCreateList} changeTab={(e) => handleTabs(e)} back={back} productBackData={productDetailsCollection} />
+                        <ProductDetail preview={preview} previewData={previewData} productDetailData={(e) => handleProductDetailData(e)} ProductCreateList={productCreateList} changeTab={(e) => handleTabs(e)} back={back} productBackData={productDetailsCollection} draftPopUpClose={() => handleDraftPopUpClose()} />
                     </CustomTabPanel>
                     <CustomTabPanel value={value} index={1} className="tabContentContainer">
-                        <ECommerceDetails preview={preview} previewData={previewData} ECommerceDetailsData={(e) => handleEcommerceData(e)} ProductCreateList={productCreateList} changeTab={(e) => handleTabs(e)} ecommerceBackData={ecommercedata} />
+                        <ECommerceDetails preview={preview} previewData={previewData} ECommerceDetailsData={(e) => handleEcommerceData(e)} ProductCreateList={productCreateList} changeTab={(e) => handleTabs(e)} ecommerceBackData={ecommercedata} productData={productDetailsCollection} draftPopUpClose={() => handleDraftPopUpClose()}/>
                     </CustomTabPanel>
                     <CustomTabPanel value={value} index={2} className="tabContentContainer">
-                        <UploadProduct preview={preview} previewData={previewData} productData={productDetailsCollection} ecommerceData={ecommercedata} changeTab={(e) => handleTabs(e)} successModalClose={() => successModalClose()} EditMode={EditData} />
+                        <UploadProduct preview={preview} previewData={previewData} productData={productDetailsCollection} ecommerceData={ecommercedata} changeTab={(e) => handleTabs(e)} successModalClose={() => successModalClose()} EditMode={EditData}  draftPopUpClose={() => handleDraftPopUpClose()}/>
                     </CustomTabPanel>
                 </Box>
             </div>

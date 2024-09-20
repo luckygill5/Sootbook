@@ -14,7 +14,7 @@ import ErrorModal from '../../../Components/CommonErrorModal/ErrorModal';
 import "./AddNewProduct.scss"
 
 
-function UploadProduct({ productData, ecommerceData, preview, previewData, changeTab, successModalClose, EditMode }) {
+function UploadProduct({ productData, ecommerceData, preview, previewData, changeTab, successModalClose, EditMode, draftPopUpClose }) {
     const fileTypes = ["JPG", "PNG", "GIF"];
     const [base64, setBase64] = useState('');
     const [errorModal, setErrorModal] = useState(false);
@@ -26,26 +26,14 @@ function UploadProduct({ productData, ecommerceData, preview, previewData, chang
     const [removeFile, setRemoveFile] = useState(false)
     const [addproductFormData, setAddproductFormData] = useState("")
     const [successModal, setSucessModal] = useState("");
-    const [draft, setDraft] = useState("");
     const [ecommerceDataState, setEcommerceDataState] = useState(ecommerceData)
     const [packagingData, setPackagingData] = useState("");
     const [uploadImageState, setUploadImageState] = useState('');
     const [SuccessMsg,  setSuccessMsg] = useState("");
     const [SuccessTitle, setSuccessTitle] = useState("");
     const [productAddAPIcall, setProductAddAPIcall] =  useState(false)
-    // const handleFileChange = (event) => {
-    //     const selectedFiles = event;
-    //     const filePreviews = selectedFiles.map(file => ({
-    //         name: file.name,
-    //         url: URL.createObjectURL(file)
-    //     }));
-    //     filePreviews.map(item => {
-    //         setUploadedFile([...uploadedFile, item.url])
-    //     })
-    //     setFile(filePreviews);
-    // };
-
-    
+    const [draftClicked, setDraftClicked] = useState(false);
+    const [draftsuccessModal, setDraftSuccessModal] = useState(false);
 
     const maxFiles = 5; // Limit the number of files to 3
     let fileCollection = [];
@@ -204,25 +192,15 @@ function UploadProduct({ productData, ecommerceData, preview, previewData, chang
 
                 }else{
                     const { Sales_Packing_1, Sales_Packing_2, Sales_Packing_3, Quantity_1, Quantity_2, Quantity_3, Rate_1, Rate_2, Rate_3, Stock_1, Stock_2, Stock_3, ...newproductData } = productData;
-                     collection = { ...newproductData, ...Packaging, ...ecommerceData, ...uploadImageData, isDraft: false };
+                    
+                     if(draftClicked){
+                        collection = { ...newproductData, ...Packaging, ...ecommerceData, ...uploadImageData, isDraft: true };
+                     }else{
+                        collection = { ...newproductData, ...Packaging, ...ecommerceData, ...uploadImageData, isDraft: false };
+                     }
+
     
                     setAddproductFormData(collection);
-
-                    // delete productData.Sales_Packing_1;
-                    // delete productData.Sales_Packing_2;
-                    // delete productData.Sales_Packing_3;
-                    // delete productData.Quantity_1;
-                    // delete productData.Quantity_2;
-                    // delete productData.Quantity_3;
-                    // delete productData.Rate_1;
-                    // delete productData.Rate_2;
-                    // delete productData.Rate_3;
-                    // delete productData.Stock_1;
-                    // delete productData.Stock_2;
-                    // delete productData.Stock_3;
-                    // setPackagingData({...Packaging});
-                    // setUploadImageState({...uploadImageData})
-                    // setAddproductFormData({...productData})
                 }
               
                
@@ -269,6 +247,12 @@ function UploadProduct({ productData, ecommerceData, preview, previewData, chang
                     setSuccessMsg("The new product has been added into the system");
                     setSuccessTitle("Product has been added successfully");
                     setProductAddAPIcall(false)
+                    if(draftClicked){
+                        setDraftClicked(false);
+                        setDraftSuccessModal(true);
+                        setSuccessTitle("Draft saved successfull")
+                        setSuccessMsg("");
+                    }
                 }
 
             } catch (error) {
@@ -293,8 +277,7 @@ function UploadProduct({ productData, ecommerceData, preview, previewData, chang
 
 
     const handleDraft = () => {
-        setDraft(true);
-        handleAddProduct()
+        setDraftClicked(true) 
     }
 
  
@@ -366,6 +349,17 @@ function UploadProduct({ productData, ecommerceData, preview, previewData, chang
             // This will be the Blob object of the image
         }
     }, [])
+
+    useEffect(() => {
+        if(draftClicked){
+            handleAddProduct()
+        }
+    }, [draftClicked])
+
+    const handleDraftSuccessPopupClose = () => {
+        draftPopUpClose()
+    }
+
 
 
     return (
@@ -448,6 +442,15 @@ function UploadProduct({ productData, ecommerceData, preview, previewData, chang
                     ErrorMsg={errorMsg}
                 />
             )}
+            {
+                draftsuccessModal &&
+                <SuccessModal
+                    handleSuccessClose={handleDraftSuccessPopupClose}
+                    SuccessPopUp={draftsuccessModal}
+                    SuccessMsg={SuccessMsg}
+                    SuccessTitle={SuccessTitle}
+                />
+            }
         </React.Fragment>
     )
 }

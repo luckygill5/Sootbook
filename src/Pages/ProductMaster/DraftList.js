@@ -9,7 +9,7 @@ import Checkbox from '@mui/material/Checkbox';
 import Box from '@mui/material/Box';
 import "./ProductMaster.scss"
 
-function DraftList({ draftData }) {
+function DraftList({ draftData, editDataPopulate, deleteDataPopulate }) {
     const [tableBodyData, setTableBodyData] = useState("");
     const [draftListCheck, setDraftListCheck] = useState([]);
     const [headerDraftCheck, setHeaderDraftCheck] = useState("");
@@ -68,6 +68,21 @@ function DraftList({ draftData }) {
             setDraftListCheck([...draftListCheck, event])
         }
 
+    }
+
+    const handleEditData = (event) => {
+        editDataPopulate(event)
+    }
+
+    const handleDeleteDraft = (data) => {
+        let filter;
+        filter =  draftData.filter((item, index) => {
+             if( index == data){
+                 return item
+             }
+         }) 
+         
+        deleteDataPopulate(filter[0]._id)
     }
 
     return (
@@ -141,8 +156,8 @@ function DraftList({ draftData }) {
                                     })
                                 }
                                 <div className='actionCell'>
-                                    <span className='edit'>Edit</span>
-                                    <span className='delete'>Delete</span>
+                                    <span className='edit' onClick={() => handleEditData(index)}>Edit</span>
+                                    <span className='delete' onClick={() => handleDeleteDraft(index)}>Delete</span>
                                 </div>
                             </div>
 
