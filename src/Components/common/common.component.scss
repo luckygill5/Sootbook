@@ -83,7 +83,8 @@ $font-monsterat : 'Montserrat';
         line-height: 20px;
         /* 142.857% */
         letter-spacing: 0.07px;
-        &:empty{
+
+        &:empty {
             display: none;
         }
     }
@@ -191,7 +192,9 @@ $font-monsterat : 'Montserrat';
     }
 
     &.disabled {
-        .input_element, .MuiSelect-select{
+
+        .input_element,
+        .MuiSelect-select {
             cursor: not-allowed;
             box-shadow: none;
             background-color: #ddd;
@@ -216,14 +219,14 @@ $font-monsterat : 'Montserrat';
             &.col2 {
                 width: 20%;
             }
-            
+
             .select_fieldBox {
-                .MuiSelect-select{
+                .MuiSelect-select {
                     border-radius: 8px 0 0 8px;
                 }
             }
 
-            .input_element{
+            .input_element {
                 border-radius: 0 8px 8px 0;
             }
         }
@@ -231,11 +234,13 @@ $font-monsterat : 'Montserrat';
 
 }
 
-.react-datepicker-wrapper{
+.react-datepicker-wrapper {
     width: 100%;
-    .react-datepicker__input-container{
+
+    .react-datepicker__input-container {
         width: 100%;
-        input{
+
+        input {
             width: 100%;
             height: 48px;
             border-radius: 8px;
@@ -255,79 +260,66 @@ $font-monsterat : 'Montserrat';
     }
 }
 
-.paginationsection{
+.paginationsection {
     @include flexbox();
     align-items: center;
     justify-content: space-between;
     margin-top: 8px;
-    .leftCol{
-       .navigation_listing{
-       margin: 0;
-       padding: 0;
-       @include flexbox();
-       li{
-        list-style: none;
-        .text{
-            width: 38px;
-            height: 43px;
-            @include flexbox();
-            align-items: center;
-            justify-content: center;
-            font-size: 16px;
-            font-style: normal;
-            font-weight: 500;
-            line-height: 24px; /* 150% */
-            letter-spacing: 0.08px;
-            color: #6B7280;
-            cursor: pointer;
-            &.select {
-                background-color: #E5E7EB;
-                border-radius: 8px;
-            }
-            &.more{
-                padding-bottom: 10px;
-            }
 
+    .leftCol {
+        @include flexbox();
+        align-items: center;
+
+        .MuiPagination-ul {
+            .MuiPaginationItem-root {
+                font-family: $font-monsterat;
+                font-size: 16px;
+                font-style: normal;
+                font-weight: 500;
+                line-height: 24px;
+                /* 150% */
+                letter-spacing: 0.08px;
+                color: #6B7280;
+
+            }
         }
-        .pev-arrow{
-            width: 38px;
-            height: 43px;
-            @include flexbox();
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            svg{
-                transform: rotate(180deg)
-            } 
+
+        .paginationSelect {
+            .inputField {
+                width: auto;
+                max-width: fit-content;
+                min-width: 94px;
+                .MuiSelect-select{
+                    font-size: 14px;
+                    font-style: normal;
+                    font-weight: 400;
+                    line-height: 20px; /* 142.857% */
+                    letter-spacing: 0.07px;
+                    color: #6B7280;
+                    @include flexbox();
+                    align-items: center     
+                }
+            }
         }
-        .next-arrow{
-            width: 38px;
-            height: 43px;
-            @include flexbox();
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            svg{
-                transform: rotate(0deg)
-            }  
-        }
-       }
-    } 
     }
-    .rightCol{
-        .flexbox{
+
+    .rightCol {
+        .flexbox {
             @include flexbox();
             align-items: center;
-            .label{
+
+            .label {
                 display: inline-block;
                 font-size: 16px;
                 font-style: normal;
                 font-weight: 500;
-                line-height: 24px; /* 150% */
+                line-height: 24px;
+                /* 150% */
                 letter-spacing: 0.08px;
-                color: #6B7280;  
+                color: #6B7280;
             }
-            input[type=text]{
+
+            input[type=text] {
                 margin: 0 12px;
                 width: 64px;
                 height: 40px;

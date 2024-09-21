@@ -39,6 +39,7 @@ return(
             viewManage={expandView}
             viewcontrol={MenuSelected}
             breadcrumbUpdateData={breadcrumbUpdate}
+            updateBreadCrumb ={(e) => handleUpdateBreadCrumb(e)}
             />
         </div>
     </React.Fragment>

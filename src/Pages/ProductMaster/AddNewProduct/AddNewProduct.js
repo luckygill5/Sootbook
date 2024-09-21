@@ -121,7 +121,7 @@ function AddNewProduct({ back, preview, previewData, removePreviewMode, successM
                         </div>
                     </div>
                 </div> :
-                    <h1 className='section_title'>{`${EditData ? "Edit" :"Add"} New Product`}</h1>}
+                    <h1 className='section_title'>{`${EditData ? "Edit Product" :"Add New Product"} `}</h1>}
                 <Box className="tabsContainer" sx={{ width: '100%' }}>
                     <Box className="tabFlexContainer">
                         <Tabs value={value}

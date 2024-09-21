@@ -25,7 +25,7 @@ const handleDeleProduct = (id) => {
     return (
         <div className='productCard_container'>
             <div className='card_flexContainer'>
-                {productData ?
+                {(productData && productData.length) ?
                     productData &&
                     productData.length > 0 &&
                     productData.map((data) => {

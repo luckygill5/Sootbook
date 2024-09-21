@@ -3,6 +3,8 @@ import locales from "../../../Constants/en.json";
 import { Input, Select } from '../../../Components/common';
 import * as Yup from 'yup';
 import { useFormik } from 'formik';
+import Box from '@mui/material/Box';
+import CircularProgress from '@mui/material/CircularProgress';
 import axios from 'axios';
 import { axiosClient } from '../../../services/axiosClient';
 import { ReactComponent as Info } from "../../../assets/images/info.svg";
@@ -62,9 +64,11 @@ const productDetailInitialValues = {
 function ProductDetail({ changeTab, ProductCreateList, productDetailData, preview, previewData, back, productBackData, draftPopUpClose }) {
 
     const [draftClicked, setDraftClicked] = useState(false);
+    const [draftButtonClick, setDraftButtonClick] = useState(false);
     const [draftsuccessModal, setDraftSuccessModal] = useState(false);
     const [SuccessMsg, setSuccessMsg] = useState("");
-    const [SuccessTitle, setSuccessTitle] = useState("")
+    const [SuccessTitle, setSuccessTitle] = useState("");
+    const [showLoader, setshowLoader] = useState(false)
     const { values, handleBlur, handleChange, handleSubmit, errors, touched, setFieldValue } =
         useFormik({
             initialValues: productDetailInitialValues,
@@ -90,84 +94,90 @@ function ProductDetail({ changeTab, ProductCreateList, productDetailData, previe
     };
 
     useEffect(() => {
-        if (previewData) {
-            Object.entries(previewData).map((item) => {
-                setFieldValue(item[0], item[1]);
-                if (item[0] == 'packaging' && item[1].length > 0) {
-                    item[1].map((data, index) => {
-                        setFieldValue(`Sales_Packing_${index + 1}`, data.packType);
-                        setFieldValue(`Quantity_${index + 1}`, data.quantity);
-                        setFieldValue(`Rate_${index + 1}`, data.price);
-                        setFieldValue(`Stock_${index + 1}`, data.stock);
+        setTimeout(() => {
+            if (previewData) {
+                Object.entries(previewData).map((item) => {
+                    setFieldValue(item[0], item[1]);
+                    if (item[0] == 'packaging' && item[1].length > 0) {
+                        item[1].map((data, index) => {
+                            setFieldValue(`Sales_Packing_${index + 1}`, data.packType);
+                            setFieldValue(`Quantity_${index + 1}`, data.quantity);
+                            setFieldValue(`Rate_${index + 1}`, data.price);
+                            setFieldValue(`Stock_${index + 1}`, data.stock);
 
 
-                    })
+                        })
 
 
-                }
-            })
-        }
-        if (productBackData) {
-            Object.entries(productBackData).map((item) => {
-                setFieldValue(item[0], item[1]);
-                if (item[0] == 'packaging' && item[1].length > 0) {
-                    item[1].map((data, index) => {
-                        setFieldValue(`Sales_Packing_${index + 1}`, data.packType);
-                        setFieldValue(`Quantity_${index + 1}`, data.quantity);
-                        setFieldValue(`Rate_${index + 1}`, data.price);
-                        setFieldValue(`Stock_${index + 1}`, data.stock);
+                    }
+                })
+            }
+            if (productBackData) {
+                Object.entries(productBackData).map((item) => {
+                    setFieldValue(item[0], item[1]);
+                    if (item[0] == 'packaging' && item[1].length > 0) {
+                        item[1].map((data, index) => {
+                            setFieldValue(`Sales_Packing_${index + 1}`, data.packType);
+                            setFieldValue(`Quantity_${index + 1}`, data.quantity);
+                            setFieldValue(`Rate_${index + 1}`, data.price);
+                            setFieldValue(`Stock_${index + 1}`, data.stock);
 
 
-                    })
+                        })
 
 
-                }
-            })
-        }
-
+                    }
+                })
+            }
+            setshowLoader(false)
+        }, 700);
     }, [])
 
+
     const handleDraft = (data) => {
+        if (draftButtonClick == false) {
+            setDraftButtonClick(true)
+            const Packaging = {
+                packaging: [
 
-        const Packaging = {
-            packaging: [
+                    {
+                        packType: data.Sales_Packing_1,
+                        quantity: data.Quantity_1,
+                        price: data.Rate_1,
+                        stock: data.Stock_1,
+                    },
+                    {
+                        packType: data.Sales_Packing_2,
+                        quantity: data.Quantity_2,
+                        price: data.Rate_2,
+                        stock: data.Stock_2,
+                    },
+                    {
+                        packType: data.Sales_Packing_3,
+                        quantity: data.Quantity_3,
+                        price: data.Rate_3,
+                        stock: data.Stock_3,
+                    }
 
-                {
-                    packType: data.Sales_Packing_1,
-                    quantity: data.Quantity_1,
-                    price: data.Rate_1,
-                    stock: data.Stock_1,
-                },
-                {
-                    packType: data.Sales_Packing_2,
-                    quantity: data.Quantity_2,
-                    price: data.Rate_2,
-                    stock: data.Stock_2,
-                },
-                {
-                    packType: data.Sales_Packing_3,
-                    quantity: data.Quantity_3,
-                    price: data.Rate_3,
-                    stock: data.Stock_3,
-                }
+                ]
+            }
 
-            ]
+            delete data.Sales_Packing_1;
+            delete data.Sales_Packing_2;
+            delete data.Sales_Packing_3;
+            delete data.Quantity_1;
+            delete data.Quantity_2;
+            delete data.Quantity_3;
+            delete data.Rate_1;
+            delete data.Rate_2;
+            delete data.Rate_3;
+            delete data.Stock_1;
+            delete data.Stock_2;
+            delete data.Stock_3;
+            const collection = { ...data, ...Packaging, isDraft: true };
+            saveDraft(collection)
         }
 
-        delete data.Sales_Packing_1;
-        delete data.Sales_Packing_2;
-        delete data.Sales_Packing_3;
-        delete data.Quantity_1;
-        delete data.Quantity_2;
-        delete data.Quantity_3;
-        delete data.Rate_1;
-        delete data.Rate_2;
-        delete data.Rate_3;
-        delete data.Stock_1;
-        delete data.Stock_2;
-        delete data.Stock_3;
-        const collection = { ...data, ...Packaging, isDraft: true };
-        saveDraft(collection)
     }
 
     const saveDraft = async event => {
@@ -185,7 +195,8 @@ function ProductDetail({ changeTab, ProductCreateList, productDetailData, previe
             if (response.status == 200) {
                 setDraftClicked(false);
                 setDraftSuccessModal(true);
-                setSuccessTitle("Draft saved successfull")
+                setSuccessTitle("Draft saved successfull");
+                setDraftButtonClick(false)
             }
 
         } catch (error) {
