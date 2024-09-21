@@ -12,7 +12,7 @@ import Box from '@mui/material/Box';
 import './PersonalInformation.scss';
 import '../../../Components/common/common.component.scss';
 
-function PersonalInformation( userid) {
+function PersonalInformation( userId, handleBackHRM) {
     const [editMode, setEditMode] = useState(true);
     const [value, setValue] = useState(0);
     const [selectLabel, setSelectLabel] = useState('Bio');
@@ -28,46 +28,39 @@ function PersonalInformation( userid) {
     const getBioInfo = async values => {
         let response = await axiosClient.post(
             `admin/vendor/bioInfo`,
-            JSON.stringify({ userid,...values}),
+            JSON.stringify({ userId, ...values}),
         );
         if (response.status === 200) {
             setBioInfo(response.data?.data || {});
         }
     };
-    const getBankInfo = async () => {
+    const getBankInfo = async (values) => {
         let response = await axiosClient.post(
             `admin/vendor/bankInfo`,
-            JSON.stringify({ userId: userid }),
+            JSON.stringify({ userId, ...values}),
         );
         if (response.status === 200) {
             setBankInfo(response.data?.data?.bank || {});
         }
     };
-    const getEmergencyInfo = async () => {
+    const getEmergencyInfo = async (values) => {
         let response = await axiosClient.post(
             `admin/vendor/emergencyInfo`,
-            JSON.stringify({ userId: userid }),
+            JSON.stringify({ userId,...values }),
         );
         if (response.status === 200) {
             setEmergencyInfo(response.data?.data?.emergency || {});
         }
     };
-    const getSocialinfo = async () => {
+    const getSocialinfo = async (values) => {
         let response = await axiosClient.post(
             `admin/vendor/socialinfo`,
-            JSON.stringify({ userId: userid }),
+            JSON.stringify({ userId , ...values}),
         );
         if (response.status === 200) {
             setSocialinfo(response.data?.data?.social || {});
         }
     };
-
-    // useEffect(() => {
-    //     getBankInfo();
-    //     getBioInfo();
-    //     getEmergencyInfo();
-    //     getSocialinfo();
-    // }, []);
 
     const tabsData = ['Bio', 'Social Profile', 'Bank Account', 'Emergency Contact'];
 
@@ -129,7 +122,8 @@ function PersonalInformation( userid) {
                         </Box>
                         <CustomTabPanel value={value} index={0} className='tabdataBlock'>
                             <PersonalInfoBio
-                            userid={userid}
+                            userId={userId}
+
                                 mode={editMode}
                                 setEditMode={setEditMode}
                                 bioInfo={bioInfo}

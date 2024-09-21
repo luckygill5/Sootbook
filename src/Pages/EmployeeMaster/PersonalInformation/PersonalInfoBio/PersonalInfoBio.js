@@ -4,32 +4,43 @@ import swal from 'sweetalert';
 import { axiosClient } from '../../../../services/axiosClient';
 import { TextArea, DataList, Select } from '../../../../Components/common';
 import '../PersonalInformation.scss';
+import * as Yup from "yup";
+import locales from "../../../../Constants/en.json";
 
 const bankAccountConfig = [
     { label: 'Bio', value: 'Enter staff bio here..', name: 'bio' },
     { label: 'Experience', value: 'Startup', name: 'experience' },
 ];
 
+const personalInformationEditFormSchema = Yup.object({
+    bio: Yup.string().required("Bio is required."),
+    experience: Yup.string().required("Experience is required."),
+    
+  });
 const personalBioInitialValues = {
     bio: '',
     experience: 'fresher',
 };
 
-function PersonalInfoBio({userid, mode, setEditMode, bioInfo, getBioInfo }) {
+function PersonalInfoBio({userId, mode, setEditMode, bioInfo, getBioInfo,onTabChange, handleBackHRM }) {
     const handleFormSubmit = async values => {
         try {
+            
             // const userid = JSON.parse(localStorage.getItem('profileData')).userId
             let response = await axiosClient.post(
                 `admin/vendor/bioInfo/store`,
-                JSON.stringify({ userid, ...values }),
+                JSON.stringify({ userId, ...values }),
             );
+            console.log("Bio hit done");
+
             if (response.status === 200) {
                 swal('Success', 'Bio Information updated successfully', 'success', {
                     buttons: false,
                     timer: 2000,
                 }).then(() => {
                     getBioInfo();
-                    setEditMode(false);
+                    onTabChange(null,2);
+
                 });
             }
         } catch (error) {
@@ -39,6 +50,7 @@ function PersonalInfoBio({userid, mode, setEditMode, bioInfo, getBioInfo }) {
 
     const { values, handleChange, handleSubmit } = useFormik({
         initialValues: bioInfo || personalBioInitialValues,
+        validationSchema:personalInformationEditFormSchema,
         validateOnChange: true,
         validateOnBlur: false,
         enableReinitialize: true,
@@ -83,14 +95,15 @@ function PersonalInfoBio({userid, mode, setEditMode, bioInfo, getBioInfo }) {
 
                                 />
                             </div>
-                            <div className='button-container'>
-                                <button className='cancelBtn' onClick={() => setEditMode(false)}>
-                                    Cancel
+                            <div className="bottom_actions">
+                                <button className="cancelBtn" onClick={() => handleBackHRM()}>
+                                {locales.cancel_label}
                                 </button>
-                                <button className='savebtn' type='submit' onClick={handleSubmit}>
-                                    Save
+                                <button onClick={handleSubmit} className='saveBtn'>
+                                {locales.save_label}
                                 </button>
                             </div>
+                           
                         </form>
                    
                 ) : (

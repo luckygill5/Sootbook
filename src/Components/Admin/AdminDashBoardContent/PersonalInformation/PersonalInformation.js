@@ -12,7 +12,7 @@ import Box from '@mui/material/Box';
 import './PersonalInformation.scss';
 import '../../../common/common.component.scss';
 
-function PersonalInformation( {initialEditMode = false }) {
+function PersonalInformation( userId,{initialEditMode = false }) {
     const [editMode, setEditMode] = useState(initialEditMode);
     const [value, setValue] = useState(0);
     const [selectLabel, setSelectLabel] = useState('Bio');
@@ -20,7 +20,7 @@ function PersonalInformation( {initialEditMode = false }) {
     const [bankInfo, setBankInfo] = useState({});
     const [emergencyInfo, setEmergencyInfo] = useState({});
     const [socialinfo, setSocialinfo] = useState({});
-    const userid = JSON.parse(localStorage.getItem('profileData'))?.userId 
+    // const userid = JSON.parse(localStorage.getItem('profileData'))?.userId 
     // const profileData = localStorage.getItem('profileData');  
     // const userid = profileData ? JSON.parse(profileData)?.userId : null;
 
@@ -28,8 +28,10 @@ function PersonalInformation( {initialEditMode = false }) {
     const getBioInfo = async () => {
         let response = await axiosClient.post(
             `admin/vendor/bioInfo`,
-            JSON.stringify({ userId: userid }),
+            JSON.stringify({ userId }),
         );
+    console.log(response);
+    
         if (response.status === 200) {
             setBioInfo(response.data?.data || {});
         }
@@ -37,7 +39,7 @@ function PersonalInformation( {initialEditMode = false }) {
     const getBankInfo = async () => {
         let response = await axiosClient.post(
             `admin/vendor/bankInfo`,
-            JSON.stringify({ userId: userid }),
+            JSON.stringify({ userId }),
         );
         if (response.status === 200) {
             setBankInfo(response.data?.data?.bank || {});
@@ -46,7 +48,7 @@ function PersonalInformation( {initialEditMode = false }) {
     const getEmergencyInfo = async () => {
         let response = await axiosClient.post(
             `admin/vendor/emergencyInfo`,
-            JSON.stringify({ userId: userid }),
+            JSON.stringify({ userId }),
         );
         if (response.status === 200) {
             setEmergencyInfo(response.data?.data?.emergency || {});
@@ -55,7 +57,7 @@ function PersonalInformation( {initialEditMode = false }) {
     const getSocialinfo = async () => {
         let response = await axiosClient.post(
             `admin/vendor/socialinfo`,
-            JSON.stringify({ userId: userid }),
+            JSON.stringify({ userId}),
         );
         if (response.status === 200) {
             setSocialinfo(response.data?.data?.social || {});

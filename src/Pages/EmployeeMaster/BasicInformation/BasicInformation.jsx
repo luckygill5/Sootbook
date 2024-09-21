@@ -17,7 +17,7 @@ const basicInformationEditFormSchema = Yup.object({
   first_name: Yup.string().required("Full Name is required."),
   phone: Yup.string().required("Contact Number is required."),
   email: Yup.string().required("Email Id is required."),
-password :Yup.string().required("Password is required"),
+  password :Yup.string().required("Password is required"),
   empId: Yup.string().required("Employee Id is required."),
   dob: Yup.string().required("Date of Birth is required.")
 });
@@ -78,6 +78,7 @@ function BasicInformation({ SetUserId, setReadMode, onTabChange, basicInformatio
             if (response && response.status == true) {
                 setUserAdded(true);
                 onTabChange(null,1);
+                console.log("resonse userid" , response);
                 SetUserId(response?.data?.employee?._id);
                 
 
@@ -122,6 +123,8 @@ function BasicInformation({ SetUserId, setReadMode, onTabChange, basicInformatio
 
     const { values, handleChange,handleBlur, handleSubmit, errors, touched, handleReset,setFieldValue } = useFormik({
         initialValues: basicInformationInitialValues,
+        validationSchema: basicInformationEditFormSchema,
+
         validateOnChange: true,
         validateOnBlur: false,
         enableReinitialize: true,
@@ -364,11 +367,11 @@ function BasicInformation({ SetUserId, setReadMode, onTabChange, basicInformatio
 
           <div className="bottom_actions">
             <button className="cancelBtn" onClick={() => handleBackHRM()}>
-            {locales.cancel_label}
+              {locales.cancel_label}
             </button>
-            <button onClick={handleSubmit} className='saveBtn'
-                            >
-                                {locales.save_label}</button>
+            <button onClick={handleSubmit} className='saveBtn'>
+              {locales.save_label}
+            </button>
           </div>
         </form>
       

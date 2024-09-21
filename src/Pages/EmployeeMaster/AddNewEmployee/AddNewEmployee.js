@@ -66,34 +66,7 @@ function AddNewEmployee({ handleBackHRM,  editUserData}) {
         }
     };
 
-  const getBasicInfo = async () => {
-    const accessToken = `Bearer ${sessionStorage.accessToken} `
-    try {
-        let response = await axiosClient.post(
-            `admin/vendor/basicInfo/store`, {
-            headers: {
-                'Content-Type': 'application/json',
-                'x-via-device': true,
-                'Authorization': accessToken
-            },
-        }
-
-        );
-        if (response.status == 200) {
-            console.log(response);
-            
-            setBasicInformation(response.data?.data?.employee || {});
-        }
-
-    } catch (error) {
-        console.log("error", error)
-    }
-    
-  }
-
-  useEffect(() => {
-    getBasicInfo()
-  }, []);
+ 
 
 
     const handleChange = (event, newValue) => {
@@ -172,20 +145,20 @@ function AddNewEmployee({ handleBackHRM,  editUserData}) {
                                 </Tabs>
                             </Box>
                             <CustomTabPanel value={value} index={0} className="tabContentContainer">
-                                <BasicInformation SetUserId={SetUserId} handleBackHRM={handleBackHRM} onTabChange={handleChange} parentScreen ={"employee"} setReadMode={setReadMode} basicInformation={basicInformation} getBasicInfo={getBasicInfo}/>
+                                <BasicInformation SetUserId={SetUserId} handleBackHRM={handleBackHRM} onTabChange={handleChange} parentScreen ={"employee"} setReadMode={setReadMode} basicInformation={basicInformation}/>
                             </CustomTabPanel>
                             
                             <CustomTabPanel value={value} index={1} className="tabContentContainer">
-                                <PersonalInformation userid={userid} initialEditMode={true}  />
+                                <PersonalInformation userId={userid} handleBackHRM={handleBackHRM} />
                             </CustomTabPanel>
                             <CustomTabPanel value={value} index={2} className="tabContentContainer">
                                 <ContractContent userid={userid} initialEditMode={true} handleBackHRM={handleBackHRM}/>
                             </CustomTabPanel>
                             <CustomTabPanel value={value} index={3} className="tabContentContainer">
-                                <RolePrivilege userid={userid} initialEditMode={true} />
+                                <RolePrivilege userid={userid} initialEditMode={true} handleBackHRM={handleBackHRM} />
                             </CustomTabPanel>
                             <CustomTabPanel value={value} index={4} className="tabContentContainer">
-                                <Documents userid={userid} initialEditMode={true}/>
+                                <Documents userid={userid} initialEditMode={true} handleBackHRM={handleBackHRM} />
                             </CustomTabPanel>
                         </Box>
                 </div>
