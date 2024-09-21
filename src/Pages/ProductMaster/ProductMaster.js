@@ -16,6 +16,7 @@ import Tab from '@mui/material/Tab';
 import Box from '@mui/material/Box';
 import DraftList from './DraftList';
 import Pagination from '../../Components/common/PaginationLayout';
+import DeleteModal from '../../Components/CommonDeleteModal/CommonDeleteModal';
 import './ProductMaster.scss'
 
 
@@ -35,7 +36,10 @@ function ProductMaster({breadcrumbUpdateData, updateBreadCrumb}) {
     const [showDraftList, setShowDrafList] = useState(false);
     const [pageValue, setPageValue] = useState(1);
     const [breadcrumb, setBreadCrumb] = useState([...breadcrumbUpdateData])
-
+    const [deleteModal,  setDeleteModal] = useState(false);
+    const [deleteProductData, setDeleteProductData] = useState("");
+    const [DeleteModalTitle, setDeleteModalTitle] = useState("");
+    const [DeleteModalMsg, setDeleteModalMsg] = useState("")
 
     let tableHeader = ["name", "genericName", "productCode", 'manufacturer', "netPrice",]
 
@@ -269,6 +273,8 @@ function ProductMaster({breadcrumbUpdateData, updateBreadCrumb}) {
             if(response.status == 200){
                 setSuccessModal(true);
                 setSuccessModalMsg(response?.data?.message)
+                setDeleteProductData('');
+                setDeleteModal(false)
                 // setDraftListData( response?.data?.data?.products)
             }
 
@@ -290,14 +296,33 @@ function ProductMaster({breadcrumbUpdateData, updateBreadCrumb}) {
     }
 
     const handleDeleteDraft = (event) => {
-        handleDeleteProductData(event)
+        setDeleteProductData(event);
+        setDeleteModal(true);
+        setDeleteModalTitle("Confirm Draft Deletion")
+        setDeleteModalMsg("Are you sure you want to delete this draft? This action cannot be undone")
+        
     }
 
     const handlePagination = (event) => {
-        console.log("paginatoin", event);
+    
         setPageValue(event)
     }
 
+
+    const handleDeleteModalClose = () => {
+        setDeleteModal(false)
+    }
+
+    const handleProductDelete = (e) => {
+        setDeleteProductData(e);
+        setDeleteModal(true);
+        setDeleteModalTitle("Confirm Product Deletion")
+        setDeleteModalMsg("Are you sure you want to delete this product? This action cannot be undone")
+    } 
+
+    const handleDeleteData = () => {
+        handleDeleteProductData(deleteProductData)
+    }
     const ProductMasterTabs = ['Products', "Drafts",]
 
 
@@ -360,9 +385,9 @@ function ProductMaster({breadcrumbUpdateData, updateBreadCrumb}) {
                                     </Tabs>
                                 </Box>
                                 <CustomTabPanel value={value} index={0} className="tabContentContainer">
-                                    {toggleView == 'Card' ? <ProductCards deleteProductData={(e) => handleDeleteProductData(e)} editDataPopulate={(e) => handleEditProductData(e)} dataPopulate={(e) => handleDataPopulate(e)} productData={productListCard}/> 
+                                    {toggleView == 'Card' ? <ProductCards deleteProductData={(e) => handleProductDelete(e)} editDataPopulate={(e) => handleEditProductData(e)} dataPopulate={(e) => handleDataPopulate(e)} productData={productListCard}/> 
                                     : 
-                                    toggleView == 'List' ? <CommonTable deleteProductData={(e) => handleDeleteProductData(e)} dataEditPopulate={(e) => handleEditDataPopulate(e)} dataPopulate={(e) => handleDataPopulate(e)} header={tableFilterHeader} productData={productListCard}/> 
+                                    toggleView == 'List' ? <CommonTable deleteProductData={(e) => handleProductDelete(e)} dataEditPopulate={(e) => handleEditDataPopulate(e)} dataPopulate={(e) => handleDataPopulate(e)} header={tableFilterHeader} productData={productListCard}/> 
                                     : ''}
                                    {productListCard ? <Pagination  pageNo={pageValue} paginationSet={(e) => handlePagination(e)}/>: ''}
                                 </CustomTabPanel>
@@ -387,6 +412,16 @@ function ProductMaster({breadcrumbUpdateData, updateBreadCrumb}) {
                     // SuccessMsg={SuccessModalMsg}
                  
                 />
+            }
+            {deleteModal &&
+                <DeleteModal
+                handleDeleteClose={handleDeleteModalClose}
+                DeletePopUp={deleteModal}
+                DeleteModalTitle={DeleteModalTitle}
+                DeleteModalMsg={DeleteModalMsg}
+                handleDeleteConfirm={handleDeleteData}
+                />
+
             }
         </React.Fragment>
     )

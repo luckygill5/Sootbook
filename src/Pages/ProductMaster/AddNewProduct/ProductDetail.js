@@ -64,6 +64,7 @@ const productDetailInitialValues = {
 function ProductDetail({ changeTab, ProductCreateList, productDetailData, preview, previewData, back, productBackData, draftPopUpClose }) {
 
     const [draftClicked, setDraftClicked] = useState(false);
+    const [draftButtonClick, setDraftButtonClick] = useState(false);
     const [draftsuccessModal, setDraftSuccessModal] = useState(false);
     const [SuccessMsg, setSuccessMsg] = useState("");
     const [SuccessTitle, setSuccessTitle] = useState("");
@@ -92,88 +93,91 @@ function ProductDetail({ changeTab, ProductCreateList, productDetailData, previe
 
     };
 
-    useEffect(() => {        
-            setTimeout(() => {
-                if (previewData) {
-                    Object.entries(previewData).map((item) => {
-                        setFieldValue(item[0], item[1]);
-                        if (item[0] == 'packaging' && item[1].length > 0) {
-                            item[1].map((data, index) => {
-                                setFieldValue(`Sales_Packing_${index + 1}`, data.packType);
-                                setFieldValue(`Quantity_${index + 1}`, data.quantity);
-                                setFieldValue(`Rate_${index + 1}`, data.price);
-                                setFieldValue(`Stock_${index + 1}`, data.stock);
-        
-        
-                            })
-        
-        
-                        }
-                    })
-                }
-                if (productBackData) {
-                    Object.entries(productBackData).map((item) => {
-                        setFieldValue(item[0], item[1]);
-                        if (item[0] == 'packaging' && item[1].length > 0) {
-                            item[1].map((data, index) => {
-                                setFieldValue(`Sales_Packing_${index + 1}`, data.packType);
-                                setFieldValue(`Quantity_${index + 1}`, data.quantity);
-                                setFieldValue(`Rate_${index + 1}`, data.price);
-                                setFieldValue(`Stock_${index + 1}`, data.stock);
-        
-        
-                            })
-        
-        
-                        }
-                    })
-                }
-                setshowLoader(false)
-            }, 700);   
+    useEffect(() => {
+        setTimeout(() => {
+            if (previewData) {
+                Object.entries(previewData).map((item) => {
+                    setFieldValue(item[0], item[1]);
+                    if (item[0] == 'packaging' && item[1].length > 0) {
+                        item[1].map((data, index) => {
+                            setFieldValue(`Sales_Packing_${index + 1}`, data.packType);
+                            setFieldValue(`Quantity_${index + 1}`, data.quantity);
+                            setFieldValue(`Rate_${index + 1}`, data.price);
+                            setFieldValue(`Stock_${index + 1}`, data.stock);
+
+
+                        })
+
+
+                    }
+                })
+            }
+            if (productBackData) {
+                Object.entries(productBackData).map((item) => {
+                    setFieldValue(item[0], item[1]);
+                    if (item[0] == 'packaging' && item[1].length > 0) {
+                        item[1].map((data, index) => {
+                            setFieldValue(`Sales_Packing_${index + 1}`, data.packType);
+                            setFieldValue(`Quantity_${index + 1}`, data.quantity);
+                            setFieldValue(`Rate_${index + 1}`, data.price);
+                            setFieldValue(`Stock_${index + 1}`, data.stock);
+
+
+                        })
+
+
+                    }
+                })
+            }
+            setshowLoader(false)
+        }, 700);
     }, [])
 
 
     const handleDraft = (data) => {
+        if (draftButtonClick == false) {
+            setDraftButtonClick(true)
+            const Packaging = {
+                packaging: [
 
-        const Packaging = {
-            packaging: [
+                    {
+                        packType: data.Sales_Packing_1,
+                        quantity: data.Quantity_1,
+                        price: data.Rate_1,
+                        stock: data.Stock_1,
+                    },
+                    {
+                        packType: data.Sales_Packing_2,
+                        quantity: data.Quantity_2,
+                        price: data.Rate_2,
+                        stock: data.Stock_2,
+                    },
+                    {
+                        packType: data.Sales_Packing_3,
+                        quantity: data.Quantity_3,
+                        price: data.Rate_3,
+                        stock: data.Stock_3,
+                    }
 
-                {
-                    packType: data.Sales_Packing_1,
-                    quantity: data.Quantity_1,
-                    price: data.Rate_1,
-                    stock: data.Stock_1,
-                },
-                {
-                    packType: data.Sales_Packing_2,
-                    quantity: data.Quantity_2,
-                    price: data.Rate_2,
-                    stock: data.Stock_2,
-                },
-                {
-                    packType: data.Sales_Packing_3,
-                    quantity: data.Quantity_3,
-                    price: data.Rate_3,
-                    stock: data.Stock_3,
-                }
+                ]
+            }
 
-            ]
+            delete data.Sales_Packing_1;
+            delete data.Sales_Packing_2;
+            delete data.Sales_Packing_3;
+            delete data.Quantity_1;
+            delete data.Quantity_2;
+            delete data.Quantity_3;
+            delete data.Rate_1;
+            delete data.Rate_2;
+            delete data.Rate_3;
+            delete data.Stock_1;
+            delete data.Stock_2;
+            delete data.Stock_3;
+            const collection = { ...data, ...Packaging, isDraft: true };
+            saveDraft(collection)
         }
 
-        delete data.Sales_Packing_1;
-        delete data.Sales_Packing_2;
-        delete data.Sales_Packing_3;
-        delete data.Quantity_1;
-        delete data.Quantity_2;
-        delete data.Quantity_3;
-        delete data.Rate_1;
-        delete data.Rate_2;
-        delete data.Rate_3;
-        delete data.Stock_1;
-        delete data.Stock_2;
-        delete data.Stock_3;
-        const collection = { ...data, ...Packaging, isDraft: true };
-        saveDraft(collection)
     }
 
     const saveDraft = async event => {
@@ -191,7 +195,8 @@ function ProductDetail({ changeTab, ProductCreateList, productDetailData, previe
             if (response.status == 200) {
                 setDraftClicked(false);
                 setDraftSuccessModal(true);
-                setSuccessTitle("Draft saved successfull")
+                setSuccessTitle("Draft saved successfull");
+                setDraftButtonClick(false)
             }
 
         } catch (error) {
@@ -810,10 +815,6 @@ function ProductDetail({ changeTab, ProductCreateList, productDetailData, previe
                         </div> </React.Fragment>}
                 </div>
             </div>
-
-            <Box className={`loader_container ${showLoader ? 'show': ''}`}>
-                <CircularProgress />
-            </Box>
             {
                 draftsuccessModal &&
                 <SuccessModal

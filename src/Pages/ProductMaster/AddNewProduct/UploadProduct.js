@@ -34,6 +34,7 @@ function UploadProduct({ productData, ecommerceData, preview, previewData, chang
     const [productAddAPIcall, setProductAddAPIcall] =  useState(false)
     const [draftClicked, setDraftClicked] = useState(false);
     const [draftsuccessModal, setDraftSuccessModal] = useState(false);
+    const [draftButtonClick, setDraftButtonClick] = useState(false);
 
     const maxFiles = 5; // Limit the number of files to 3
     let fileCollection = [];
@@ -193,7 +194,8 @@ function UploadProduct({ productData, ecommerceData, preview, previewData, chang
                 }else{
                     const { Sales_Packing_1, Sales_Packing_2, Sales_Packing_3, Quantity_1, Quantity_2, Quantity_3, Rate_1, Rate_2, Rate_3, Stock_1, Stock_2, Stock_3, ...newproductData } = productData;
                     
-                     if(draftClicked){
+                     if(draftClicked && draftButtonClick == false){
+                        setDraftButtonClick(true)
                         collection = { ...newproductData, ...Packaging, ...ecommerceData, ...uploadImageData, isDraft: true };
                      }else{
                         collection = { ...newproductData, ...Packaging, ...ecommerceData, ...uploadImageData, isDraft: false };
@@ -253,6 +255,9 @@ function UploadProduct({ productData, ecommerceData, preview, previewData, chang
                         setSuccessTitle("Draft saved successfull")
                         setSuccessMsg("");
                     }
+                    if(draftButtonClick == true){
+                        setDraftButtonClick(false)
+                    }
                 }
 
             } catch (error) {
@@ -277,7 +282,13 @@ function UploadProduct({ productData, ecommerceData, preview, previewData, chang
 
 
     const handleDraft = () => {
-        setDraftClicked(true) 
+        console.log("draffii", )
+        if(uploadedFile && uploadedFile.length > 0){
+            setDraftClicked(true) 
+        }else if(uploadedFile && uploadedFile.length == 0){
+            setUploadAlert("Please upload at least one image. Adding an image is required to proceed")
+        }
+      
     }
 
  

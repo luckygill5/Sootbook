@@ -39,7 +39,8 @@ function ECommerceDetails({ ProductCreateList, changeTab, ECommerceDetailsData, 
     const [categoryLevel3, setCategoryLevel3] = useState('');
     const [draftsuccessModal, setDraftSuccessModal] = useState(false);
     const [SuccessMsg, setSuccessMsg] = useState("");
-    const [SuccessTitle, setSuccessTitle] = useState("")
+    const [SuccessTitle, setSuccessTitle] = useState("");
+    const [draftButtonClick, setDraftButtonClick] = useState(false);
 
 
     const { values, handleBlur, handleChange, handleSubmit, errors, touched, setFieldValue } =
@@ -67,46 +68,49 @@ function ECommerceDetails({ ProductCreateList, changeTab, ECommerceDetailsData, 
     };
 
     const handleDraft = (productData, data) => {
-
-        const Packaging = {
-            packaging: [
-
-                {
-                    packType: productData.Sales_Packing_1,
-                    quantity: productData.Quantity_1,
-                    price: productData.Rate_1,
-                    stock: productData.Stock_1,
-                },
-                {
-                    packType: productData.Sales_Packing_2,
-                    quantity: productData.Quantity_2,
-                    price: productData.Rate_2,
-                    stock: productData.Stock_2,
-                },
-                {
-                    packType: productData.Sales_Packing_3,
-                    quantity: productData.Quantity_3,
-                    price: productData.Rate_3,
-                    stock: productData.Stock_3,
-                }
-
-            ]
+        if(draftButtonClick == false){
+            setDraftButtonClick(true);
+            const Packaging = {
+                packaging: [
+    
+                    {
+                        packType: productData.Sales_Packing_1,
+                        quantity: productData.Quantity_1,
+                        price: productData.Rate_1,
+                        stock: productData.Stock_1,
+                    },
+                    {
+                        packType: productData.Sales_Packing_2,
+                        quantity: productData.Quantity_2,
+                        price: productData.Rate_2,
+                        stock: productData.Stock_2,
+                    },
+                    {
+                        packType: productData.Sales_Packing_3,
+                        quantity: productData.Quantity_3,
+                        price: productData.Rate_3,
+                        stock: productData.Stock_3,
+                    }
+    
+                ]
+            }
+    
+            delete productData.Sales_Packing_1;
+            delete productData.Sales_Packing_2;
+            delete productData.Sales_Packing_3;
+            delete productData.Quantity_1;
+            delete productData.Quantity_2;
+            delete productData.Quantity_3;
+            delete productData.Rate_1;
+            delete productData.Rate_2;
+            delete productData.Rate_3;
+            delete productData.Stock_1;
+            delete productData.Stock_2;
+            delete productData.Stock_3;
+            const collection = { ...productData, ...data, ...Packaging, isDraft: true };
+            saveDraft(collection)
         }
-
-        delete productData.Sales_Packing_1;
-        delete productData.Sales_Packing_2;
-        delete productData.Sales_Packing_3;
-        delete productData.Quantity_1;
-        delete productData.Quantity_2;
-        delete productData.Quantity_3;
-        delete productData.Rate_1;
-        delete productData.Rate_2;
-        delete productData.Rate_3;
-        delete productData.Stock_1;
-        delete productData.Stock_2;
-        delete productData.Stock_3;
-        const collection = { ...productData, ...data, ...Packaging, isDraft: true };
-        saveDraft(collection)
+        
     }
 
     const saveDraft = async event => {
@@ -124,7 +128,8 @@ function ECommerceDetails({ ProductCreateList, changeTab, ECommerceDetailsData, 
             if (response.status == 200) {
                 setDraftClicked(false);
                 setDraftSuccessModal(true);
-                setSuccessTitle("Draft saved successfull")
+                setSuccessTitle("Draft saved successfull");
+                setDraftButtonClick(false)
             }
 
         } catch (error) {
