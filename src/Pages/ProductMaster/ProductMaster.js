@@ -15,11 +15,11 @@ import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Box from '@mui/material/Box';
 import DraftList from './DraftList';
-import Pagination from '../../Components/common/pagination';
+import Pagination from '../../Components/common/PaginationLayout';
 import './ProductMaster.scss'
 
 
-function ProductMaster() {
+function ProductMaster({breadcrumbUpdateData, updateBreadCrumb}) {
     const [value, setValue] = useState(0);
     const [addProduct, setAddProduct] = useState(false);
     const [toggleView, setToggleView] = useState("Card");
@@ -32,14 +32,18 @@ function ProductMaster() {
     const [successModal,  setSuccessModal] = useState('');
     const [SuccessModalMsg , setSuccessModalMsg] = useState("");
     const [editMode, setEditMode] = useState(false);
-    const [showDraftList, setShowDrafList] = useState(false)
+    const [showDraftList, setShowDrafList] = useState(false);
+    const [pageValue, setPageValue] = useState(1);
+    const [breadcrumb, setBreadCrumb] = useState([...breadcrumbUpdateData])
 
 
     let tableHeader = ["name", "genericName", "productCode", 'manufacturer', "netPrice",]
 
     const handleAddNewProduct = () => {
         setAddProduct(true);
-        setProductListUpdate(false)
+        setProductListUpdate(false);
+        setBreadCrumb([...breadcrumb, 'Add New Product']);
+        // updateBreadCrumb(breadcrumb)
     }
 
     const handleBack = () => {
@@ -47,8 +51,18 @@ function ProductMaster() {
         setEditMode(false)
         setPreviewData([])
         setPreviewMode(false);
+        let removeLastBreadcrumb = breadcrumb.filter((item) => {
+            if(item!=='Add New Product'){
+                return item
+            }
+    });
+        setBreadCrumb([...removeLastBreadcrumb]);
+        
     }
 
+    useEffect(() => {
+        updateBreadCrumb(breadcrumb)
+    }, [breadcrumb])
 
     const handleChange = (event, newValue) => {
         setValue(newValue);
@@ -93,7 +107,7 @@ function ProductMaster() {
         try{
             let response = await axiosClient.post(
                 `admin/product/list`, 
-                JSON.stringify({ search: '', isDraft:false}), 
+                JSON.stringify({ search: '', isDraft:false, page: pageValue, limit:10}), 
                 {
                     headers : {
                         'Content-Type': 'application/json',
@@ -118,7 +132,7 @@ function ProductMaster() {
         try{
             let response = await axiosClient.post(
                 `admin/product/list`, 
-                JSON.stringify({ search: '', isDraft:true}), 
+                JSON.stringify({ search: '', isDraft:true,  page: pageValue, limit:10}), 
                 {
                     headers : {
                         'Content-Type': 'application/json',
@@ -226,12 +240,16 @@ function ProductMaster() {
     }
 
     useEffect(() => {
-        if(productlistUpdate == true || successModal == true || showDraftList == true || addProduct == true){
+        if(productlistUpdate == true || 
+            successModal == true || 
+            showDraftList == true || 
+            addProduct == true ||
+            pageValue!==0){
             handleProductList();
             handleDraftList()
         }
      
-    }, [productlistUpdate, successModal, addProduct, showDraftList])
+    }, [productlistUpdate, successModal, addProduct, showDraftList, pageValue])
 
     const handleDeleteProductData = async event => {
         const accessToken =  `Bearer ${sessionStorage.accessToken} `
@@ -275,13 +293,18 @@ function ProductMaster() {
         handleDeleteProductData(event)
     }
 
+    const handlePagination = (event) => {
+        console.log("paginatoin", event);
+        setPageValue(event)
+    }
+
     const ProductMasterTabs = ['Products', "Drafts",]
 
 
     return (
         <React.Fragment>
         <div className={`productMaster_container ${editMode ? "editMode" : ''}`}>
-            {addProduct ? <AddNewProduct successModalClose={() => handleSuccessModalClose()} preview={previewMode} removePreviewMode={() => handleRemovePreview()} previewData={previewData} back={handleBack} EditData={editMode} draftSuccessPopUpClose={() => handleDraftSuccessPopUpclose()} /> :
+            {addProduct ? <AddNewProduct  successModalClose={() => handleSuccessModalClose()} preview={previewMode} removePreviewMode={() => handleRemovePreview()} previewData={previewData} back={handleBack} EditData={editMode} draftSuccessPopUpClose={() => handleDraftSuccessPopUpclose()} /> :
                 <div className='productMaster_content'>
                     <div className='headerFlexbox'>
                         <h5 className='title'>Product Master</h5>
@@ -308,12 +331,15 @@ function ProductMaster() {
                                     </span>
                                     Manage
                                 </button>
-                                <button className={`toggleView ${toggleView == 'List' ? 'active' : ''}`}  type='button' onClick={() => handleToggleView('List')}>
+                                {
+                                    value == 1 ? null : <React.Fragment>
+                                    <button className={`toggleView ${toggleView == 'List' ? 'active' : ''}`}  type='button' onClick={() => handleToggleView('List')}>
                                     <List />
                                 </button>
                                 <button className={`toggleView ${toggleView == 'Card' ? 'active' : ''}`} type='button'  onClick={() => handleToggleView('Card')}>
                                     <UserSquare />
                                 </button>
+                                </React.Fragment>}
                             </div>
                         </div>
                         <div className='productMasterListingTabs'>
@@ -338,11 +364,11 @@ function ProductMaster() {
                                     : 
                                     toggleView == 'List' ? <CommonTable deleteProductData={(e) => handleDeleteProductData(e)} dataEditPopulate={(e) => handleEditDataPopulate(e)} dataPopulate={(e) => handleDataPopulate(e)} header={tableFilterHeader} productData={productListCard}/> 
                                     : ''}
-                                   {productListCard ? <Pagination/>: ''}
+                                   {productListCard ? <Pagination  pageNo={pageValue} paginationSet={(e) => handlePagination(e)}/>: ''}
                                 </CustomTabPanel>
                                 <CustomTabPanel value={value} index={1} className="tabContentContainer">
                                     <DraftList draftData={draftListData} deleteDataPopulate={(e) => handleDeleteDraft(e)} editDataPopulate={(e) => handleEditDraftData(e)}/>
-                                    {draftListData ? <Pagination/>: ''}
+                                    {draftListData ? <Pagination pageNo={pageValue} paginationSet={(e) => handlePagination(e)}/>: ''}
                                 </CustomTabPanel>
 
                             </Box>

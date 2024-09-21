@@ -105,7 +105,7 @@ function ECommerceDetails({ ProductCreateList, changeTab, ECommerceDetailsData, 
         delete productData.Stock_1;
         delete productData.Stock_2;
         delete productData.Stock_3;
-        const collection = { ...productData, ...Packaging, isDraft: true };
+        const collection = { ...productData, ...data, ...Packaging, isDraft: true };
         saveDraft(collection)
     }
 

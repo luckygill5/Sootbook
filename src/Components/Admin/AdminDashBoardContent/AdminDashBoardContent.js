@@ -191,7 +191,7 @@ function AdminDashBoardContent(props) {
                     </Breadcrumbs>
                 </div>
                 { props.viewcontrol == "Products" ? (
-                    <ProductMaster/>
+                    <ProductMaster updateBreadCrumb={props.updateBreadCrumb} breadcrumbUpdateData={props.breadcrumbUpdateData}/>
                 ):
                  props.viewcontrol == "Employee" ? (
                     <Employee/>

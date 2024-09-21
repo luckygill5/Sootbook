@@ -3,6 +3,8 @@ import locales from "../../../Constants/en.json";
 import { Input, Select } from '../../../Components/common';
 import * as Yup from 'yup';
 import { useFormik } from 'formik';
+import Box from '@mui/material/Box';
+import CircularProgress from '@mui/material/CircularProgress';
 import axios from 'axios';
 import { axiosClient } from '../../../services/axiosClient';
 import { ReactComponent as Info } from "../../../assets/images/info.svg";
@@ -64,7 +66,8 @@ function ProductDetail({ changeTab, ProductCreateList, productDetailData, previe
     const [draftClicked, setDraftClicked] = useState(false);
     const [draftsuccessModal, setDraftSuccessModal] = useState(false);
     const [SuccessMsg, setSuccessMsg] = useState("");
-    const [SuccessTitle, setSuccessTitle] = useState("")
+    const [SuccessTitle, setSuccessTitle] = useState("");
+    const [showLoader, setshowLoader] = useState(false)
     const { values, handleBlur, handleChange, handleSubmit, errors, touched, setFieldValue } =
         useFormik({
             initialValues: productDetailInitialValues,
@@ -89,43 +92,46 @@ function ProductDetail({ changeTab, ProductCreateList, productDetailData, previe
 
     };
 
-    useEffect(() => {
-        if (previewData) {
-            Object.entries(previewData).map((item) => {
-                setFieldValue(item[0], item[1]);
-                if (item[0] == 'packaging' && item[1].length > 0) {
-                    item[1].map((data, index) => {
-                        setFieldValue(`Sales_Packing_${index + 1}`, data.packType);
-                        setFieldValue(`Quantity_${index + 1}`, data.quantity);
-                        setFieldValue(`Rate_${index + 1}`, data.price);
-                        setFieldValue(`Stock_${index + 1}`, data.stock);
-
-
+    useEffect(() => {        
+            setTimeout(() => {
+                if (previewData) {
+                    Object.entries(previewData).map((item) => {
+                        setFieldValue(item[0], item[1]);
+                        if (item[0] == 'packaging' && item[1].length > 0) {
+                            item[1].map((data, index) => {
+                                setFieldValue(`Sales_Packing_${index + 1}`, data.packType);
+                                setFieldValue(`Quantity_${index + 1}`, data.quantity);
+                                setFieldValue(`Rate_${index + 1}`, data.price);
+                                setFieldValue(`Stock_${index + 1}`, data.stock);
+        
+        
+                            })
+        
+        
+                        }
                     })
-
-
                 }
-            })
-        }
-        if (productBackData) {
-            Object.entries(productBackData).map((item) => {
-                setFieldValue(item[0], item[1]);
-                if (item[0] == 'packaging' && item[1].length > 0) {
-                    item[1].map((data, index) => {
-                        setFieldValue(`Sales_Packing_${index + 1}`, data.packType);
-                        setFieldValue(`Quantity_${index + 1}`, data.quantity);
-                        setFieldValue(`Rate_${index + 1}`, data.price);
-                        setFieldValue(`Stock_${index + 1}`, data.stock);
-
-
+                if (productBackData) {
+                    Object.entries(productBackData).map((item) => {
+                        setFieldValue(item[0], item[1]);
+                        if (item[0] == 'packaging' && item[1].length > 0) {
+                            item[1].map((data, index) => {
+                                setFieldValue(`Sales_Packing_${index + 1}`, data.packType);
+                                setFieldValue(`Quantity_${index + 1}`, data.quantity);
+                                setFieldValue(`Rate_${index + 1}`, data.price);
+                                setFieldValue(`Stock_${index + 1}`, data.stock);
+        
+        
+                            })
+        
+        
+                        }
                     })
-
-
                 }
-            })
-        }
-
+                setshowLoader(false)
+            }, 700);   
     }, [])
+
 
     const handleDraft = (data) => {
 
@@ -804,6 +810,10 @@ function ProductDetail({ changeTab, ProductCreateList, productDetailData, previe
                         </div> </React.Fragment>}
                 </div>
             </div>
+
+            <Box className={`loader_container ${showLoader ? 'show': ''}`}>
+                <CircularProgress />
+            </Box>
             {
                 draftsuccessModal &&
                 <SuccessModal

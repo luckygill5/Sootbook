@@ -11,6 +11,7 @@ const {viewManage} = props;
             viewManage={props.viewManage}
             viewcontrol={props.viewcontrol}
             breadcrumbUpdateData={props.breadcrumbUpdateData}
+            updateBreadCrumb={props.updateBreadCrumb}
             />
         </React.Fragment>
     )
