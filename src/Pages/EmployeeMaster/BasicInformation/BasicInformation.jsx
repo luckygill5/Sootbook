@@ -46,7 +46,7 @@ const basicInformationInitialValues = {
 };
 
 
-function BasicInformation({ setReadMode, basicInformation, getBasicInfo,editUserData,handleBackHRM }) {
+function BasicInformation({ SetUserId, setReadMode, onTabChange, basicInformation, getBasicInfo,editUserData,handleBackHRM }) {
     const [files, setFiles] = useState([])
 
     const [roleList, setRoleList] = useState('');
@@ -70,9 +70,17 @@ function BasicInformation({ setReadMode, basicInformation, getBasicInfo,editUser
     }, []);
 
     const handleFormSubmit = async values => {
+      console.log(values);
+
+      
+
         EmployeeSaveList(values).then(response => {
             if (response && response.status == true) {
                 setUserAdded(true);
+                onTabChange(null,1);
+                SetUserId(response?.data?.employee?._id);
+                
+
             } else if (response && response.status == false) {
                 SetErrorModal(true);
                 SetErrorModalMsg(response?.message && response.message);
@@ -358,8 +366,7 @@ function BasicInformation({ setReadMode, basicInformation, getBasicInfo,editUser
             <button className="cancelBtn" onClick={() => handleBackHRM()}>
             {locales.cancel_label}
             </button>
-            <button onClick={handleSubmit} className={classNames('saveBtn', { disabled: formDisabled })}
-                                disabled={formDisabled}
+            <button onClick={handleSubmit} className='saveBtn'
                             >
                                 {locales.save_label}</button>
           </div>

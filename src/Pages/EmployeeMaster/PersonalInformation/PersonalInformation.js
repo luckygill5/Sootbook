@@ -12,7 +12,7 @@ import Box from '@mui/material/Box';
 import './PersonalInformation.scss';
 import '../../../Components/common/common.component.scss';
 
-function PersonalInformation( {initialEditMode = true }) {
+function PersonalInformation( userid) {
     const [editMode, setEditMode] = useState(true);
     const [value, setValue] = useState(0);
     const [selectLabel, setSelectLabel] = useState('Bio');
@@ -20,15 +20,15 @@ function PersonalInformation( {initialEditMode = true }) {
     const [bankInfo, setBankInfo] = useState({});
     const [emergencyInfo, setEmergencyInfo] = useState({});
     const [socialinfo, setSocialinfo] = useState({});
-    const userid = JSON.parse(localStorage.getItem('profileData'))?.userId 
+    // const userid = JSON.parse(localStorage.getItem('profileData'))?.userId 
     // const profileData = localStorage.getItem('profileData');  
     // const userid = profileData ? JSON.parse(profileData)?.userId : null;
 
 
-    const getBioInfo = async () => {
+    const getBioInfo = async values => {
         let response = await axiosClient.post(
             `admin/vendor/bioInfo`,
-            JSON.stringify({ userId: userid }),
+            JSON.stringify({ userid,...values}),
         );
         if (response.status === 200) {
             setBioInfo(response.data?.data || {});
@@ -129,6 +129,7 @@ function PersonalInformation( {initialEditMode = true }) {
                         </Box>
                         <CustomTabPanel value={value} index={0} className='tabdataBlock'>
                             <PersonalInfoBio
+                            userid={userid}
                                 mode={editMode}
                                 setEditMode={setEditMode}
                                 bioInfo={bioInfo}

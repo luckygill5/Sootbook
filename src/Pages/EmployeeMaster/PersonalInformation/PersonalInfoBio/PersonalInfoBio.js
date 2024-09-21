@@ -15,23 +15,23 @@ const personalBioInitialValues = {
     experience: 'fresher',
 };
 
-function PersonalInfoBio({ mode, setEditMode, bioInfo, getBioInfo }) {
+function PersonalInfoBio({userid, mode, setEditMode, bioInfo, getBioInfo }) {
     const handleFormSubmit = async values => {
         try {
             // const userid = JSON.parse(localStorage.getItem('profileData')).userId
-            // let response = await axiosClient.post(
-            //     `admin/vendor/bioInfo/store`,
-            //     JSON.stringify({ userId: userid, ...values }),
-            // );
-            // if (response.status === 200) {
-            //     swal('Success', 'Bio Information updated successfully', 'success', {
-            //         buttons: false,
-            //         timer: 2000,
-            //     }).then(() => {
-            //         getBioInfo();
-            //         setEditMode(false);
-            //     });
-            // }
+            let response = await axiosClient.post(
+                `admin/vendor/bioInfo/store`,
+                JSON.stringify({ userid, ...values }),
+            );
+            if (response.status === 200) {
+                swal('Success', 'Bio Information updated successfully', 'success', {
+                    buttons: false,
+                    timer: 2000,
+                }).then(() => {
+                    getBioInfo();
+                    setEditMode(false);
+                });
+            }
         } catch (error) {
             swal('Failed', `Error Updating Bio Information`, 'error');
         }

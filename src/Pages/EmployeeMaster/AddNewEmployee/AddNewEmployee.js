@@ -24,11 +24,11 @@ import Dialog from '@mui/material/Dialog';
 
 function AddNewEmployee({ handleBackHRM,  editUserData}) {
     const [value, setValue] = useState(0);
-    
+    const [userid,SetUserId] = useState("");
     const [readMode, setReadMode] = useState(false);
 
   const [basicInformation, setBasicInformation] = useState({});
-  const userid = JSON.parse(localStorage.getItem('profileData'))?.userId;
+//   const userid = JSON.parse(localStorage.getItem('profileData'))?.userId;
   const [roleList, setRoleList] = useState('');
     const [formDisabled, setFormDisabled] = useState(true);
     const [userAdded, setUserAdded] = useState(false);
@@ -97,6 +97,8 @@ function AddNewEmployee({ handleBackHRM,  editUserData}) {
 
 
     const handleChange = (event, newValue) => {
+        console.log(newValue);
+        
         setValue(newValue);
     };
 
@@ -170,20 +172,20 @@ function AddNewEmployee({ handleBackHRM,  editUserData}) {
                                 </Tabs>
                             </Box>
                             <CustomTabPanel value={value} index={0} className="tabContentContainer">
-                                <BasicInformation handleBackHRM={handleBackHRM} parentScreen ={"employee"} setReadMode={setReadMode} basicInformation={basicInformation} getBasicInfo={getBasicInfo}/>
+                                <BasicInformation SetUserId={SetUserId} handleBackHRM={handleBackHRM} onTabChange={handleChange} parentScreen ={"employee"} setReadMode={setReadMode} basicInformation={basicInformation} getBasicInfo={getBasicInfo}/>
                             </CustomTabPanel>
                             
                             <CustomTabPanel value={value} index={1} className="tabContentContainer">
-                                <PersonalInformation initialEditMode={true} />
+                                <PersonalInformation userid={userid} initialEditMode={true}  />
                             </CustomTabPanel>
                             <CustomTabPanel value={value} index={2} className="tabContentContainer">
-                                <ContractContent initialEditMode={true} handleBackHRM={handleBackHRM}/>
+                                <ContractContent userid={userid} initialEditMode={true} handleBackHRM={handleBackHRM}/>
                             </CustomTabPanel>
                             <CustomTabPanel value={value} index={3} className="tabContentContainer">
-                                <RolePrivilege initialEditMode={true} />
+                                <RolePrivilege userid={userid} initialEditMode={true} />
                             </CustomTabPanel>
                             <CustomTabPanel value={value} index={4} className="tabContentContainer">
-                                <Documents initialEditMode={true}/>
+                                <Documents userid={userid} initialEditMode={true}/>
                             </CustomTabPanel>
                         </Box>
                 </div>
