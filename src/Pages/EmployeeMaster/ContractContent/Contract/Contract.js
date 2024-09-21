@@ -1,14 +1,15 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { isEmpty } from 'lodash';
 import { useFormik } from 'formik';
 import * as Yup from "yup";
 import swal from 'sweetalert';
+import classNames from 'classnames';
 import { axiosClient } from '../../../../services/axiosClient';
 import {  DatePicker, Input, DataList, Select, TextArea} from '../../../../Components/common';
 import { DEPARTMENTS_LIST } from '../../../../Constants/Contants.common';
 import '../ContractContent.scss';
 import '../../../../Components/common/common.component.scss';
-
+import locales from "../../../../Constants/en.json";
 const contractConfig = [
     { label: 'Contract date', value: '24/02/2024', name: 'contract_start', type: 'date' },
     { label: 'Department', value: 'Human resources', name: 'department' },
@@ -46,7 +47,9 @@ const contractFormSchema = Yup.object({
   });
 
 //selectBox
-function Contract({ mode, setEditMode, contractInformation, getContractInfo }) {
+function Contract({ mode, setEditMode, contractInformation, getContractInfo, backHRM}) {
+    const [formDisabled, setFormDisabled] = useState(true);
+
     const userid = JSON.parse(localStorage.getItem('profileData'))?.userId;
     if (contractInformation && !isEmpty(contractInformation)) {
         for (let key in contractInitialValues) {
@@ -227,14 +230,15 @@ function Contract({ mode, setEditMode, contractInformation, getContractInfo }) {
                                 placeholder='Enter role description here..'
                             />
                         </div>
-                        <div className='button-container'>
-                            <button className='cancelBtn' onClick={() => setEditMode(false)}>
-                                Cancel
-                            </button>
-                            <button className='saveBtn' type='submit' onClick={handleSubmit}>
-                                Save
-                            </button>
-                        </div>
+                        <div className="bottom_actions">
+            <button className="cancelBtn" onClick={() => backHRM()}>
+            {locales.cancel_label}
+            </button>
+            <button onClick={handleSubmit} className={classNames('saveBtn', { disabled: formDisabled })}
+                                disabled={formDisabled}
+                            >
+                                {locales.save_label}</button>
+          </div>
                     </form>
                 </div>
             ) : (

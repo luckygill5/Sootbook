@@ -12,8 +12,10 @@ import "../BasicInformation.scss";
 
 const basicInformationEditFormSchema = Yup.object({
   first_name: Yup.string().required("Full Name is required."),
-  last_name: Yup.string().required("Last Name is required."),
-  phone: Yup.string().required("Contact Number is required."),
+  // last_name: Yup.string().required("Last Name is required."),
+  // phone: Yup.string().required("Contact Number is required."),
+  email: Yup.string().required("Email Id is required."),
+
   empId: Yup.string().required("Employee Id is required."),
   dob: Yup.string().required("Date of Birth is required.")
 });
@@ -21,6 +23,7 @@ const basicInformationEditFormSchema = Yup.object({
 const basicInformationInitialValues = {
   first_name: "",
   last_name: "",
+  email:"",
   phone: "",
   gender: "male",
   empId: "",
@@ -35,14 +38,19 @@ const basicInformationInitialValues = {
   nationality: "Indian",
   citizenship: "India",
   address_1: "",
-  address_2: ""
+  address_2: "",
+  avatar:"",
+  country :"India",
 };
 
 
-function BasicInformationEdit({ setReadMode, basicInformation, getBasicInfo }) {
+function MasterBasicInformationEdit({ setReadMode, basicInformation, getBasicInfo }) {
   const [files, setFiles] = useState([])
   const handleFormSubmit = async (values) => {
+    // e.preventDefault();
     console.log(values);
+    console.log(basicInformation);
+    
     if (basicInformation && !isEmpty(basicInformation)) {
       for (let key in basicInformationInitialValues) {
         basicInformationInitialValues[key] = basicInformation[key];
@@ -50,10 +58,11 @@ function BasicInformationEdit({ setReadMode, basicInformation, getBasicInfo }) {
     }
     try {
       const userid = JSON.parse(localStorage.getItem('profileData')).userId
-      let response = await axiosClient.post(`admin/vendor/basicInfo/store`, JSON.stringify({ userId: userid, ...values }));
+      let response = await axiosClient.post(`admin/vendor/employee/save`, JSON.stringify({ userId: userid, ...values }));
       if (response.status === 200) {
         swal("Success", "Basic Information updated successfully", "success", {
           buttons: false,
+
           timer: 2000,
         })
           .then(() => {
@@ -67,7 +76,7 @@ function BasicInformationEdit({ setReadMode, basicInformation, getBasicInfo }) {
     }
   }
 
-  const { values, handleBlur, handleChange, handleSubmit, errors, touched, setFieldValue } =
+  const { values, handleBlur, handleChange,handleSubmit,errors, touched, setFieldValue } =
     useFormik({
       initialValues: basicInformationInitialValues,
       validationSchema: basicInformationEditFormSchema,
@@ -75,6 +84,8 @@ function BasicInformationEdit({ setReadMode, basicInformation, getBasicInfo }) {
       validateOnBlur: false,
       enableReinitialize: true,
       onSubmit: (values, action) => {
+        // console.log(values);
+        
         handleFormSubmit(values);
         action.resetForm();
       },
@@ -109,10 +120,10 @@ function BasicInformationEdit({ setReadMode, basicInformation, getBasicInfo }) {
             <Input
               label={"Name"}
               type={"text"}
-              name={"name"}
-              id={"name"}
+              name={"first_name"}
+              id={"first_name"}
               wrapperClass={"col6"}
-              value={values.name}
+              value={values.first_name}
               onChange={handleChange}
               onBlur={handleBlur}
               isRequired
@@ -132,6 +143,18 @@ function BasicInformationEdit({ setReadMode, basicInformation, getBasicInfo }) {
               error={errors.email}
               touched={touched.email}
             />
+            <Input
+             label={"Password"}
+             type={"text"}
+             name={"password"}
+             id={"password"}
+             wrapperClass={"col4"}
+             value={values?.password}
+             onChange={handleChange}
+             onBlur={handleBlur}
+             isRequired
+             error={errors?.password}
+             touched={touched?.password}/> 
             <Select
               label={"Gender"}
               name={"gender"}
@@ -160,18 +183,28 @@ function BasicInformationEdit({ setReadMode, basicInformation, getBasicInfo }) {
               error={errors.empId}
               touched={touched.empId}
             />
-            <Input
-              label={"Password"}
+           <Input
+              label={"City"}
               type={"text"}
-              name={"password"}
-              id={"password"}
+              name={"city"}
+              id={"city"}
               wrapperClass={"col6"}
-              value={values.password}
+              value={values.city}
               onChange={handleChange}
               onBlur={handleBlur}
-              isRequired
             />
-            
+            <Input
+                                label={'Contact Number'}
+                                type={'text'}
+                                name={'phone'}
+                                id={'phone'}
+                                value={values.phone}
+                                placeholder={'Contact Number'}
+                                wrapperClass={'col6'}
+                                onChange={handleChange}
+                                isRequired
+
+                            />
             <DatePicker
               label={'Date of Birth'}
               wrapperClass={'col6'}
@@ -183,6 +216,7 @@ function BasicInformationEdit({ setReadMode, basicInformation, getBasicInfo }) {
               error={errors.contract_start}
               touched={touched.contract_start}
             />
+            
           </div>
           <div className="input_flexbox">
             <Select
@@ -206,32 +240,28 @@ function BasicInformationEdit({ setReadMode, basicInformation, getBasicInfo }) {
               onChange={handleChange}
               onBlur={handleBlur}
             />
-          </div>
-          <div className="input_flexbox">
-            
-            <Input
-              label={"Zip Code / Postal Code"}
-              type={"text"}
-              name={"postal"}
-              id={"postal"}
+            <Select
+              label={"Citizenship"}
+              name={"citizenship"}
+              options={COUNTRIES_LIST}
               wrapperClass={"col6"}
-              value={values.postal}
+              value={values.citizenship}
               onChange={handleChange}
               onBlur={handleBlur}
             />
-            <Input
-              label={"City"}
-              type={"text"}
-              name={"city"}
-              id={"city"}
+          </div>
+         
+          <div className="input_flexbox">
+          <Select
+              label={"Nationality"}
+              name={"nationality"}
+              options={NATIONALITY_LIST}
               wrapperClass={"col6"}
-              value={values.city}
+              value={values.nationality}
               onChange={handleChange}
               onBlur={handleBlur}
             />
             
-          </div>
-          <div className="input_flexbox">
             <Select
               label={"Religion"}
               name={"religion"}
@@ -250,27 +280,17 @@ function BasicInformationEdit({ setReadMode, basicInformation, getBasicInfo }) {
             />
           </div>
           <div className="input_flexbox">
-            <Select
-              label={"Nationality"}
-              name={"nationality"}
-              options={NATIONALITY_LIST}
+          <Input
+              label={"Zip Code / Postal Code"}
+              type={"text"}
+              name={"postal"}
+              id={"postal"}
               wrapperClass={"col6"}
-              value={values.nationality}
+              value={values.postal}
               onChange={handleChange}
               onBlur={handleBlur}
             />
-            <Select
-              label={"Citizenship"}
-              name={"citizenship"}
-              options={COUNTRIES_LIST}
-              wrapperClass={"col6"}
-              value={values.citizenship}
-              onChange={handleChange}
-              onBlur={handleBlur}
-            />
-          </div>
-          <div className="input_flexbox">
-            <Input
+             <Input
               label={"Address Line 1"}
               type={"text"}
               name={"address_1"}
@@ -290,6 +310,7 @@ function BasicInformationEdit({ setReadMode, basicInformation, getBasicInfo }) {
               onChange={handleChange}
               onBlur={handleBlur}
             />
+            
           </div>
 
           <div className="button-container">
@@ -304,4 +325,4 @@ function BasicInformationEdit({ setReadMode, basicInformation, getBasicInfo }) {
   );
 }
 
-export default BasicInformationEdit;
+export default MasterBasicInformationEdit;

@@ -32,7 +32,7 @@ const rolePrivilegeConfig = [
 function RolePrivilege(props) {
     const [editMode, setEditMode] = useState(false);
     const [rolesInfo, setRolesInfo] = useState({});
-    const userid = JSON.parse(localStorage.getItem('profileData')).userId
+    const userid = JSON.parse(localStorage.getItem('profileData'))?.userId
 
     const getRolesInfo = async () => {
         let response = await axiosClient.post(

@@ -5,9 +5,14 @@ import { ReactComponent as FileText } from "../../../../assets/images/file-text.
 import { ReactComponent as Phone } from "../../../../assets/images/phone.svg";
 import { ReactComponent as Mail } from "../../../../assets/images/mail.svg";
 import "../Employee.scss"
+import AdminDashBoardContent from '../../../../Components/Admin/AdminDashBoardContent/AdminDashBoardContent';
 
 
 function CardLayout({ cardData, employeData }) {
+    const [showComponent, setShowComponent] = useState(false);
+     const handleClick =() =>{
+        setShowComponent(true); 
+    }
 
     return (
         <div className='cardview_flexbox'>
@@ -31,8 +36,13 @@ function CardLayout({ cardData, employeData }) {
                                     </div>
                                     <div className='actions'>
                                         <span className='statusLabel'>{item.status}</span>
-                                        <button className='actionBtn'><Bin /></button>
-                                        <button className='actionBtn'><Pen /></button>
+                                        <button className='actionBtn'
+                                        ><Bin /></button>
+                                        <div>
+                                            <button className='actionBtn' onClick={handleClick}>
+                                                <Pen /> 
+                                            </button>
+                                        </div>
                                     </div>
                                 </div>
                                 <div className='personal_info'>

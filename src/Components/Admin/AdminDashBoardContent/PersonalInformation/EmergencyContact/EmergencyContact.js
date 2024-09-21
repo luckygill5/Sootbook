@@ -22,7 +22,7 @@ const emergencyContactInitialValues = {
 function EmergencyContact({ mode, setEditMode, emergencyInfo, getEmergencyInfo }) {
     const handleFormSubmit = async values => {
         try {
-            const userid = JSON.parse(localStorage.getItem('profileData')).userId
+            const userid = JSON.parse(localStorage.getItem('profileData'))?.userId
             let response = await axiosClient.post(
                 `admin/vendor/emergencyInfo/store`,
                 JSON.stringify({ userId: userid, ...values }),

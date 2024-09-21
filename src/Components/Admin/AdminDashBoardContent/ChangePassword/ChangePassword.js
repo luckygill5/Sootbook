@@ -23,7 +23,7 @@ function ChangePassword(props) {
 
     const handleSubmit = async event => {
         if (formdata.newpassword == formdata.repeatpassword) {
-            const userid = JSON.parse(localStorage.getItem('profileData')).userId;
+            const userid = JSON.parse(localStorage.getItem('profileData'))?.userId;
             try {
                 let response = await axiosClient.post(
                     `admin/vendor/updatePasswordInfo/store`,

@@ -22,7 +22,8 @@ import { ReactComponent as FileText } from '../../../../assets/images/file-text.
 import { ReactComponent as Phone } from '../../../../assets/images/phone.svg';
 import { ReactComponent as Mail } from '../../../../assets/images/mail.svg';
 import CloseX from '../../../../assets/images/x-cross.svg';
-import CardLayout from './EmployeeRoleCard';
+// import CardLayout from './EmployeeRoleCard';
+
 import TabularLayout from './EmployeeRoleTabular';
 import Accordion from '@mui/material/Accordion';
 import AccordionSummary from '@mui/material/AccordionSummary';
@@ -33,16 +34,16 @@ import Checkbox from '@mui/material/Checkbox';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import { Input, Select, TextArea } from '../../../../Components/common';
 import { exportToExcel } from 'react-json-to-excel';
-import { EmployeeList } from '../../../Services/employeeList.service.js';
-import { EmployeeSaveList } from '../../../Services/employeeSaveList.service.js';
 import { useSelector, useDispatch } from 'react-redux';
 import { setData, addData } from '../../../../Slices/EmployeeListSlice';
-import { addEmployeeSaveList } from '../../../../Slices/EmployeeSaveListSlice';
+import { UserList } from '../../../../services/userList.service.js';
+import CardLayout from '../../User/UserRoleListing/UserRoleCard.jsx';
 
-function EmployeeRolesList({ Employeehandle }) {
+function EmployeeRolesList({ Userhandle , setEditUserData}) {
     const data = useSelector(state => state);
+
+    const { rolePermissionList = [] } = data.userSaveList?.data;
     const dispatch = useDispatch();
-    const [Tablehead, setTableHead] = useState('');
     const [TableBody, setTableBody] = useState('');
     const [view, setView] = React.useState('cardview');
     const [RoleFilter, setRoleFilter] = useState({
@@ -52,8 +53,8 @@ function EmployeeRolesList({ Employeehandle }) {
     });
 
     const manageColumnData = [
-        'User ID',
-        'Username',
+        'Employee Id',
+        'First Name',
         'Email',
         'Role',
         'Creation date',
@@ -333,19 +334,13 @@ function EmployeeRolesList({ Employeehandle }) {
     };
 
     useEffect(() => {
-        // setTableBody(tableBody)
-        // setTableHead(tableHead);
-
-        EmployeeList().then(response => {
+        
+        UserList()?.then(response => {
             if (response && response.data) {
                 dispatch(addData(response.data));
             }
         });
-        // EmployeeSaveList().then(response => {
-        //     if (response && response.data) {
-        //         dispatch(addEmployeeSaveList(response.data));
-        //     }
-        // });
+       
     }, []);
 
     const handleManageColumnFilter = event => {
@@ -355,13 +350,12 @@ function EmployeeRolesList({ Employeehandle }) {
             }
         });
 
-        // setTableHead(filter)
     };
     return (
         <div className='userRoles_container'>
             <div className='header_flexbox'>
                 <h5 className='title'>Employees</h5>
-                <button className='addroleBtn' onClick={() => Employeehandle()}>
+                <button className='addroleBtn' onClick={() => Userhandle()}>
                     <span className='icon'>
                         <UserPlus />
                     </span>
@@ -448,6 +442,9 @@ function EmployeeRolesList({ Employeehandle }) {
                     <CardLayout
                         employeData={data.userListData?.data?.employees}
                         cardData={userCardData}
+                        rolePermissionList={rolePermissionList}
+                        setEditUserData={setEditUserData}
+                        Userhandle={Userhandle}
                     />
                 ) : view == 'listview' ? (
                     <TabularLayout

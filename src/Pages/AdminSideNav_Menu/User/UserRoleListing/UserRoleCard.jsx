@@ -7,6 +7,7 @@ import { ReactComponent as FileText } from '../../../../assets/images/file-text.
 import { ReactComponent as Phone } from '../../../../assets/images/phone.svg';
 import { ReactComponent as Mail } from '../../../../assets/images/mail.svg';
 import '../User.scss';
+import EmployeeInfo from '../../../../Components/Admin/AdminDashBoardContent/EmployeeInfo/EmployeeInfo';
 
 function CardLayout({ employeData, setEditUserData, Userhandle, rolePermissionList }) {
     const handleUserDelete = async userId => {
@@ -28,14 +29,27 @@ function CardLayout({ employeData, setEditUserData, Userhandle, rolePermissionLi
         });
     };
 
+    const handleClick = () =>{
+        console.log("Button clciked");
+        // <EmployeeInfo/>
+        
+    }
     return (
         <div className='cardview_flexbox'>
             {employeData &&
                 employeData.length > 0 &&
                 employeData.map((item, index) => {
                     const getRole = role => {
-                        const matchedRole = rolePermissionList.find(item => item._id === role);
-                        return matchedRole?.name;
+                        const matchedRole = rolePermissionList?.find(item => item?._id === role );
+                        if (matchedRole) {
+                            console.log(item);
+                        
+                            return matchedRole?.name;
+                        } else {
+                            console.error("rolePermissionList is not defined or is not an array");
+
+                        }
+                       
                     };
 
                     return (
@@ -50,7 +64,8 @@ function CardLayout({ employeData, setEditUserData, Userhandle, rolePermissionLi
                                                 <span className='img_placeholder'></span>
                                             )}
                                         </div>
-                                        <div className='information'>
+                                        <div className='information' onClick={handleClick} style={{ cursor: 'pointer' }}>
+                                            
                                             <h5 className='title'>{`${item.first_name} ${item.last_name}`}</h5>
                                             <span className='designation'>{getRole(item.role)}</span>
                                         </div>

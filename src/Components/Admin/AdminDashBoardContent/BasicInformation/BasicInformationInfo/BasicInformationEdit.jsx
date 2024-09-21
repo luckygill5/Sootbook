@@ -4,10 +4,10 @@ import swal from 'sweetalert';
 import { isEmpty } from 'lodash';
 import { useFormik } from "formik";
 import { DatePicker, Input, Select, MyUploadButton } from "../../../../common";
-import { axiosClient } from "../../../../../services/axiosClient";
 import { BLOOD_GROUP_LIST, COUNTRIES_LIST, NATIONALITY_LIST, RELIGION_LIST } from "../../../../../Constants/Contants.common";
 import Avtar from "../../../../../assets/images/avatar-large.png";
 import "../BasicInformation.scss";
+import { axiosClient } from "../../../../../services/axiosClient";
 
 
 const basicInformationEditFormSchema = Yup.object({
@@ -15,7 +15,7 @@ const basicInformationEditFormSchema = Yup.object({
   last_name: Yup.string().required("Last Name is required."),
   phone: Yup.string().required("Contact Number is required."),
   empId: Yup.string().required("Employee Id is required."),
-  dob: Yup.string().required("Date of Birth is required.")
+  dob: Yup.string().required("Date of Birth is required."),
 });
 
 const basicInformationInitialValues = {
@@ -38,8 +38,9 @@ const basicInformationInitialValues = {
 };
 
 
-function BasicInformationEdit({ setReadMode, basicInformation, getBasicInfo }) {
+function BasicInformationEdit({ parentScreen, setReadMode, basicInformation, getBasicInfo }) {
   const [files, setFiles] = useState([])
+  
   const handleFormSubmit = async (values) => {
     console.log(values);
     if (basicInformation && !isEmpty(basicInformation)) {
@@ -49,7 +50,8 @@ function BasicInformationEdit({ setReadMode, basicInformation, getBasicInfo }) {
     }
     try {
       const userid = JSON.parse(localStorage.getItem('profileData'))?.userId
-      let response = await axiosClient.post(`admin/vendor/basicInfo/store`, JSON.stringify({ userId: userid, ...values }));
+      if(parentScreen=="employee"){
+        let response = await axiosClient.post(`admin/vendor/emloyee/save`, JSON.stringify({ userId: userid, ...values }));
       if (response.status === 200) {
         swal("Success", "Basic Information updated successfully", "success", {
           buttons: false,
@@ -57,9 +59,24 @@ function BasicInformationEdit({ setReadMode, basicInformation, getBasicInfo }) {
         })
           .then(() => {
             getBasicInfo();
-            setReadMode(true)
+            setReadMode(true);
           });
       }
+
+      }
+      else{
+        let response = await axiosClient.post(`admin/vendor/user/save`, JSON.stringify({ userId: userid, ...values }));
+      if (response.status === 200) {
+        swal("Success", "Basic Information updated successfully", "success", {
+          buttons: false,
+          timer: 2000,
+        })
+          .then(() => {
+            getBasicInfo();
+            setReadMode(true);
+          });
+      }
+      } 
     }
     catch (error) {
       swal("Failed", `Error Updating Basic Information`, "error")
@@ -74,6 +91,8 @@ function BasicInformationEdit({ setReadMode, basicInformation, getBasicInfo }) {
       validateOnBlur: false,
       enableReinitialize: true,
       onSubmit: (values, action) => {
+        console.log({ values });
+
         handleFormSubmit(values);
         action.resetForm();
       },
@@ -107,11 +126,11 @@ function BasicInformationEdit({ setReadMode, basicInformation, getBasicInfo }) {
 
           <div className="input_flexbox">
             <Input
-              label={"First Name"}
+              label={"Name"}
               type={"text"}
               name={"first_name"}
               id={"first_name"}
-              wrapperClass={"col6"}
+              wrapperClass={"col4"}
               value={values.first_name}
               onChange={handleChange}
               onBlur={handleBlur}
@@ -119,19 +138,33 @@ function BasicInformationEdit({ setReadMode, basicInformation, getBasicInfo }) {
               error={errors.first_name}
               touched={touched.first_name}
             />
-            <Input
-              label={"Last Name"}
+             <Input
+              label={"Email"}
               type={"text"}
-              name={"last_name"}
-              id={"last_name"}
-              wrapperClass={"col6"}
-              value={values.last_name}
+              name={"email"}
+              id={"email"}
+              wrapperClass={"col4"}
+              value={values?.email}
               onChange={handleChange}
               onBlur={handleBlur}
               isRequired
-              error={errors.last_name}
-              touched={touched.last_name}
+              error={errors?.email}
+              touched={touched?.email}
             />
+             <Input
+             label={"Password"}
+             type={"text"}
+             name={"password"}
+             id={"password"}
+             wrapperClass={"col4"}
+             value={values?.password}
+             onChange={handleChange}
+             onBlur={handleBlur}
+             isRequired
+             error={errors?.password}
+             touched={touched?.password}/>
+                              
+           
           </div>
           <div className="input_flexbox">
             {/* <div className="inputField">

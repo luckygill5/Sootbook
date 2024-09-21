@@ -35,9 +35,9 @@ const basicInfoConfig = [
   { label: "Address Line 2", value: "Address Line 2", name: "address_2" },
 ];
 
-function BasicInformation() {
+function BasicInformation({initialEditMode=false}) {
   const userid = JSON.parse(localStorage.getItem('profileData'))?.userId
-  const [readMode, setReadMode] = useState(true);
+  const [readMode, setReadMode] = useState({initialEditMode});
 
   const [basicInformation, setBasicInformation] = useState({});
 

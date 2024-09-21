@@ -158,6 +158,7 @@ $font-monsterat : 'Montserrat';
         }
     }
 }
+
 .basicInformation_container {
     box-sizing: border-box;
     position: relative;
@@ -379,6 +380,62 @@ $font-monsterat : 'Montserrat';
                                 /* 142.857% */
                                 letter-spacing: 0.07px;
                                 color: #EF4444
+                            }
+                        }
+                    }
+                    .bottom_actions {
+                        @include flexbox();
+                        align-items: center;
+                        justify-content: flex-end;
+        
+                        .cancelBtn {
+                            cursor: pointer;
+                            height: 40px;
+                            width: 73px;
+                            @include flexbox();
+                            align-items: center;
+                            justify-content: center;
+                            border-radius: 8px;
+                            border: 1px solid #00A9BB;
+                            color: #00A9BB;
+                            font-size: 14px;
+                            font-style: normal;
+                            font-weight: 600;
+                            line-height: 20px;
+                            /* 142.857% */
+                            letter-spacing: 0.07px;
+                            padding: 10px 12px;
+                            margin-right: 16px;
+                            box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25), -1px -7px 7px 0px #FFF;
+                            background-color: $white;
+        
+                            &:focus:not(:focus-visible) {
+                                outline: none;
+                            }
+                        }
+        
+                        .saveBtn {
+                            height: 40px;
+                            width: 58px;
+                            @include flexbox();
+                            align-items: center;
+                            justify-content: center;
+                            border-radius: 8px;
+                            cursor: pointer;
+                            padding: 10px 12px;
+                            box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25), -1px -7px 7px 0px #FFF;
+                            background-color: #00A9BB;
+                            color: $white;
+                            font-size: 14px;
+                            font-style: normal;
+                            font-weight: 600;
+                            line-height: 20px;
+                            /* 142.857% */
+                            letter-spacing: 0.07px;
+                            border: none;
+        
+                            &:focus:not(:focus-visible) {
+                                outline: none;
                             }
                         }
                     }

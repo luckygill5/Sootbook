@@ -2,6 +2,8 @@ import { apiUrl, port } from './constants.servics';
 import axios from 'axios';
 
 export const EmployeeSaveList = (values, country, permission) => {
+    console.log("Hi Hit done");
+    
     const EmployeeSaveUrl = `${apiUrl}:${port}/api/admin/vendor/emloyee/save`;
    const accessToken =  `Bearer ${sessionStorage.accessToken} `
     return (
@@ -14,17 +16,17 @@ export const EmployeeSaveList = (values, country, permission) => {
             },
             data: {
                 
-                first_name:values?.First_Name, 
-                last_name:values?.Last_Name,
-                email:values?.Email,
-                phone:values?.Contact_Number,
+                first_name:values?.first_name, 
+                last_name:values?.last_name,
+                email:values?.email,
+                phone:values?.phone,
                 password:values?.password,
                 permission:permission ? permission : [],
                 avatar: values?.avatar || "",
                 gender: values?.gender || "",
                 empId: values?.empId || "",
                 dob: values?.dob || null,
-                martial_status: values?.martial_status || "",
+                marital_status: values?.marital_status || "",
                 country: values?.country || "",
                 state: values?.state || "",
                 city: values?.city || "",

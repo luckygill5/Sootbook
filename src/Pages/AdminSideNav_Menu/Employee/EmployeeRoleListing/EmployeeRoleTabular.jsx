@@ -171,6 +171,8 @@ function TabularLayout({ tableheadData, tableBodyData, manageColumn, employeData
                             tableHeadArray &&
                             tableHeadArray.length > 0 &&
                             tableHeadArray.map((item, index) => {
+                                console.log(item);
+                                
                                 return (
                                     <div key={index} className={`tcolumn ${(item.title == 'Username' || item.title == "Email" || item.title == "Role") ? 'lg' : 'sm'}`}>
                                         {item.title == 'User ID' && <span className='pinIcon'><Pin /></span>}

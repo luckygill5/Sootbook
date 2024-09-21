@@ -6,6 +6,7 @@ import EmployeeMaster from '../../EmployeeMaster/EmployeeMaster';
 
 function Employee(props) {
     const [AddEmployee, setAddEmployee] = useState(false);
+    const [editUserData, setEditUserData] = useState(null);
 
     const handleAddEmployee = () => {
         setAddEmployee(true);
@@ -16,6 +17,8 @@ function Employee(props) {
     // };
     const handleBackHRM = () => {
         setAddEmployee(false);
+        setEditUserData(null);
+
     };
 
     return (
@@ -23,7 +26,7 @@ function Employee(props) {
             {AddEmployee ? (
                 <EmployeeMaster handleBackHRM={() => handleBackHRM()} />
             ) : (
-                <EmployeeRolesList Employeehandle={() => handleAddEmployee()} />
+                <EmployeeRolesList Userhandle={() => handleAddEmployee()} setEditUserData={setEditUserData}  />
             )}
         </div>
     );

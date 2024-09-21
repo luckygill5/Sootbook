@@ -26,7 +26,7 @@ const socialProfileInitialValues = {
 function SocialProfile({ mode, setEditMode, socialinfo, getSocialinfo }) {
     const handleFormSubmit = async values => {
         try {
-            const userid = JSON.parse(localStorage.getItem('profileData')).userId
+            const userid = JSON.parse(localStorage.getItem('profileData'))?.userId
             let response = await axiosClient.post(
                 `admin/vendor/socialinfo/store`,
                 JSON.stringify({ userId: userid, ...values }),
