@@ -97,7 +97,6 @@ function CommonTable(props) {
         props.deleteProductData(id)
     }
 
-
     return (
         <React.Fragment>
             {(props.header &&
@@ -188,7 +187,7 @@ function CommonTable(props) {
                     'aria-labelledby': 'basic-button',
                 }}
             >
-                <MenuItem onClick={() => handleEditClick(filteredProductCode)}><span className='icon'><Pencil /></span> Edit</MenuItem>
+                <MenuItem onClick={() => handleEditClick(filteredProductCode?filteredProductCode:filteredProductID)}><span className='icon'><Pencil /></span> Edit</MenuItem>
                 <MenuItem onClick={() => handleDeleProduct(filteredProductID)}><span className='icon'><Bin /></span> Delete</MenuItem>
                 {/* <MenuItem onClick={handleClose}><span className='icon'><EyeOff /></span> Hide</MenuItem> */}
             </Menu>

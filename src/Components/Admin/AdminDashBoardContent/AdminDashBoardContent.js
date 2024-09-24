@@ -40,6 +40,7 @@ import Collection from './DashboardCollections/DashboardCollections.js';
 import './AdminDashBoardContent.scss'
 import AddNewEmployee from '../../../Pages/EmployeeMaster/AddNewEmployee/AddNewEmployee.js';
 import Employee from '../../../Pages/AdminSideNav_Menu/Employee/Employee.js';
+import ManufacturerMaster from '../../../Pages/ManufacturerMaster/ManufacturerMaster.js';
 
 // interface TabPanelProps {
 //     children?: React.ReactNode;
@@ -202,6 +203,9 @@ function AdminDashBoardContent(props) {
                         props.viewcontrol == "User" ? (
                             <User />
                         ) :
+                        props.viewcontrol == "Manufacturers" ? (
+                            <ManufacturerMaster/>
+                        ):
                             (
                                 <div className='middle_content'>
                                     <div
