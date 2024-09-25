@@ -163,18 +163,19 @@ function ManufacturerDetail({ ProductCreateList, productTypelist, preview, previ
     useEffect(() => {
         setTimeout(() => {
             if (previewData) {
+                console.log("previewData",previewData);
                 Object.entries(previewData).map((item) => {
-                    if(item[0]==="status"){
-                        setFieldValue(`status`, item[1]);
-                    }
-                    else if(item[0]==="country"){
-                        setFieldValue(`country`, item[1]);
-                    }
-                    else if(item[0]==="productType"){
-                        setFieldValue(`productType`, item[1]); 
-                    }else{
+                    // if(item[0]==="status"){
+                    //     setFieldValue('status', item[1]);
+                    // }
+                    // else if(item[0]==="country"){
+                    //     setFieldValue('country', item[1]);
+                    // }
+                    // else if(item[0]==="productType"){
+                    //     setFieldValue('productType', item[1]); 
+                    // }else{
                         setFieldValue(item[0], item[1]);
-                    }
+                //     }
                 })
             }
             setshowLoader(false)
@@ -206,8 +207,8 @@ function ManufacturerDetail({ ProductCreateList, productTypelist, preview, previ
                             name={'status'}
                             value={values.status}
                             options={[
-                                { id: 'true', value: 'Active' },
-                                { id: 'false', value: 'Inactive' },
+                                { id: 'Active', value: 'Active' },
+                                { id: 'Inactive', value: 'Inactive' },
                             ]}
                             wrapperClass={'col6'}
                             onChange={handleChange}

@@ -91,6 +91,7 @@ function CommonTable(props) {
 
     const handleDeleProduct = id => {
         props.deleteProductData(id);
+        setAnchorEl(null);
     };
 
     return (

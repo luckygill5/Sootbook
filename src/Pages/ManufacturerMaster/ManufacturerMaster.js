@@ -231,7 +231,8 @@ function ManufacturerMaster({breadcrumbUpdateData, updateBreadCrumb}) {
     } 
 
     const handleDeleteData = () => {
-        handleDeleteManufacturerData(deleteProductData)
+        handleDeleteManufacturerData(deleteProductData);
+        
     }
 
     return (
