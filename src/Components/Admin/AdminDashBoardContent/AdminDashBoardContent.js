@@ -34,6 +34,7 @@ import ChangePassword from './ChangePassword/ChangePassword';
 import RolePrivilege from './RolePrivilege/RolePrivilege';
 import User from '../../../Pages/AdminSideNav_Menu/User/User';
 import ProductMaster from '../../../Pages/ProductMaster/ProductMaster.js';
+import CategoryMaster from '../../../Pages/CategoryMaster/CategoryMaster';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import Collection from './DashboardCollections/DashboardCollections.js';
@@ -194,8 +195,8 @@ function AdminDashBoardContent(props) {
                     <Collection />
                 ) : props.viewcontrol == 'User' ? (
                     <User />
-                ) : props.viewcontrol == 'Category' ? (
-                    <User />
+                ) : props.viewcontrol == 'Categories' ? (
+                    <CategoryMaster />
                 ) : (
                     <div className='middle_content'>
                         <div className={`flexBox_container ${selectedMenu.split(' ').join('_').toLocaleLowerCase()}`}>
