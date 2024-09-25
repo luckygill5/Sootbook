@@ -296,6 +296,9 @@ $font-monsterat : 'Montserrat';
                                             display: inline-block;
                                             margin-right: auto;
                                             cursor: pointer;
+                                            white-space: normal;
+                                            word-break: break-all;
+                                            word-break: break-word;
                                         }
                                         .subtitle{
                                             display: block;
@@ -306,6 +309,9 @@ $font-monsterat : 'Montserrat';
                                             line-height: 24px; /* 150% */
                                             letter-spacing: 0.08px;
                                             margin-bottom: 16px;  
+                                            white-space: normal;
+                                            word-break: break-all;
+                                            word-break: break-word;
                                         }
                                         .moreInfo{
                                             padding: 16px;
@@ -339,6 +345,9 @@ $font-monsterat : 'Montserrat';
                                                         letter-spacing: 0.07px;
                                                         color: $text;  
                                                         text-align: left;
+                                                        white-space: normal;
+                                                        word-break: break-all;
+                                                        word-break: break-word;
                                                     }
                                                 }
                                             }
