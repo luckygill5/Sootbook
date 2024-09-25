@@ -18,7 +18,6 @@ import AddNewManufacturer from './AddNewManufacturer/AddNewManufacturer';
 import './ManufacturerMaster.scss';
 
 function ManufacturerMaster({breadcrumbUpdateData, updateBreadCrumb}) {
-    const [value, setValue] = useState(0);
     const [addManufacturer, setAddManufacturer] = useState(false);
     const [manufacturerListCard, setManufacturerListCard] =  useState(null);
     const [tableFilterHeader, setTableFilterHeader] =  useState("");
@@ -33,16 +32,17 @@ function ManufacturerMaster({breadcrumbUpdateData, updateBreadCrumb}) {
     const [deleteProductData, setDeleteManufacturerData] = useState("");
     const [DeleteModalTitle, setDeleteModalTitle] = useState("");
     const [DeleteModalMsg, setDeleteModalMsg] = useState("");
-    const [breadcrumb, setBreadCrumb] = useState([breadcrumbUpdateData]);
+    const [breadcrumb, setBreadCrumb] = useState([...breadcrumbUpdateData]);
+    const [searchTerm, setSearchTerm] = useState('');
+    const [totalPages, setTotalPages] = useState();
 
-
+ const dataheader= ["code","name","email","contactName","contactMobile"]
     let tableHeader = [
-        "id",
-        "code",
-        "name",
-        "email",
-        "contactName",
-        "contactMobile"
+        "Manufacturer code",
+        "Name",
+        "Email",
+        "Contact Person Name",
+        "Contact Number"
         // "address1",
         // "address2",
         // "country",
@@ -71,7 +71,7 @@ function ManufacturerMaster({breadcrumbUpdateData, updateBreadCrumb}) {
         setPreviewData([])
         setPreviewMode(false);
         let removeLastBreadcrumb = breadcrumb.filter((item) => {
-            if(item!=='Add New Manufacturer'){
+            if(item!=='Add New Manufacturer' && item!=='Edit Manufacturer'){
                 return item
             }
     });
@@ -80,45 +80,19 @@ function ManufacturerMaster({breadcrumbUpdateData, updateBreadCrumb}) {
     }
 
     useEffect(() => {
-        // updateBreadCrumb(breadcrumb)
+         updateBreadCrumb(breadcrumb)
     }, [breadcrumb])
 
-    const handleChange = (event, newValue) => {
-        setValue(newValue);
-    };
-
-    function CustomTabPanel(props) {
-        // const { children, value, index, ...other } = props;
-
-        // return (
-        //     <div
-        //         role="tabpanel"
-        //         hidden={value !== index}
-        //         id={`simple-tabpanel-${index}`}
-        //         aria-labelledby={`simple-tab-${index}`}
-        //         {...other}
-        //     >
-        //         {value === index && <Box sx={{ p: 3 }}>{children}</Box>}
-        //     </div>
-        // );
-    }
-
-    function a11yProps(index) {
-        return {
-            id: `simple-tab-${index}`,
-            'aria-controls': `simple-tabpanel-${index}`,
-        };
-    }
-   
-
-  
+    useEffect(() => {
+            handleManufacturerList();
+    }, [searchTerm]);
 
     const handleManufacturerList = async event => {
         const accessToken =  `Bearer ${sessionStorage.accessToken} `
         try{
             let response = await axiosClient.post(
                 `admin/manufacturer/list`, 
-                JSON.stringify({ search: '', page: pageValue, limit:10}), 
+                JSON.stringify({ search: searchTerm.length > 2?searchTerm:'', page: pageValue, limit:10}), 
                 {
                     headers : {
                         'Content-Type': 'application/json',
@@ -129,7 +103,8 @@ function ManufacturerMaster({breadcrumbUpdateData, updateBreadCrumb}) {
 
             );
             if(response.status == 200){
-                setManufacturerListCard( response?.data?.data?.manufacturer)
+                setManufacturerListCard( response?.data?.data?.manufacturer);
+                setTotalPages(response?.data?.data?.totalPages);
             }
 
         }catch(error){
@@ -144,8 +119,8 @@ function ManufacturerMaster({breadcrumbUpdateData, updateBreadCrumb}) {
             let arrayFirst = Object.keys(firstCollection);
             let filterFirst;
             filterFirst = arrayFirst.filter((item, index) => {
-                if(tableHeader.includes(item)){
-                    return item
+                if(dataheader.includes(item)){
+                    return item;
                 }
             })
             setTableFilterHeader(filterFirst)
@@ -175,6 +150,7 @@ function ManufacturerMaster({breadcrumbUpdateData, updateBreadCrumb}) {
 
     const handleEditDataPopulate = (id) => {
         const data = manufacturerListCard.filter(x=>x._id===id);
+        setBreadCrumb([...breadcrumb, 'Edit Manufacturer']);
         setPreviewData(data && data[0])
         setPreviewMode(false);
         setAddManufacturer(true);
@@ -189,6 +165,8 @@ function ManufacturerMaster({breadcrumbUpdateData, updateBreadCrumb}) {
 
     const handleSuccessModalClose  = () => {
         setManufacturerListUpdate(true);
+        setPreviewMode(false);
+        handleRemovePreview()
         setAddManufacturer(false)
     }
 
@@ -207,7 +185,7 @@ function ManufacturerMaster({breadcrumbUpdateData, updateBreadCrumb}) {
         try{
             let response = await axiosClient.post(
                 `admin/manufacturer/delete`, 
-                JSON.stringify({ id:event}), 
+                JSON.stringify({ _id:event}), 
                 {
                     headers : {
                         'Content-Type': 'application/json',
@@ -221,7 +199,7 @@ function ManufacturerMaster({breadcrumbUpdateData, updateBreadCrumb}) {
                 setSuccessModal(true);
                 setSuccessModalMsg(response?.data?.message)
                 setDeleteManufacturerData('');
-                setDeleteModal(false)
+                setDeleteModal(false);
             }
 
         }catch(error){
@@ -235,14 +213,14 @@ function ManufacturerMaster({breadcrumbUpdateData, updateBreadCrumb}) {
         setSuccessModalMsg('')
     }
     
-    const handlePagination = (event) => {
-    
-        setPageValue(event)
+    const handlePagination = (event) => { 
+        setPageValue(parseInt(event))
     }
 
 
     const handleDeleteModalClose = () => {
-        setDeleteModal(false)
+        setDeleteModal(false);
+        setManufacturerListUpdate(true);
     }
 
     const handleManufacturerDelete = (e) => {
@@ -272,12 +250,14 @@ function ManufacturerMaster({breadcrumbUpdateData, updateBreadCrumb}) {
                     </div>
                     <div className='contentSection'>
                         <div className='head-flexbox'>
-                            <input type='text' className='searchBox' placeholder='Search Manufacturer'></input>
+                            <input type='text' className='searchBox'  onChange={({ target: { value } }) => {
+                                setSearchTerm(value);
+                            }} placeholder='Search Manufacturer'></input>
                         </div>
                         <div className='manufacturerMasterListingTabs'>
                             <Box className="tabsContainer" sx={{ width: '100%' }}>
-                            <CommonTable deleteProductData={(e) => handleManufacturerDelete(e)} dataEditPopulate={(e) => handleEditDataPopulate(e)} dataPopulate={(e) => handleDataPopulate(e)} header={tableFilterHeader} productData={manufacturerListCard}/> 
-                                   {manufacturerListCard ? <Pagination  pageNo={pageValue} paginationSet={(e) => handlePagination(e)}/>: ''}
+                            <CommonTable deleteProductData={(e) => handleManufacturerDelete(e)} dataEditPopulate={(e) => handleEditDataPopulate(e)} dataPopulate={(e) => handleDataPopulate(e)} tableFilterHeader={tableFilterHeader} header={tableHeader} productData={manufacturerListCard}/> 
+                                   {manufacturerListCard ? <Pagination totalPages={totalPages} pageNo={pageValue} paginationSet={(e) => handlePagination(e)}/>: ''}
 
                             </Box>
                         </div>

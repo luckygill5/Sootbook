@@ -21,6 +21,7 @@ import './ProductMaster.scss'
 
 
 function ProductMaster({breadcrumbUpdateData, updateBreadCrumb}) {
+    debugger
     const [value, setValue] = useState(0);
     const [addProduct, setAddProduct] = useState(false);
     const [toggleView, setToggleView] = useState("Card");

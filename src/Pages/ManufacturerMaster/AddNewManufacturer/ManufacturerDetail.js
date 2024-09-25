@@ -3,23 +3,16 @@ import locales from "../../../Constants/en.json";
 import { Input, Select, SelectWithInput } from '../../../Components/common';
 import * as Yup from 'yup';
 import { useFormik } from 'formik';
-import Box from '@mui/material/Box';
-import CircularProgress from '@mui/material/CircularProgress';
-import axios from 'axios';
 import { axiosClient } from '../../../services/axiosClient';
-import { ReactComponent as Info } from "../../../assets/images/info.svg";
-import { ReactComponent as Barcode } from "../../../assets/images/sample-bar-code.svg";
-import QRcode from "../../../assets/images/sample-qr-code.png";
 import SuccessModal from '../../../Components/CommonSuccessModal/SuccessModal';
 import ErrorModal from '../../../Components/CommonErrorModal/ErrorModal';
-import classNames from 'classnames';
 import "./AddNewManufacturer.scss"
-
-
+const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+const phoneRegExp = /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/
 const manufacturerDetailEditFormSchema = Yup.object({
-    name: Yup.string().required('Name is required.'),
-    email: Yup.string().required('Email is required.'),
-    contactMobile: Yup.string().required('Contact Number is required.'),
+    name: Yup.string().trim().required('Name is required.'),
+    email:Yup.string().trim().required("Email is required.").email("Invalid email").matches(emailRegex,"Invalid email"),
+    contactMobile: Yup.string().trim().required('Contact Number is required.').matches(phoneRegExp, 'Contact number is not valid'),
 });
 
 const productDetailInitialValues = {
@@ -45,7 +38,7 @@ const productDetailInitialValues = {
     moq: "",
 };
 
-function ManufacturerDetail({ ProductCreateList,productTypelist, productDetailData, preview, previewData, back, productBackData,successModalClose }) {
+function ManufacturerDetail({ ProductCreateList, productTypelist, preview, previewData, back, successModalClose }) {
     const [SuccessMsg, setSuccessMsg] = useState("");
     const [SuccessTitle, setSuccessTitle] = useState("");
     const [showLoader, setshowLoader] = useState(false);
@@ -61,35 +54,32 @@ function ManufacturerDetail({ ProductCreateList,productTypelist, productDetailDa
                 // action.resetForm();
             },
         });
-        const [errorModal, setErrorModal] = useState(false);
-        const [errorMsg, setErrorMsg] = useState("");
-        const [updateClicked, SetUpdateClicked] = useState(false);
-        const [addmanufacturerFormData, setAddmanufacturerFormData] = useState("")
-        const [successModal, setSucessModal] = useState("");
-        const [productAddAPIcall, setProductAddAPIcall] =  useState(false);
-        const [formDisabled, setFormDisabled] = useState(true);
+    const [errorModal, setErrorModal] = useState(false);
+    const [errorMsg, setErrorMsg] = useState("");
+    const [updateClicked, SetUpdateClicked] = useState(false);
+    const [successModal, setSucessModal] = useState("");
+    const [formDisabled, setFormDisabled] = useState(true);
 
+
+ 
 
     const handleFormSubmit = async values => {
         delete values.createdAt;
         delete values.updatedAt;
         delete values.__v;
-            if(previewData){
-                handleEditProduct(values)
-            }else{
-                handleAddProduct(values);
-            }
+        if (previewData) {
+            handleEditManufacturer(values)
+        } else {
+            handleAddManufacturer(values);
+        }
     };
 
-    const  handleUpdateProduct = () => {
-        handleAddProduct();
+    const handleUpdateProduct = () => {
         SetUpdateClicked(true)
-
-
     }
 
-    
-    const handleAddProduct = async (values) => {
+
+    const handleAddManufacturer = async (values) => {
 
         if (values !== "") {
             const accessToken = `Bearer ${sessionStorage.accessToken} `
@@ -108,19 +98,16 @@ function ManufacturerDetail({ ProductCreateList,productTypelist, productDetailDa
                 );
 
                 if (response.status == 200) {
-                    // setProductCreateList( response?.data?.data)
                     setSucessModal(true);
                     SetUpdateClicked(false);
-                    setAddmanufacturerFormData("");
-                    setSuccessMsg("The product has been added into the system");
-                    setSuccessTitle("Product has been added successfully")
+                    setSuccessMsg("The Manufacturer has been added into the system");
+                    setSuccessTitle("Manufacturer has been added successfully")
                 }
 
             } catch (error) {
                 console.log("error", error);
                 setErrorModal(true);
                 setErrorMsg(error.response.data.message);
-                setAddmanufacturerFormData("");
 
             }
         }
@@ -139,7 +126,7 @@ function ManufacturerDetail({ ProductCreateList,productTypelist, productDetailDa
     }
 
 
-    const handleEditProduct = async (values) => {
+    const handleEditManufacturer = async (values) => {
         if (values !== "") {
             const accessToken = `Bearer ${sessionStorage.accessToken} `
             try {
@@ -160,16 +147,14 @@ function ManufacturerDetail({ ProductCreateList,productTypelist, productDetailDa
                     // setProductCreateList( response?.data?.data)
                     setSucessModal(true);
                     SetUpdateClicked(false);
-                    setAddmanufacturerFormData("");
-                    setSuccessMsg("The product has been updated into the system");
-                    setSuccessTitle("Product has been updated successfully")
+                    setSuccessMsg("The manufacturer has been updated into the system");
+                    setSuccessTitle("Manufacturer has been updated successfully")
                 }
 
             } catch (error) {
                 console.log("error", error);
                 setErrorModal(true);
                 setErrorMsg(error.response.data.message);
-                setAddmanufacturerFormData("");
 
             }
         }
@@ -179,35 +164,16 @@ function ManufacturerDetail({ ProductCreateList,productTypelist, productDetailDa
         setTimeout(() => {
             if (previewData) {
                 Object.entries(previewData).map((item) => {
-                    setFieldValue(item[0], item[1]);
-                    if (item[0] == 'packaging' && item[1].length > 0) {
-                        item[1].map((data, index) => {
-                            setFieldValue(`Sales_Packing_${index + 1}`, data.packType);
-                            setFieldValue(`Quantity_${index + 1}`, data.quantity);
-                            setFieldValue(`Rate_${index + 1}`, data.price);
-                            setFieldValue(`Stock_${index + 1}`, data.stock);
-
-
-                        })
-
-
+                    if(item[0]==="status"){
+                        setFieldValue(`status`, item[1]);
                     }
-                })
-            }
-            if (productBackData) {
-                Object.entries(productBackData).map((item) => {
-                    setFieldValue(item[0], item[1]);
-                    if (item[0] == 'packaging' && item[1].length > 0) {
-                        item[1].map((data, index) => {
-                            setFieldValue(`Sales_Packing_${index + 1}`, data.packType);
-                            setFieldValue(`Quantity_${index + 1}`, data.quantity);
-                            setFieldValue(`Rate_${index + 1}`, data.price);
-                            setFieldValue(`Stock_${index + 1}`, data.stock);
-
-
-                        })
-
-
+                    else if(item[0]==="country"){
+                        setFieldValue(`country`, item[1]);
+                    }
+                    else if(item[0]==="productType"){
+                        setFieldValue(`productType`, item[1]); 
+                    }else{
+                        setFieldValue(item[0], item[1]);
                     }
                 })
             }
@@ -235,9 +201,10 @@ function ManufacturerDetail({ ProductCreateList,productTypelist, productDetailDa
 
                         />
                         <Select
+                            id="status"
                             label={'Status'}
                             name={'status'}
-                            value={values.status?values.status:'Active'}
+                            value={values.status}
                             options={[
                                 { id: 'true', value: 'Active' },
                                 { id: 'false', value: 'Inactive' },
@@ -265,11 +232,11 @@ function ManufacturerDetail({ ProductCreateList,productTypelist, productDetailDa
                             type={'text'}
                             name={'email'}
                             id={'email'}
-                            placeholder={'Email'}
+                           placeholder='you@example.com'
                             value={values.email}
                             error={errors.email}
                             touched={touched.email}
-                            wrapperClass={'col6'}
+                            wrapperClass={'col12'}
                             onChange={handleChange}
                             isRequired
                         />
@@ -304,12 +271,13 @@ function ManufacturerDetail({ ProductCreateList,productTypelist, productDetailDa
                             error={errors.contactMobile}
                             touched={touched.contactMobile}
                             ReadOnly={preview ? true : false}
+                            isRequired
                         />
                     </div>
                 </div>
                 <div className='second_flexbox'>
                     <div className={`rightCol ${preview && 'preview'}`}>
-                    <h5 className='title'>Address</h5>
+                        <h5 className='title'>Address</h5>
                         <div className='inputBox Product_Name sm-60 lg-70'>
                             <Select
                                 label={'Country'}
@@ -325,7 +293,6 @@ function ManufacturerDetail({ ProductCreateList,productTypelist, productDetailDa
                                         )
                                     })
                                 }
-                                // isRequired
                                 wrapperClass={'col12'}
                                 value={values.country}
                                 onChange={handleChange}
@@ -339,7 +306,7 @@ function ManufacturerDetail({ ProductCreateList,productTypelist, productDetailDa
                                 type={"text"}
                                 name={"city"}
                                 id={"city"}
-                                wrapperClass={"col6"}
+                                wrapperClass={"col12"}
                                 value={values.city}
                                 onChange={handleChange}
                                 onBlur={handleBlur}
@@ -379,7 +346,7 @@ function ManufacturerDetail({ ProductCreateList,productTypelist, productDetailDa
                         </div>
                     </div>
                 </div>
-                 <div className='third_flexbox'>
+                <div className='third_flexbox'>
                     <div className='leftCol'>
                         <h5 className='title'>Additonal Information</h5>
                         <div className='flexbox'>
@@ -394,9 +361,9 @@ function ManufacturerDetail({ ProductCreateList,productTypelist, productDetailDa
                                     onChange={handleChange}
                                     ReadOnly={preview ? true : false}
                                     placeholder={preview && values.port == "" ? '-' : "Please type"}
-                                    
+
                                 />
-                                  <Input
+                                <Input
                                     label={'Minimum Margin'}
                                     type={'text'}
                                     name={'minMargin'}
@@ -407,7 +374,7 @@ function ManufacturerDetail({ ProductCreateList,productTypelist, productDetailDa
                                     ReadOnly={preview ? true : false}
                                     placeholder={preview && values.minMargin == "" ? '-' : "Please type"}
                                 />
-                                  <Input
+                                <Input
                                     label={'Expiry Receive Upto'}
                                     type={'text'}
                                     name={'expiry'}
@@ -441,31 +408,30 @@ function ManufacturerDetail({ ProductCreateList,productTypelist, productDetailDa
                                     onChange={handleChange}
                                     ReadOnly={preview ? true : false}
                                     placeholder={preview && values.licence == "" ? '-' : "Please type"}
-                                    
+
                                 />
                                 <Select
-                                label={'Product Type'}
-                                name={'productType'}
-                                options={
-                                    productTypelist &&
-                                    productTypelist.length > 0 &&
-                                    productTypelist.map((item) => {
-                                        return (
+                                    label={'Product Type'}
+                                    name={'productType'}
+                                    options={
+                                        productTypelist &&
+                                        productTypelist.length > 0 &&
+                                        productTypelist.map((item) => {
+                                            return (
 
-                                            { id: item._id, value: item.name }
+                                                { id: item._id, value: item.name }
 
-                                        )
-                                    })
-                                }
-                                // isRequired
-                                wrapperClass={'col12'}
-                                value={values.productType}
-                                onChange={handleChange}
-                                error={errors.productType}
-                                touched={touched.productType}
-                                disabled={preview ? true : false}
-                            />
-                                  <Input
+                                            )
+                                        })
+                                    }
+                                    wrapperClass={'col12'}
+                                    value={values.productType}
+                                    onChange={handleChange}
+                                    error={errors.productType}
+                                    touched={touched.productType}
+                                    disabled={preview ? true : false}
+                                />
+                                <Input
                                     label={'TRN'}
                                     type={'text'}
                                     name={'trn'}
@@ -492,11 +458,11 @@ function ManufacturerDetail({ ProductCreateList,productTypelist, productDetailDa
                     </div>
                 </div>
                 <div className='bottom_actions'>
-                            <button className='cancelBtn' onClick={() => back()}>
-                                {locales.cancel_label}
-                            </button>
-                            <button type='button' className='saveBtn' onClick={handleSubmit}> {locales.save_label}</button>
-                        </div>
+                    <button className='cancelBtn' onClick={() => back()}>
+                        {locales.cancel_label}
+                    </button>
+                    <button type='button' className='saveBtn' onClick={handleSubmit}> {locales.save_label}</button>
+                </div>
             </div>
             {
                 successModal &&

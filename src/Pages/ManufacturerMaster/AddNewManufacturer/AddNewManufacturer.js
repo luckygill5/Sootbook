@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { ReactComponent as ArrowLeft } from "../../../assets/images/arrow-left.svg";
 import { ReactComponent as Edit } from "../../../assets/images/pencil.svg";
-import Tabs from '@mui/material/Tabs';
-import Tab from '@mui/material/Tab';
 import Box from '@mui/material/Box';
 import { axiosClient } from '../../../services/axiosClient';
 import ManuFacturerDetail from "./ManufacturerDetail"
@@ -58,10 +56,6 @@ function AddNewManufacturer({ back, preview, previewData, removePreviewMode, suc
 
     const handleProductDetailData = (event) => {
         setProductDetailsCollection(event)
-    }
-
-    const handleEcommerceData = (event) => {
-        setEcommerceData(event)
     }
 
     const handleProductCreateList = async event => {

@@ -144,8 +144,7 @@ function CommonTable(props) {
                                 </div>
                                 {
                                     Object.entries(item).map((data, index) => {
-
-                                        if (props.header.includes(data[0])) {
+                                        if (props.header.includes(data[0]) || props.tableFilterHeader.includes(data[0])) {
                                             return <div key={index} className={`tableCell`} >
                                                 {data[0] == 'productCode' ? <span className='text link' onClick={() => data[0] == "productCode" ? handleClick(data[1]) : ''}>{data[1]}</span> : <span className={`text`} >{data[1]}</span>}
                                             </div>
@@ -173,7 +172,7 @@ function CommonTable(props) {
 
                 </div>
             </div> : <Box className="loader_container" sx={{ display: 'flex' }}>
-                <CircularProgress />
+                {/* <CircularProgress /> */}
             </Box>
             }
 

@@ -99,6 +99,7 @@ function ProductDetail({ changeTab, ProductCreateList, productDetailData, previe
                 Object.entries(previewData).map((item) => {
                     setFieldValue(item[0], item[1]);
                     if (item[0] == 'packaging' && item[1].length > 0) {
+                        debugger
                         item[1].map((data, index) => {
                             setFieldValue(`Sales_Packing_${index + 1}`, data.packType);
                             setFieldValue(`Quantity_${index + 1}`, data.quantity);

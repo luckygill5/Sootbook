@@ -204,7 +204,7 @@ function AdminDashBoardContent(props) {
                             <User />
                         ) :
                         props.viewcontrol == "Manufacturers" ? (
-                            <ManufacturerMaster/>
+                            <ManufacturerMaster updateBreadCrumb={props.updateBreadCrumb} breadcrumbUpdateData={props.breadcrumbUpdateData}/>
                         ):
                             (
                                 <div className='middle_content'>
