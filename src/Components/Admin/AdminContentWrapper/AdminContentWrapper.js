@@ -1,11 +1,9 @@
 import React from 'react';
-import AdminDashBoardContent from "../AdminDashBoardContent/AdminDashBoardContent"
+import AdminDashBoardContent from '../AdminDashBoardContent/AdminDashBoardContent';
 
-
-
-function AdminContentWrapper(props){
-const {viewManage} = props;
-    return(
+function AdminContentWrapper(props) {
+    const { viewManage } = props;
+    return (
         <React.Fragment>
             <AdminDashBoardContent 
             viewManage={props.viewManage}
@@ -14,7 +12,7 @@ const {viewManage} = props;
             updateBreadCrumb={props.updateBreadCrumb}
             />
         </React.Fragment>
-    )
+    );
 }
 
 export default AdminContentWrapper;

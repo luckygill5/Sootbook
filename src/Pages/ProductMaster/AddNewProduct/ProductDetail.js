@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import locales from "../../../Constants/en.json";
+import locales from '../../../Constants/en.json';
 import { Input, Select } from '../../../Components/common';
 import * as Yup from 'yup';
 import { useFormik } from 'formik';
@@ -7,12 +7,11 @@ import Box from '@mui/material/Box';
 import CircularProgress from '@mui/material/CircularProgress';
 import axios from 'axios';
 import { axiosClient } from '../../../services/axiosClient';
-import { ReactComponent as Info } from "../../../assets/images/info.svg";
-import { ReactComponent as Barcode } from "../../../assets/images/sample-bar-code.svg";
-import QRcode from "../../../assets/images/sample-qr-code.png";
+import { ReactComponent as Info } from '../../../assets/images/info.svg';
+import { ReactComponent as Barcode } from '../../../assets/images/sample-bar-code.svg';
+import QRcode from '../../../assets/images/sample-qr-code.png';
 import SuccessModal from '../../../Components/CommonSuccessModal/SuccessModal';
-import "./AddNewProduct.scss"
-
+import './AddNewProduct.scss';
 
 const productDetailEditFormSchema = Yup.object({
     name: Yup.string().required('Product Name is required.'),
@@ -24,79 +23,74 @@ const productDetailInitialValues = {
     // productCode: '',
     productType: '',
     name: '',
-    genericName: "",
-    manufacturer: "",
-    supplier: "",
-    dispensingMode: "",
-    rack: "",
-    barcode: "",
-    orderLevel: "",
-    minOrder: "",
-    maxOrder: "",
-    buyingPrice: "",
-    mrp: "",
-    profit: "",
-    netPrice: "",
-    invPrice: "",
-    vat: "",
-    shelf: "",
-    strength: "",
-    Sales_Packing_1: "",
-    Sales_Packing_2: "",
-    Sales_Packing_3: "",
-    Quantity_1: "",
-    Quantity_2: "",
-    Quantity_3: "",
-    Rate_1: "",
-    Rate_2: "",
-    Rate_3: "",
-    Stock_1: "",
-    Stock_2: "",
-    Stock_3: "",
-    expDuration: "",
-    weight: "",
-    storageCondition: "",
+    genericName: '',
+    manufacturer: '',
+    supplier: '',
+    dispensingMode: '',
+    rack: '',
+    barcode: '',
+    orderLevel: '',
+    minOrder: '',
+    maxOrder: '',
+    buyingPrice: '',
+    mrp: '',
+    profit: '',
+    netPrice: '',
+    invPrice: '',
+    vat: '',
+    shelf: '',
+    strength: '',
+    Sales_Packing_1: '',
+    Sales_Packing_2: '',
+    Sales_Packing_3: '',
+    Quantity_1: '',
+    Quantity_2: '',
+    Quantity_3: '',
+    Rate_1: '',
+    Rate_2: '',
+    Rate_3: '',
+    Stock_1: '',
+    Stock_2: '',
+    Stock_3: '',
+    expDuration: '',
+    weight: '',
+    storageCondition: '',
     returnable: false,
-    isInsurance: ""
-
+    isInsurance: '',
 };
 
 function ProductDetail({ changeTab, ProductCreateList, productDetailData, preview, previewData, back, productBackData, draftPopUpClose }) {
-
     const [draftClicked, setDraftClicked] = useState(false);
     const [draftButtonClick, setDraftButtonClick] = useState(false);
     const [draftsuccessModal, setDraftSuccessModal] = useState(false);
-    const [SuccessMsg, setSuccessMsg] = useState("");
-    const [SuccessTitle, setSuccessTitle] = useState("");
-    const [showLoader, setshowLoader] = useState(false)
-    const { values, handleBlur, handleChange, handleSubmit, errors, touched, setFieldValue } =
-        useFormik({
-            initialValues: productDetailInitialValues,
-            validationSchema: productDetailEditFormSchema,
-            validateOnChange: true,
-            validateOnBlur: false,
-            enableReinitialize: true,
-            onSubmit: (values, action) => {
-                handleFormSubmit(values);
-                // action.resetForm();
-            },
-        });
-
+    const [SuccessMsg, setSuccessMsg] = useState('');
+    const [SuccessTitle, setSuccessTitle] = useState('');
+    const [showLoader, setshowLoader] = useState(false);
+    const { values, handleBlur, handleChange, handleSubmit, errors, touched, setFieldValue } = useFormik({
+        initialValues: productDetailInitialValues,
+        validationSchema: productDetailEditFormSchema,
+        validateOnChange: true,
+        validateOnBlur: false,
+        enableReinitialize: true,
+        onSubmit: (values, action) => {
+            handleFormSubmit(values);
+            // action.resetForm();
+        },
+    });
 
     const handleFormSubmit = async values => {
         if (draftClicked) {
-            handleDraft(values)
+            handleDraft(values);
         } else {
-            productDetailData(values)
-            changeTab(1)
+            productDetailData(values);
+            changeTab(1);
         }
-
     };
 
     useEffect(() => {
         setTimeout(() => {
             if (previewData) {
-                Object.entries(previewData).map((item) => {
+                Object.entries(previewData).map(item => {
                     setFieldValue(item[0], item[1]);
                     if (item[0] == 'packaging' && item[1].length > 0) {
                         item[1].map((data, index) => {
@@ -104,16 +98,12 @@ function ProductDetail({ changeTab, ProductCreateList, productDetailData, previe
                             setFieldValue(`Quantity_${index + 1}`, data.quantity);
                             setFieldValue(`Rate_${index + 1}`, data.price);
                             setFieldValue(`Stock_${index + 1}`, data.stock);
-
-
-                        })
-
-
+                        });
                     }
-                })
+                });
             }
             if (productBackData) {
-                Object.entries(productBackData).map((item) => {
+                Object.entries(productBackData).map(item => {
                     setFieldValue(item[0], item[1]);
                     if (item[0] == 'packaging' && item[1].length > 0) {
                         item[1].map((data, index) => {
@@ -121,25 +111,19 @@ function ProductDetail({ changeTab, ProductCreateList, productDetailData, previe
                             setFieldValue(`Quantity_${index + 1}`, data.quantity);
                             setFieldValue(`Rate_${index + 1}`, data.price);
                             setFieldValue(`Stock_${index + 1}`, data.stock);
-
-
-                        })
-
-
+                        });
                     }
-                })
+                });
             }
-            setshowLoader(false)
+            setshowLoader(false);
         }, 700);
-    }, [])
+    }, []);
 
-
-    const handleDraft = (data) => {
+    const handleDraft = data => {
         if (draftButtonClick == false) {
-            setDraftButtonClick(true)
+            setDraftButtonClick(true);
             const Packaging = {
                 packaging: [
-
                     {
                         packType: data.Sales_Packing_1,
                         quantity: data.Quantity_1,
@@ -157,10 +141,9 @@ function ProductDetail({ changeTab, ProductCreateList, productDetailData, previe
                         quantity: data.Quantity_3,
                         price: data.Rate_3,
                         stock: data.Stock_3,
-                    }
-
-                ]
-            }
+                    },
+                ],
+            };
 
             delete data.Sales_Packing_1;
             delete data.Sales_Packing_2;
@@ -175,42 +158,35 @@ function ProductDetail({ changeTab, ProductCreateList, productDetailData, previe
             delete data.Stock_2;
             delete data.Stock_3;
             const collection = { ...data, ...Packaging, isDraft: true };
-            saveDraft(collection)
+            saveDraft(collection);
         }
-
-    }
+    };
 
     const saveDraft = async event => {
-        const accessToken = `Bearer ${sessionStorage.accessToken} `
+        const accessToken = `Bearer ${sessionStorage.accessToken} `;
         try {
-            let response = await axiosClient.post(
-                `admin/product/create`, event, {
+            let response = await axiosClient.post(`admin/product/create`, event, {
                 headers: {
                     'Content-Type': 'application/json',
                     'x-via-device': true,
-                    'Authorization': accessToken
+                    Authorization: accessToken,
                 },
             });
 
             if (response.status == 200) {
                 setDraftClicked(false);
                 setDraftSuccessModal(true);
-                setSuccessTitle("Draft saved successfull");
-                setDraftButtonClick(false)
+                setSuccessTitle('Draft saved successfull');
+                setDraftButtonClick(false);
             }
-
         } catch (error) {
-            console.log("error", error);
-
+            console.log('error', error);
         }
-
-
-
-    }
+    };
 
     const handleDraftSuccessPopupClose = () => {
-        draftPopUpClose()
-    }
+        draftPopUpClose();
+    };
 
     return (
         <React.Fragment>
@@ -228,7 +204,6 @@ function ProductDetail({ changeTab, ProductCreateList, productDetailData, previe
                             error={errors.productCode}
                             touched={touched.productCode}
                             ReadOnly={true}
-
                         />
                     </div>
                     <div className='inputBox sm-20 lg-15'>
@@ -236,17 +211,11 @@ function ProductDetail({ changeTab, ProductCreateList, productDetailData, previe
                             label={'Product Type'}
                             name={'productType'}
                             options={
-
                                 ProductCreateList &&
                                 ProductCreateList.productType.length > 0 &&
-                                ProductCreateList.productType.map((item) => {
-                                    return (
-
-                                        { id: item._id, value: item.name }
-
-                                    )
+                                ProductCreateList.productType.map(item => {
+                                    return { id: item._id, value: item.name };
                                 })
-
                             }
                             isRequired
                             wrapperClass={'col12'}
@@ -282,7 +251,7 @@ function ProductDetail({ changeTab, ProductCreateList, productDetailData, previe
                             wrapperClass={'col12'}
                             onChange={handleChange}
                             ReadOnly={preview ? true : false}
-                            placeholder={preview && values.genericName == "" ? '-' : "Please type"}
+                            placeholder={preview && values.genericName == '' ? '-' : 'Please type'}
                         />
                     </div>
                     <div className='inputBox manufacturer sm-25 lg-25'>
@@ -292,12 +261,8 @@ function ProductDetail({ changeTab, ProductCreateList, productDetailData, previe
                             options={
                                 ProductCreateList &&
                                 ProductCreateList.manufacturer.length > 0 &&
-                                ProductCreateList.manufacturer.map((item) => {
-                                    return (
-
-                                        { id: item._id, value: item.name }
-
-                                    )
+                                ProductCreateList.manufacturer.map(item => {
+                                    return { id: item._id, value: item.name };
                                 })
                             }
                             isRequired
@@ -316,12 +281,8 @@ function ProductDetail({ changeTab, ProductCreateList, productDetailData, previe
                             options={
                                 ProductCreateList &&
                                 ProductCreateList.supplier.length > 0 &&
-                                ProductCreateList.supplier.map((item) => {
-                                    return (
-
-                                        { id: item._id, value: item.name }
-
-                                    )
+                                ProductCreateList.supplier.map(item => {
+                                    return { id: item._id, value: item.name };
                                 })
                             }
                             // isRequired
@@ -361,7 +322,7 @@ function ProductDetail({ changeTab, ProductCreateList, productDetailData, previe
                             wrapperClass={'col12'}
                             onChange={handleChange}
                             ReadOnly={preview ? true : false}
-                            placeholder={preview && values.rack == "" ? '-' : "Please type"}
+                            placeholder={preview && values.rack == '' ? '-' : 'Please type'}
                         />
                     </div>
                     <div className='inputBox sm-10 lg-10'>
@@ -374,7 +335,7 @@ function ProductDetail({ changeTab, ProductCreateList, productDetailData, previe
                             wrapperClass={'col12'}
                             onChange={handleChange}
                             ReadOnly={preview ? true : false}
-                            placeholder={preview && values.shelf == "" ? '-' : "Please type"}
+                            placeholder={preview && values.shelf == '' ? '-' : 'Please type'}
                         />
                     </div>
                 </div>
@@ -382,31 +343,50 @@ function ProductDetail({ changeTab, ProductCreateList, productDetailData, previe
                     <div className={`leftCol ${preview && 'preview'}`}>
                         <div className='qrCodeFlexBox'>
                             <div className='leftCol'>
-                                <h5 className='title'>QR Code {preview ? null : <span className='icon'><Info /></span>}</h5>
-                                {preview ? <div className='qrCode_container'>
-                                    <img src={QRcode} alt="qrcode" className='qrcode-icon'></img>
-                                </div> : <ul className='qrcodeinfo_list'>
-                                    <li>When clicking on “Scan QR code” point your camera at the QR code.</li>
-                                    <li>When clicking on “Auto generate” a new generated QR code will be displayed.</li>
-                                </ul>}
+                                <h5 className='title'>
+                                    QR Code{' '}
+                                    {preview ? null : (
+                                        <span className='icon'>
+                                            <Info />
+                                        </span>
+                                    )}
+                                </h5>
+                                {preview ? (
+                                    <div className='qrCode_container'>
+                                        <img src={QRcode} alt='qrcode' className='qrcode-icon'></img>
+                                    </div>
+                                ) : (
+                                    <ul className='qrcodeinfo_list'>
+                                        <li>When clicking on “Scan QR code” point your camera at the QR code.</li>
+                                        <li>When clicking on “Auto generate” a new generated QR code will be displayed.</li>
+                                    </ul>
+                                )}
                             </div>
-                            {preview ? null : <div className='rightCol'>
-                                <div className='actions'>
-                                    <button type='button' className='autoBtn'>Auto generate</button>
-                                    <button type='button' className='scanBtn'>Scan QR Code</button>
+                            {preview ? null : (
+                                <div className='rightCol'>
+                                    <div className='actions'>
+                                        <button type='button' className='autoBtn'>
+                                            Auto generate
+                                        </button>
+                                        <button type='button' className='scanBtn'>
+                                            Scan QR Code
+                                        </button>
+                                    </div>
                                 </div>
-                            </div>}
+                            )}
                         </div>
                     </div>
                     <div className={`rightCol ${preview && 'preview'}`}>
                         <div className='inputBox barcode_section sm-40 lg-40'>
-                            {
-                                preview ? <div className='barcode_box'>
+                            {preview ? (
+                                <div className='barcode_box'>
                                     <label className='label'>Bar Code</label>
                                     <div className='barcode_container'>
                                         <Barcode />
                                     </div>
-                                </div> : <Input
+                                </div>
+                            ) : (
+                                <Input
                                     label={'Bar Code'}
                                     type={'text'}
                                     name={'barcode'}
@@ -414,9 +394,9 @@ function ProductDetail({ changeTab, ProductCreateList, productDetailData, previe
                                     value={values.barcode}
                                     wrapperClass={'col12'}
                                     onChange={handleChange}
-                                    placeholder={preview && values.barcode == "" ? '-' : "Please type"}
+                                    placeholder={preview && values.barcode == '' ? '-' : 'Please type'}
                                 />
-                            }
+                            )}
                         </div>
                         <div className='inputBox sm-20 lg-20'>
                             <Input
@@ -427,7 +407,7 @@ function ProductDetail({ changeTab, ProductCreateList, productDetailData, previe
                                 value={values.orderLevel}
                                 wrapperClass={'col12'}
                                 onChange={handleChange}
-                                placeholder={preview && values.orderLevel == "" ? '-' : "Please type"}
+                                placeholder={preview && values.orderLevel == '' ? '-' : 'Please type'}
                             />
                         </div>
                         <div className='inputBox sm-20 lg-20'>
@@ -439,7 +419,7 @@ function ProductDetail({ changeTab, ProductCreateList, productDetailData, previe
                                 value={values.minOrder}
                                 wrapperClass={'col12'}
                                 onChange={handleChange}
-                                placeholder={preview && values.minOrder == "" ? '-' : "Please type"}
+                                placeholder={preview && values.minOrder == '' ? '-' : 'Please type'}
                             />
                         </div>
                         <div className='inputBox sm-20 lg-20'>
@@ -451,7 +431,7 @@ function ProductDetail({ changeTab, ProductCreateList, productDetailData, previe
                                 value={values.maxOrder}
                                 wrapperClass={'col12'}
                                 onChange={handleChange}
-                                placeholder={preview && values.maxOrder == "" ? '-' : "Please type"}
+                                placeholder={preview && values.maxOrder == '' ? '-' : 'Please type'}
                             />
                         </div>
                     </div>
@@ -470,7 +450,7 @@ function ProductDetail({ changeTab, ProductCreateList, productDetailData, previe
                                     wrapperClass={'col12'}
                                     onChange={handleChange}
                                     ReadOnly={preview ? true : false}
-                                    placeholder={preview && values.buyingPrice == "" ? '-' : "Please type"}
+                                    placeholder={preview && values.buyingPrice == '' ? '-' : 'Please type'}
                                 />
                             </div>
                             <div className='inputBox sm-30 lg-30'>
@@ -483,7 +463,7 @@ function ProductDetail({ changeTab, ProductCreateList, productDetailData, previe
                                     wrapperClass={'col12'}
                                     onChange={handleChange}
                                     ReadOnly={preview ? true : false}
-                                    placeholder={preview && values.mrp == "" ? '-' : "Please type"}
+                                    placeholder={preview && values.mrp == '' ? '-' : 'Please type'}
                                 />
                             </div>
                             <div className='inputBox sm-30 lg-30'>
@@ -496,7 +476,7 @@ function ProductDetail({ changeTab, ProductCreateList, productDetailData, previe
                                     wrapperClass={'col12'}
                                     onChange={handleChange}
                                     ReadOnly={preview ? true : false}
-                                    placeholder={preview && values.profit == "" ? '-' : "Please type"}
+                                    placeholder={preview && values.profit == '' ? '-' : 'Please type'}
                                 />
                             </div>
                             <div className='inputBox sm-30 lg-30'>
@@ -509,7 +489,7 @@ function ProductDetail({ changeTab, ProductCreateList, productDetailData, previe
                                     wrapperClass={'col12'}
                                     onChange={handleChange}
                                     ReadOnly={preview ? true : false}
-                                    placeholder={preview && values.netPrice == "" ? '-' : "Please type"}
+                                    placeholder={preview && values.netPrice == '' ? '-' : 'Please type'}
                                 />
                             </div>
                             <div className='inputBox sm-30 lg-30'>
@@ -522,7 +502,7 @@ function ProductDetail({ changeTab, ProductCreateList, productDetailData, previe
                                     wrapperClass={'col12'}
                                     onChange={handleChange}
                                     ReadOnly={preview ? true : false}
-                                    placeholder={preview && values.invPrice == "" ? '-' : "Please type"}
+                                    placeholder={preview && values.invPrice == '' ? '-' : 'Please type'}
                                 />
                             </div>
                             <div className='inputBox sm-30 lg-30'>
@@ -535,7 +515,7 @@ function ProductDetail({ changeTab, ProductCreateList, productDetailData, previe
                                     wrapperClass={'col12'}
                                     onChange={handleChange}
                                     ReadOnly={preview ? true : false}
-                                    placeholder={preview && values.vat == "" ? '-' : "Please type"}
+                                    placeholder={preview && values.vat == '' ? '-' : 'Please type'}
                                 />
                             </div>
                         </div>
@@ -571,7 +551,7 @@ function ProductDetail({ changeTab, ProductCreateList, productDetailData, previe
                                     wrapperClass={'col12'}
                                     onChange={handleChange}
                                     ReadOnly={preview ? true : false}
-                                    placeholder={preview && values.Quantity_1 == "" ? '-' : "Please type"}
+                                    placeholder={preview && values.Quantity_1 == '' ? '-' : 'Please type'}
                                 />
                             </div>
                             <div className='inputBox sm-20 lg-20'>
@@ -584,7 +564,7 @@ function ProductDetail({ changeTab, ProductCreateList, productDetailData, previe
                                     wrapperClass={'col12'}
                                     onChange={handleChange}
                                     ReadOnly={preview ? true : false}
-                                    placeholder={preview && values.Rate_1 == "" ? '-' : "Please type"}
+                                    placeholder={preview && values.Rate_1 == '' ? '-' : 'Please type'}
                                 />
                             </div>
                             <div className='inputBox sm-20 lg-20'>
@@ -597,7 +577,7 @@ function ProductDetail({ changeTab, ProductCreateList, productDetailData, previe
                                     wrapperClass={'col12'}
                                     onChange={handleChange}
                                     ReadOnly={preview ? true : false}
-                                    placeholder={preview && values.Stock_1 == "" ? '-' : "Please type"}
+                                    placeholder={preview && values.Stock_1 == '' ? '-' : 'Please type'}
                                 />
                             </div>
                             <div className='inputBox sm-30 lg-30'>
@@ -628,7 +608,7 @@ function ProductDetail({ changeTab, ProductCreateList, productDetailData, previe
                                     wrapperClass={'col12'}
                                     onChange={handleChange}
                                     ReadOnly={preview ? true : false}
-                                    placeholder={preview && values.Quantity_2 == "" ? '-' : "Please type"}
+                                    placeholder={preview && values.Quantity_2 == '' ? '-' : 'Please type'}
                                 />
                             </div>
                             <div className='inputBox sm-20 lg-20'>
@@ -641,7 +621,7 @@ function ProductDetail({ changeTab, ProductCreateList, productDetailData, previe
                                     wrapperClass={'col12'}
                                     onChange={handleChange}
                                     ReadOnly={preview ? true : false}
-                                    placeholder={preview && values.Rate_2 == "" ? '-' : "Please type"}
+                                    placeholder={preview && values.Rate_2 == '' ? '-' : 'Please type'}
                                 />
                             </div>
                             <div className='inputBox sm-20 lg-20'>
@@ -654,7 +634,7 @@ function ProductDetail({ changeTab, ProductCreateList, productDetailData, previe
                                     wrapperClass={'col12'}
                                     onChange={handleChange}
                                     ReadOnly={preview ? true : false}
-                                    placeholder={preview && values.Stock_2 == "" ? '-' : "Please type"}
+                                    placeholder={preview && values.Stock_2 == '' ? '-' : 'Please type'}
                                 />
                             </div>
                             <div className='inputBox sm-30 lg-30'>
@@ -685,7 +665,7 @@ function ProductDetail({ changeTab, ProductCreateList, productDetailData, previe
                                     wrapperClass={'col12'}
                                     onChange={handleChange}
                                     ReadOnly={preview ? true : false}
-                                    placeholder={preview && values.Quantity_3 == "" ? '-' : "Please type"}
+                                    placeholder={preview && values.Quantity_3 == '' ? '-' : 'Please type'}
                                 />
                             </div>
                             <div className='inputBox sm-20 lg-20'>
@@ -698,7 +678,7 @@ function ProductDetail({ changeTab, ProductCreateList, productDetailData, previe
                                     wrapperClass={'col12'}
                                     onChange={handleChange}
                                     ReadOnly={preview ? true : false}
-                                    placeholder={preview && values.Rate_3 == "" ? '-' : "Please type"}
+                                    placeholder={preview && values.Rate_3 == '' ? '-' : 'Please type'}
                                 />
                             </div>
                             <div className='inputBox sm-20 lg-20'>
@@ -711,7 +691,7 @@ function ProductDetail({ changeTab, ProductCreateList, productDetailData, previe
                                     wrapperClass={'col12'}
                                     onChange={handleChange}
                                     ReadOnly={preview ? true : false}
-                                    placeholder={preview && values.Stock_3 == "" ? '-' : "Please type"}
+                                    placeholder={preview && values.Stock_3 == '' ? '-' : 'Please type'}
                                 />
                             </div>
                         </div>
@@ -729,7 +709,7 @@ function ProductDetail({ changeTab, ProductCreateList, productDetailData, previe
                                 wrapperClass={'col12'}
                                 onChange={handleChange}
                                 ReadOnly={preview ? true : false}
-                                placeholder={preview && values.expDuration == "" ? '-' : "Please type"}
+                                placeholder={preview && values.expDuration == '' ? '-' : 'Please type'}
                             />
                         </div>
                         <div className='inputBox sm-30 lg-30'>
@@ -759,7 +739,7 @@ function ProductDetail({ changeTab, ProductCreateList, productDetailData, previe
                                 wrapperClass={'col12'}
                                 onChange={handleChange}
                                 ReadOnly={preview ? true : false}
-                                placeholder={preview && values.weight == "" ? '-' : "Please type"}
+                                placeholder={preview && values.weight == '' ? '-' : 'Please type'}
                             />
                         </div>
                         <div className='inputBox sm-30 lg-30'>
@@ -772,7 +752,7 @@ function ProductDetail({ changeTab, ProductCreateList, productDetailData, previe
                                 wrapperClass={'col12'}
                                 onChange={handleChange}
                                 ReadOnly={preview ? true : false}
-                                placeholder={preview && values.storageCondition == "" ? '-' : "Please type"}
+                                placeholder={preview && values.storageCondition == '' ? '-' : 'Please type'}
                             />
                         </div>
                         <div className='inputBox sm-30 lg-30'>
@@ -802,31 +782,46 @@ function ProductDetail({ changeTab, ProductCreateList, productDetailData, previe
                                 wrapperClass={'col12'}
                                 onChange={handleChange}
                                 ReadOnly={preview ? true : false}
-                                placeholder={preview && values.strength == "" ? '-' : "Please type"}
+                                placeholder={preview && values.strength == '' ? '-' : 'Please type'}
                             />
                         </div>
                     </div>
                 </div>
                 <div className='actionFlexbox'>
-                    {preview ? null : <React.Fragment><button type='button' className='draftBtn' onClick={() => { setDraftClicked(true); handleSubmit() }}>Save Draft</button>
-                        <div className='rightCol'>
-                            <button type='button' className='canceltBtn' onClick={() => back()}>Back</button>
-                            <button type='button' className='nextBtn' onClick={handleSubmit}>Next</button>
-                        </div> </React.Fragment>}
+                    {preview ? null : (
+                        <React.Fragment>
+                            <button
+                                type='button'
+                                className='draftBtn'
+                                onClick={() => {
+                                    setDraftClicked(true);
+                                    handleSubmit();
+                                }}
+                            >
+                                Save Draft
+                            </button>
+                            <div className='rightCol'>
+                                <button type='button' className='canceltBtn' onClick={() => back()}>
+                                    Back
+                                </button>
+                                <button type='button' className='nextBtn' onClick={handleSubmit}>
+                                    Next
+                                </button>
+                            </div>{' '}
+                        </React.Fragment>
+                    )}
                 </div>
             </div>
-            {
-                draftsuccessModal &&
+            {draftsuccessModal && (
                 <SuccessModal
                     handleSuccessClose={handleDraftSuccessPopupClose}
                     SuccessPopUp={draftsuccessModal}
                     SuccessMsg={SuccessMsg}
                     SuccessTitle={SuccessTitle}
                 />
-            }
+            )}
         </React.Fragment>
-    )
-
+    );
 }
 
 export default ProductDetail;

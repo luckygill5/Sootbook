@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import locales from "../../../Constants/en.json";
+import locales from '../../../Constants/en.json';
 import { Input, Select, TextArea } from '../../../Components/common';
 import * as Yup from 'yup';
 import { useFormik } from 'formik';
-import { ReactComponent as Info } from "../../../assets/images/info.svg";
+import { ReactComponent as Info } from '../../../assets/images/info.svg';
 import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
@@ -11,68 +11,70 @@ import FormControl from '@mui/material/FormControl';
 import FormLabel from '@mui/material/FormLabel';
 import { axiosClient } from '../../../services/axiosClient';
 import SuccessModal from '../../../Components/CommonSuccessModal/SuccessModal';
-import "./AddNewProduct.scss"
-
+import './AddNewProduct.scss';
 
 const eCommerceDetailInitialValues = {
-    canDisplay: "false",
-    firstCategory: "",
-    secondCategory: "",
-    thirdCategory: "",
-    shortInfo: "",
-    longInfo: "",
-    ingredient: "",
-    symptom: "",
-    dosage: "",
-    strength: "",
-    dosageForm: "",
-    discount: "",
-    classification: "",
-    bodySystem: "",
-    country: "",
+    canDisplay: 'false',
+    firstCategory: '',
+    secondCategory: '',
+    thirdCategory: '',
+    shortInfo: '',
+    longInfo: '',
+    ingredient: '',
+    symptom: '',
+    dosage: '',
+    strength: '',
+    dosageForm: '',
+    discount: '',
+    classification: '',
+    bodySystem: '',
+    country: '',
 };
 
-
-function ECommerceDetails({ ProductCreateList, changeTab, ECommerceDetailsData, preview, previewData, ecommerceBackData, productData, draftPopUpClose }) {
+function ECommerceDetails({
+    ProductCreateList,
+    changeTab,
+    ECommerceDetailsData,
+    preview,
+    previewData,
+    ecommerceBackData,
+    productData,
+    draftPopUpClose,
+}) {
     const [draftClicked, setDraftClicked] = useState(false);
     const [categoryLevel2, setCategoryLevel2] = useState('');
     const [categoryLevel3, setCategoryLevel3] = useState('');
     const [draftsuccessModal, setDraftSuccessModal] = useState(false);
-    const [SuccessMsg, setSuccessMsg] = useState("");
-    const [SuccessTitle, setSuccessTitle] = useState("");
+    const [SuccessMsg, setSuccessMsg] = useState('');
+    const [SuccessTitle, setSuccessTitle] = useState('');
     const [draftButtonClick, setDraftButtonClick] = useState(false);
 
-
-    const { values, handleBlur, handleChange, handleSubmit, errors, touched, setFieldValue } =
-        useFormik({
-            initialValues: eCommerceDetailInitialValues,
-            // validationSchema: addUserEditFormSchema,
-            validateOnChange: true,
-            validateOnBlur: false,
-            enableReinitialize: true,
-            onSubmit: (values, action) => {
-                handleFormSubmit(values);
-                // action.resetForm();
-            },
-        });
-
+    const { values, handleBlur, handleChange, handleSubmit, errors, touched, setFieldValue } = useFormik({
+        initialValues: eCommerceDetailInitialValues,
+        // validationSchema: addUserEditFormSchema,
+        validateOnChange: true,
+        validateOnBlur: false,
+        enableReinitialize: true,
+        onSubmit: (values, action) => {
+            handleFormSubmit(values);
+            // action.resetForm();
+        },
+    });
 
     const handleFormSubmit = async values => {
         if (draftClicked) {
-            handleDraft(productData, values)
+            handleDraft(productData, values);
         } else {
-            ECommerceDetailsData(values)
-            changeTab(2)
+            ECommerceDetailsData(values);
+            changeTab(2);
         }
-
     };
 
     const handleDraft = (productData, data) => {
-        if(draftButtonClick == false){
+        if (draftButtonClick == false) {
             setDraftButtonClick(true);
             const Packaging = {
                 packaging: [
-    
                     {
                         packType: productData.Sales_Packing_1,
                         quantity: productData.Quantity_1,
@@ -90,11 +92,10 @@ function ECommerceDetails({ ProductCreateList, changeTab, ECommerceDetailsData, 
                         quantity: productData.Quantity_3,
                         price: productData.Rate_3,
                         stock: productData.Stock_3,
-                    }
-    
-                ]
-            }
-    
+                    },
+                ],
+            };
+
             delete productData.Sales_Packing_1;
             delete productData.Sales_Packing_2;
             delete productData.Sales_Packing_3;
@@ -108,217 +109,182 @@ function ECommerceDetails({ ProductCreateList, changeTab, ECommerceDetailsData, 
             delete productData.Stock_2;
             delete productData.Stock_3;
             const collection = { ...productData, ...data, ...Packaging, isDraft: true };
-            saveDraft(collection)
+            saveDraft(collection);
         }
-        
-    }
+    };
 
     const saveDraft = async event => {
-        const accessToken = `Bearer ${sessionStorage.accessToken} `
+        const accessToken = `Bearer ${sessionStorage.accessToken} `;
         try {
-            let response = await axiosClient.post(
-                `admin/product/create`, event, {
+            let response = await axiosClient.post(`admin/product/create`, event, {
                 headers: {
                     'Content-Type': 'application/json',
                     'x-via-device': true,
-                    'Authorization': accessToken
+                    Authorization: accessToken,
                 },
             });
 
             if (response.status == 200) {
                 setDraftClicked(false);
                 setDraftSuccessModal(true);
-                setSuccessTitle("Draft saved successfull");
-                setDraftButtonClick(false)
+                setSuccessTitle('Draft saved successfull');
+                setDraftButtonClick(false);
             }
-
         } catch (error) {
-            console.log("error", error);
-
+            console.log('error', error);
         }
+    };
 
-
-
-    }
-
-    const handleFirstCategoryChange = (event) => {
+    const handleFirstCategoryChange = event => {
         const { name, value } = event.target;
         setFieldValue(name, value);
-        if (value !== "") {
+        if (value !== '') {
             handleFirstCategory(value);
-
         }
+    };
 
-    }
-
-    const handleSecondCategoryChange = (event) => {
+    const handleSecondCategoryChange = event => {
         const { name, value } = event.target;
         setFieldValue(name, value);
-        if (value !== "") {
+        if (value !== '') {
             handleSecondCategory(value);
-
         }
-    }
+    };
 
-    const handleFirstCategory = async (event) => {
-        const accessToken = `Bearer ${sessionStorage.accessToken} `
+    const handleFirstCategory = async event => {
+        const accessToken = `Bearer ${sessionStorage.accessToken} `;
         try {
-            let response = await axiosClient.post(
-                `admin/category/list`,
-                JSON.stringify({ categoryId: event, }),
-                {
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'x-via-device': true,
-                        'Authorization': accessToken
-                    },
-                }
-
-            );
+            let response = await axiosClient.post(`admin/category/list`, JSON.stringify({ categoryId: event }), {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'x-via-device': true,
+                    Authorization: accessToken,
+                },
+            });
             if (response.status == 200) {
-                setCategoryLevel2(response?.data?.data?.category)
+                setCategoryLevel2(response?.data?.data?.category);
             }
-
         } catch (error) {
-            console.log("error", error)
+            console.log('error', error);
         }
-    }
+    };
 
-
-    const handleSecondCategory = async (event) => {
-        const accessToken = `Bearer ${sessionStorage.accessToken} `
+    const handleSecondCategory = async event => {
+        const accessToken = `Bearer ${sessionStorage.accessToken} `;
         try {
-            let response = await axiosClient.post(
-                `admin/category/list`,
-                JSON.stringify({ categoryId: event, }),
-                {
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'x-via-device': true,
-                        'Authorization': accessToken
-                    },
-                }
-
-            );
+            let response = await axiosClient.post(`admin/category/list`, JSON.stringify({ categoryId: event }), {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'x-via-device': true,
+                    Authorization: accessToken,
+                },
+            });
             if (response.status == 200) {
-                setCategoryLevel3(response?.data?.data?.category)
+                setCategoryLevel3(response?.data?.data?.category);
             }
-
         } catch (error) {
-            console.log("error", error)
+            console.log('error', error);
         }
-    }
+    };
 
     const handleDraftSuccessPopupClose = () => {
-        draftPopUpClose()
-    }
+        draftPopUpClose();
+    };
 
     useEffect(() => {
         if (previewData) {
-            Object.entries(previewData).map((item) => {
+            Object.entries(previewData).map(item => {
                 setFieldValue(item[0], item[1]);
-            })
+            });
         }
         if (ecommerceBackData) {
-            Object.entries(ecommerceBackData).map((item) => {
+            Object.entries(ecommerceBackData).map(item => {
                 setFieldValue(item[0], item[1]);
-            })
+            });
         }
-
-    }, [])
-
+    }, []);
 
     return (
         <React.Fragment>
             <div className={`eCommerceDetails-container ${preview ? 'preview_active' : ''}`}>
                 <div className='canDisplay'>
                     <FormControl>
-                        <FormLabel id="demo-controlled-radio-buttons-group">Can Display?</FormLabel>
+                        <FormLabel id='demo-controlled-radio-buttons-group'>Can Display?</FormLabel>
                         <RadioGroup
-                            aria-labelledby="demo-controlled-radio-buttons-group"
-                            name="canDisplay"
+                            aria-labelledby='demo-controlled-radio-buttons-group'
+                            name='canDisplay'
                             value={values.canDisplay}
                             onChange={handleChange}
                         >
-                            <FormControlLabel value={true} control={<Radio />} label="Yes" />
-                            <FormControlLabel value={false} control={<Radio />} label="No" />
+                            <FormControlLabel value={true} control={<Radio />} label='Yes' />
+                            <FormControlLabel value={false} control={<Radio />} label='No' />
                         </RadioGroup>
                     </FormControl>
                 </div>
-                {values.canDisplay == true || values.canDisplay == "true" ? <div className='categoryLevelFlexbox'>
-                    <div className='inputBox sm-30 lg-30'>
-                        <Select
-                            label={'Category-Level 1'}
-                            name={'firstCategory'}
-                            options={
-                                ProductCreateList &&
-                                ProductCreateList.category.length > 0 &&
-                                ProductCreateList.category.map((item) => {
-                                    return (
-
-                                        { id: item._id, value: item.name }
-
-                                    )
-                                })
-                            }
-                            // isRequired
-                            wrapperClass={'col12'}
-                            value={values.firstCategory}
-                            onChange={(e) => handleFirstCategoryChange(e)}
-                            error={errors.firstCategory}
-                            touched={touched.firstCategory}
-                            disabled={preview ? true : false}
-                        />
+                {values.canDisplay == true || values.canDisplay == 'true' ? (
+                    <div className='categoryLevelFlexbox'>
+                        <div className='inputBox sm-30 lg-30'>
+                            <Select
+                                label={'Category-Level 1'}
+                                name={'firstCategory'}
+                                options={
+                                    ProductCreateList &&
+                                    ProductCreateList.category.length > 0 &&
+                                    ProductCreateList.category.map(item => {
+                                        return { id: item._id, value: item.name };
+                                    })
+                                }
+                                // isRequired
+                                wrapperClass={'col12'}
+                                value={values.firstCategory}
+                                onChange={e => handleFirstCategoryChange(e)}
+                                error={errors.firstCategory}
+                                touched={touched.firstCategory}
+                                disabled={preview ? true : false}
+                            />
+                        </div>
+                        <div className='inputBox sm-30 lg-30'>
+                            <Select
+                                label={'Category-Level 2'}
+                                name={'secondCategory'}
+                                options={
+                                    categoryLevel2 &&
+                                    categoryLevel2.length > 0 &&
+                                    categoryLevel2.map(item => {
+                                        return { id: item._id, value: item.name };
+                                    })
+                                }
+                                // isRequired
+                                wrapperClass={'col12'}
+                                value={values.secondCategory}
+                                onChange={e => handleSecondCategoryChange(e)}
+                                error={errors.secondCategory}
+                                touched={touched.secondCategory}
+                                disabled={preview ? true : false}
+                            />
+                        </div>
+                        <div className='inputBox sm-30 lg-30'>
+                            <Select
+                                label={'Category-Level 3'}
+                                name={'thirdCategory'}
+                                options={
+                                    categoryLevel3 &&
+                                    categoryLevel3.length > 0 &&
+                                    categoryLevel3.map(item => {
+                                        return { id: item._id, value: item.name };
+                                    })
+                                }
+                                // isRequired
+                                wrapperClass={'col12'}
+                                value={values.thirdCategory}
+                                onChange={handleChange}
+                                error={errors.thirdCategory}
+                                touched={touched.thirdCategory}
+                                disabled={preview ? true : false}
+                            />
+                        </div>
                     </div>
-                    <div className='inputBox sm-30 lg-30'>
-                        <Select
-                            label={'Category-Level 2'}
-                            name={'secondCategory'}
-                            options={
-                                categoryLevel2 &&
-                                categoryLevel2.length > 0 &&
-                                categoryLevel2.map((item) => {
-                                    return (
-
-                                        { id: item._id, value: item.name }
-
-                                    )
-                                })
-                            }
-                            // isRequired
-                            wrapperClass={'col12'}
-                            value={values.secondCategory}
-                            onChange={(e) => handleSecondCategoryChange(e)}
-                            error={errors.secondCategory}
-                            touched={touched.secondCategory}
-                            disabled={preview ? true : false}
-                        />
-                    </div>
-                    <div className='inputBox sm-30 lg-30'>
-                        <Select
-                            label={'Category-Level 3'}
-                            name={'thirdCategory'}
-                            options={
-                                categoryLevel3 &&
-                                categoryLevel3.length > 0 &&
-                                categoryLevel3.map((item) => {
-                                    return (
-
-                                        { id: item._id, value: item.name }
-
-                                    )
-                                })
-                            }
-                            // isRequired
-                            wrapperClass={'col12'}
-                            value={values.thirdCategory}
-                            onChange={handleChange}
-                            error={errors.thirdCategory}
-                            touched={touched.thirdCategory}
-                            disabled={preview ? true : false}
-                        />
-                    </div>
-                </div> : null}
+                ) : null}
                 <div className='second_flexbox'>
                     <div className='inputBox sm-50 lg-50'>
                         <TextArea
@@ -453,12 +419,8 @@ function ECommerceDetails({ ProductCreateList, changeTab, ECommerceDetailsData, 
                             options={
                                 ProductCreateList &&
                                 ProductCreateList.country.length > 0 &&
-                                ProductCreateList.country.map((item) => {
-                                    return (
-
-                                        { id: item._id, value: item.name }
-
-                                    )
+                                ProductCreateList.country.map(item => {
+                                    return { id: item._id, value: item.name };
                                 })
                             }
                             // isRequired
@@ -472,29 +434,40 @@ function ECommerceDetails({ ProductCreateList, changeTab, ECommerceDetailsData, 
                     </div>
                 </div>
                 <div className='actionFlexbox'>
-                    {preview ? null : <React.Fragment>
-                        <button type='button' className='draftBtn' onClick={() => { setDraftClicked(true); handleSubmit() }}>Save Draft</button>
-                        <div className='rightCol'>
-                            <button type='button' className='canceltBtn' onClick={() => changeTab(0)}>Back</button>
-                            <button type='button' className='nextBtn' onClick={handleSubmit}>Next</button>
-                        </div>
-                    </React.Fragment>
-                    }
+                    {preview ? null : (
+                        <React.Fragment>
+                            <button
+                                type='button'
+                                className='draftBtn'
+                                onClick={() => {
+                                    setDraftClicked(true);
+                                    handleSubmit();
+                                }}
+                            >
+                                Save Draft
+                            </button>
+                            <div className='rightCol'>
+                                <button type='button' className='canceltBtn' onClick={() => changeTab(0)}>
+                                    Back
+                                </button>
+                                <button type='button' className='nextBtn' onClick={handleSubmit}>
+                                    Next
+                                </button>
+                            </div>
+                        </React.Fragment>
+                    )}
                 </div>
             </div>
-            {
-                draftsuccessModal &&
+            {draftsuccessModal && (
                 <SuccessModal
                     handleSuccessClose={handleDraftSuccessPopupClose}
                     SuccessPopUp={draftsuccessModal}
                     SuccessMsg={SuccessMsg}
                     SuccessTitle={SuccessTitle}
                 />
-            }
+            )}
         </React.Fragment>
-
-    )
-
+    );
 }
 
-export default ECommerceDetails
+export default ECommerceDetails;

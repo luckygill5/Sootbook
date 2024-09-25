@@ -1,27 +1,25 @@
-import React, {useState, useEffect} from 'react';
-import AdminSideNav from "../../Components/Admin/AdminSideNav/AdminSideNav";
-import AdminContentWrapper from"../../Components/Admin/AdminContentWrapper/AdminContentWrapper";
+import React, { useState, useEffect } from 'react';
+import AdminSideNav from '../../Components/Admin/AdminSideNav/AdminSideNav';
+import AdminContentWrapper from '../../Components/Admin/AdminContentWrapper/AdminContentWrapper';
 // import {withRouter} from 'react-router'
-import './AdminDashboard.scss'
+import './AdminDashboard.scss';
 
-function AdminDashboard(props){
-
+function AdminDashboard(props) {
     const [expandView, setExpandView] = useState(false);
     const [MenuSelected, setMenuSelected] = useState('');
-    const [breadcrumbUpdate, setBreadCrumbUpdate] = useState("")
+    const [breadcrumbUpdate, setBreadCrumbUpdate] = useState('');
 
-    function handleExpandView(){
-        setExpandView(!expandView)
+    function handleExpandView() {
+        setExpandView(!expandView);
     }
 
-    const handleSelecteMenu = (event) => {
-        setMenuSelected(event)
-    }
-    
-    const handleUpdateBreadCrumb = (event) => {
+    const handleSelecteMenu = event => {
+        setMenuSelected(event);
+    };
 
-        setBreadCrumbUpdate(event)
-    }
+    const handleUpdateBreadCrumb = event => {
+        setBreadCrumbUpdate(event);
+    };
 
     useEffect(() => {
         document.scrollingElement.scrollTop = 0;
