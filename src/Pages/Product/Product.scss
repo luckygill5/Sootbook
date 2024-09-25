@@ -1,11 +1,11 @@
-@import "../../BaseStyle/Basestyle.scss";
+@import '../../BaseStyle/Basestyle.scss';
 
-$white: #FFF;
+$white: #fff;
 $black: #000;
-$text: #1F2937;
-$buttonColor: #00A9BB;
+$text: #1f2937;
+$buttonColor: #00a9bb;
 
-$font-monsterat : 'Montserrat';
+$font-monsterat: 'Montserrat';
 
 .product_page_container {
     padding-top: 72px;
@@ -38,7 +38,7 @@ $font-monsterat : 'Montserrat';
             line-height: 24px;
             /* 150% */
             letter-spacing: 0.08px;
-            color: #FAA61A;
+            color: #faa61a;
             margin-top: 0;
             margin-bottom: 4px;
             text-align: center;
@@ -87,8 +87,10 @@ $font-monsterat : 'Montserrat';
                 border-radius: 8px;
                 padding: 14px 16px;
                 white-space: nowrap;
-                box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25), -1px -7px 7px 0px #FFF;
-                background-color: #00A9BB;
+                box-shadow:
+                    0px 4px 4px 0px rgba(0, 0, 0, 0.25),
+                    -1px -7px 7px 0px #fff;
+                background-color: #00a9bb;
                 color: $white;
                 min-width: 92px;
                 height: 48px;
@@ -111,8 +113,8 @@ $font-monsterat : 'Montserrat';
 
             .learn_more_btn {
                 margin: 0 8px;
-                border: 1px solid #00A9BB;
-                color: #00A9BB;
+                border: 1px solid #00a9bb;
+                color: #00a9bb;
                 @include flexbox();
                 align-items: center;
                 justify-content: center;
@@ -122,7 +124,9 @@ $font-monsterat : 'Montserrat';
                 padding: 14px 16px;
                 cursor: pointer;
                 white-space: nowrap;
-                box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25), -1px -7px 7px 0px #FFF;
+                box-shadow:
+                    0px 4px 4px 0px rgba(0, 0, 0, 0.25),
+                    -1px -7px 7px 0px #fff;
                 font-size: 14px;
                 font-style: normal;
                 font-weight: 600;
@@ -141,7 +145,7 @@ $font-monsterat : 'Montserrat';
 
                     svg {
                         path {
-                            stroke: #00A9BB !important;
+                            stroke: #00a9bb !important;
                         }
                     }
                 }
@@ -181,7 +185,7 @@ $font-monsterat : 'Montserrat';
                     line-height: 24px;
                     /* 150% */
                     letter-spacing: 0.08px;
-                    color: #FAA61A;
+                    color: #faa61a;
                     margin-top: 0;
                     margin-bottom: 4px;
                     text-align: left;
@@ -207,7 +211,7 @@ $font-monsterat : 'Montserrat';
                     line-height: 24px;
                     /* 150% */
                     letter-spacing: 0.08px;
-                    color: #6B7280;
+                    color: #6b7280;
                     margin-top: 0;
                     margin-bottom: 32px;
                     text-align: left;
@@ -266,8 +270,10 @@ $font-monsterat : 'Montserrat';
                         border-radius: 8px;
                         padding: 14px 16px;
                         white-space: nowrap;
-                        box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25), -1px -7px 7px 0px #FFF;
-                        background-color: #00A9BB;
+                        box-shadow:
+                            0px 4px 4px 0px rgba(0, 0, 0, 0.25),
+                            -1px -7px 7px 0px #fff;
+                        background-color: #00a9bb;
                         color: $white;
                         min-width: 92px;
                         height: 48px;
@@ -290,8 +296,8 @@ $font-monsterat : 'Montserrat';
 
                     .learn_more_btn {
                         margin: 0 8px;
-                        border: 1px solid #00A9BB;
-                        color: #00A9BB;
+                        border: 1px solid #00a9bb;
+                        color: #00a9bb;
                         @include flexbox();
                         align-items: center;
                         justify-content: center;
@@ -301,7 +307,9 @@ $font-monsterat : 'Montserrat';
                         padding: 14px 16px;
                         cursor: pointer;
                         white-space: nowrap;
-                        box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25), -1px -7px 7px 0px #FFF;
+                        box-shadow:
+                            0px 4px 4px 0px rgba(0, 0, 0, 0.25),
+                            -1px -7px 7px 0px #fff;
                         font-size: 14px;
                         font-style: normal;
                         font-weight: 600;
@@ -320,7 +328,7 @@ $font-monsterat : 'Montserrat';
 
                             svg {
                                 path {
-                                    stroke: #00A9BB !important;
+                                    stroke: #00a9bb !important;
                                 }
                             }
                         }
@@ -340,8 +348,6 @@ $font-monsterat : 'Montserrat';
                 // }
             }
         }
-
-
     }
 
     .fogo_comprehensive_solution {
@@ -365,7 +371,7 @@ $font-monsterat : 'Montserrat';
                     line-height: 24px;
                     /* 150% */
                     letter-spacing: 0.08px;
-                    color: #FAA61A;
+                    color: #faa61a;
                     margin-top: 0;
                     margin-bottom: 4px;
                     text-align: left;
@@ -391,7 +397,7 @@ $font-monsterat : 'Montserrat';
                     line-height: 24px;
                     /* 150% */
                     letter-spacing: 0.08px;
-                    color: #6B7280;
+                    color: #6b7280;
                     margin-top: 0;
                     margin-bottom: 32px;
                     text-align: left;
@@ -450,8 +456,10 @@ $font-monsterat : 'Montserrat';
                         border-radius: 8px;
                         padding: 14px 16px;
                         white-space: nowrap;
-                        box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25), -1px -7px 7px 0px #FFF;
-                        background-color: #00A9BB;
+                        box-shadow:
+                            0px 4px 4px 0px rgba(0, 0, 0, 0.25),
+                            -1px -7px 7px 0px #fff;
+                        background-color: #00a9bb;
                         color: $white;
                         min-width: 92px;
                         height: 48px;
@@ -474,8 +482,8 @@ $font-monsterat : 'Montserrat';
 
                     .learn_more_btn {
                         margin: 0 8px;
-                        border: 1px solid #00A9BB;
-                        color: #00A9BB;
+                        border: 1px solid #00a9bb;
+                        color: #00a9bb;
                         @include flexbox();
                         align-items: center;
                         justify-content: center;
@@ -485,7 +493,9 @@ $font-monsterat : 'Montserrat';
                         padding: 14px 16px;
                         cursor: pointer;
                         white-space: nowrap;
-                        box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25), -1px -7px 7px 0px #FFF;
+                        box-shadow:
+                            0px 4px 4px 0px rgba(0, 0, 0, 0.25),
+                            -1px -7px 7px 0px #fff;
                         font-size: 14px;
                         font-style: normal;
                         font-weight: 600;
@@ -504,7 +514,7 @@ $font-monsterat : 'Montserrat';
 
                             svg {
                                 path {
-                                    stroke: #00A9BB !important;
+                                    stroke: #00a9bb !important;
                                 }
                             }
                         }
@@ -524,8 +534,6 @@ $font-monsterat : 'Montserrat';
                 // }
             }
         }
-
-
     }
 
     .org_business_strategy_section {
@@ -539,12 +547,12 @@ $font-monsterat : 'Montserrat';
             line-height: 90px;
             /* 150% */
             letter-spacing: 0.3px;
-            color: #025B74;
+            color: #025b74;
             text-align: left;
             margin: 0;
 
             .highlight {
-                color: #FAA61A;
+                color: #faa61a;
             }
         }
     }
@@ -570,7 +578,7 @@ $font-monsterat : 'Montserrat';
                     line-height: 24px;
                     /* 150% */
                     letter-spacing: 0.08px;
-                    color: #FAA61A;
+                    color: #faa61a;
                     margin-top: 0;
                     margin-bottom: 4px;
                     text-align: left;
@@ -596,7 +604,7 @@ $font-monsterat : 'Montserrat';
                     line-height: 24px;
                     /* 150% */
                     letter-spacing: 0.08px;
-                    color: #6B7280;
+                    color: #6b7280;
                     margin-top: 0;
                     margin-bottom: 32px;
                     text-align: left;
@@ -655,8 +663,10 @@ $font-monsterat : 'Montserrat';
                         border-radius: 8px;
                         padding: 14px 16px;
                         white-space: nowrap;
-                        box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25), -1px -7px 7px 0px #FFF;
-                        background-color: #00A9BB;
+                        box-shadow:
+                            0px 4px 4px 0px rgba(0, 0, 0, 0.25),
+                            -1px -7px 7px 0px #fff;
+                        background-color: #00a9bb;
                         color: $white;
                         min-width: 92px;
                         height: 48px;
@@ -679,8 +689,8 @@ $font-monsterat : 'Montserrat';
 
                     .learn_more_btn {
                         margin: 0 8px;
-                        border: 1px solid #00A9BB;
-                        color: #00A9BB;
+                        border: 1px solid #00a9bb;
+                        color: #00a9bb;
                         @include flexbox();
                         align-items: center;
                         justify-content: center;
@@ -690,7 +700,9 @@ $font-monsterat : 'Montserrat';
                         padding: 14px 16px;
                         cursor: pointer;
                         white-space: nowrap;
-                        box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25), -1px -7px 7px 0px #FFF;
+                        box-shadow:
+                            0px 4px 4px 0px rgba(0, 0, 0, 0.25),
+                            -1px -7px 7px 0px #fff;
                         font-size: 14px;
                         font-style: normal;
                         font-weight: 600;
@@ -709,7 +721,7 @@ $font-monsterat : 'Montserrat';
 
                             svg {
                                 path {
-                                    stroke: #00A9BB !important;
+                                    stroke: #00a9bb !important;
                                 }
                             }
                         }
@@ -729,8 +741,6 @@ $font-monsterat : 'Montserrat';
                 // }
             }
         }
-
-
     }
 
     .shopping_experience {
@@ -754,7 +764,7 @@ $font-monsterat : 'Montserrat';
                     line-height: 24px;
                     /* 150% */
                     letter-spacing: 0.08px;
-                    color: #FAA61A;
+                    color: #faa61a;
                     margin-top: 0;
                     margin-bottom: 4px;
                     text-align: left;
@@ -780,7 +790,7 @@ $font-monsterat : 'Montserrat';
                     line-height: 24px;
                     /* 150% */
                     letter-spacing: 0.08px;
-                    color: #6B7280;
+                    color: #6b7280;
                     margin-top: 0;
                     margin-bottom: 32px;
                     text-align: left;
@@ -839,8 +849,10 @@ $font-monsterat : 'Montserrat';
                         border-radius: 8px;
                         padding: 14px 16px;
                         white-space: nowrap;
-                        box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25), -1px -7px 7px 0px #FFF;
-                        background-color: #00A9BB;
+                        box-shadow:
+                            0px 4px 4px 0px rgba(0, 0, 0, 0.25),
+                            -1px -7px 7px 0px #fff;
+                        background-color: #00a9bb;
                         color: $white;
                         min-width: 92px;
                         height: 48px;
@@ -863,8 +875,8 @@ $font-monsterat : 'Montserrat';
 
                     .learn_more_btn {
                         margin: 0 8px;
-                        border: 1px solid #00A9BB;
-                        color: #00A9BB;
+                        border: 1px solid #00a9bb;
+                        color: #00a9bb;
                         @include flexbox();
                         align-items: center;
                         justify-content: center;
@@ -874,7 +886,9 @@ $font-monsterat : 'Montserrat';
                         padding: 14px 16px;
                         cursor: pointer;
                         white-space: nowrap;
-                        box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25), -1px -7px 7px 0px #FFF;
+                        box-shadow:
+                            0px 4px 4px 0px rgba(0, 0, 0, 0.25),
+                            -1px -7px 7px 0px #fff;
                         font-size: 14px;
                         font-style: normal;
                         font-weight: 600;
@@ -893,7 +907,7 @@ $font-monsterat : 'Montserrat';
 
                             svg {
                                 path {
-                                    stroke: #00A9BB !important;
+                                    stroke: #00a9bb !important;
                                 }
                             }
                         }
@@ -913,8 +927,6 @@ $font-monsterat : 'Montserrat';
                 // }
             }
         }
-
-
     }
 
     .preferred_payment {
@@ -938,7 +950,7 @@ $font-monsterat : 'Montserrat';
                     line-height: 24px;
                     /* 150% */
                     letter-spacing: 0.08px;
-                    color: #FAA61A;
+                    color: #faa61a;
                     margin-top: 0;
                     margin-bottom: 4px;
                     text-align: left;
@@ -964,7 +976,7 @@ $font-monsterat : 'Montserrat';
                     line-height: 24px;
                     /* 150% */
                     letter-spacing: 0.08px;
-                    color: #6B7280;
+                    color: #6b7280;
                     margin-top: 0;
                     margin-bottom: 32px;
                     text-align: left;
@@ -979,7 +991,7 @@ $font-monsterat : 'Montserrat';
                         margin-bottom: 16px;
 
                         &:last-child {
-                            margin-bottom: 0
+                            margin-bottom: 0;
                         }
 
                         @include flexbox();
@@ -988,7 +1000,7 @@ $font-monsterat : 'Montserrat';
                             width: 20px;
                             height: 20px;
                             @include flexbox();
-                            margin-right: 12px
+                            margin-right: 12px;
                         }
 
                         .text {
@@ -1000,7 +1012,7 @@ $font-monsterat : 'Montserrat';
                             /* 150% */
                             letter-spacing: 0.08px;
                             color: $text;
-                            text-align: left
+                            text-align: left;
                         }
                     }
                 }
@@ -1015,8 +1027,10 @@ $font-monsterat : 'Montserrat';
                         border-radius: 8px;
                         padding: 14px 16px;
                         white-space: nowrap;
-                        box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25), -1px -7px 7px 0px #FFF;
-                        background-color: #00A9BB;
+                        box-shadow:
+                            0px 4px 4px 0px rgba(0, 0, 0, 0.25),
+                            -1px -7px 7px 0px #fff;
+                        background-color: #00a9bb;
                         color: $white;
                         min-width: 92px;
                         height: 48px;
@@ -1039,8 +1053,8 @@ $font-monsterat : 'Montserrat';
 
                     .learn_more_btn {
                         margin: 0 8px;
-                        border: 1px solid #00A9BB;
-                        color: #00A9BB;
+                        border: 1px solid #00a9bb;
+                        color: #00a9bb;
                         @include flexbox();
                         align-items: center;
                         justify-content: center;
@@ -1050,7 +1064,9 @@ $font-monsterat : 'Montserrat';
                         padding: 14px 16px;
                         cursor: pointer;
                         white-space: nowrap;
-                        box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25), -1px -7px 7px 0px #FFF;
+                        box-shadow:
+                            0px 4px 4px 0px rgba(0, 0, 0, 0.25),
+                            -1px -7px 7px 0px #fff;
                         font-size: 14px;
                         font-style: normal;
                         font-weight: 600;
@@ -1069,7 +1085,7 @@ $font-monsterat : 'Montserrat';
 
                             svg {
                                 path {
-                                    stroke: #00A9BB !important;
+                                    stroke: #00a9bb !important;
                                 }
                             }
                         }
@@ -1089,8 +1105,6 @@ $font-monsterat : 'Montserrat';
                 // }
             }
         }
-
-
     }
 
     .pharmacy_financial_section {
@@ -1103,7 +1117,7 @@ $font-monsterat : 'Montserrat';
             line-height: 24px;
             /* 150% */
             letter-spacing: 0.08px;
-            color: #FAA61A;
+            color: #faa61a;
             text-align: center;
             margin-top: 0;
             margin-bottom: 4px;
@@ -1133,7 +1147,7 @@ $font-monsterat : 'Montserrat';
             line-height: 24px;
             /* 150% */
             letter-spacing: 0.08px;
-            color: #6B7280;
+            color: #6b7280;
             text-align: center;
             margin-top: 0;
             margin-bottom: 40px;
@@ -1142,10 +1156,10 @@ $font-monsterat : 'Montserrat';
         .grid_box {
             @include flexbox();
             border-radius: 4px;
-            border: 1px solid #E5E7EB;
+            border: 1px solid #e5e7eb;
 
             .card {
-                border-right: 1px solid #E5E7EB;
+                border-right: 1px solid #e5e7eb;
                 @include flexbox();
                 flex-direction: column;
                 align-items: center;
@@ -1154,10 +1168,10 @@ $font-monsterat : 'Montserrat';
                 height: auto;
 
                 &:nth-child(2) {
-                    background-color: #E6F6F8;
+                    background-color: #e6f6f8;
 
                     .card_title {
-                        color: #025B74;
+                        color: #025b74;
                         margin-bottom: 4px;
                     }
 
@@ -1205,7 +1219,7 @@ $font-monsterat : 'Montserrat';
                     line-height: 24px;
                     /* 150% */
                     letter-spacing: 0.08px;
-                    color: #00A9BB;
+                    color: #00a9bb;
                     text-decoration: none;
 
                     .icon {
@@ -1216,7 +1230,7 @@ $font-monsterat : 'Montserrat';
 
                         svg {
                             path {
-                                stroke: #00A9BB !important;
+                                stroke: #00a9bb !important;
                             }
                         }
                     }
@@ -1224,14 +1238,13 @@ $font-monsterat : 'Montserrat';
             }
         }
     }
-    .product_footer_banner{
+    .product_footer_banner {
         width: 100%;
         @include flexbox();
-        .banner_img{
+        .banner_img {
             max-width: 100%;
             width: 100%;
             height: auto;
-
         }
     }
 }
