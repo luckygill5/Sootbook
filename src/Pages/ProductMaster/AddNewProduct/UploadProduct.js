@@ -26,7 +26,7 @@ function UploadProduct({ productData, ecommerceData, preview, previewData, chang
     const [removeFile, setRemoveFile] = useState(false)
     const [addproductFormData, setAddproductFormData] = useState("")
     const [successModal, setSucessModal] = useState("");
-    const [ecommerceDataState, setEcommerceDataState] = useState(ecommerceData)
+    const [ecommerceDataState, setEcommerceDataState] = useState("")
     const [packagingData, setPackagingData] = useState("");
     const [uploadImageState, setUploadImageState] = useState('');
     const [SuccessMsg,  setSuccessMsg] = useState("");
@@ -187,9 +187,12 @@ function UploadProduct({ productData, ecommerceData, preview, previewData, chang
                     delete productData.Stock_1;
                     delete productData.Stock_2;
                     delete productData.Stock_3;
+                    delete ecommerceData.image;
+                    delete ecommerceData.packaging;
                     setPackagingData({...Packaging});
                     setUploadImageState({...uploadImageData})
                     setAddproductFormData({...productData})
+                    setEcommerceDataState({...ecommerceData})
 
                 }else{
                     const { Sales_Packing_1, Sales_Packing_2, Sales_Packing_3, Quantity_1, Quantity_2, Quantity_3, Rate_1, Rate_2, Rate_3, Stock_1, Stock_2, Stock_3, ...newproductData } = productData;
@@ -216,8 +219,9 @@ function UploadProduct({ productData, ecommerceData, preview, previewData, chang
 
 
     useEffect(() => {
-        if(EditMode || updateClicked){
-            handleEditProduct({addproductFormData,ecommerceDataState, packagingData, uploadImageState, isDraft: false })
+        if(EditMode && updateClicked){
+            console.log("addproduct", addproductFormData)
+            handleEditProduct({...addproductFormData, ...ecommerceDataState, ...packagingData, ...uploadImageState, isDraft: false });
         }else{
             addProduct()
         }
@@ -282,7 +286,6 @@ function UploadProduct({ productData, ecommerceData, preview, previewData, chang
 
 
     const handleDraft = () => {
-        console.log("draffii", )
         if(uploadedFile && uploadedFile.length > 0){
             setDraftClicked(true) 
         }else if(uploadedFile && uploadedFile.length == 0){
@@ -300,11 +303,12 @@ function UploadProduct({ productData, ecommerceData, preview, previewData, chang
     }
 
     const handleEditProduct = async (event) => {
-        if (addproductFormData !== "") {
+
+        if (event !== "") {
             const accessToken = `Bearer ${sessionStorage.accessToken} `
             try {
                 let response = await axiosClient.post(
-                    `admin/product/update`, addproductFormData, {
+                    `admin/product/update`, event, {
                     headers: {
                         'Content-Type': 'application/json',
                         'x-via-device': true,
