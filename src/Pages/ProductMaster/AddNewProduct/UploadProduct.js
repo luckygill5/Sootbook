@@ -29,9 +29,9 @@ function UploadProduct({ productData, ecommerceData, preview, previewData, chang
     const [ecommerceDataState, setEcommerceDataState] = useState("")
     const [packagingData, setPackagingData] = useState("");
     const [uploadImageState, setUploadImageState] = useState('');
-    const [SuccessMsg,  setSuccessMsg] = useState("");
+    const [SuccessMsg, setSuccessMsg] = useState("");
     const [SuccessTitle, setSuccessTitle] = useState("");
-    const [productAddAPIcall, setProductAddAPIcall] =  useState(false)
+    const [productAddAPIcall, setProductAddAPIcall] = useState(false)
     const [draftClicked, setDraftClicked] = useState(false);
     const [draftsuccessModal, setDraftSuccessModal] = useState(false);
     const [draftButtonClick, setDraftButtonClick] = useState(false);
@@ -112,7 +112,7 @@ function UploadProduct({ productData, ecommerceData, preview, previewData, chang
             reader.onloadend = () => {
                 const base64String = reader.result.replace('data:', '').replace(/^.+,/, '');
                 base64Array.push(`data:image/png;base64,${base64String}`)
-                
+
             };
             setBase64(base64Array);
             reader.readAsDataURL(blob);
@@ -122,14 +122,14 @@ function UploadProduct({ productData, ecommerceData, preview, previewData, chang
     };
 
     useEffect(() => {
-        
-       if(uploadedFile &&
-        uploadedFile.length > 0){
+
+        if (uploadedFile &&
+            uploadedFile.length > 0) {
             uploadedFile.map((item) => {
                 convertBlobToBase64(item);
             })
-       }  
-              
+        }
+
     }, [uploadedFile])
 
 
@@ -140,9 +140,9 @@ function UploadProduct({ productData, ecommerceData, preview, previewData, chang
         if (uploadedFile && uploadedFile.length == 0) {
             setUploadAlert("Please upload at least one image. Adding an image is required to proceed")
         }
-        else if (uploadedFile && uploadedFile.length > 0 && base64 && base64.length > 0) {           
+        else if (uploadedFile && uploadedFile.length > 0 && base64 && base64.length > 0) {
             let uploadImageData = {
-                image: base64 
+                image: base64
             }
 
             if (uploadImageData && uploadImageData.image.length > 0 && productData) {
@@ -172,7 +172,7 @@ function UploadProduct({ productData, ecommerceData, preview, previewData, chang
                     ]
                 }
                 let collection
-                if(EditMode){
+                if (EditMode) {
 
 
                     delete productData.Sales_Packing_1;
@@ -189,26 +189,26 @@ function UploadProduct({ productData, ecommerceData, preview, previewData, chang
                     delete productData.Stock_3;
                     delete ecommerceData.image;
                     delete ecommerceData.packaging;
-                    setPackagingData({...Packaging});
-                    setUploadImageState({...uploadImageData})
-                    setAddproductFormData({...productData})
-                    setEcommerceDataState({...ecommerceData})
+                    setPackagingData({ ...Packaging });
+                    setUploadImageState({ ...uploadImageData })
+                    setAddproductFormData({ ...productData })
+                    setEcommerceDataState({ ...ecommerceData })
 
-                }else{
+                } else {
                     const { Sales_Packing_1, Sales_Packing_2, Sales_Packing_3, Quantity_1, Quantity_2, Quantity_3, Rate_1, Rate_2, Rate_3, Stock_1, Stock_2, Stock_3, ...newproductData } = productData;
-                    
-                     if(draftClicked && draftButtonClick == false){
+
+                    if (draftClicked && draftButtonClick == false) {
                         setDraftButtonClick(true)
                         collection = { ...newproductData, ...Packaging, ...ecommerceData, ...uploadImageData, isDraft: true };
-                     }else{
+                    } else {
                         collection = { ...newproductData, ...Packaging, ...ecommerceData, ...uploadImageData, isDraft: false };
-                     }
+                    }
 
-    
+
                     setAddproductFormData(collection);
                 }
-              
-               
+
+
 
             }
 
@@ -219,14 +219,39 @@ function UploadProduct({ productData, ecommerceData, preview, previewData, chang
 
 
     useEffect(() => {
-        if(EditMode && updateClicked){
+        if (EditMode && updateClicked) {
+            const eCommerceDetailKeys = [
+                'canDisplay',
+                'firstCategory',
+                'secondCategory',
+                'thirdCategory',
+                'shortInfo',
+                'longInfo',
+                'ingredient',
+                'symptom',
+                'dosage',
+                'strength',
+                'dosageForm',
+                'discount',
+                'classification',
+                'bodySystem',
+                'country',
+            ];
+            const filteredEcommerceData = Object.keys(ecommerceDataState)
+                .filter(key => eCommerceDetailKeys.includes(key))
+                .reduce((obj, key) => {
+                    obj[key] = ecommerceDataState[key];
+                    return obj;
+                }, {});
+
             console.log("addproduct", addproductFormData)
-            handleEditProduct({...addproductFormData, ...ecommerceDataState, ...packagingData, ...uploadImageState, isDraft: false });
-        }else{
+            const finalObj = { ...addproductFormData, ...filteredEcommerceData, ...packagingData, ...uploadImageState, isDraft: false }
+            handleEditProduct(finalObj);
+        } else {
             addProduct()
         }
-       
-    },[addproductFormData, ecommerceDataState, packagingData, uploadImageState] )
+
+    }, [addproductFormData, ecommerceDataState, packagingData, uploadImageState])
 
     const addProduct = async event => {
 
@@ -253,13 +278,13 @@ function UploadProduct({ productData, ecommerceData, preview, previewData, chang
                     setSuccessMsg("The new product has been added into the system");
                     setSuccessTitle("Product has been added successfully");
                     setProductAddAPIcall(false)
-                    if(draftClicked){
+                    if (draftClicked) {
                         setDraftClicked(false);
                         setDraftSuccessModal(true);
                         setSuccessTitle("Draft saved successfull")
                         setSuccessMsg("");
                     }
-                    if(draftButtonClick == true){
+                    if (draftButtonClick == true) {
                         setDraftButtonClick(false)
                     }
                 }
@@ -277,7 +302,7 @@ function UploadProduct({ productData, ecommerceData, preview, previewData, chang
 
     const handleSuccessPopupClose = () => {
         setSucessModal(false);
-        successModalClose()
+        successModalClose();
     }
 
     const handleModalErrorPopUP = () => {
@@ -286,16 +311,16 @@ function UploadProduct({ productData, ecommerceData, preview, previewData, chang
 
 
     const handleDraft = () => {
-        if(uploadedFile && uploadedFile.length > 0){
-            setDraftClicked(true) 
-        }else if(uploadedFile && uploadedFile.length == 0){
+        if (uploadedFile && uploadedFile.length > 0) {
+            setDraftClicked(true)
+        } else if (uploadedFile && uploadedFile.length == 0) {
             setUploadAlert("Please upload at least one image. Adding an image is required to proceed")
         }
-      
+
     }
 
- 
-    const  handleUpdateProduct = () => {
+
+    const handleUpdateProduct = () => {
         handleAddProduct();
         SetUpdateClicked(true)
 
@@ -303,7 +328,6 @@ function UploadProduct({ productData, ecommerceData, preview, previewData, chang
     }
 
     const handleEditProduct = async (event) => {
-
         if (event !== "") {
             const accessToken = `Bearer ${sessionStorage.accessToken} `
             try {
@@ -366,7 +390,7 @@ function UploadProduct({ productData, ecommerceData, preview, previewData, chang
     }, [])
 
     useEffect(() => {
-        if(draftClicked){
+        if (draftClicked) {
             handleAddProduct()
         }
     }, [draftClicked])
@@ -422,23 +446,23 @@ function UploadProduct({ productData, ecommerceData, preview, previewData, chang
                     </p>
                 </div>}
                 <div className='button_actions'>
-                    { preview ? null :
+                    {preview ? null :
                         <React.Fragment>
-                        <button className='saveDraftBtn' type='button' onClick={handleDraft}>Save Draft</button>
-                    <div className='action_flexContainer'>
-                        <button className='cancelBtn' type='button' onClick={() => changeTab(1)}>Back</button>
-                        <button className='addProductBtn' onClick={() => {
-                            if(EditMode){
-                                handleUpdateProduct()
-                            }else{
-                                handleAddProduct()
-                            }
-                            
-                            }}>{`${EditMode? 'Update' : `Add Product`}`}</button>
-                    </div>
-                    </React.Fragment>
+                            <button className='saveDraftBtn' type='button' onClick={handleDraft}>Save Draft</button>
+                            <div className='action_flexContainer'>
+                                <button className='cancelBtn' type='button' onClick={() => changeTab(1)}>Back</button>
+                                <button className='addProductBtn' onClick={() => {
+                                    if (EditMode) {
+                                        handleUpdateProduct()
+                                    } else {
+                                        handleAddProduct()
+                                    }
+
+                                }}>{`${EditMode ? 'Update' : `Add Product`}`}</button>
+                            </div>
+                        </React.Fragment>
                     }
-                    
+
                 </div>
             </div>
             {

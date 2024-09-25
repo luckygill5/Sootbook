@@ -65,6 +65,7 @@ function ECommerceDetails({
         if (draftClicked) {
             handleDraft(productData, values);
         } else {
+            console.log("ecomerceData",values);
             ECommerceDetailsData(values);
             changeTab(2);
         }
