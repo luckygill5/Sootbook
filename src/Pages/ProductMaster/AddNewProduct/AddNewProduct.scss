@@ -1,6 +1,6 @@
-@import "../../../BaseStyle/Basestyle.scss";
+@import '../../../BaseStyle/Basestyle.scss';
 
-$font-monsterat : 'Montserrat';
+$font-monsterat: 'Montserrat';
 
 .addNewProduct_container {
     min-height: calc(100vh - 288px);
@@ -25,7 +25,7 @@ $font-monsterat : 'Montserrat';
             line-height: 16px;
             /* 133.333% */
             letter-spacing: 0.06px;
-            color: #6B7280;
+            color: #6b7280;
 
             .icon {
                 display: inline-flex;
@@ -37,11 +37,11 @@ $font-monsterat : 'Montserrat';
 
     .container_section {
         box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
-        background-color: #F2F5FA;
+        background-color: #f2f5fa;
         border-radius: 12px;
         padding: 24px;
         min-height: calc(100vh - 336px);
-        &.preview{
+        &.preview {
             box-shadow: none;
             padding: 0;
         }
@@ -58,34 +58,33 @@ $font-monsterat : 'Montserrat';
             text-align: left;
         }
 
-        .header_section{
-            .section_flexbox{
+        .header_section {
+            .section_flexbox {
                 @include flexbox();
                 margin-bottom: 20px;
                 align-items: center;
                 justify-content: space-between;
                 border-radius: 12px 12px 0px 0px;
                 padding: 8px 20px;
-                background-color: #F2F5FA;
+                background-color: #f2f5fa;
                 box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
 
-                .leftInfo_flexbox{
-                    @include flexbox(); 
-                    .imgBox{
+                .leftInfo_flexbox {
+                    @include flexbox();
+                    .imgBox {
                         width: 56px;
                         height: 56px;
                         margin-right: 20px;
-                        .preview{
+                        .preview {
                             max-width: 100%;
                             height: auto;
                             width: 100%;
-
                         }
                     }
-                    .info{
-                        .flexbox{
+                    .info {
+                        .flexbox {
                             @include flexbox();
-                            .title{
+                            .title {
                                 font-size: 20px;
                                 font-style: normal;
                                 font-weight: 500;
@@ -93,56 +92,54 @@ $font-monsterat : 'Montserrat';
                                 letter-spacing: 0.1px;
                                 color: $text;
                                 margin: 0;
-
                             }
                             .status {
                                 margin-left: 20px;
                                 height: 28px;
                                 border-radius: 6px;
-                                &.green{
-                                    background-color: #CCFBF1;
+                                &.green {
+                                    background-color: #ccfbf1;
                                     padding: 6px 6px 6px 22px;
                                     position: relative;
-                                    &::before{
+                                    &::before {
                                         content: '';
                                         display: inline-block;
                                         position: absolute;
                                         width: 6px;
                                         height: 6px;
-                                        background-color:#134E4A ;
+                                        background-color: #134e4a;
                                         border-radius: 50%;
                                         left: 6px;
                                         top: 50%;
                                         transform: translateY(-50%);
-
                                     }
                                     font-size: 12px;
                                     font-style: normal;
                                     font-weight: 400;
                                     line-height: 16px; /* 133.333% */
-                                    letter-spacing: 0.06px;  
-                                    color: #134E4A ;     
+                                    letter-spacing: 0.06px;
+                                    color: #134e4a;
                                 }
                             }
                         }
-                        .lastUpdated{
+                        .lastUpdated {
                             display: block;
                             font-size: 12px;
                             font-style: normal;
                             font-weight: 400;
                             line-height: 16px; /* 133.333% */
                             letter-spacing: 0.06px;
-                            color: #6B7280;  
+                            color: #6b7280;
                             margin-top: 8px;
                         }
                     }
                 }
-                .rightInfo_flexbox{
+                .rightInfo_flexbox {
                     @include flexbox();
                     align-items: center;
                     column-gap: 8px;
-                    .histroyBtn{
-                        border-radius:8px ;
+                    .histroyBtn {
+                        border-radius: 8px;
                         padding: 10px 12px;
                         box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
                         border: none;
@@ -155,20 +152,20 @@ $font-monsterat : 'Montserrat';
                         font-weight: 600;
                         line-height: 20px; /* 142.857% */
                         letter-spacing: 0.07px;
-                        white-space: nowrap;   
-                        &:focus:not(:focus-visible){
+                        white-space: nowrap;
+                        &:focus:not(:focus-visible) {
                             outline: none;
                         }
                     }
-                    .stockBtn{
+                    .stockBtn {
                         height: 40px;
                         cursor: pointer;
-                        border-radius:8px ;
+                        border-radius: 8px;
                         padding: 10px 12px;
                         box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
                         white-space: nowrap;
-                        background-color: #E6F6F8;
-                        &:focus:not(:focus-visible){
+                        background-color: #e6f6f8;
+                        &:focus:not(:focus-visible) {
                             outline: none;
                         }
                         font-size: 14px;
@@ -177,7 +174,7 @@ $font-monsterat : 'Montserrat';
                         line-height: 20px; /* 142.857% */
                         letter-spacing: 0.07px;
                         color: $buttonColor;
-                        border: none;  
+                        border: none;
                     }
                 }
             }
@@ -204,7 +201,7 @@ $font-monsterat : 'Montserrat';
                                 font-family: $font-monsterat;
                                 padding: 8px 12px;
                                 min-height: 40px;
-                                border-bottom: 2px solid #E5E7EB;
+                                border-bottom: 2px solid #e5e7eb;
 
                                 &.Mui-selected {
                                     color: rgb(34, 229, 145);
@@ -218,7 +215,7 @@ $font-monsterat : 'Montserrat';
                         }
                     }
                 }
-                .editBtn{
+                .editBtn {
                     position: absolute;
                     z-index: 1;
                     right: 0;
@@ -240,17 +237,17 @@ $font-monsterat : 'Montserrat';
                     font-style: normal;
                     font-weight: 600;
                     line-height: 20px; /* 142.857% */
-                    letter-spacing: 0.07px;  
-                    .icon{
+                    letter-spacing: 0.07px;
+                    .icon {
                         margin-right: 10px;
-                    display: inline-flex;
-                    svg{
-                        g{
-                            path{
-                                stroke: $buttonColor;
+                        display: inline-flex;
+                        svg {
+                            g {
+                                path {
+                                    stroke: $buttonColor;
+                                }
                             }
                         }
-                    }
                     }
                 }
             }
@@ -265,21 +262,20 @@ $font-monsterat : 'Montserrat';
                     padding-bottom: 0;
                     height: 100%;
                     position: relative;
-                    .loader_container{
+                    .loader_container {
                         position: absolute;
                         left: 0;
                         top: 0;
                         width: 100%;
                         height: 100%;
                         z-index: 1;
-                        background-color: #F2F5FA;
+                        background-color: #f2f5fa;
                         display: none;
-                        &.show{
-                            @include flexbox()
+                        &.show {
+                            @include flexbox();
                         }
                     }
                     .productDetail_container {
-
                         .first_flexbox,
                         .second_flexbox {
                             margin-bottom: 14px;
@@ -298,19 +294,19 @@ $font-monsterat : 'Montserrat';
                             .leftCol {
                                 width: 40%;
                                 padding-right: 10px;
-                                &.preview{
+                                &.preview {
                                     width: 20%;
-                                    .qrCodeFlexBox{
-                                        .leftCol{
+                                    .qrCodeFlexBox {
+                                        .leftCol {
                                             width: 100%;
                                         }
-                                        .qrCode_container{
+                                        .qrCode_container {
                                             width: 60px;
                                             height: 60px;
-                                            .qrcode-icon{
-                                                width:100%;
+                                            .qrcode-icon {
+                                                width: 100%;
                                                 max-width: 100%;
-                                                height: auto
+                                                height: auto;
                                             }
                                         }
                                     }
@@ -352,7 +348,7 @@ $font-monsterat : 'Montserrat';
                                                 line-height: 16px;
                                                 /* 133.333% */
                                                 letter-spacing: 0.06px;
-                                                color: #6B7280;
+                                                color: #6b7280;
                                                 text-align: left;
                                             }
                                         }
@@ -383,12 +379,12 @@ $font-monsterat : 'Montserrat';
                                                 line-height: 20px;
                                                 /* 142.857% */
                                                 letter-spacing: 0.07px;
-                                                color: #00A9BB;
+                                                color: #00a9bb;
                                                 @include flexbox();
                                                 align-items: center;
                                                 justify-content: center;
                                                 box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
-                                                background-color: #E6F6F8;
+                                                background-color: #e6f6f8;
                                                 white-space: nowrap;
                                             }
 
@@ -407,7 +403,7 @@ $font-monsterat : 'Montserrat';
                                                     outline: none;
                                                 }
 
-                                                background-color: #00A9BB;
+                                                background-color: #00a9bb;
                                                 color: $white;
                                                 font-size: 14px;
                                                 font-style: normal;
@@ -427,7 +423,7 @@ $font-monsterat : 'Montserrat';
                                 margin-right: -10px;
                                 margin-left: 10px;
                                 @include flexbox();
-                                &.preview{
+                                &.preview {
                                     width: 80%;
                                 }
                             }
@@ -436,12 +432,12 @@ $font-monsterat : 'Montserrat';
                         .first_flexbox {
                             margin: 0 -10px 14px -10px;
                             .inputBox {
-                                #productCode{
-                                    color: #D1D5DB;
-                                    opacity: .7;
+                                #productCode {
+                                    color: #d1d5db;
+                                    opacity: 0.7;
                                     cursor: not-allowed;
-                                    &::placeholder{
-                                        color: #D1D5DB;
+                                    &::placeholder {
+                                        color: #d1d5db;
                                     }
                                 }
                             }
@@ -527,13 +523,11 @@ $font-monsterat : 'Montserrat';
                                     }
                                 }
                             }
-
-
                         }
 
                         .bottom_flexbox {
                             padding-top: 16px;
-                            border-top: 1px solid #D1D5DB;
+                            border-top: 1px solid #d1d5db;
 
                             .leftCol {
                                 width: 60%;
@@ -546,7 +540,6 @@ $font-monsterat : 'Montserrat';
                                     @include flexbox();
 
                                     .inputField {
-
                                         .input_element,
                                         .MuiSelect-select {
                                             height: 36px;
@@ -557,55 +550,53 @@ $font-monsterat : 'Montserrat';
                                 }
                             }
                         }
-                        .inputBox{
+                        .inputBox {
                             .inputField {
-                                .form-error{
+                                .form-error {
                                     margin-bottom: 0;
                                     position: relative;
                                     text-align: left;
                                 }
                             }
                         }
-                        &.preview_active{
+                        &.preview_active {
                             .inputBox {
                                 .inputField {
-                                    >label{
+                                    > label {
                                         font-size: 16px;
                                         font-weight: 500;
                                         line-height: 24px;
                                     }
-                                    .input_element{
+                                    .input_element {
                                         background-color: transparent;
                                         box-shadow: none;
                                         padding: 0;
                                         height: 24px !important;
                                     }
-                                    .form-error{
-                                      display: none;
+                                    .form-error {
+                                        display: none;
                                     }
-                                    .MuiInputBase-root{
-                                        .MuiSelect-select{
-                                            &.Mui-disabled{
+                                    .MuiInputBase-root {
+                                        .MuiSelect-select {
+                                            &.Mui-disabled {
                                                 background-color: transparent;
                                                 box-shadow: none;
-                                                color: #6B7280;
-                                                -webkit-text-fill-color:#6B7280;
+                                                color: #6b7280;
+                                                -webkit-text-fill-color: #6b7280;
                                                 padding: 0;
                                                 @include flexbox();
                                                 align-items: center;
                                                 height: 24px !important;
                                                 cursor: text;
                                             }
-                                            
                                         }
-                                        .MuiSvgIcon-root{
+                                        .MuiSvgIcon-root {
                                             display: none;
                                         }
                                     }
-                                   
                                 }
-                                .barcode_box{
-                                    .label{
+                                .barcode_box {
+                                    .label {
                                         font-size: 16px;
                                         font-style: normal;
                                         font-weight: 500;
@@ -615,16 +606,15 @@ $font-monsterat : 'Montserrat';
                                         color: $text;
                                         text-align: left;
                                         margin-bottom: 4px;
-
                                     }
                                 }
                             }
-                            .first_flexbox{
+                            .first_flexbox {
                                 row-gap: 30px;
                                 position: relative;
                                 padding-bottom: 20px;
-                                border-bottom: 1px solid #D1D5DB;
-                                &::after{
+                                border-bottom: 1px solid #d1d5db;
+                                &::after {
                                     content: '';
                                     display: inline-block;
                                     position: absolute;
@@ -633,43 +623,45 @@ $font-monsterat : 'Montserrat';
                                     transform: translateY(-50%);
                                     width: 100%;
                                     height: 1px;
-                                    background-color: #D1D5DB;
+                                    background-color: #d1d5db;
                                 }
-                               
-                                .inputBox{
-                                    &.manufacturer, &.productCode{
+
+                                .inputBox {
+                                    &.manufacturer,
+                                    &.productCode {
                                         width: 17%;
                                     }
-                                     &.supplier, &.Product_Name {
+                                    &.supplier,
+                                    &.Product_Name {
                                         width: 20%;
                                     }
                                     &.genericName {
                                         width: 20%;
                                         margin-right: 20%;
                                     }
-                                } 
+                                }
                             }
-                            .second_flexbox{
+                            .second_flexbox {
                                 position: relative;
                                 padding-bottom: 20px;
-                                border-bottom: 1px solid #D1D5DB;
-                                .leftCol{
-                                    &.preview{
+                                border-bottom: 1px solid #d1d5db;
+                                .leftCol {
+                                    &.preview {
                                         width: 17%;
                                     }
-                                } 
-                                .inputBox{
+                                }
+                                .inputBox {
                                     width: 25%;
                                     &.barcode_section {
                                         width: 25%;
                                     }
                                 }
-                                .rightCol{
-                                    &.preview{
+                                .rightCol {
+                                    &.preview {
                                         margin-left: 0;
                                     }
-                                } 
-                            } 
+                                }
+                            }
                         }
                     }
 
@@ -696,7 +688,7 @@ $font-monsterat : 'Montserrat';
                                 flex-direction: row;
                                 align-items: center;
 
-                                >.MuiFormLabel-root {
+                                > .MuiFormLabel-root {
                                     font-size: 14px;
                                     font-style: normal;
                                     font-weight: 500;
@@ -743,7 +735,7 @@ $font-monsterat : 'Montserrat';
 
                         .bottom_flexbox {
                             padding-top: 16px;
-                            border-top: 1px solid #D1D5DB;
+                            border-top: 1px solid #d1d5db;
                             @include flexbox();
                             flex-wrap: wrap;
                             row-gap: 11.5px;
@@ -755,23 +747,24 @@ $font-monsterat : 'Montserrat';
                             margin-top: 100px;
                         }
 
-                        &.preview_active{
-                            .canDisplay{
+                        &.preview_active {
+                            .canDisplay {
                                 margin-bottom: 20px;
-                                .MuiFormControl-root{
-                                    .MuiFormLabel-root{
+                                .MuiFormControl-root {
+                                    .MuiFormLabel-root {
                                         color: rgb(34, 229, 145);
                                     }
-                                    .MuiFormGroup-root{
-                                        .MuiFormControlLabel-root{
+                                    .MuiFormGroup-root {
+                                        .MuiFormControlLabel-root {
                                             margin-left: 0;
                                             margin-right: 0;
-                                            .MuiRadio-root, .MuiTypography-root{
+                                            .MuiRadio-root,
+                                            .MuiTypography-root {
                                                 display: none;
                                             }
-                                            .MuiRadio-root{
+                                            .MuiRadio-root {
                                                 &.Mui-checked {
-                                                    + .MuiTypography-root{
+                                                    + .MuiTypography-root {
                                                         display: inline-block;
                                                     }
                                                 }
@@ -782,48 +775,46 @@ $font-monsterat : 'Montserrat';
                             }
                             .inputBox {
                                 .inputField {
-                                    .input_element{
+                                    .input_element {
                                         background-color: transparent;
                                         box-shadow: none;
                                         padding: 0;
                                         height: 24px !important;
                                     }
-                                    .form-error{
+                                    .form-error {
                                         display: none;
-                                      }
-                                    .MuiInputBase-root{
-                                        .MuiSelect-select{
-                                            &.Mui-disabled{
+                                    }
+                                    .MuiInputBase-root {
+                                        .MuiSelect-select {
+                                            &.Mui-disabled {
                                                 background-color: transparent;
                                                 box-shadow: none;
-                                                color: #6B7280;
-                                                -webkit-text-fill-color:#6B7280;
+                                                color: #6b7280;
+                                                -webkit-text-fill-color: #6b7280;
                                                 padding: 0;
                                                 @include flexbox();
                                                 align-items: center;
                                                 height: 24px !important;
                                                 cursor: text;
                                             }
-                                            
                                         }
-                                        .MuiSvgIcon-root{
+                                        .MuiSvgIcon-root {
                                             display: none;
                                         }
                                     }
-                                   
                                 }
                             }
-                            .categoryLevelFlexbox{
-                                 padding-bottom: 10px;
-                                border-bottom: 1px solid #D1D5DB; 
+                            .categoryLevelFlexbox {
+                                padding-bottom: 10px;
+                                border-bottom: 1px solid #d1d5db;
                                 margin-bottom: 20px;
                             }
-                            .second_flexbox{
+                            .second_flexbox {
                                 row-gap: 30px;
                                 position: relative;
                                 // padding-bottom: 20px;
                                 // border-bottom: 1px solid #D1D5DB;
-                                &::after{
+                                &::after {
                                     content: '';
                                     display: inline-block;
                                     position: absolute;
@@ -832,15 +823,15 @@ $font-monsterat : 'Montserrat';
                                     transform: translateY(-50%);
                                     width: 100%;
                                     height: 1px;
-                                    background-color: #D1D5DB;
+                                    background-color: #d1d5db;
                                 }
                             }
-                            .bottom_flexbox{
+                            .bottom_flexbox {
                                 row-gap: 30px;
                                 position: relative;
                                 padding-bottom: 20px;
                                 // border-bottom: 1px solid #D1D5DB;
-                                &::after{
+                                &::after {
                                     content: '';
                                     display: inline-block;
                                     position: absolute;
@@ -849,7 +840,7 @@ $font-monsterat : 'Montserrat';
                                     transform: translateY(-50%);
                                     width: 100%;
                                     height: 1px;
-                                    background-color: #D1D5DB;
+                                    background-color: #d1d5db;
                                 }
                             }
                         }
@@ -875,8 +866,8 @@ $font-monsterat : 'Montserrat';
                             padding: 14px 16px;
                             white-space: nowrap;
                             box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
-                            color: #00A9BB;
-                            background-color: #E6F6F8;
+                            color: #00a9bb;
+                            background-color: #e6f6f8;
                             font-size: 14px;
                             font-style: normal;
                             font-weight: 600;
@@ -901,8 +892,8 @@ $font-monsterat : 'Montserrat';
                                     outline: none;
                                 }
 
-                                border: 1px solid #00A9BB;
-                                color: #00A9BB;
+                                border: 1px solid #00a9bb;
+                                color: #00a9bb;
                                 height: 48px;
                                 padding: 14px 16px;
                                 border-radius: 8px;
@@ -936,7 +927,7 @@ $font-monsterat : 'Montserrat';
                                 }
 
                                 border: none;
-                                background-color: #00A9BB;
+                                background-color: #00a9bb;
                                 color: $white;
                                 font-size: 14px;
                                 width: 114px;
@@ -973,7 +964,7 @@ $font-monsterat : 'Montserrat';
                             border-radius: 12px;
                             padding: 48px;
                             background-color: $white;
-                            border: 1px dashed #E5E7EB;
+                            border: 1px dashed #e5e7eb;
                             @include flexbox();
                             align-items: center;
                             justify-content: center;
@@ -1000,7 +991,7 @@ $font-monsterat : 'Montserrat';
 
                                     .blue {
                                         display: inline-block;
-                                        color: #00A9BB;
+                                        color: #00a9bb;
                                         margin-left: 5px;
                                         font-size: 16px;
                                         font-style: normal;
@@ -1020,7 +1011,7 @@ $font-monsterat : 'Montserrat';
                                     line-height: 20px;
                                     /* 142.857% */
                                     letter-spacing: 0.07px;
-                                    color: #9CA3AF;
+                                    color: #9ca3af;
                                     width: 100%;
                                     max-width: 228px;
                                 }
@@ -1071,7 +1062,7 @@ $font-monsterat : 'Montserrat';
                                     }
                                 }
                             }
-                            &.uploadError{
+                            &.uploadError {
                                 margin-bottom: 0;
                             }
                         }
@@ -1080,8 +1071,8 @@ $font-monsterat : 'Montserrat';
                             margin-bottom: 60px;
                             margin-top: 20px;
                             box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
-                            background-color: #FEE2E2;
-                            border: 1px solid #FECACA;
+                            background-color: #fee2e2;
+                            border: 1px solid #fecaca;
                             border-radius: 12px;
                             padding: 16px;
                             max-width: 672px;
@@ -1094,7 +1085,6 @@ $font-monsterat : 'Montserrat';
                                 align-items: flex-start;
                                 .icon {
                                     display: inline-flex;
-
                                 }
 
                                 .text {
@@ -1105,11 +1095,10 @@ $font-monsterat : 'Montserrat';
                                     line-height: 28px;
                                     /* 155.556% */
                                     letter-spacing: 0.09px;
-                                    color: #991B1B;
+                                    color: #991b1b;
                                     text-align: left;
                                 }
                             }
-
                         }
 
                         .button_actions {
@@ -1118,37 +1107,36 @@ $font-monsterat : 'Montserrat';
                             align-items: center;
                             justify-content: space-between;
                             min-width: 114px;
-                            .saveDraftBtn{
-                                border:none;
+                            .saveDraftBtn {
+                                border: none;
                                 cursor: pointer;
                                 height: 48px;
-                                &:focus:not(:focus-visible){
+                                &:focus:not(:focus-visible) {
                                     outline: none;
                                 }
                                 white-space: nowrap;
                                 padding: 14px 16px;
                                 border-radius: 8px;
                                 box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
-                                background-color: #E6F6F8;
-                                color: #00A9BB;
+                                background-color: #e6f6f8;
+                                color: #00a9bb;
                                 font-size: 14px;
                                 font-style: normal;
                                 font-weight: 600;
                                 line-height: 20px;
                                 letter-spacing: 0.07px;
-
                             }
-                            .action_flexContainer{
+                            .action_flexContainer {
                                 @include flexbox();
                                 align-items: center;
                                 justify-content: space-between;
                                 column-gap: 20px;
                                 margin-bottom: 1px;
-                                .cancelBtn{
+                                .cancelBtn {
                                     border: none;
                                     cursor: pointer;
                                     box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
-                                    border: 1px solid #00A9BB;
+                                    border: 1px solid #00a9bb;
                                     border-radius: 8px;
                                     height: 48px;
                                     white-space: nowrap;
@@ -1159,14 +1147,14 @@ $font-monsterat : 'Montserrat';
                                     letter-spacing: 0.07px;
                                     padding: 14px 16px;
                                     background-color: transparent;
-                                    color: #00A9BB;
+                                    color: #00a9bb;
                                     min-width: 114px;
                                 }
-                                .addProductBtn{
-                                    background-color: #00A9BB;
+                                .addProductBtn {
+                                    background-color: #00a9bb;
                                     min-width: 150px;
                                     cursor: pointer;
-                                    &:focus:not(:focus-visible){
+                                    &:focus:not(:focus-visible) {
                                         outline: none;
                                     }
                                     height: 48px;
@@ -1177,23 +1165,23 @@ $font-monsterat : 'Montserrat';
                                     font-weight: 600;
                                     line-height: 20px; /* 142.857% */
                                     letter-spacing: 0.07px;
-                                    color: $white; 
+                                    color: $white;
                                     border: none;
                                 }
                             }
                         }
-                        &.preview_active{
-                            .uploadFlexbox{
-                                #dropzone{
+                        &.preview_active {
+                            .uploadFlexbox {
+                                #dropzone {
                                     cursor: not-allowed;
-                                    .dropzone{
+                                    .dropzone {
                                         cursor: not-allowed;
-                                        .uploadInfo{
-                                            cursor: not-allowed;  
+                                        .uploadInfo {
+                                            cursor: not-allowed;
                                         }
                                     }
-                                    .thumbnail{
-                                        .close{
+                                    .thumbnail {
+                                        .close {
                                             cursor: not-allowed;
                                         }
                                     }
@@ -1202,27 +1190,20 @@ $font-monsterat : 'Montserrat';
                         }
                     }
                     .inputField {
-                        label{
+                        label {
                             font-weight: 600;
                         }
-                        .MuiSelect-select{
-                            color: #6B7280;
+                        .MuiSelect-select {
+                            color: #6b7280;
                         }
                     }
                 }
-
             }
         }
-
-
     }
 }
 
-
-
-
-@media screen and (min-width:1500px) {
-
+@media screen and (min-width: 1500px) {
     .inputBox {
         @include flexbox();
 
@@ -1254,11 +1235,9 @@ $font-monsterat : 'Montserrat';
             width: 33.33%;
         }
     }
-
 }
 
-@media screen and (max-width:1499px) {
-
+@media screen and (max-width: 1499px) {
     .inputBox {
         @include flexbox();
 
@@ -1290,6 +1269,4 @@ $font-monsterat : 'Montserrat';
             width: 33.33%;
         }
     }
-
-
 }

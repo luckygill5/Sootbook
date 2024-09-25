@@ -1,8 +1,8 @@
 @import '../../BaseStyle/Basestyle.scss';
 
-$font-monsterat: 'Montserrat';
+$font-monsterat : 'Montserrat';
 
-.productMaster_container {
+.manufacturerMaster_container {
     min-height: calc(100vh - 288px);
     box-sizing: border-box;
 
@@ -11,7 +11,7 @@ $font-monsterat: 'Montserrat';
         font-family: $font-monsterat;
     }
 
-    .productMaster_content {
+    .manufacturerMaster_content {
         .headerFlexbox {
             @include flexbox();
             align-items: center;
@@ -30,7 +30,7 @@ $font-monsterat: 'Montserrat';
                 text-align: left;
             }
 
-            .addnewProduct {
+            .addnewManufacturer {
                 border: none;
                 cursor: pointer;
                 font-size: 14px;
@@ -40,7 +40,7 @@ $font-monsterat: 'Montserrat';
                 /* 142.857% */
                 letter-spacing: 0.07px;
                 color: $white;
-                background-color: #00a9bb;
+                background-color: #00A9BB;
                 border-radius: 8px;
                 box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
                 @include flexbox();
@@ -82,16 +82,15 @@ $font-monsterat: 'Montserrat';
                     line-height: 20px;
                     /* 142.857% */
                     letter-spacing: 0.07px;
-                    color: #6b7280;
+                    color: #6B7280;
                     @include flexbox();
                     align-items: center;
-                    box-shadow:
-                        0px 4px 4px 0px inset rgba(0, 0, 0, 0.25),
-                        -7px -7px 7px 0px inset #fff;
+                    box-shadow: 0px 4px 4px 0px inset rgba(0, 0, 0, 0.25), -7px -7px 7px 0px inset #FFF;
                     background-image: url('../../assets/images/search_icon.svg');
                     background-repeat: no-repeat;
                     background-position: 16px center;
                     border: none;
+
                 }
 
                 .actionFlexBox {
@@ -101,7 +100,7 @@ $font-monsterat: 'Montserrat';
                     .commonBtn {
                         white-space: nowrap;
                         box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
-                        border: 1px solid #e5e7eb;
+                        border: 1px solid #E5E7EB;
                         background-color: $white;
                         border-radius: 8px;
                         font-size: 14px;
@@ -129,7 +128,7 @@ $font-monsterat: 'Montserrat';
 
                                 g {
                                     path {
-                                        stroke: $text;
+                                        stroke: $text
                                     }
                                 }
                             }
@@ -145,7 +144,7 @@ $font-monsterat: 'Montserrat';
                     .toggleView {
                         border: none;
                         box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
-                        background-color: #f2f5fa;
+                        background-color: #F2F5FA;
                         border-radius: 8px;
                         cursor: pointer;
                         width: 44px;
@@ -170,7 +169,7 @@ $font-monsterat: 'Montserrat';
                                 }
                             }
                         }
-                        &.active {
+                        &.active{
                             background-color: $buttonColor;
                             svg {
                                 g {
@@ -184,7 +183,7 @@ $font-monsterat: 'Montserrat';
                 }
             }
 
-            .productMasterListingTabs {
+            .manufacturerMasterListingTabs {
                 margin-top: 8px;
 
                 .tabsContainer {
@@ -205,7 +204,7 @@ $font-monsterat: 'Montserrat';
                                         font-family: $font-monsterat;
                                         padding: 8px 12px;
                                         min-height: 38px;
-                                        border-bottom: 2px solid #e5e7eb;
+                                        border-bottom: 2px solid #E5E7EB;
                                         text-transform: capitalize;
 
                                         &.Mui-selected {
@@ -228,7 +227,7 @@ $font-monsterat: 'Montserrat';
                             padding-left: 0;
                             padding-right: 0;
                             position: relative;
-                            .productCard_container {
+                            .manufacturerCard_container {
                                 .card_flexContainer {
                                     width: 100%;
                                     @include flexbox();
@@ -237,7 +236,7 @@ $font-monsterat: 'Montserrat';
                                     flex-wrap: wrap;
 
                                     .card_item {
-                                        @media screen and (min-width: 1500px) {
+                                        @media screen and (min-width:1500px) {
                                             width: calc(25% - 18px);
                                         }
                                         width: calc(33.33% - 16px);
@@ -248,23 +247,23 @@ $font-monsterat: 'Montserrat';
                                         @include flexbox();
                                         align-items: flex-start;
                                         flex-direction: column;
-                                        .head_flexbox {
+                                        .head_flexbox{
                                             @include flexbox();
                                             width: 100%;
                                             justify-content: space-between;
-                                            .thumbnail {
+                                            .thumbnail{
                                                 width: 80px;
                                                 height: 80px;
-                                                img {
+                                                img{
                                                     max-width: 100%;
                                                     height: auto;
                                                     width: 100%;
                                                 }
                                             }
-                                            .action_flex {
+                                            .action_flex{
                                                 @include flexbox();
                                                 column-gap: 8px;
-                                                .commonBtn {
+                                                .commonBtn{
                                                     border: none;
                                                     cursor: pointer;
                                                     box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
@@ -274,18 +273,18 @@ $font-monsterat: 'Montserrat';
                                                     @include flexbox();
                                                     align-items: center;
                                                     justify-content: center;
-                                                    svg {
-                                                        g {
-                                                            path {
-                                                                stroke: #6b7280;
+                                                    svg{
+                                                        g{
+                                                            path{
+                                                                stroke: #6B7280;
                                                             }
                                                         }
                                                     }
                                                 }
                                             }
                                         }
-
-                                        .title {
+                                        
+                                        .title{
                                             font-size: 16px;
                                             font-style: normal;
                                             font-weight: 500;
@@ -293,15 +292,12 @@ $font-monsterat: 'Montserrat';
                                             letter-spacing: 0.08px;
                                             margin-top: 16px;
                                             margin-bottom: 4px;
-                                            text-align: left;
+                                            text-align:left;    
                                             display: inline-block;
                                             margin-right: auto;
                                             cursor: pointer;
-                                            white-space: normal;
-                                            word-break: break-all;
-                                            word-break: break-word;
                                         }
-                                        .subtitle {
+                                        .subtitle{
                                             display: block;
                                             text-align: left;
                                             font-size: 16px;
@@ -310,23 +306,20 @@ $font-monsterat: 'Montserrat';
                                             line-height: 24px; /* 150% */
                                             letter-spacing: 0.08px;
                                             margin-bottom: 16px;  
-                                            white-space: normal;
-                                            word-break: break-all;
-                                            word-break: break-word;
                                         }
-                                        .moreInfo {
+                                        .moreInfo{
                                             padding: 16px;
                                             border-radius: 8px;
-                                            background-color: #f3f4f6;
+                                            background-color: #F3F4F6;
                                             width: 100%;
-                                            ul {
+                                            ul{
                                                 margin: 0;
                                                 padding: 0;
                                                 row-gap: 8px;
-                                                li {
+                                                li{
                                                     list-style: none;
                                                     @include flexbox();
-                                                    .label {
+                                                    .label{
                                                         display: inline-block;
                                                         font-size: 14px;
                                                         font-style: normal;
@@ -334,28 +327,25 @@ $font-monsterat: 'Montserrat';
                                                         line-height: 20px; /* 142.857% */
                                                         letter-spacing: 0.07px;
                                                         color: $text;
-                                                        margin-right: 8px;
+                                                        margin-right: 8px;  
                                                         text-align: left;
                                                     }
-                                                    .text {
+                                                    .text{
                                                         display: inline-block;
                                                         font-size: 14px;
                                                         font-style: normal;
                                                         font-weight: 400;
                                                         line-height: 20px; /* 142.857% */
                                                         letter-spacing: 0.07px;
-                                                        color: $text;
+                                                        color: $text;  
                                                         text-align: left;
-                                                        white-space: normal;
-                                                        word-break: break-all;
-                                                        word-break: break-word;
                                                     }
                                                 }
                                             }
                                         }
                                     }
 
-                                    .loader_container {
+                                    .loader_container{
                                         justify-content: center;
                                         height: 200px;
                                         align-items: center;
@@ -364,24 +354,25 @@ $font-monsterat: 'Montserrat';
                                     }
                                 }
                             }
+                            
                         }
                     }
                 }
             }
         }
+        
     }
-    &.editMode {
-        .addNewProduct_container {
+    &.editMode{
+
+        .addNewManufacturer_container{
             .container_section {
                 .tabsContainer {
-                    .tabContentContainer {
-                        .MuiBox-root {
-                            .draftBtn,
-                            .saveDraftBtn {
+                    .tabContentContainer{
+                        .MuiBox-root{
+                            .draftBtn, .saveDraftBtn{
                                 display: none;
                             }
-                            .rightCol,
-                            .action_flexContainer {
+                            .rightCol, .action_flexContainer{
                                 margin-left: auto;
                             }
                         }
@@ -392,128 +383,3 @@ $font-monsterat: 'Montserrat';
     }
 }
 
-.draftList_container {
-    box-sizing: border-box;
-    * {
-        box-sizing: border-box;
-        font-family: $font-monsterat;
-    }
-    .draftTable {
-        width: 100%;
-        box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
-        .tableHead{
-            width: 100%;
-            .row {
-                @include flexbox();
-                justify-items: flex-end;
-                .tabCheckBox {
-                    width: 48px;
-                    height: 56px;
-                    @include flexbox();
-                    align-items: center;
-                    justify-content: center;
-                    background-color: #f8fafc;
-                    border-bottom: 1px solid #e5e7eb;
-                    // border-left: 1px solid #E5E7EB;
-                    .Mui-checked {
-                        color: #00a9bb;
-                    }
-                }
-                .thead {
-                    height: 56px;
-                    @include flexbox();
-                    width: calc(33.33% - 16px);
-                    align-items: center;
-                    background-color: #f8fafc;
-                    border-bottom: 1px solid #e5e7eb;
-                    border-left: 1px solid #e5e7eb;
-                    padding: 10px 16px;
-                    .text {
-                        display: inline-block;
-                        font-size: 14px;
-                        font-style: normal;
-                        font-weight: 500;
-                        line-height: 20px; /* 142.857% */
-                        letter-spacing: 0.07px;
-                        color: #6b7280;
-                        margin-right: 4px;
-                    }
-                    .sort {
-                        display: inline-flex;
-                    }
-                }
-            }
-        }
-        .tableBody {
-            .row {
-                @include flexbox();
-                .tabCheckBox {
-                    width: 48px;
-                    height: 56px;
-                    @include flexbox();
-                    align-items: center;
-                    border-bottom: 1px solid #e5e7eb;
-                    &.checked {
-                        .Mui-checked {
-                            color: #00a9bb;
-                        }
-                    }
-                }
-                .tabCell {
-                    height: 56px;
-                    padding: 10px 16px;
-                    background-color: $white;
-                    border-bottom: 1px solid #e5e7eb;
-                    border-left: 1px solid #e5e7eb;
-                    @include flexbox();
-                    align-items: center;
-                    width: calc(33.33% - 16px);
-                    .text {
-                        display: inline-block;
-                        font-size: 14px;
-                        font-style: normal;
-                        font-weight: 400;
-                        line-height: 20px; /* 142.857% */
-                        letter-spacing: 0.07px;
-                        color: $text;
-                    }
-                    .copy {
-                        display: inline-flex;
-                        margin-left: auto;
-                        cursor: pointer;
-                    }
-                }
-                .actionCell {
-                    width: calc(33.33% - 16px);
-                    @include flexbox();
-                    align-items: center;
-                    height: 56px;
-                    padding: 10px 16px;
-                    border-left: 1px solid #e5e7eb;
-                    border-bottom: 1px solid #e5e7eb;
-                    .edit {
-                        display: block;
-                        color: #14b8a6;
-                        font-size: 14px;
-                        font-style: normal;
-                        font-weight: 600;
-                        line-height: 20px; /* 142.857% */
-                        letter-spacing: 0.07px;
-                        margin-right: 32px;
-                        cursor: pointer;
-                    }
-                    .delete {
-                        display: block;
-                        color: #ef4444;
-                        font-size: 14px;
-                        font-style: normal;
-                        font-weight: 600;
-                        line-height: 20px; /* 142.857% */
-                        letter-spacing: 0.07px;
-                        cursor: pointer;
-                    }
-                }
-            }
-        }
-    }
-}
