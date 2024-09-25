@@ -41,6 +41,7 @@ import Collection from './DashboardCollections/DashboardCollections.js';
 import './AdminDashBoardContent.scss';
 import AddNewEmployee from '../../../Pages/EmployeeMaster/AddNewEmployee/AddNewEmployee.js';
 import Employee from '../../../Pages/AdminSideNav_Menu/Employee/Employee.js';
+import ManufacturerMaster from '../../../Pages/ManufacturerMaster/ManufacturerMaster.js';
 
 // interface TabPanelProps {
 //     children?: React.ReactNode;
@@ -197,6 +198,8 @@ function AdminDashBoardContent(props) {
                     <User />
                 ) : props.viewcontrol == 'Categories' ? (
                     <CategoryMaster />
+                ): props.viewcontrol == "Manufacturers" ? (
+                    <ManufacturerMaster updateBreadCrumb={props.updateBreadCrumb} breadcrumbUpdateData={props.breadcrumbUpdateData}/>
                 ) : (
                     <div className='middle_content'>
                         <div className={`flexBox_container ${selectedMenu.split(' ').join('_').toLocaleLowerCase()}`}>

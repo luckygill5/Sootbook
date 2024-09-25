@@ -54,13 +54,17 @@ function ProductMaster({ breadcrumbUpdateData, updateBreadCrumb }) {
         setEditMode(false);
         setPreviewData([]);
         setPreviewMode(false);
+        handleBradCrumb();
+    };
+
+    const handleBradCrumb=()=>{
         let removeLastBreadcrumb = breadcrumb.filter(item => {
-            if (item !== 'Add New Product') {
+            if (item !== 'Add New Product' && item!=='Edit Product') {
                 return item;
             }
         });
         setBreadCrumb([...removeLastBreadcrumb]);
-    };
+    }
 
     useEffect(() => {
         updateBreadCrumb(breadcrumb);
@@ -175,6 +179,7 @@ function ProductMaster({ breadcrumbUpdateData, updateBreadCrumb }) {
         setPreviewData(filter[0]);
         setPreviewMode(false);
         setAddProduct(true);
+        setBreadCrumb([...breadcrumb, 'Edit Product']);
         handleRemovePreview();
     };
 
@@ -202,6 +207,7 @@ function ProductMaster({ breadcrumbUpdateData, updateBreadCrumb }) {
         setAddProduct(true);
         setPreviewMode(false);
         setEditMode(true);
+        setBreadCrumb([...breadcrumb, 'Edit Product']);
     };
 
     const handleRemovePreview = () => {
@@ -212,6 +218,7 @@ function ProductMaster({ breadcrumbUpdateData, updateBreadCrumb }) {
     const handleSuccessModalClose = () => {
         setProductListUpdate(true);
         setAddProduct(false);
+        handleBradCrumb();
     };
 
     useEffect(() => {
@@ -246,12 +253,14 @@ function ProductMaster({ breadcrumbUpdateData, updateBreadCrumb }) {
     const handleDeleteSuccessModalClose = () => {
         setSuccessModal(false);
         setSuccessModalMsg('');
+        handleBradCrumb();
     };
 
     const handleDraftSuccessPopUpclose = () => {
         setAddProduct(false);
         // setValue(1);
         setShowDrafList(true);
+        handleBradCrumb();
     };
 
     const handleDeleteDraft = event => {
