@@ -160,6 +160,7 @@ function CommonTable(props) {
 
                 </div>
             </div>) : <Box className="loader_container" sx={{ display: 'flex' }}>
+            <p>No Data found</p>
             </Box>
             }
 
