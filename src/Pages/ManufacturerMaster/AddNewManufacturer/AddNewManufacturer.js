@@ -7,52 +7,15 @@ import ManuFacturerDetail from "./ManufacturerDetail"
 import './AddNewManufacturer.scss';
 
 
-function AddNewManufacturer({ back, preview, previewData, removePreviewMode, successModalClose, EditData, draftSuccessPopUpClose }) {
-    const [value, setValue] = useState(0);
+function AddNewManufacturer({ back, preview, previewData, removePreviewMode, successModalClose, EditData }) {
     const [productCreateList, setProductCreateList] = useState("");
-    const [ecommercedata, setEcommerceData] = useState("")
     const [productDetailsCollection, setProductDetailsCollection] = useState("");
     const  [productTypelist, setProductTypeList] = useState([]);
-    const handleChange = (event, newValue) => {
-        setValue(newValue);
-    };
 
-    function CustomTabPanel(props) {
-        const { children, value, index, ...other } = props;
-
-        return (
-            <div
-                role="tabpanel"
-                hidden={value !== index}
-                id={`simple-tabpanel-${index}`}
-                aria-labelledby={`simple-tab-${index}`}
-                {...other}
-            >
-                {value === index && <Box sx={{ p: 3 }}>{children}</Box>}
-            </div>
-        );
-    }
-
-    function a11yProps(index) {
-        return {
-            id: `simple-tab-${index}`,
-            'aria-controls': `simple-tabpanel-${index}`,
-        };
-    }
-
-
-    const handleDraftPopUpClose = () => {
-        draftSuccessPopUpClose()
-    }
     useEffect(() => {
         handleProductCreateList();
         handleProductTypeList();
     }, [])
-
-
-    const handleTabs = (event) => {
-        handleChange(true, event)
-    }
 
     const handleProductDetailData = (event) => {
         setProductDetailsCollection(event)
@@ -150,7 +113,7 @@ function AddNewManufacturer({ back, preview, previewData, removePreviewMode, suc
                         }
                     </Box>
 
-                        <ManuFacturerDetail successModalClose={() => successModalClose()} productTypelist={productTypelist} preview={preview} previewData={previewData} productDetailData={(e) => handleProductDetailData(e)} ProductCreateList={productCreateList} changeTab={(e) => handleTabs(e)} back={back} productBackData={productDetailsCollection} draftPopUpClose={() => handleDraftPopUpClose()} />
+                        <ManuFacturerDetail successModalClose={() => successModalClose()} productTypelist={productTypelist} preview={preview} previewData={previewData} productDetailData={(e) => handleProductDetailData(e)} ProductCreateList={productCreateList} back={back} productBackData={productDetailsCollection}/>
                 </Box>
             </div>
         </div>
