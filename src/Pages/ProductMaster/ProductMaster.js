@@ -39,6 +39,8 @@ function ProductMaster({ breadcrumbUpdateData, updateBreadCrumb }) {
     const [deleteProductData, setDeleteProductData] = useState('');
     const [DeleteModalTitle, setDeleteModalTitle] = useState('');
     const [DeleteModalMsg, setDeleteModalMsg] = useState('');
+    const [totalPagesListCard, setTotalPagesListCard] = useState("");
+    const [totalPagesDraft, setTotalPagesDraft] = useState("");
 
     let tableHeader = ['name', 'genericName', 'productCode', 'manufacturer', 'netPrice'];
 
@@ -110,6 +112,7 @@ function ProductMaster({ breadcrumbUpdateData, updateBreadCrumb }) {
             });
             if (response.status == 200) {
                 setProductListCard(response?.data?.data?.products);
+                setTotalPagesListCard(response?.data?.data?.totalPages)
             }
         } catch (error) {
             console.log('error', error);
@@ -128,6 +131,7 @@ function ProductMaster({ breadcrumbUpdateData, updateBreadCrumb }) {
             });
             if (response.status == 200) {
                 setDraftListData(response?.data?.data?.products);
+                setTotalPagesDraft(response?.data?.data?.totalPages)
             }
         } catch (error) {
             console.log('error', error);
@@ -380,7 +384,7 @@ function ProductMaster({ breadcrumbUpdateData, updateBreadCrumb }) {
                                         ) : (
                                             ''
                                         )}
-                                        {productListCard ? <Pagination pageNo={pageValue} paginationSet={e => handlePagination(e)} /> : ''}
+                                        {productListCard ? <Pagination totalPages={totalPagesListCard} pageNo={pageValue} paginationSet={e => handlePagination(e)} /> : ''}
                                     </CustomTabPanel>
                                     <CustomTabPanel value={value} index={1} className='tabContentContainer'>
                                         <DraftList
@@ -388,7 +392,7 @@ function ProductMaster({ breadcrumbUpdateData, updateBreadCrumb }) {
                                             deleteDataPopulate={e => handleDeleteDraft(e)}
                                             editDataPopulate={e => handleEditDraftData(e)}
                                         />
-                                        {draftListData ? <Pagination pageNo={pageValue} paginationSet={e => handlePagination(e)} /> : ''}
+                                        {draftListData ? <Pagination totalPages={totalPagesDraft} pageNo={pageValue} paginationSet={e => handlePagination(e)} /> : ''}
                                     </CustomTabPanel>
                                 </Box>
                             </div>

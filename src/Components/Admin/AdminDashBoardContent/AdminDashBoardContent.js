@@ -146,6 +146,11 @@ function AdminDashBoardContent(props) {
         },
     ];
 
+    const handleHomeBreadcrumb = (e) => {
+        e.preventDefault();
+        navigate("/")
+    }
+
     return (
         <React.Fragment>
             <div className={`dashboard_dataWrapper ${props.viewManage && 'expand_view'}`}>
@@ -172,7 +177,7 @@ function AdminDashBoardContent(props) {
                 </div>
                 <div role='presentation' className='breadcrumb_block'>
                     <Breadcrumbs aria-label='breadcrumb'>
-                        <Link underline='hover' color='inherit' href='/'>
+                        <Link underline='hover' color='inherit' href='/' onClick={(event) => handleHomeBreadcrumb(event)}>
                             home
                         </Link>
                         {props.breadcrumbUpdateData && props.breadcrumbUpdateData.length > 0 ? (
