@@ -1,0 +1,126 @@
+@import "../../BaseStyle/Basestyle.scss";
+
+.MuiDialog-root{
+    &.delete_Modal{
+        box-sizing: border-box;
+        *{
+            font-family: $font-monsterat;
+            box-sizing: border-box;
+        }
+        .MuiPaper-root{
+            max-width: 450px;
+            width: 100%;
+            border-radius: 16px;
+            padding: 40px;
+            box-shadow: 0px 20px 13px 0px rgba(0, 0, 0, 0.03), 0px 8px 5px 0px rgba(0, 0, 0, 0.08);
+            background-color: $white;
+            .close_btn{
+                position: absolute;
+                width: 38px;
+                height: 38px;
+                padding: 0;
+                z-index: 1;
+                background-color: transparent;
+                border: none;
+                right: 10px;
+                top: 10px;
+                cursor: pointer;
+                @include flexbox();
+                align-items: center;
+                justify-content: center;
+                &:focus:not(:focus-visible){
+                    outline: none;
+                }
+            }
+            .delete_iconBlock{
+                width: 62px;
+                height: 62px;
+                margin:0 auto;
+                .deletealert_img{
+                    max-width: 100%;
+                    width: 100%;
+                    height: 100%;
+                }
+            }
+            .delete_title{
+                font-size: 24px;
+                font-style: normal;
+                font-weight: 700;
+                line-height: 32px; /* 133.333% */
+                letter-spacing: 0.12px;  
+                font-family: $font-monsterat;
+                color: $text;
+                margin-top: 20px;
+                margin-bottom: 10px;
+                text-align: center;
+
+            }
+            .delete_msg{
+                font-size: 16px;
+                font-style: normal;
+                font-weight: 500;
+                line-height: 24px; /* 150% */
+                letter-spacing: 0.08px;
+                color:#6B7280;   
+                font-family: $font-monsterat;   
+                text-align: center; 
+                margin-top: 0px;
+                margin-bottom: 0px;
+                padding: 0;
+            }
+            .action_flexbox{
+                @include flexbox();
+                align-items: center;
+                justify-content: center;
+                margin-top: 20px;
+                column-gap: 16px;
+                .cancelBtn{
+                    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+                    background-color: #F2F5FA;
+                    border-radius: 8px;
+                    padding: 10px 12px;
+                    width: auto;
+                    max-width: fit-content;
+                    white-space: nowrap;
+                    cursor: pointer;
+                    &:focus:not(:focus-visible){
+                        outline: none;
+                    }
+                    @include flexbox();
+                    align-items: center;
+                    justify-content: center;
+                    font-size: 14px;
+                    font-style: normal;
+                    font-weight: 600;
+                    line-height: 20px; /* 142.857% */
+                    letter-spacing: 0.07px;
+                    color: $text;  
+                    border: none;
+                }
+                .confirmBtn{
+                    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+                    background-color: $buttonColor;
+                    border-radius: 8px;
+                    padding: 10px 12px;
+                    width: auto;
+                    max-width: fit-content;
+                    white-space: nowrap;
+                    cursor: pointer;
+                    &:focus:not(:focus-visible){
+                        outline: none;
+                    }
+                    @include flexbox();
+                    align-items: center;
+                    justify-content: center;
+                    font-size: 14px;
+                    font-style: normal;
+                    font-weight: 600;
+                    line-height: 20px; /* 142.857% */
+                    letter-spacing: 0.07px;
+                    color: $white; 
+                    border: none; 
+                }
+            }
+        }
+    }
+} 

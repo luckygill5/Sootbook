@@ -14,30 +14,27 @@ import ErrorModal from '../../../Components/CommonErrorModal/ErrorModal';
 import "./AddNewProduct.scss"
 
 
-function UploadProduct({ productData, ecommerceData, preview, previewData, changeTab, successModalClose }) {
+function UploadProduct({ productData, ecommerceData, preview, previewData, changeTab, successModalClose, EditMode, draftPopUpClose }) {
     const fileTypes = ["JPG", "PNG", "GIF"];
     const [base64, setBase64] = useState('');
     const [errorModal, setErrorModal] = useState(false);
     const [errorMsg, setErrorMsg] = useState("");
+    const [updateClicked, SetUpdateClicked] = useState(false);
     const [file, setFile] = useState(null);
     const [uploadAlert, setUploadAlert] = useState(false);
     const [uploadedFile, setUploadedFile] = useState([]);
     const [removeFile, setRemoveFile] = useState(false)
     const [addproductFormData, setAddproductFormData] = useState("")
     const [successModal, setSucessModal] = useState("");
-    const [draft, setDraft] = useState("")
-
-    // const handleFileChange = (event) => {
-    //     const selectedFiles = event;
-    //     const filePreviews = selectedFiles.map(file => ({
-    //         name: file.name,
-    //         url: URL.createObjectURL(file)
-    //     }));
-    //     filePreviews.map(item => {
-    //         setUploadedFile([...uploadedFile, item.url])
-    //     })
-    //     setFile(filePreviews);
-    // };
+    const [ecommerceDataState, setEcommerceDataState] = useState("")
+    const [packagingData, setPackagingData] = useState("");
+    const [uploadImageState, setUploadImageState] = useState('');
+    const [SuccessMsg, setSuccessMsg] = useState("");
+    const [SuccessTitle, setSuccessTitle] = useState("");
+    const [productAddAPIcall, setProductAddAPIcall] = useState(false)
+    const [draftClicked, setDraftClicked] = useState(false);
+    const [draftsuccessModal, setDraftSuccessModal] = useState(false);
+    const [draftButtonClick, setDraftButtonClick] = useState(false);
 
     const maxFiles = 5; // Limit the number of files to 3
     let fileCollection = [];
@@ -115,7 +112,7 @@ function UploadProduct({ productData, ecommerceData, preview, previewData, chang
             reader.onloadend = () => {
                 const base64String = reader.result.replace('data:', '').replace(/^.+,/, '');
                 base64Array.push(`data:image/png;base64,${base64String}`)
-                
+
             };
             setBase64(base64Array);
             reader.readAsDataURL(blob);
@@ -125,14 +122,14 @@ function UploadProduct({ productData, ecommerceData, preview, previewData, chang
     };
 
     useEffect(() => {
-        
-       if(uploadedFile &&
-        uploadedFile.length > 0){
+
+        if (uploadedFile &&
+            uploadedFile.length > 0) {
             uploadedFile.map((item) => {
                 convertBlobToBase64(item);
             })
-       }  
-              
+        }
+
     }, [uploadedFile])
 
 
@@ -143,12 +140,12 @@ function UploadProduct({ productData, ecommerceData, preview, previewData, chang
         if (uploadedFile && uploadedFile.length == 0) {
             setUploadAlert("Please upload at least one image. Adding an image is required to proceed")
         }
-        else if (uploadedFile && uploadedFile.length > 0 && base64 && base64.length > 0) {           
+        else if (uploadedFile && uploadedFile.length > 0 && base64 && base64.length > 0) {
             let uploadImageData = {
-                image: base64 
+                image: base64
             }
 
-            if (uploadImageData && uploadImageData.image.length > 0) {
+            if (uploadImageData && uploadImageData.image.length > 0 && productData) {
 
                 const Packaging = {
                     packaging: [
@@ -174,11 +171,44 @@ function UploadProduct({ productData, ecommerceData, preview, previewData, chang
 
                     ]
                 }
-                const { Sales_Packing_1, Sales_Packing_2, Sales_Packing_3, Quantity_1, Quantity_2, Quantity_3, Rate_1, Rate_2, Rate_3, Stock_1, Stock_2, Stock_3, ...newproductData } = productData;
-                const collection = { ...newproductData, ...Packaging, ...ecommerceData, ...uploadImageData, isDraft: false };
+                let collection
+                if (EditMode) {
 
-                setAddproductFormData(collection);
-               
+
+                    delete productData.Sales_Packing_1;
+                    delete productData.Sales_Packing_2;
+                    delete productData.Sales_Packing_3;
+                    delete productData.Quantity_1;
+                    delete productData.Quantity_2;
+                    delete productData.Quantity_3;
+                    delete productData.Rate_1;
+                    delete productData.Rate_2;
+                    delete productData.Rate_3;
+                    delete productData.Stock_1;
+                    delete productData.Stock_2;
+                    delete productData.Stock_3;
+                    delete ecommerceData.image;
+                    delete ecommerceData.packaging;
+                    setPackagingData({ ...Packaging });
+                    setUploadImageState({ ...uploadImageData })
+                    setAddproductFormData({ ...productData })
+                    setEcommerceDataState({ ...ecommerceData })
+
+                } else {
+                    const { Sales_Packing_1, Sales_Packing_2, Sales_Packing_3, Quantity_1, Quantity_2, Quantity_3, Rate_1, Rate_2, Rate_3, Stock_1, Stock_2, Stock_3, ...newproductData } = productData;
+
+                    if (draftClicked && draftButtonClick == false) {
+                        setDraftButtonClick(true)
+                        collection = { ...newproductData, ...Packaging, ...ecommerceData, ...uploadImageData, isDraft: true };
+                    } else {
+                        collection = { ...newproductData, ...Packaging, ...ecommerceData, ...uploadImageData, isDraft: false };
+                    }
+
+
+                    setAddproductFormData(collection);
+                }
+
+
 
             }
 
@@ -189,12 +219,44 @@ function UploadProduct({ productData, ecommerceData, preview, previewData, chang
 
 
     useEffect(() => {
-        addProduct()
-    },[addproductFormData] )
+        if (EditMode && updateClicked) {
+            const eCommerceDetailKeys = [
+                'canDisplay',
+                'firstCategory',
+                'secondCategory',
+                'thirdCategory',
+                'shortInfo',
+                'longInfo',
+                'ingredient',
+                'symptom',
+                'dosage',
+                'strength',
+                'dosageForm',
+                'discount',
+                'classification',
+                'bodySystem',
+                'country',
+            ];
+            const filteredEcommerceData = Object.keys(ecommerceDataState)
+                .filter(key => eCommerceDetailKeys.includes(key))
+                .reduce((obj, key) => {
+                    obj[key] = ecommerceDataState[key];
+                    return obj;
+                }, {});
+
+            console.log("addproduct", addproductFormData)
+            const finalObj = { ...addproductFormData, ...filteredEcommerceData, ...packagingData, ...uploadImageState, isDraft: false }
+            handleEditProduct(finalObj);
+        } else {
+            addProduct()
+        }
+
+    }, [addproductFormData, ecommerceDataState, packagingData, uploadImageState])
 
     const addProduct = async event => {
 
-        if (addproductFormData !== "") {
+        if (addproductFormData !== "" && productAddAPIcall == false) {
+            setProductAddAPIcall(true)
             const accessToken = `Bearer ${sessionStorage.accessToken} `
             try {
                 let response = await axiosClient.post(
@@ -212,7 +274,19 @@ function UploadProduct({ productData, ecommerceData, preview, previewData, chang
 
                 if (response.status == 200) {
                     // setProductCreateList( response?.data?.data)
-                    setSucessModal(true)
+                    setSucessModal(true);
+                    setSuccessMsg("The new product has been added into the system");
+                    setSuccessTitle("Product has been added successfully");
+                    setProductAddAPIcall(false)
+                    if (draftClicked) {
+                        setDraftClicked(false);
+                        setDraftSuccessModal(true);
+                        setSuccessTitle("Draft saved successfull")
+                        setSuccessMsg("");
+                    }
+                    if (draftButtonClick == true) {
+                        setDraftButtonClick(false)
+                    }
                 }
 
             } catch (error) {
@@ -228,7 +302,7 @@ function UploadProduct({ productData, ecommerceData, preview, previewData, chang
 
     const handleSuccessPopupClose = () => {
         setSucessModal(false);
-        successModalClose()
+        successModalClose();
     }
 
     const handleModalErrorPopUP = () => {
@@ -237,11 +311,63 @@ function UploadProduct({ productData, ecommerceData, preview, previewData, chang
 
 
     const handleDraft = () => {
-        setDraft(true);
-        handleAddProduct()
+        if (uploadedFile && uploadedFile.length > 0) {
+            setDraftClicked(true)
+        } else if (uploadedFile && uploadedFile.length == 0) {
+            setUploadAlert("Please upload at least one image. Adding an image is required to proceed")
+        }
+
     }
 
- 
+
+    const handleUpdateProduct = () => {
+        handleAddProduct();
+        SetUpdateClicked(true)
+
+
+    }
+
+    const handleEditProduct = async (event) => {
+        if (event !== "") {
+            const accessToken = `Bearer ${sessionStorage.accessToken} `
+            try {
+                let response = await axiosClient.post(
+                    `admin/product/update`, event, {
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'x-via-device': true,
+                        'Authorization': accessToken
+                    },
+
+
+                }
+
+                );
+
+                if (response.status == 200) {
+                    // setProductCreateList( response?.data?.data)
+                    setSucessModal(true);
+                    SetUpdateClicked(false);
+                    setAddproductFormData("");
+                    setEcommerceDataState("");
+                    setUploadImageState("");
+                    setPackagingData("");
+                    setSuccessMsg("The product has been updated into the system");
+                    setSuccessTitle("Product has been updated successfully")
+                }
+
+            } catch (error) {
+                console.log("error", error);
+                setErrorModal(true);
+                setErrorMsg(error.response.data.message);
+                setAddproductFormData("");
+                setEcommerceDataState("");
+                setUploadImageState("");
+                setPackagingData("")
+
+            }
+        }
+    }
 
     useEffect(() => {
         if (previewData && previewData.image) {
@@ -262,6 +388,17 @@ function UploadProduct({ productData, ecommerceData, preview, previewData, chang
             // This will be the Blob object of the image
         }
     }, [])
+
+    useEffect(() => {
+        if (draftClicked) {
+            handleAddProduct()
+        }
+    }, [draftClicked])
+
+    const handleDraftSuccessPopupClose = () => {
+        draftPopUpClose()
+    }
+
 
 
     return (
@@ -309,16 +446,23 @@ function UploadProduct({ productData, ecommerceData, preview, previewData, chang
                     </p>
                 </div>}
                 <div className='button_actions'>
-                    { preview ? null :
+                    {preview ? null :
                         <React.Fragment>
-                        <button className='saveDraftBtn' type='button' onClick={handleDraft}>Save Draft</button>
-                    <div className='action_flexContainer'>
-                        <button className='cancelBtn' type='button' onClick={() => changeTab(1)}>Back</button>
-                        <button className='addProductBtn' onClick={() => handleAddProduct()}>Add Product</button>
-                    </div>
-                    </React.Fragment>
+                            <button className='saveDraftBtn' type='button' onClick={handleDraft}>Save Draft</button>
+                            <div className='action_flexContainer'>
+                                <button className='cancelBtn' type='button' onClick={() => changeTab(1)}>Back</button>
+                                <button className='addProductBtn' onClick={() => {
+                                    if (EditMode) {
+                                        handleUpdateProduct()
+                                    } else {
+                                        handleAddProduct()
+                                    }
+
+                                }}>{`${EditMode ? 'Update' : `Add Product`}`}</button>
+                            </div>
+                        </React.Fragment>
                     }
-                    
+
                 </div>
             </div>
             {
@@ -326,8 +470,8 @@ function UploadProduct({ productData, ecommerceData, preview, previewData, chang
                 <SuccessModal
                     handleSuccessClose={handleSuccessPopupClose}
                     SuccessPopUp={successModal}
-                    SuccessMsg="The new product has been added into the system"
-                    SuccessTitle="Product has been added successfully"
+                    SuccessMsg={SuccessMsg}
+                    SuccessTitle={SuccessTitle}
                 />
             }
             {errorModal && (
@@ -337,6 +481,15 @@ function UploadProduct({ productData, ecommerceData, preview, previewData, chang
                     ErrorMsg={errorMsg}
                 />
             )}
+            {
+                draftsuccessModal &&
+                <SuccessModal
+                    handleSuccessClose={handleDraftSuccessPopupClose}
+                    SuccessPopUp={draftsuccessModal}
+                    SuccessMsg={SuccessMsg}
+                    SuccessTitle={SuccessTitle}
+                />
+            }
         </React.Fragment>
     )
 }
