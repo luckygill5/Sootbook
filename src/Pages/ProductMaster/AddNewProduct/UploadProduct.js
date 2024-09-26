@@ -404,7 +404,7 @@ function UploadProduct({ productData, ecommerceData, preview, previewData, chang
     return (
         <React.Fragment>
             <div className={`uploadProduct_container ${preview ? 'preview_active' : ''}`}>
-                <h5 className='section_title'>Upload Product Image</h5>
+                <h5 className='section_title'>{(preview || EditMode )? `Uploaded Images` : `Upload Product Image`}</h5>
                 <div className='uploadFlexbox'>
                     <div className={`uploadBox ${uploadAlert && 'uploadError'} ${uploadedFile.length > 0 ? 'uploaded' : ''}`} id="dropzone">
                         {

@@ -92,6 +92,7 @@ $font-monsterat: 'Montserrat';
                                 letter-spacing: 0.1px;
                                 color: $text;
                                 margin: 0;
+                                text-align: left;
                             }
                             .status {
                                 margin-left: 20px;
@@ -131,6 +132,7 @@ $font-monsterat: 'Montserrat';
                             letter-spacing: 0.06px;
                             color: #6b7280;
                             margin-top: 8px;
+                            text-align: left
                         }
                     }
                 }
@@ -455,7 +457,7 @@ $font-monsterat: 'Montserrat';
                                     text-align: left;
                                     font-size: 12px;
                                     font-style: normal;
-                                    font-weight: 500;
+                                    font-weight: 600;
                                     line-height: 16px;
                                     /* 133.333% */
                                     letter-spacing: 0.06px;
@@ -489,7 +491,7 @@ $font-monsterat: 'Montserrat';
                                     text-align: left;
                                     font-size: 12px;
                                     font-style: normal;
-                                    font-weight: 500;
+                                    font-weight: 600;
                                     line-height: 16px;
                                     /* 133.333% */
                                     letter-spacing: 0.06px;
@@ -564,14 +566,21 @@ $font-monsterat: 'Montserrat';
                                 .inputField {
                                     > label {
                                         font-size: 16px;
-                                        font-weight: 500;
+                                        font-weight: 600;
                                         line-height: 24px;
+                                        letter-spacing: 0.08px;
+                                        font-style: normal;
                                     }
                                     .input_element {
                                         background-color: transparent;
                                         box-shadow: none;
                                         padding: 0;
                                         height: 24px !important;
+                                        font-size: 16px;
+                                        font-style: normal;
+                                        font-weight: 400;
+                                        line-height: 24px; /* 150% */
+                                        letter-spacing: 0.08px; 
                                     }
                                     .form-error {
                                         display: none;
@@ -588,6 +597,11 @@ $font-monsterat: 'Montserrat';
                                                 align-items: center;
                                                 height: 24px !important;
                                                 cursor: text;
+                                                font-size: 16px;
+                                                font-style: normal;
+                                                font-weight: 400;
+                                                line-height: 24px; /* 150% */
+                                                letter-spacing: 0.08px; 
                                             }
                                         }
                                         .MuiSvgIcon-root {
@@ -775,11 +789,30 @@ $font-monsterat: 'Montserrat';
                             }
                             .inputBox {
                                 .inputField {
+                                     > label{
+                                        font-size: 16px;
+                                        font-style: normal;
+                                        font-weight: 600;
+                                        line-height: 24px; /* 150% */
+                                        letter-spacing: 0.08px;   
+                                     }
+                                     textarea{
+                                        font-size: 16px;
+                                        font-style: normal;
+                                        font-weight: 400;
+                                        line-height: 24px; /* 150% */
+                                        letter-spacing: 0.08px;      
+                                     }
                                     .input_element {
                                         background-color: transparent;
                                         box-shadow: none;
                                         padding: 0;
                                         height: 24px !important;
+                                        font-size: 16px;
+                                        font-style: normal;
+                                        font-weight: 400;
+                                        line-height: 24px; /* 150% */
+                                        letter-spacing: 0.08px;   
                                     }
                                     .form-error {
                                         display: none;
@@ -796,6 +829,11 @@ $font-monsterat: 'Montserrat';
                                                 align-items: center;
                                                 height: 24px !important;
                                                 cursor: text;
+                                                font-size: 16px;
+                                                font-style: normal;
+                                                font-weight: 400;
+                                                line-height: 24px; /* 150% */
+                                                letter-spacing: 0.08px;  
                                             }
                                         }
                                         .MuiSvgIcon-root {
@@ -947,7 +985,7 @@ $font-monsterat: 'Montserrat';
                         .section_title {
                             font-size: 14px;
                             font-style: normal;
-                            font-weight: 500;
+                            font-weight: 600;
                             line-height: 20px;
                             /* 142.857% */
                             letter-spacing: 0.07px;
@@ -1050,7 +1088,7 @@ $font-monsterat: 'Montserrat';
                                         cursor: pointer;
                                         display: inline-flex;
                                         position: absolute;
-                                        right: 12px;
+                                        right: 10px;
                                         top: 6px;
                                         width: 16px;
                                         height: 16px;
@@ -1171,6 +1209,14 @@ $font-monsterat: 'Montserrat';
                             }
                         }
                         &.preview_active {
+                            .section_title{
+                                font-size: 16px;
+                                font-style: normal;
+                                font-weight: 500;
+                                line-height: 24px; /* 150% */
+                                letter-spacing: 0.08px;
+                                margin-bottom: 16px;      
+                            }
                             .uploadFlexbox {
                                 #dropzone {
                                     cursor: not-allowed;
@@ -1235,6 +1281,56 @@ $font-monsterat: 'Montserrat';
             width: 33.33%;
         }
     }
+    .addNewProduct_container{
+        .container_section {
+            .tabsContainer{
+                .tabContentContainer{
+                    .MuiBox-root{
+                        .productDetail_container{
+                            &.preview_active{
+                                .first_flexbox{
+                                    .inputBox{
+                                        &.supplier{
+                                            width: 15%;
+                                            ~ .inputBox {
+                                                width: 15%;
+                                            }
+                                        } &.Product_Name {
+                                            width: 15%;
+                                        }
+                                    }
+                                }
+                                .second_flexbox{
+                                    .rightCol{
+                                        &.preview{
+                                            .barcode_section {
+                                                width: 18%;
+                                                ~ .inputBox {
+                                                    width: 19%;
+                                                }
+                                            }
+                                        }
+                                    }
+                                        
+                                    
+                                }
+                               
+                            }
+                            .third_flexbox{
+                                column-gap: 6%;
+                                .leftCol{
+                                    width: 35%;
+                                }
+                                .rightCol{
+                                    width: 40%;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }      
 }
 
 @media screen and (max-width: 1499px) {
