@@ -70,13 +70,17 @@ function ManufacturerMaster({breadcrumbUpdateData, updateBreadCrumb}) {
         setEditMode(false)
         setPreviewData([])
         setPreviewMode(false);
+       handleBreadCrumb();
+        
+    }
+
+    const handleBreadCrumb=()=>{
         let removeLastBreadcrumb = breadcrumb.filter((item) => {
             if(item!=='Add New Manufacturer' && item!=='Edit Manufacturer'){
                 return item
             }
     });
         setBreadCrumb([...removeLastBreadcrumb]);
-        
     }
 
     useEffect(() => {
@@ -167,7 +171,10 @@ function ManufacturerMaster({breadcrumbUpdateData, updateBreadCrumb}) {
         setManufacturerListUpdate(true);
         setPreviewMode(false);
         handleRemovePreview()
-        setAddManufacturer(false)
+        setAddManufacturer(false);
+        setPreviewData([]);
+        setEditMode(false)
+        handleBreadCrumb();
     }
 
     useEffect(() => {
@@ -210,7 +217,8 @@ function ManufacturerMaster({breadcrumbUpdateData, updateBreadCrumb}) {
 
     const handleDeleteSuccessModalClose = () => {
         setSuccessModal(false);
-        setSuccessModalMsg('')
+        setSuccessModalMsg('');
+        handleBreadCrumb();
     }
     
     const handlePagination = (event) => { 
@@ -232,7 +240,7 @@ function ManufacturerMaster({breadcrumbUpdateData, updateBreadCrumb}) {
 
     const handleDeleteData = () => {
         handleDeleteManufacturerData(deleteProductData);
-        
+
     }
 
     return (

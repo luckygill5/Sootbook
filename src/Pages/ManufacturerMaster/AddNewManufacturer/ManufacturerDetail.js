@@ -67,7 +67,7 @@ function ManufacturerDetail({ ProductCreateList, productTypelist, preview, previ
         delete values.createdAt;
         delete values.updatedAt;
         delete values.__v;
-        if (previewData) {
+        if (values._id) {
             handleEditManufacturer(values)
         } else {
             handleAddManufacturer(values);
