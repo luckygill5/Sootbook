@@ -78,6 +78,7 @@ function ProductDetail({ changeTab, ProductCreateList, productDetailData, previe
         },
     });
 
+  
     const handleFormSubmit = async values => {
         if (draftClicked) {
             handleDraft(values);
@@ -226,7 +227,21 @@ function ProductDetail({ changeTab, ProductCreateList, productDetailData, previe
                             disabled={preview ? true : false}
                         />
                     </div>
-                    <div className='inputBox Product_Name sm-40 lg-50'>
+                  
+                    <div className='inputBox genericName sm-20 lg-20'>
+                        <Input
+                            label={'Generic Name'}
+                            type={'text'}
+                            name={'genericName'}
+                            id={'genericName'}
+                            value={values.genericName}
+                            wrapperClass={'col12'}
+                            onChange={handleChange}
+                            ReadOnly={preview ? true : false}
+                            placeholder={preview && values.genericName == '' ? '-' : 'Please type'}
+                        />
+                    </div>
+                    <div className='inputBox Product_Name sm-40 lg-40'>
                         <Input
                             label={'Product Name'}
                             type={'text'}
@@ -239,19 +254,6 @@ function ProductDetail({ changeTab, ProductCreateList, productDetailData, previe
                             touched={touched.name}
                             ReadOnly={preview ? true : false}
                             isRequired
-                        />
-                    </div>
-                    <div className='inputBox genericName sm-20 lg-20'>
-                        <Input
-                            label={'Generic Name'}
-                            type={'text'}
-                            name={'genericName'}
-                            id={'genericName'}
-                            value={values.genericName}
-                            wrapperClass={'col12'}
-                            onChange={handleChange}
-                            ReadOnly={preview ? true : false}
-                            placeholder={preview && values.genericName == '' ? '-' : 'Please type'}
                         />
                     </div>
                     <div className='inputBox manufacturer sm-25 lg-25'>
@@ -523,7 +525,7 @@ function ProductDetail({ changeTab, ProductCreateList, productDetailData, previe
                     <div className='rightCol'>
                         <h5 className='title'>Packaging</h5>
                         <div className='flexbox'>
-                            <div className='inputBox sm-30 lg-30'>
+                            <div className={`inputBox ${values.Sales_Packing_1 =="" ? "emptySelect" : ""} sm-30 lg-30`}>
                                 <Select
                                     label={'Sales Packing'}
                                     name={'Sales_Packing_1'}
@@ -552,6 +554,7 @@ function ProductDetail({ changeTab, ProductCreateList, productDetailData, previe
                                     onChange={handleChange}
                                     ReadOnly={preview ? true : false}
                                     placeholder={preview && values.Quantity_1 == '' ? '-' : 'Please type'}
+                                    disabled={values.Sales_Packing_1 == "" ? true : false}
                                 />
                             </div>
                             <div className='inputBox sm-20 lg-20'>
@@ -565,6 +568,7 @@ function ProductDetail({ changeTab, ProductCreateList, productDetailData, previe
                                     onChange={handleChange}
                                     ReadOnly={preview ? true : false}
                                     placeholder={preview && values.Rate_1 == '' ? '-' : 'Please type'}
+                                    disabled={values.Sales_Packing_1 == "" ? true : false}
                                 />
                             </div>
                             <div className='inputBox sm-20 lg-20'>
@@ -578,9 +582,10 @@ function ProductDetail({ changeTab, ProductCreateList, productDetailData, previe
                                     onChange={handleChange}
                                     ReadOnly={preview ? true : false}
                                     placeholder={preview && values.Stock_1 == '' ? '-' : 'Please type'}
+                                    disabled={values.Sales_Packing_1 == "" ? true : false}
                                 />
                             </div>
-                            <div className='inputBox sm-30 lg-30'>
+                            <div className={`inputBox ${values.Sales_Packing_2 == "" ? 'emptySelect' : ""} sm-30 lg-30`}>
                                 <Select
                                     label={''}
                                     name={'Sales_Packing_2'}
@@ -609,6 +614,8 @@ function ProductDetail({ changeTab, ProductCreateList, productDetailData, previe
                                     onChange={handleChange}
                                     ReadOnly={preview ? true : false}
                                     placeholder={preview && values.Quantity_2 == '' ? '-' : 'Please type'}
+                                    disabled={values.Sales_Packing_2 == "" ? true : false}
+                                  
                                 />
                             </div>
                             <div className='inputBox sm-20 lg-20'>
@@ -622,6 +629,7 @@ function ProductDetail({ changeTab, ProductCreateList, productDetailData, previe
                                     onChange={handleChange}
                                     ReadOnly={preview ? true : false}
                                     placeholder={preview && values.Rate_2 == '' ? '-' : 'Please type'}
+                                    disabled={values.Sales_Packing_2 == "" ? true : false}
                                 />
                             </div>
                             <div className='inputBox sm-20 lg-20'>
@@ -635,9 +643,10 @@ function ProductDetail({ changeTab, ProductCreateList, productDetailData, previe
                                     onChange={handleChange}
                                     ReadOnly={preview ? true : false}
                                     placeholder={preview && values.Stock_2 == '' ? '-' : 'Please type'}
+                                    disabled={values.Sales_Packing_2 == "" ? true : false}
                                 />
                             </div>
-                            <div className='inputBox sm-30 lg-30'>
+                            <div className={`inputBox ${values.Sales_Packing_3 == "" ? 'emptySelect' : ""} sm-30 lg-30`}>
                                 <Select
                                     label={''}
                                     name={'Sales_Packing_3'}
@@ -666,6 +675,7 @@ function ProductDetail({ changeTab, ProductCreateList, productDetailData, previe
                                     onChange={handleChange}
                                     ReadOnly={preview ? true : false}
                                     placeholder={preview && values.Quantity_3 == '' ? '-' : 'Please type'}
+                                    disabled={values.Sales_Packing_3 == "" ? true : false}
                                 />
                             </div>
                             <div className='inputBox sm-20 lg-20'>
@@ -679,6 +689,7 @@ function ProductDetail({ changeTab, ProductCreateList, productDetailData, previe
                                     onChange={handleChange}
                                     ReadOnly={preview ? true : false}
                                     placeholder={preview && values.Rate_3 == '' ? '-' : 'Please type'}
+                                    disabled={values.Sales_Packing_3 == "" ? true : false}
                                 />
                             </div>
                             <div className='inputBox sm-20 lg-20'>
@@ -692,6 +703,7 @@ function ProductDetail({ changeTab, ProductCreateList, productDetailData, previe
                                     onChange={handleChange}
                                     ReadOnly={preview ? true : false}
                                     placeholder={preview && values.Stock_3 == '' ? '-' : 'Please type'}
+                                    disabled={values.Sales_Packing_3 == "" ? true : false}
                                 />
                             </div>
                         </div>

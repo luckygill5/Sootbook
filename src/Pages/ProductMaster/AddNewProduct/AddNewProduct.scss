@@ -426,7 +426,7 @@ $font-monsterat: 'Montserrat';
                                 margin-left: 10px;
                                 @include flexbox();
                                 &.preview {
-                                    width: 80%;
+                                    width: 83%;
                                 }
                             }
                         }
@@ -522,6 +522,15 @@ $font-monsterat: 'Montserrat';
                                                 }
                                             }
                                         }
+                                        &.emptySelect  {
+                                            ~ .inputBox {
+                                                .input_element{
+                                                    cursor: not-allowed;
+                                                }
+                                            }
+                                        }
+                                            
+                                        
                                     }
                                 }
                             }
@@ -645,13 +654,15 @@ $font-monsterat: 'Montserrat';
                                     &.productCode {
                                         width: 17%;
                                     }
-                                    &.supplier,
-                                    &.Product_Name {
-                                        width: 20%;
+                                    &.supplier{
+                                        width: 20%;   
                                     }
+                                    // &.Product_Name {
+                                    //     width: 20%;
+                                    // }
                                     &.genericName {
                                         width: 20%;
-                                        margin-right: 20%;
+                                        // margin-right: 20%;
                                     }
                                 }
                             }
@@ -667,7 +678,10 @@ $font-monsterat: 'Montserrat';
                                 .inputBox {
                                     width: 25%;
                                     &.barcode_section {
-                                        width: 25%;
+                                        width: 24%;
+                                        ~ .inputBox {
+                                            width: 24.5%;
+                                        }
                                     }
                                 }
                                 .rightCol {
@@ -1295,7 +1309,8 @@ $font-monsterat: 'Montserrat';
                                             ~ .inputBox {
                                                 width: 15%;
                                             }
-                                        } &.Product_Name {
+                                        } 
+                                        &.genericName  {
                                             width: 15%;
                                         }
                                     }
@@ -1306,7 +1321,7 @@ $font-monsterat: 'Montserrat';
                                             .barcode_section {
                                                 width: 18%;
                                                 ~ .inputBox {
-                                                    width: 19%;
+                                                    width: 18.1%;
                                                 }
                                             }
                                         }
