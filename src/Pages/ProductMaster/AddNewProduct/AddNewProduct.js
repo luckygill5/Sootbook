@@ -11,7 +11,7 @@ import UploadProduct from './UploadProduct';
 import { axiosClient } from '../../../services/axiosClient';
 import './AddNewProduct.scss';
 
-function AddNewProduct({ back, preview, previewData, removePreviewMode, successModalClose, EditData, draftSuccessPopUpClose }) {
+function AddNewProduct({ back, preview, previewData, removePreviewMode, successModalClose, EditData, draftSuccessPopUpClose, categoriesAllData }) {
     const [value, setValue] = useState(0);
     const [productCreateList, setProductCreateList] = useState('');
     const [ecommercedata, setEcommerceData] = useState('');
@@ -148,6 +148,7 @@ function AddNewProduct({ back, preview, previewData, removePreviewMode, successM
                             back={back}
                             productBackData={productDetailsCollection}
                             draftPopUpClose={() => handleDraftPopUpClose()}
+                           
                         />
                     </CustomTabPanel>
                     <CustomTabPanel value={value} index={1} className='tabContentContainer'>
@@ -160,6 +161,7 @@ function AddNewProduct({ back, preview, previewData, removePreviewMode, successM
                             ecommerceBackData={ecommercedata}
                             productData={productDetailsCollection}
                             draftPopUpClose={() => handleDraftPopUpClose()}
+                            categoriesAllData={categoriesAllData}
                         />
                     </CustomTabPanel>
                     <CustomTabPanel value={value} index={2} className='tabContentContainer'>

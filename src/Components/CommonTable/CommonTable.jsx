@@ -34,14 +34,30 @@ function CommonTable(props) {
     let filtered;
     const handleChange = event => {
         if (indexCheck.includes(event)) {
-            filtered = indexCheck.filter(item => {
-                if (item !== event) {
-                    return item;
+            
+                filtered = indexCheck.filter(item => {
+                    if (item !== event) {
+                        return item;
+                    }
+                });
+                
+                if(indexCheck.includes(0) == true && event!==0 && filtered.includes(0) == false){
+                    setIndexCheck([0,...filtered]); 
+                }else{
+                    setIndexCheck([...filtered]); 
                 }
-            });
-            setIndexCheck(filtered);
+               
+            
+            
+            if(selectAll){
+                setSelectAll(false)
+            }
+          
         } else {
             setIndexCheck([...indexCheck, event]);
+            if(selectAll){
+                setSelectAll(false)
+            }
         }
     };
 
@@ -102,7 +118,7 @@ function CommonTable(props) {
                         <div className={`table_row ln_${props.header.length}`}>
                             {props.header && props.header.length > 0 && (
                                 <div className='tabCheckBox'>
-                                    <Checkbox onChange={() => handleChangeAll()} />
+                                    <Checkbox checked={selectAll ? true : false} onChange={() => handleChangeAll()} />
                                 </div>
                             )}
                             {props.header &&
@@ -132,7 +148,8 @@ function CommonTable(props) {
                                 </div>
                                 {
                                     Object.entries(item).map((data, index) => {
-                                        if (props.header.includes(data[0]) || props.tableFilterHeader.includes(data[0])) {
+                                        
+                                        if (props.header?.includes(data[0]) || props.tableFilterHeader?.includes(data[0])) {
                                             return <div key={index} className={`tableCell`} >
                                                 {data[0] == 'productCode' ? <span className='text link' onClick={() => data[0] == "productCode" ? handleClick(data[1]) : ''}>{data[1]}</span> : <span className={`text`} >{data[1]}</span>}
                                             </div>

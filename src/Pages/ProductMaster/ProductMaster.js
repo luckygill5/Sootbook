@@ -26,6 +26,7 @@ function ProductMaster({ breadcrumbUpdateData, updateBreadCrumb }) {
     const [productListCard, setProductListCard] = useState(null);
     const [draftListData, setDraftListData] = useState('');
     const [tableFilterHeader, setTableFilterHeader] = useState('');
+    const [producttableHeader, setProductTableHeader] = useState(["manufacturer", "product Code", "product name", "generic Name", "net Price"])
     const [previewMode, setPreviewMode] = useState();
     const [previewData, setPreviewData] = useState('');
     const [productlistUpdate, setProductListUpdate] = useState(false);
@@ -41,7 +42,8 @@ function ProductMaster({ breadcrumbUpdateData, updateBreadCrumb }) {
     const [DeleteModalMsg, setDeleteModalMsg] = useState('');
     const [totalPagesListCard, setTotalPagesListCard] = useState("");
     const [totalPagesDraft, setTotalPagesDraft] = useState("");
-
+    const [searchVal, setSearchVal] = useState("");
+    const [categoriesData, setCategoriesData] = useState("");
     let tableHeader = ['name', 'genericName', 'productCode', 'manufacturer', 'netPrice'];
 
     const handleAddNewProduct = () => {
@@ -103,7 +105,7 @@ function ProductMaster({ breadcrumbUpdateData, updateBreadCrumb }) {
     const handleProductList = async event => {
         const accessToken = `Bearer ${sessionStorage.accessToken} `;
         try {
-            let response = await axiosClient.post(`admin/product/list`, JSON.stringify({ search: '', isDraft: false, page: pageValue, limit: 10 }), {
+            let response = await axiosClient.post(`admin/product/list`, JSON.stringify({ search: searchVal, isDraft: false, page: pageValue, limit: 12 }), {
                 headers: {
                     'Content-Type': 'application/json',
                     'x-via-device': true,
@@ -122,7 +124,7 @@ function ProductMaster({ breadcrumbUpdateData, updateBreadCrumb }) {
     const handleDraftList = async event => {
         const accessToken = `Bearer ${sessionStorage.accessToken} `;
         try {
-            let response = await axiosClient.post(`admin/product/list`, JSON.stringify({ search: '', isDraft: true, page: pageValue, limit: 10 }), {
+            let response = await axiosClient.post(`admin/product/list`, JSON.stringify({ search: searchVal, isDraft: true, page: pageValue, limit: 12 }), {
                 headers: {
                     'Content-Type': 'application/json',
                     'x-via-device': true,
@@ -138,6 +140,8 @@ function ProductMaster({ breadcrumbUpdateData, updateBreadCrumb }) {
         }
     };
 
+ 
+
     const handleProductTableheaderFilter = () => {
         if (productListCard && productListCard.length > 0) {
             let firstCollection = productListCard[0];
@@ -148,6 +152,7 @@ function ProductMaster({ breadcrumbUpdateData, updateBreadCrumb }) {
                     return item;
                 }
             });
+
             setTableFilterHeader(filterFirst);
         }
     };
@@ -155,12 +160,31 @@ function ProductMaster({ breadcrumbUpdateData, updateBreadCrumb }) {
     useEffect(() => {
         handleProductList();
         handleDraftList();
+        handleCategoryAll();
     }, []);
 
     useEffect(() => {
         handleProductTableheaderFilter();
     }, [productListCard]);
 
+    const handleCategoryAll = async event  => {
+        const accessToken = `Bearer ${sessionStorage.accessToken} `;
+        try {
+            let response = await axiosClient.get(`admin/category/all`,  {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'x-via-device': true,
+                    Authorization: accessToken,
+                },
+            });
+            if (response.status == 200) {
+                setCategoriesData(response?.data?.data?.categories)
+                
+            }
+        } catch (error) {
+            console.log('error', error);
+        }
+    }
     const handleDataPopulate = index => {
         let filter;
         filter = productListCard.filter(item => {
@@ -226,11 +250,11 @@ function ProductMaster({ breadcrumbUpdateData, updateBreadCrumb }) {
     };
 
     useEffect(() => {
-        if (productlistUpdate == true || successModal == true || showDraftList == true || addProduct == true || pageValue !== 0) {
+        if (productlistUpdate == true || successModal == true || showDraftList == true || addProduct == true || pageValue !== 0 || searchVal!=="") {
             handleProductList();
             handleDraftList();
         }
-    }, [productlistUpdate, successModal, addProduct, showDraftList, pageValue]);
+    }, [productlistUpdate, successModal, addProduct, showDraftList, pageValue, searchVal]);
 
     const handleDeleteProductData = async event => {
         const accessToken = `Bearer ${sessionStorage.accessToken} `;
@@ -292,6 +316,11 @@ function ProductMaster({ breadcrumbUpdateData, updateBreadCrumb }) {
     const handleDeleteData = () => {
         handleDeleteProductData(deleteProductData);
     };
+
+    const handlesearch = (event) => {
+        setSearchVal(event.target.value)
+
+    }
     const ProductMasterTabs = ['Products', 'Drafts'];
 
     return (
@@ -306,6 +335,7 @@ function ProductMaster({ breadcrumbUpdateData, updateBreadCrumb }) {
                         back={handleBack}
                         EditData={editMode}
                         draftSuccessPopUpClose={() => handleDraftSuccessPopUpclose()}
+                        categoriesAllData={categoriesData}
                     />
                 ) : (
                     <div className='productMaster_content'>
@@ -320,7 +350,7 @@ function ProductMaster({ breadcrumbUpdateData, updateBreadCrumb }) {
                         </div>
                         <div className='contentSection'>
                             <div className='head-flexbox'>
-                                <input type='text' className='searchBox' placeholder='Search Product'></input>
+                                <input type='text' className='searchBox' placeholder='Search Product' value={searchVal} onChange={handlesearch}></input>
                                 <div className='actionFlexBox'>
                                     <button className='importBtn commonBtn' type='button'>
                                         <span className='icon'>
@@ -372,14 +402,16 @@ function ProductMaster({ breadcrumbUpdateData, updateBreadCrumb }) {
                                                 editDataPopulate={e => handleEditProductData(e)}
                                                 dataPopulate={e => handleDataPopulate(e)}
                                                 productData={productListCard}
+                                                
                                             />
                                         ) : toggleView == 'List' ? (
                                             <CommonTable
                                                 deleteProductData={e => handleProductDelete(e)}
                                                 dataEditPopulate={e => handleEditDataPopulate(e)}
                                                 dataPopulate={e => handleDataPopulate(e)}
-                                                header={tableFilterHeader}
+                                                header={producttableHeader}
                                                 productData={productListCard}
+                                                tableFilterHeader={tableFilterHeader}
                                             />
                                         ) : (
                                             ''
