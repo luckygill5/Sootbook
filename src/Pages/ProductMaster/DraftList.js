@@ -7,6 +7,8 @@ import { ReactComponent as UpDown } from '../../assets/images/chevrons-up-down.s
 import Copy from '../../assets/images/copy.svg';
 import Checkbox from '@mui/material/Checkbox';
 import Box from '@mui/material/Box';
+import { CopyToClipboard } from 'react-copy-to-clipboard';
+import Snackbar, { SnackbarCloseReason } from '@mui/material/Snackbar';
 import './ProductMaster.scss';
 
 function DraftList({ draftData, editDataPopulate, deleteDataPopulate }) {
@@ -14,6 +16,8 @@ function DraftList({ draftData, editDataPopulate, deleteDataPopulate }) {
     const [draftListCheck, setDraftListCheck] = useState([]);
     const [headerDraftCheck, setHeaderDraftCheck] = useState('');
     const draftTableHeader = ['Draft Name', 'Last Modifies', 'Actions'];
+    const [copied, setCopied] = useState(false);
+    const [open, setOpen] = useState(false);
 
     function formatDate(dateString) {
         const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
@@ -79,7 +83,21 @@ function DraftList({ draftData, editDataPopulate, deleteDataPopulate }) {
         deleteDataPopulate(filter[0]._id);
     };
 
+
+
+    const handleSnackClose = (
+        event,
+        reason,
+      ) => {
+        if (reason === 'clickaway') {
+          return;
+        }
+    
+        setOpen(false);
+      };
+
     return (
+        <React.Fragment>
         <div className='draftList_container'>
             {draftData && draftData.length > 0 ? (
                 <div className='draftTable'>
@@ -126,7 +144,9 @@ function DraftList({ draftData, editDataPopulate, deleteDataPopulate }) {
                                                     <div className='tabCell'>
                                                         <span className='text'>{data[1]}</span>
                                                         <span className='copy'>
+                                                        <CopyToClipboard text={data[1]} onCopy={() => {setOpen(true); setCopied(true)}}>
                                                             <img src={Copy} alt='copyIcon' className='icon'></img>
+                                                            </CopyToClipboard>
                                                         </span>
                                                     </div>
                                                 );
@@ -158,6 +178,14 @@ function DraftList({ draftData, editDataPopulate, deleteDataPopulate }) {
                 </Box>
             )}
         </div>
+          <Snackbar
+          open={open}
+          autoHideDuration={3000}
+          onClose={handleSnackClose}
+          message="Copied"
+        //   action={action}
+        />
+        </React.Fragment>
     );
 }
 

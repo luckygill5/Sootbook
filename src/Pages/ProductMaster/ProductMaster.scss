@@ -480,8 +480,12 @@ $font-monsterat: 'Montserrat';
                     }
                     .copy {
                         display: inline-flex;
+                        align-items: center;
+                        justify-content: center;
                         margin-left: auto;
                         cursor: pointer;
+                        width: 30px;
+                        height: 30px;
                     }
                 }
                 .actionCell {
