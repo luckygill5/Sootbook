@@ -153,7 +153,8 @@ function DraftList({ draftData, editDataPopulate, deleteDataPopulate }) {
                 </div>
             ) : (
                 <Box className='loader_container' sx={{ display: 'flex' }}>
-                    <CircularProgress />
+                    {/* <CircularProgress /> */}
+                    <p>No Data found</p>
                 </Box>
             )}
         </div>
