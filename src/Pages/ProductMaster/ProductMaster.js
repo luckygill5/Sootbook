@@ -26,7 +26,7 @@ function ProductMaster({ breadcrumbUpdateData, updateBreadCrumb }) {
     const [productListCard, setProductListCard] = useState(null);
     const [draftListData, setDraftListData] = useState('');
     const [tableFilterHeader, setTableFilterHeader] = useState('');
-    const [producttableHeader, setProductTableHeader] = useState(["manufacturer", "product Code", "product name", "generic Name", "net Price"])
+    const [productTableHeader, setProductTableHeader] = useState(["manufacturer name", "product Code", "product name", "generic Name", "net Price", "VAT"])
     const [previewMode, setPreviewMode] = useState();
     const [previewData, setPreviewData] = useState('');
     const [productlistUpdate, setProductListUpdate] = useState(false);
@@ -44,7 +44,8 @@ function ProductMaster({ breadcrumbUpdateData, updateBreadCrumb }) {
     const [totalPagesDraft, setTotalPagesDraft] = useState("");
     const [searchVal, setSearchVal] = useState("");
     const [categoriesData, setCategoriesData] = useState("");
-    let tableHeader = ['name', 'genericName', 'productCode', 'manufacturer', 'netPrice'];
+    const [productCreateList, setProductCreateList] = useState('');
+    let tableHeader = ["manufacturerName" , 'name', 'genericName', 'productCode', 'netPrice', "vat" ];
 
     const handleAddNewProduct = () => {
         setAddProduct(true);
@@ -103,9 +104,10 @@ function ProductMaster({ breadcrumbUpdateData, updateBreadCrumb }) {
     };
 
     const handleProductList = async event => {
+  
         const accessToken = `Bearer ${sessionStorage.accessToken} `;
         try {
-            let response = await axiosClient.post(`admin/product/list`, JSON.stringify({ search: searchVal, isDraft: false, page: pageValue, limit: 12 }), {
+            let response = await axiosClient.post(`admin/product/list`, JSON.stringify({ search: event?.data, isDraft: false, page: event?.pageNo ? 1 : pageValue, limit: 12 }), {
                 headers: {
                     'Content-Type': 'application/json',
                     'x-via-device': true,
@@ -121,10 +123,29 @@ function ProductMaster({ breadcrumbUpdateData, updateBreadCrumb }) {
         }
     };
 
+
+    const handleProductCreateList = async event => {
+        const accessToken = `Bearer ${sessionStorage.accessToken} `;
+        try {
+            let response = await axiosClient.get(`admin/product/create/list`, {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'x-via-device': true,
+                    Authorization: accessToken,
+                },
+            });
+            if (response.status == 200) {
+                setProductCreateList(response?.data?.data);
+            }
+        } catch (error) {
+            console.log('error', error);
+        }
+    };
+
     const handleDraftList = async event => {
         const accessToken = `Bearer ${sessionStorage.accessToken} `;
         try {
-            let response = await axiosClient.post(`admin/product/list`, JSON.stringify({ search: searchVal, isDraft: true, page: pageValue, limit: 12 }), {
+            let response = await axiosClient.post(`admin/product/list`, JSON.stringify({ search: event?.data, isDraft: true, page:event?.pageNo ? 1 : pageValue, limit: 12 }), {
                 headers: {
                     'Content-Type': 'application/json',
                     'x-via-device': true,
@@ -161,6 +182,7 @@ function ProductMaster({ breadcrumbUpdateData, updateBreadCrumb }) {
         handleProductList();
         handleDraftList();
         handleCategoryAll();
+        handleProductCreateList();
     }, []);
 
     useEffect(() => {
@@ -247,14 +269,17 @@ function ProductMaster({ breadcrumbUpdateData, updateBreadCrumb }) {
         setProductListUpdate(true);
         setAddProduct(false);
         handleBradCrumb();
+        setPreviewData([])
     };
 
     useEffect(() => {
-        if (productlistUpdate == true || successModal == true || showDraftList == true || addProduct == true || pageValue !== 0 || searchVal!=="") {
+        if (productlistUpdate == true || successModal == true || showDraftList == true || addProduct == true || pageValue !== 0 ) {
             handleProductList();
             handleDraftList();
+            handleCategoryAll();
+            handleProductCreateList();
         }
-    }, [productlistUpdate, successModal, addProduct, showDraftList, pageValue, searchVal]);
+    }, [productlistUpdate, successModal, addProduct, showDraftList, pageValue]);
 
     const handleDeleteProductData = async event => {
         const accessToken = `Bearer ${sessionStorage.accessToken} `;
@@ -281,7 +306,9 @@ function ProductMaster({ breadcrumbUpdateData, updateBreadCrumb }) {
     const handleDeleteSuccessModalClose = () => {
         setSuccessModal(false);
         setSuccessModalMsg('');
+        setPreviewData([])
         handleBradCrumb();
+       
     };
 
     const handleDraftSuccessPopUpclose = () => {
@@ -318,7 +345,16 @@ function ProductMaster({ breadcrumbUpdateData, updateBreadCrumb }) {
     };
 
     const handlesearch = (event) => {
-        setSearchVal(event.target.value)
+        setSearchVal(event.target.value);
+        if(event.target.value == ""){
+            handleProductList({pageNo :"", data:event.target.value});
+            handleDraftList({pageNo :"", data:event.target.value});
+        }else{
+            handleProductList({pageNo :1, data:event.target.value});
+            handleDraftList({pageNo :1, data:event.target.value});
+        }
+
+
 
     }
     const ProductMasterTabs = ['Products', 'Drafts'];
@@ -336,6 +372,7 @@ function ProductMaster({ breadcrumbUpdateData, updateBreadCrumb }) {
                         EditData={editMode}
                         draftSuccessPopUpClose={() => handleDraftSuccessPopUpclose()}
                         categoriesAllData={categoriesData}
+                        productCreateListData={productCreateList}
                     />
                 ) : (
                     <div className='productMaster_content'>
@@ -409,7 +446,7 @@ function ProductMaster({ breadcrumbUpdateData, updateBreadCrumb }) {
                                                 deleteProductData={e => handleProductDelete(e)}
                                                 dataEditPopulate={e => handleEditDataPopulate(e)}
                                                 dataPopulate={e => handleDataPopulate(e)}
-                                                header={producttableHeader}
+                                                header={productTableHeader}
                                                 productData={productListCard}
                                                 tableFilterHeader={tableFilterHeader}
                                             />

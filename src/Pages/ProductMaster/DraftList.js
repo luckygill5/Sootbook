@@ -63,8 +63,14 @@ function DraftList({ draftData, editDataPopulate, deleteDataPopulate }) {
                 setHeaderDraftCheck(false);
             }
             setDraftListCheck(filterCheck);
+            if(headerDraftCheck){
+                setHeaderDraftCheck(false)
+            }
         } else {
             setDraftListCheck([...draftListCheck, event]);
+            if(headerDraftCheck){
+                setHeaderDraftCheck(false)
+            }
         }
     };
 

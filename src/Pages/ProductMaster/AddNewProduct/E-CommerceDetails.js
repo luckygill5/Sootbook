@@ -42,6 +42,7 @@ function ECommerceDetails({
     draftPopUpClose,
     categoriesAllData
 }) {
+
     const [draftClicked, setDraftClicked] = useState(false);
     const [categoryLevel1, setCategoryLevel1] = useState('');
     const [categoryLevel2, setCategoryLevel2] = useState('');
@@ -200,6 +201,10 @@ function ECommerceDetails({
                 setFieldValue(item[0], item[1]);
             });
         }
+       
+    }, []);
+
+    useEffect(() => {
         if(categoriesAllData && categoriesAllData.length > 0){
             let filterlevel1;
            filterlevel1 =  categoriesAllData.filter((data) => {
@@ -209,7 +214,7 @@ function ECommerceDetails({
             })
             setCategoryLevel1(filterlevel1)
         }
-    }, []);
+    }, [values.canDisplay])
 
     useEffect(() => {
         if(previewData){

@@ -31,7 +31,7 @@ function PaginationLayout({ paginationSet, pageNo , totalPages }) {
         <div className='paginationsection'>
             <div className='leftCol'>
                 <Pagination count={totalPages} shape="rounded" page={pageNo} onChange={handleChange} />
-                <div className='paginationSelect'>
+                {/* <div className='paginationSelect'>
                 <Select
                     label={''}
                     name={'paginationSelect'}
@@ -45,7 +45,7 @@ function PaginationLayout({ paginationSet, pageNo , totalPages }) {
                     value={value}
                     onChange={handlePaginationSelect}
                 />
-                </div>
+                </div> */}
             </div>
             <div className='rightCol'>
                 <div className='flexbox'>

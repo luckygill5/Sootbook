@@ -63,7 +63,7 @@ function Header(props) {
         }
     }, [sessionStorage.getItem("accessToken")])
 
-    console.log("first", )
+
     return (
         <React.Fragment>
             <header className='main_header'>

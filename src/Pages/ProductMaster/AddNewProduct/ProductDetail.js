@@ -39,7 +39,7 @@ const productDetailInitialValues = {
     invPrice: '',
     vat: '',
     shelf: '',
-    strength: '',
+    // strength: '',
     Sales_Packing_1: '',
     Sales_Packing_2: '',
     Sales_Packing_3: '',
@@ -205,6 +205,7 @@ function ProductDetail({ changeTab, ProductCreateList, productDetailData, previe
                             error={errors.productCode}
                             touched={touched.productCode}
                             ReadOnly={true}
+                            disabled={true}
                         />
                     </div>
                     <div className='inputBox sm-20 lg-15'>
@@ -784,7 +785,7 @@ function ProductDetail({ changeTab, ProductCreateList, productDetailData, previe
                                 disabled={preview ? true : false}
                             />
                         </div>
-                        <div className='inputBox sm-30 lg-30'>
+                        {/* <div className='inputBox sm-30 lg-30'>
                             <Input
                                 label={'Strength'}
                                 type={'text'}
@@ -796,7 +797,7 @@ function ProductDetail({ changeTab, ProductCreateList, productDetailData, previe
                                 ReadOnly={preview ? true : false}
                                 placeholder={preview && values.strength == '' ? '-' : 'Please type'}
                             />
-                        </div>
+                        </div> */}
                     </div>
                 </div>
                 <div className='actionFlexbox'>
