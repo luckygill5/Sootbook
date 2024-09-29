@@ -173,7 +173,13 @@ function SalesPurchase({ ChartFilter, ChartFilterClose }) {
     plugins: {
       legend: {
         display: false, // Hide the dataset labels
+        labels: {
+          font: {
+            size: 5, // Reduce the font size of the legend
+          },
+        },
       },
+     
     },
     indexAxis: 'y',
     scales: {
@@ -181,14 +187,22 @@ function SalesPurchase({ ChartFilter, ChartFilterClose }) {
         grid: {
           display: false, // Disable gridlines for the y-axis
         },
-
+        ticks : {
+          font: {
+            size: 10, // Reduce the font size of y-axis labels
+          }, 
+        }
       },
       x: {
         grid: {
           display: true, // Optional: You can disable gridlines for the x-axis too
           borderDash: [2, 2], // Optional: Customize the border dash for gridlines
         },
+
         ticks: {
+          font: {
+            size: 10, // Reduce the font size of y-axis labels
+          },
           callback: function (value, index, values) {
             // Custom left vertical labels
             return `${index * 10}%`;
