@@ -1,0 +1,498 @@
+@import "../../../BaseStyle/Basestyle.scss";
+
+$white: #FFF;
+$black: #000;
+$text: #1F2937;
+$buttonColor: #00A9BB;
+
+$font-monsterat : 'Montserrat';
+.profile_uploadSection {
+    margin-bottom: 20px;
+    margin-right: auto;
+
+    label {
+        text-align: left;
+        display: block;
+        position: relative;
+        font-size: 14px;
+        font-style: normal;
+        font-weight: 500;
+        line-height: 20px;
+        /* 142.857% */
+        letter-spacing: 0.07px;
+        margin-bottom: 10px;
+
+        &::after {
+            content: '*';
+            display: inline-block;
+            left: 100%;
+            top: 0;
+            font-size: 14px;
+            font-style: normal;
+            font-weight: 500;
+            line-height: 20px;
+            letter-spacing: 0.07px;
+            color: #EF4444
+        }
+    }.flexbox {
+        @include flexbox();
+        align-items: center;
+
+        .avtaar {
+            display: inline-block;
+            margin-right: 20px;
+            width: 62px;
+            height: 62px;
+            border-radius: 50%;
+            img {
+                max-width: 100%;
+                height: 100%;
+                width: 100%;
+                border-radius: 50%;
+            }
+        }
+
+        .uploadbtn {
+            border: none;
+            cursor: pointer;
+            height: 40px;
+            margin-right: 10px;
+            padding: 10px 12px;
+            border-radius: 8px;
+            white-space: nowrap;
+            box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25), -1px -7px 7px 0px #FFF;
+            background-color: #00A9BB;
+            color: $white;
+            font-size: 14px;
+            font-style: normal;
+            font-weight: 600;
+            line-height: 20px;
+            /* 142.857% */
+            letter-spacing: 0.07px;
+            position: relative;
+            &:focus:not(:focus-visible) {
+                outline: none
+            }
+            .fileUploader {
+                position: absolute;
+                left: 0;
+                top: 0;
+                opacity: 0;
+                width: 100%;
+                height: 100%;
+                cursor: pointer;
+            }
+        }
+
+        .deleteBtn {
+            cursor: pointer;
+            height: 40px;
+            white-space: nowrap;
+            padding: 10px 12px;
+            border-radius: 8px;
+            box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.05);
+            background-color: $white;
+            border: 1px solid #E5E7EB;
+            font-size: 14px;
+            font-style: normal;
+            font-weight: 600;
+            line-height: 20px;
+            /* 142.857% */
+            letter-spacing: 0.07px;
+            color: #EF4444
+        }
+    }
+}
+.button-container {
+    @include flexbox();
+    justify-content: flex-end;
+    width: 100%;
+    .cancelBtn {
+        width: 80px;
+        color: $text;
+        font-size: 14px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 20px;
+        /* 142.857% */
+        letter-spacing: 0.07px;
+        box-shadow: 0px 2px 5px 2px inset rgba(0, 0, 0, 0.05);
+        border-radius: 8px;
+        border: 1px solid #E5E7EB;
+        background-color: #F2F5FA;
+        padding: 14px 16px;
+        height: 48px;
+        cursor: pointer;
+        margin-right: 20px;
+        @include flexbox();
+        align-items: center;
+        justify-content: center;
+
+        &:focus:not(:focus-visible) {
+            outline: none;
+        }
+    }
+
+    .savebtn {
+        width: 66px;
+        height: 48px;
+        padding: 14px 16px;
+        @include flexbox();
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        border: none;
+        box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25), -1px -7px 7px 0px #FFF;
+        border-radius: 8px;
+        background-color: #00A9BB;
+        font-size: 14px;
+        font-style: normal;
+        font-weight: 600;
+        line-height: 20px;
+        /* 142.857% */
+        letter-spacing: 0.07px;
+        color: $white;
+
+        &:focus:not(:focus-visible) {
+            outline: none;
+        }
+    }
+}
+.basicInformation_container {
+    box-sizing: border-box;
+    position: relative;
+    z-index: 2;
+
+    * {
+        box-sizing: border-box;
+        font-family: $font-monsterat;
+    }
+
+    .basicInformation_info_container {
+        .haeder_section {
+            @include flexbox();
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 20px;
+
+            .title {
+                margin: 0;
+                font-size: 24px;
+                font-style: normal;
+                font-weight: 600;
+                line-height: 32px;
+                /* 133.333% */
+                letter-spacing: 0.12px;
+                color: $text;
+            }
+
+            .edit_btn {
+                border: 1px solid #00A9BB;
+                color: #00A9BB;
+                box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25), -1px -7px 7px 0px #FFF;
+                border-radius: 8px;
+                height: 48px;
+                width: 86px;
+                @include flexbox();
+                align-items: center;
+                justify-content: center;
+                cursor: pointer;
+
+                &:focus:not(:focus-visible) {
+                    outline: none;
+                }
+
+                background-color: transparent;
+
+                .icon {
+                    width: 14px;
+                    height: 14px;
+                    display: inline-flex;
+                    align-items: center;
+                    justify-content: center;
+                    margin-right: 10px;
+                }
+
+                font-size: 14px;
+                font-style: normal;
+                font-weight: 600;
+                line-height: 20px;
+                /* 142.857% */
+                letter-spacing: 0.07px;
+            }
+        }
+
+        .body_section {
+            .profile_listing_data {
+                ul {
+                    margin: 0;
+                    padding: 0;
+
+                    .list_item {
+                        list-style: none;
+                        @include flexbox();
+                        align-items: center;
+                        justify-content: space-between;
+                        column-gap: 16px;
+                        padding: 24px 0;
+                        border-bottom: 1px solid #E5E7EB;
+
+                        .label {
+                            display: inline-block;
+                            font-size: 16px;
+                            font-style: normal;
+                            font-weight: 400;
+                            line-height: 24px;
+                            /* 150% */
+                            letter-spacing: 0.08px;
+                            color: $text;
+                            width: 60%;
+                            text-align: left;
+                        }
+
+                        .value {
+                            display: inline-block;
+                            font-size: 16px;
+                            font-style: normal;
+                            font-weight: 400;
+                            line-height: 24px;
+                            /* 150% */
+                            letter-spacing: 0.08px;
+                            color: #6B7280;
+                            width: 40%;
+                            text-align: left;
+
+                            .avatar_iconblock {
+                                width: 62px;
+                                height: 62px;
+
+                                img {
+                                    max-width: 100%;
+                                    height: auto;
+                                    width: 100%;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            .form_container {
+                margin:0 -10px;
+                form{
+                    @include flexbox();
+                    flex-direction: column;
+                    align-items: center;
+                    .profile_uploadSection {
+                        margin-bottom: 20px;
+                        margin-right: auto;
+    
+                        label {
+                            text-align: left;
+                            display: block;
+                            position: relative;
+                            font-size: 14px;
+                            font-style: normal;
+                            font-weight: 500;
+                            line-height: 20px;
+                            /* 142.857% */
+                            letter-spacing: 0.07px;
+                            margin-bottom: 10px;
+    
+                            &::after {
+                                content: '*';
+                                display: inline-block;
+                                left: 100%;
+                                top: 0;
+                                font-size: 14px;
+                                font-style: normal;
+                                font-weight: 500;
+                                line-height: 20px;
+                                letter-spacing: 0.07px;
+                                color: #EF4444
+                            }
+                        }
+    
+                        .flexbox {
+                            @include flexbox();
+                            align-items: center;
+    
+                            .avtaar {
+                                display: inline-block;
+                                margin-right: 20px;
+                                width: 62px;
+                                height: 62px;
+                                border-radius: 50%;
+                                img {
+                                    max-width: 100%;
+                                    height: 100%;
+                                    width: 100%;
+                                    border-radius: 50%;
+                                }
+                            }
+    
+                            .uploadbtn {
+                                border: none;
+                                cursor: pointer;
+                                height: 40px;
+                                margin-right: 10px;
+                                padding: 10px 12px;
+                                border-radius: 8px;
+                                white-space: nowrap;
+                                box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25), -1px -7px 7px 0px #FFF;
+                                background-color: #00A9BB;
+                                color: $white;
+                                font-size: 14px;
+                                font-style: normal;
+                                font-weight: 600;
+                                line-height: 20px;
+                                /* 142.857% */
+                                letter-spacing: 0.07px;
+                                position: relative;
+                                &:focus:not(:focus-visible) {
+                                    outline: none
+                                }
+                                .fileUploader {
+                                    position: absolute;
+                                    left: 0;
+                                    top: 0;
+                                    opacity: 0;
+                                    width: 100%;
+                                    height: 100%;
+                                    cursor: pointer;
+                                }
+                            }
+    
+                            .deleteBtn {
+                                cursor: pointer;
+                                height: 40px;
+                                white-space: nowrap;
+                                padding: 10px 12px;
+                                border-radius: 8px;
+                                box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.05);
+                                background-color: $white;
+                                border: 1px solid #E5E7EB;
+                                font-size: 14px;
+                                font-style: normal;
+                                font-weight: 600;
+                                line-height: 20px;
+                                /* 142.857% */
+                                letter-spacing: 0.07px;
+                                color: #EF4444
+                            }
+                        }
+                    }
+    
+                    .input_flexbox {
+                        @include flexbox();
+                        margin: 0 -10px 36px -10px;
+                        width: 33%;
+    
+                        .countrySelectobox {
+                            @include flexbox();
+                            box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25) inset, -7px -7px 7px 0px #FFF inset;
+                            background-color: #f2f5fa;
+                            border-radius: 8px;
+    
+                            .countryselect_fieldBox {
+                                width: 35%;
+    
+                                .MuiSelect-select {
+                                    text-align: left;
+                                    font-size: 14px;
+                                    font-style: normal;
+                                    font-weight: 400;
+                                    line-height: 20px;
+                                    /* 142.857% */
+                                    letter-spacing: 0.07px;
+                                    color: #6B7280;
+                                    font-family: $font-monsterat;
+                                    min-height: auto;
+                                    height: 48px;
+                                    box-sizing: border-box;
+                                }
+    
+                                fieldset {
+                                    display: none;
+                                }
+                            }
+    
+                            .countryInput {
+                                outline: none;
+                                border: none;
+                                background-color: transparent;
+                                width: 33%;
+                                padding: 14px 16px;
+                                font-size: 14px;
+                                font-style: normal;
+                                font-weight: 400;
+                                line-height: 20px;
+                                /* 142.857% */
+                                letter-spacing: 0.07px;
+                                color: #6B7280;
+                            }
+                        }
+    
+                    }
+    
+                    .button-container {
+                        @include flexbox();
+                        justify-content: flex-end;
+                        width: 100%;
+                        .cancelBtn {
+                            width: 80px;
+                            color: $text;
+                            font-size: 14px;
+                            font-style: normal;
+                            font-weight: 400;
+                            line-height: 20px;
+                            /* 142.857% */
+                            letter-spacing: 0.07px;
+                            box-shadow: 0px 2px 5px 2px inset rgba(0, 0, 0, 0.05);
+                            border-radius: 8px;
+                            border: 1px solid #E5E7EB;
+                            background-color: #F2F5FA;
+                            padding: 14px 16px;
+                            height: 48px;
+                            cursor: pointer;
+                            margin-right: 20px;
+                            @include flexbox();
+                            align-items: center;
+                            justify-content: center;
+    
+                            &:focus:not(:focus-visible) {
+                                outline: none;
+                            }
+                        }
+    
+                        .savebtn {
+                            width: 66px;
+                            height: 48px;
+                            padding: 14px 16px;
+                            @include flexbox();
+                            align-items: center;
+                            justify-content: center;
+                            cursor: pointer;
+                            border: none;
+                            box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25), -1px -7px 7px 0px #FFF;
+                            border-radius: 8px;
+                            background-color: #00A9BB;
+                            font-size: 14px;
+                            font-style: normal;
+                            font-weight: 600;
+                            line-height: 20px;
+                            /* 142.857% */
+                            letter-spacing: 0.07px;
+                            color: $white;
+    
+                            &:focus:not(:focus-visible) {
+                                outline: none;
+                            }
+                        }
+                    }
+                }
+                
+            }
+        }
+    }
+}

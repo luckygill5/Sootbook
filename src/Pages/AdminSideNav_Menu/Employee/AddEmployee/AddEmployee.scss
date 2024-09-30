@@ -1,0 +1,392 @@
+@import "../../../../BaseStyle/Basestyle.scss";
+
+$white: #FFF;
+$black: #000;
+$text: #1F2937;
+$buttonColor: #00A9BB;
+
+$font-monsterat : 'Montserrat';
+
+.addUser_container {
+    box-sizing: border-box;
+
+    * {
+        box-sizing: border-box;
+        font-family: $font-monsterat;
+    }
+
+    .backHrm-link {
+        text-align: left;
+        margin-bottom: 24px;
+
+        .backBtn {
+            background-color: transparent;
+            border: none;
+            outline: none;
+            font-size: 12px;
+            font-style: normal;
+            font-weight: 500;
+            line-height: 16px;
+            /* 133.333% */
+            letter-spacing: 0.06px;
+            color: #6B7280;
+            @include flexbox();
+            align-items: center;
+            cursor: pointer;
+
+            .icon {
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                width: 20px;
+                height: 20px;
+                margin-right: 4px;
+
+                .img_block {
+                    width: 100%;
+                    height: auto;
+                    max-width: 100%;
+                }
+            }
+        }
+    }
+
+    .form_container {
+        padding: 24px;
+        box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25), -1px -7px 7px 0px #FFF;
+        border-radius: 12px;
+        width: 100%;
+        background-color: #F2F5FA;
+
+        form {
+            .title {
+                font-size: 24px;
+                font-style: normal;
+                font-weight: 600;
+                line-height: 32px;
+                /* 133.333% */
+                letter-spacing: 0.12px;
+                color: $text;
+                margin-top: 0;
+                margin-bottom: 20px;
+                text-align: left
+            }
+
+            .input_flexbox {
+                @include flexbox();
+                margin-bottom: 36px;
+                margin-left: -10px;
+                margin-right: -10px;
+
+                &.searchBox {
+                    position: relative;
+
+                    .inputField {
+                        .input_element {
+                            padding-left: 58px;
+                            background-image: url('../../../../assets/images/search_icon.svg');
+                            background-repeat: no-repeat;
+                            background-position: 16px center;
+                        }
+                    }
+
+                    .suggestion_container {
+                        position: absolute;
+                        left: 10px;
+                        top: calc(100% + 4px);
+                        border-radius: 12px;
+                        box-shadow: 0px 10px 8px 0px rgba(0, 0, 0, 0.04), 0px 4px 3px 0px rgba(0, 0, 0, 0.10);
+                        background-color: $white;
+                        padding: 8px;
+                        width: calc(100% - 20px);
+
+                        .employee_listing {
+                            margin: 0;
+                            padding: 0;
+
+                            .list_item {
+                                list-style: none;
+                                border-radius: 8px;
+                                padding: 8px 12px;
+                                text-align: left;
+                                font-size: 14px;
+                                font-style: normal;
+                                font-weight: 400;
+                                line-height: 20px;
+                                /* 142.857% */
+                                letter-spacing: 0.07px;
+                                color: #6B7280;
+
+                                &:hover {
+                                    background-color: #F3F4F6;
+                                    cursor: pointer
+                                }
+                            }
+                        }
+                    }
+                }
+
+                .contactNumber {
+                    @include flexbox();
+                    flex-direction: column;
+                    margin: 0 10px;
+
+                    &.col6 {
+                        width: 50%;
+                    }
+
+                    .label {
+                        display: block;
+                        text-align: left;
+                        margin-bottom: 10px;
+                        font-size: 14px;
+                        font-style: normal;
+                        font-weight: 500;
+                        line-height: 20px;
+                        /* 142.857% */
+                        letter-spacing: 0.07px;
+                        color: $text;
+                    }
+
+                    .flexbox {
+                        @include flexbox();
+                        box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25) inset, -7px -7px 7px 0px #FFF inset;
+                        background-color: #f2f5fa;
+                        border-radius: 8px;
+
+                        .inputField {
+                            margin-left: 0;
+                            margin-right: 0;
+
+                            &.col2 {
+                                width: 20%;
+                            }
+
+                            &.col8 {
+                                width: 80%;
+                            }
+
+                            .select_fieldBox {
+                                .MuiSelect-select {
+                                    box-shadow: none;
+                                    background-color: transparent;
+                                }
+                            }
+
+                            .input_element {
+                                box-shadow: none;
+                                background-color: transparent;
+                            }
+                        }
+                    }
+
+                }
+
+                .role_control {
+                    position: relative;
+
+                    .ceate_role_link {
+                        cursor: pointer;
+                        display: inline-block;
+                        color: #00A9BB;
+                        font-size: 14px;
+                        font-style: normal;
+                        font-weight: 600;
+                        line-height: 20px;
+                        /* 142.857% */
+                        letter-spacing: 0.07px;
+                        position: absolute;
+                        right: 0;
+                        top: 0;
+                        z-index: 1;
+                    }
+
+                    &.col6 {
+                        width: 50%;
+                        margin: 0 10px;
+
+                        .inputField {
+                            margin: 0;
+                        }
+                    }
+                }
+            }
+
+            .privileges_section {
+                margin-bottom: 36px;
+
+                .MuiFormGroup-root {
+                    .MuiFormControlLabel-root {
+                        margin-left: 0;
+                        margin-bottom: 8px;
+
+                        &:last-child {
+                            margin-bottom: 0;
+                        }
+
+                        .MuiCheckbox-root {
+                            padding-top: 0;
+                            padding-bottom: 0;
+                            padding-left: 0;
+
+                            &.Mui-checked {
+                                color: #00A9BB;
+                            }
+                        }
+
+                        .MuiTypography-root {
+                            font-size: 16px;
+                            font-style: normal;
+                            font-weight: 400;
+                            line-height: 24px;
+                            /* 150% */
+                            letter-spacing: 0.08px;
+                            color: $text;
+                            font-family: $font-monsterat
+                        }
+                    }
+                }
+            }
+
+            .bottom_actions {
+                @include flexbox();
+                align-items: center;
+                justify-content: flex-end;
+
+                .cancelBtn {
+                    cursor: pointer;
+                    height: 40px;
+                    width: 73px;
+                    @include flexbox();
+                    align-items: center;
+                    justify-content: center;
+                    border-radius: 8px;
+                    border: 1px solid #00A9BB;
+                    color: #00A9BB;
+                    font-size: 14px;
+                    font-style: normal;
+                    font-weight: 600;
+                    line-height: 20px;
+                    /* 142.857% */
+                    letter-spacing: 0.07px;
+                    padding: 10px 12px;
+                    margin-right: 16px;
+                    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25), -1px -7px 7px 0px #FFF;
+                    background-color: $white;
+
+                    &:focus:not(:focus-visible) {
+                        outline: none;
+                    }
+                }
+
+                .saveBtn {
+                    height: 40px;
+                    width: 58px;
+                    @include flexbox();
+                    align-items: center;
+                    justify-content: center;
+                    border-radius: 8px;
+                    cursor: pointer;
+                    padding: 10px 12px;
+                    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25), -1px -7px 7px 0px #FFF;
+                    background-color: #00A9BB;
+                    color: $white;
+                    font-size: 14px;
+                    font-style: normal;
+                    font-weight: 600;
+                    line-height: 20px;
+                    /* 142.857% */
+                    letter-spacing: 0.07px;
+                    border: none;
+
+                    &:focus:not(:focus-visible) {
+                        outline: none;
+                    }
+                }
+            }
+        }
+    }
+
+}
+
+
+/***********************addUser_successModal css****************************/
+
+.MuiDialog-root {
+    &.addUser_successModal {
+        box-sizing: border-box;
+
+        * {
+            font-family: $font-monsterat;
+            box-sizing: border-box;
+        }
+
+        .MuiPaper-root {
+            max-width: 450px;
+            width: 100%;
+            border-radius: 16px;
+            padding: 40px;
+            box-shadow: 0px 20px 13px 0px rgba(0, 0, 0, 0.03), 0px 8px 5px 0px rgba(0, 0, 0, 0.08);
+            background-color: $white;
+
+            .close_btn {
+                position: absolute;
+                width: 38px;
+                height: 38px;
+                padding: 0;
+                z-index: 1;
+                background-color: transparent;
+                border: none;
+                right: 10px;
+                top: 10px;
+                cursor: pointer;
+                @include flexbox();
+                align-items: center;
+                justify-content: center;
+
+                &:focus:not(:focus-visible) {
+                    outline: none;
+                }
+            }
+
+            .successiconBlock {
+                width: 62px;
+                height: 62px;
+                margin: 0 auto;
+
+                .success_icon {
+                    width: 100%;
+                    height: 100%;
+                    max-width: 100%;
+                }
+            }
+
+            .modal_title {
+                font-size: 24px;
+                font-style: normal;
+                font-weight: 700;
+                line-height: 32px;
+                /* 133.333% */
+                letter-spacing: 0.12px;
+                color: $text;
+                font-family: $font-monsterat;
+                text-align: center;
+                margin-top: 20px;
+                margin-bottom: 10px;
+                padding: 0;
+            }
+
+            .message {
+                margin: 0;
+                text-align: center;
+                font-size: 16px;
+                font-style: normal;
+                font-weight: 500;
+                line-height: 24px;
+                /* 150% */
+                letter-spacing: 0.08px;
+                color: #6B7280;
+            }
+        }
+    }
+}

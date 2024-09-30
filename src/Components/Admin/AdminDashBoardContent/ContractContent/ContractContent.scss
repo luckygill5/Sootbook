@@ -1,0 +1,303 @@
+@import "../../../../BaseStyle/Basestyle.scss";
+
+$white: #FFF;
+$black: #000;
+$text: #1F2937;
+$buttonColor: #00A9BB;
+
+$font-monsterat : 'Montserrat';
+
+.contractContent_container {
+    box-sizing: border-box;
+    position: relative;
+    z-index: 2;
+
+    * {
+        box-sizing: border-box;
+        font-family: $font-monsterat
+    }
+
+    .header_flex {
+        @include flexbox();
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 20px;
+
+        .title {
+            margin: 0;
+            font-size: 24px;
+            font-style: normal;
+            font-weight: 600;
+            line-height: 32px;
+            /* 133.333% */
+            letter-spacing: 0.12px;
+            color: $text;
+        }
+
+        .edit_btn {
+            border: 1px solid #00A9BB;
+            color: #00A9BB;
+            box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25), -1px -7px 7px 0px #FFF;
+            border-radius: 8px;
+            height: 48px;
+            width: 86px;
+            @include flexbox();
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+
+            &:focus:not(:focus-visible) {
+                outline: none;
+            }
+
+            background-color: transparent;
+
+            .icon {
+                width: 14px;
+                height: 14px;
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                margin-right: 10px;
+            }
+
+            font-size: 14px;
+            font-style: normal;
+            font-weight: 600;
+            line-height: 20px;
+            /* 142.857% */
+            letter-spacing: 0.07px;
+        }
+    }
+
+    .body_section {
+        .tabsBlock {
+            .tabsFlexbox {
+                @include flexbox();
+
+                .MuiTabs-root {
+                    width: auto;
+                    max-width: 90%;
+
+                    .MuiTabs-scroller {
+                        overflow-x: auto !important;
+                        scrollbar-width: thin;
+
+                        .MuiTabs-flexContainer {
+
+
+                            .MuiButtonBase-root {
+                                text-transform: capitalize;
+                                font-size: 14px;
+                                font-style: normal;
+                                font-weight: 500;
+                                line-height: 20px;
+                                /* 142.857% */
+                                letter-spacing: 0.07px;
+                                color: #6B7280;
+                                padding: 8px 12px;
+                                font-family: $font-monsterat;
+                                border-bottom: 2px solid #E5E7EB;
+
+                                &.Mui-selected {
+                                    color: #00A9BB;
+                                }
+
+                            }
+                        }
+
+                        .MuiTabs-indicator {
+                            background-color: #00A9BB;
+                        }
+                    }
+                }
+
+                .moreBtn {
+                    border: none;
+                    border-radius: 8px;
+                    width: 38px;
+                    height: 38px;
+                    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25), -1px -7px 7px 0px #FFF;
+                    background-color: #F8FAFC;
+                    @include flexbox();
+                    align-items: center;
+                    justify-content: center;
+                    cursor: pointer;
+
+                    &:focus:not(:focus-visible) {
+                        outline: none;
+                    }
+
+                    svg {
+                        transform: rotate(90deg);
+                    }
+                }
+            }
+
+            .tabdataBlock {
+                width: 100%;
+
+                .MuiBox-root {
+                    padding: 20px 0px 0px 0px;
+
+                    .form_container {
+                        .textareaInput {
+                            width: 100%;
+                            height: calc(100vw * .0833339);
+                            resize: none;
+                            box-shadow: 0px 4px 4px 0px inset rgba(0, 0, 0, 0.25), -7px -7px 7px 0px inset #FFF;
+                            border-radius: 8px;
+                            border: 1px solid #E5E7EB;
+                            background-color: #F2F5FA;
+                            padding: 14px 16px;
+                            font-size: 14px;
+                            font-style: normal;
+                            font-weight: 400;
+                            line-height: 20px;
+                            /* 142.857% */
+                            letter-spacing: 0.07px;
+                            color: #6B7280;
+                        }
+
+                        .info {
+                            display: inline-block;
+                            font-size: 12px;
+                            font-style: normal;
+                            font-weight: 400;
+                            line-height: 16px;
+                            /* 133.333% */
+                            letter-spacing: 0.06px;
+                            margin-top: 6px;
+                            color: #6B7280;
+                            text-align: left
+                        }
+
+                        .input_flexbox {
+                            @include flexbox();
+                            margin-bottom: 36px;
+                            margin-left: -10px;
+                            margin-right: -10px;
+                        }
+
+                        .selectBox {
+                            @include flexbox();
+                            flex-direction: column;
+                            align-items: flex-start;
+
+                            label {
+                                display: inline-block;
+                                text-align: left;
+                                position: relative;
+                                font-size: 14px;
+                                font-style: normal;
+                                font-weight: 600;
+                                line-height: 20px;
+                                /* 142.857% */
+                                letter-spacing: 0.07px;
+                                color: $text;
+                                margin-bottom: 10px;
+
+                                &.mandate {
+                                    &::after {
+                                        content: '*';
+                                        display: inline-block;
+                                        position: absolute;
+                                        top: 0;
+                                        left: 100%;
+                                        font-size: 14px;
+                                        font-style: normal;
+                                        font-weight: 600;
+                                        line-height: 20px;
+                                        letter-spacing: 0.07px;
+                                        color: #EF4444
+                                    }
+                                }
+                            }
+
+                            .select_inputBox {
+                                width: 100%;
+                                box-shadow: 0px 4px 4px 0px inset rgba(0, 0, 0, 0.25), -7px -7px 7px 0px inset #FFF;
+                                border-radius: 8px;
+                                background-color: #F2F5FA;
+
+                                .MuiSelect-select {
+                                    text-align: left;
+                                    font-size: 14px;
+                                    font-style: normal;
+                                    font-weight: 400;
+                                    line-height: 20px;
+                                    /* 142.857% */
+                                    letter-spacing: 0.07px;
+                                    color: #6B7280;
+                                    font-family: $font-monsterat;
+                                    min-height: auto;
+                                    height: 48px;
+                                    box-sizing: border-box;
+                                }
+
+                                fieldset {
+                                    display: none;
+                                }
+                            }
+                        }
+
+                        .button-container {
+                            @include flexbox();
+                            justify-content: flex-end;
+                            text-align: right;
+
+                            .cancelBtn {
+                                width: 80px;
+                                color: $text;
+                                font-size: 14px;
+                                font-style: normal;
+                                font-weight: 400;
+                                line-height: 20px;
+                                /* 142.857% */
+                                letter-spacing: 0.07px;
+                                box-shadow: 0px 2px 5px 2px inset rgba(0, 0, 0, 0.05);
+                                border-radius: 8px;
+                                border: 1px solid #E5E7EB;
+                                background-color: #F2F5FA;
+                                padding: 14px 16px;
+                                height: 48px;
+                                cursor: pointer;
+                                margin-right: 20px;
+                                @include flexbox();
+                                align-items: center;
+                                justify-content: center;
+        
+                                &:focus:not(:focus-visible) {
+                                    outline: none;
+                                }
+                            }
+
+                            .saveBtn {
+                                cursor: pointer;
+                                border: none;
+                                box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25), -1px -7px 7px 0px #FFF;
+                                border-radius: 8px;
+                                background-color: #00A9BB;
+                                padding: 14px 16px;
+                                height: 48px;
+                                width: 66px;
+
+                                &:focus:not(:focus-visible) {
+                                    outline: none;
+                                }
+
+                                font-size: 14px;
+                                font-style: normal;
+                                font-weight: 600;
+                                line-height: 20px;
+                                /* 142.857% */
+                                letter-spacing: 0.07px;
+                                color:$white
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

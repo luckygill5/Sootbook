@@ -1,0 +1,125 @@
+@import "../../../../BaseStyle/Basestyle.scss";
+
+$white: #FFF;
+$black: #000;
+$text: #1F2937;
+$buttonColor: #00A9BB;
+
+$font-monsterat : 'Montserrat';
+
+.collection_container{
+    height: calc(100vh - 254px);
+    box-sizing: border-box;
+    *{
+        box-sizing: border-box;
+        font-family: $font-monsterat;
+
+    }
+    padding: vw(24px);
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25), -1px -7px 7px 0px #FFF;
+    border-radius: vw(12px);
+    background-color: #F2F5FA;
+    .collectionTabBlock{
+        .tabsContainer{
+            @include flexbox();
+            .MuiTabs-root{
+                min-height: vw(38px);
+                .MuiTabs-scroller {
+                    height: vw(38px);
+                    text-align: left;
+                    .MuiTabs-flexContainer{
+                        display: inline-flex;
+                        position: relative;
+                        &::after{
+                            content: '';
+                            display: inline-block;
+                            position: absolute;
+                            left: 0;
+                            bottom: 0;
+                            height: vw(2px);
+                            background-color: #E5E7EB;
+                            width: 100%;
+                        }
+                        .MuiButtonBase-root{
+                            padding: vw(8px) vw(12px);
+                            font-family: $font-monsterat;
+                            text-transform: capitalize;
+                            font-size: vw(14px);
+                            font-style: normal;
+                            font-weight: 500;
+                            line-height: vw(20px); /* 142.857% */
+                            letter-spacing: 0.07px;
+                            color: #6B7280;
+                            min-height: vw(38px);
+                            &.Mui-selected {
+                                color:#14532D; 
+                            }
+                          
+                        }
+                    }
+                    .MuiTabs-indicator{
+                        background-color: #14532D;
+                    }
+                }
+            }
+            .action_flexbox{
+                margin-left: auto;
+                @include flexbox();
+                align-items: center;
+                .commonBtn{
+                    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25), -1px -7px 7px 0px #FFF;
+                    border: none;
+                    border-radius: vw(8px);
+                    background-color: #F2F5FA;
+                    font-size: vw(14px);
+                    font-style: normal;
+                    font-weight: 400;
+                    line-height: vw(20px); /* 142.857% */
+                    letter-spacing: 0.07px;
+                    color: $text;
+                    padding: vw(8px) vw(12px); 
+                    margin-right: vw(4px);
+                    height: vw(36px);
+                    cursor: pointer;
+                    &:focus:not(:focus-visible){
+                        outline: none;
+                    }
+                    &:last-child{
+                        margin-right: 0;
+                    }
+                    &:hover{
+                        background-color: #009859;
+                        color: $white;
+                    }
+                    &.active{
+                        background-color: #009859;
+                        color: $white;
+                    }
+                }
+                .filterBtn{
+                    background-color: $white;
+                    border: 1px solid #E5E7EB;
+                    border-radius: vw(8px);
+                    width: vw(38px);
+                    height: vw(36px);
+                    @include flexbox();
+                    align-items: center;
+                    justify-content: center;
+                    cursor: pointer;
+                    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25), -1px -7px 7px 0px #FFF;
+                    &:focus:not(:focus-visible){
+                        outline: none;
+                    }
+                }
+            }
+        }
+        .data_container{
+            .MuiBox-root{
+                padding-top: vw(12px);
+                padding-right: 0;
+                padding-left: 0;
+                padding-bottom: 0;
+            }
+        }
+    }
+}

@@ -1,0 +1,261 @@
+@import '../../BaseStyle/Basestyle.scss';
+
+
+.commonTable_container {
+    box-sizing: border-box;
+    display: table;
+    width: 100%;
+    overflow-x: auto;
+
+    * {
+        box-sizing: border-box;
+        font-family: $font-monsterat;
+    }
+
+    .table_head {
+        display: table-header-group;
+        width: 100%;
+        .table_row {           
+            @include flexbox();
+            display: table-row;
+            width: 100%;
+
+            &.ln_5 {
+                .thead {
+                    width: 20%;
+                }
+            }
+
+            .tabCheckBox {
+                width: 44px;
+                height: 56px;
+                background-color: #F8FAFC;
+                border-bottom: 1px solid #E5E7EB;
+                border-right: 1px solid #E5E7EB;
+                @include flexbox();
+                align-items: center;
+                justify-content: center;
+                display: table-cell;
+                position: sticky;
+                left: 0;
+                z-index: 1;
+                .MuiCheckbox-root {
+                    &.Mui-checked{
+                        color: #00A9BB;
+                    }
+                   
+                }
+                &:last-child{
+                    border-right: none;
+                }
+            }
+            .moreOptions{
+                width: 44px;
+                height: 56px;
+                background-color: #F8FAFC;
+                border-bottom: 1px solid #E5E7EB;
+                border-left: 1px solid #E5E7EB;   
+                display: table-cell;
+                position: sticky;
+                right: 0;
+                z-index: 1;
+            }
+
+            .thead {
+                height: 56px;
+                padding: 10px 16px;
+                background-color: #F8FAFC;
+                border-bottom: 1px solid #E5E7EB;
+                border-right: 1px solid #E5E7EB;
+                @include flexbox();
+                align-items: center;
+                font-size: 14px;
+                font-style: normal;
+                font-weight: 500;
+                line-height: 20px;
+                /* 142.857% */
+                letter-spacing: 0.07px;
+                color: #6B7280;
+                display: table-cell;
+                white-space: nowrap;
+                text-align: left;
+                min-width:130px;
+                vertical-align: middle;
+                .flexbox{
+                    @include flexbox();
+                    align-items: center;
+
+                }
+                .text {
+                    display: inline-block;
+                    margin-right: 4px;
+                    text-transform: capitalize;
+                    text-align: left;
+                  
+                }
+
+                .icon {
+                    display: inline-flex;
+                    align-items: center;
+                    justify-content: center;
+                    margin-left: 10px;
+                    width: 30px;
+                    height: 30px;
+                    cursor: pointer;
+                    
+                }
+            }
+        }
+    }
+
+    .tableBody {
+        display: table-row-group;
+        width: 100%;
+        .tablerow {
+            @include flexbox();
+            display: table-row;
+            width: 100%;
+
+            &.ln_5 {
+                .tableCell {
+                    width: 20%;
+                }
+            }
+            .tabCheckBox {
+                width: 44px;
+                min-width: 44px;
+                height: 56px;
+                background-color: $white;
+                border-bottom: 1px solid #E5E7EB;
+                border-right: 1px solid #E5E7EB;
+                @include flexbox();
+                align-items: center;
+                justify-content: center;
+                display: table-cell;
+                position: sticky;
+                left: 0;
+                z-index: 1;
+                .MuiCheckbox-root {
+                    &.Mui-checked{
+                        color: #00A9BB;
+                    }
+                   
+                }
+                &.checked{
+                    background-color: #E6F6F8;
+                    ~ .tableCell{
+                        background-color: #E6F6F8;
+                        ~ .moreOptions{
+                            background-color: #E6F6F8; 
+                        }
+                    }
+
+                }
+               
+            }
+            .tableCell {
+                height: 56px;
+                @include flexbox();
+                align-items: center;
+                padding: 4px 16px;
+                background-color: $white;
+                border-right: 1px solid #E5E7EB;
+                border-bottom: 1px solid #E5E7EB;
+                display: table-cell;
+                min-width:130px;
+                &:last-child{
+                    border-right: none
+                }
+                .flexbox{
+                    @include flexbox();
+                    align-items: center;
+                    justify-content: space-between;
+                }
+                .text {
+                    display: inline-block;
+                    font-size: 14px;
+                    font-style: normal;
+                    font-weight: 400;
+                    line-height: 20px;
+                    /* 142.857% */
+                    letter-spacing: 0.07px;
+                    color: $text;
+                    word-break: break-all;
+                    word-break: break-word;
+                    text-align: left;
+                    display: -webkit-box;
+                    -webkit-line-clamp: 1;
+                    -webkit-box-orient: vertical;  
+                    overflow: hidden;
+
+                    &.link {
+                        cursor: pointer;
+                    }
+                }
+                .copy {
+                    display: inline-flex;
+                    align-items: center;
+                    justify-content: center;
+                    margin-left: 20px;
+                    cursor: pointer;
+                    width: 30px;
+                    height: 30px;
+                }
+            }
+            .moreOptions{
+                width: 44px;
+                height: 56px;
+                @include flexbox();
+                align-items: center;
+                justify-content: center;
+                border-bottom: 1px solid #E5E7EB;
+                border-left: 1px solid #E5E7EB;
+                position: sticky;
+                right: 0;
+                z-index: 1;
+                background-color: $white;
+                .icon{
+                    display: inline-block;
+                    cursor: pointer;
+
+                }
+            }
+
+        }
+    }
+}
+
+
+.editMenu {
+    .MuiPaper-root{
+        .MuiList-root{
+            .MuiButtonBase-root{
+                font-size: 14px;
+                font-style: normal;
+                font-weight: 500;
+                line-height: 20px; /* 142.857% */
+                letter-spacing: 0.07px;
+                color: $text;    
+                font-family: $font-monsterat;
+                .icon{
+                    @include flexbox();
+                    margin-right: 12px;
+                    svg{
+                        g{
+                            path{
+                                stroke: $text;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+.loader_container{
+    justify-content: center;
+    height: 200px;
+    align-items: center;
+    @include flexbox();
+    width: 100%;
+}

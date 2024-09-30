@@ -1,0 +1,81 @@
+// Flexbox display
+@mixin flexbox {
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+}
+
+// Inline flex display
+@mixin inline-flex {
+    display: -webkit-inline-box;
+    display: -moz-inline-box;
+    display: -webkit-inline-flex;
+    display: -ms-inline-flexbox;
+    display: inline-flexbox;
+}
+
+
+$white: #FFF;
+$black: #000;
+$text: #1F2937;
+$buttonColor: #00A9BB;
+$font-monsterat : 'Montserrat';
+
+
+
+$vw-viewport: 1920;
+@function vw($font){
+  $vw-context: $vw-viewport * 0.01 * 1px;
+  @return $font / $vw-context * 1vw;
+  @return $font;
+}
+
+
+@mixin container_block {
+    @media screen and (max-width:1599px) {
+        .container {
+            max-width: 1400px;
+            margin-left: auto;
+            margin-right: auto;
+            width: 100%;
+            padding: 0 15px;
+            box-sizing: border-box;
+        }
+    }
+
+    @media screen and (max-width:1450px) {
+        .container {
+            max-width: initial;
+            margin-left: auto;
+            margin-right: auto;
+            width: 100%;
+            padding: 0 60px;
+            box-sizing: border-box;
+        }
+    }
+
+    @media screen and (max-width:1299px) {
+        .container {
+            max-width: initial;
+            margin-left: auto;
+            margin-right: auto;
+            width: 100%;
+            padding: 0 30px;
+            box-sizing: border-box;
+        }
+    }
+
+    @media screen and (min-width:1600px) {
+        .container {
+            max-width: 1500px;
+            margin-left: auto;
+            margin-right: auto;
+            width: 100%;
+            padding: 0 15px;
+            box-sizing: border-box;
+        }
+    }
+
+}

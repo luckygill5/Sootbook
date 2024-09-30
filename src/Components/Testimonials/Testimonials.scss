@@ -1,0 +1,201 @@
+@import "../../BaseStyle/Basestyle.scss";
+
+$white: #FFF;
+$black: #000;
+$text: #1F2937;
+$buttonColor: #00A9BB;
+
+$font-monsterat : 'Montserrat';
+
+.testimonials_section {
+    box-sizing: border-box;
+
+    * {
+        box-sizing: border-box;
+        font-family: $font-monsterat;
+    }
+
+    @include container_block();
+
+    .subtitle {
+        font-size: 16px;
+        font-style: normal;
+        font-weight: 600;
+        line-height: 24px;
+        /* 150% */
+        letter-spacing: 0.08px;
+        text-align: left;
+        color: #FAA61A;
+        margin-top: 0;
+        margin-bottom: 4px;
+    }
+
+    .title {
+        font-size: 36px;
+        font-style: normal;
+        font-weight: 600;
+        line-height: 40px;
+        /* 111.111% */
+        letter-spacing: 0.18px;
+        color: #024457;
+        margin-top: 0;
+        margin-bottom: 16px;
+        text-align: left;
+    }
+
+    .info {
+        font-size: 16px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 24px;
+        /* 150% */
+        letter-spacing: 0.08px;
+        text-align: left;
+        margin-bottom: 40px;
+    }
+
+    .slider_container {
+        .swiper {
+            padding-bottom: 78px;
+            position: relative;
+            .swiper-wrapper {
+                .swiper-slide {
+                    .testimonial_card {
+                        box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.10), 0px 1px 1px 0px rgba(0, 0, 0, 0.06);
+                        padding: 24px;
+                        border: 1px solid #E5E7EB;
+                        border-radius: 12px;
+                        .details {
+                            font-size: 16px;
+                            font-style: normal;
+                            font-weight: 500;
+                            line-height: 24px;
+                            /* 150% */
+                            letter-spacing: 0.08px;
+                            color: $text;
+                            margin-bottom: 21px;
+                            margin-top: 0;
+                            text-align: left
+                        }
+
+                        .flexbox {
+                            @include flexbox();
+
+                            .img_block {
+                                width: 46px;
+                                height: 46px;
+                                margin-right: 16px;
+
+                                img {
+                                    max-width: 100%;
+                                    height: auto;
+                                }
+                            }
+
+                            .content {
+                                .title {
+                                    font-size: 16px;
+                                    font-style: normal;
+                                    font-weight: 700;
+                                    line-height: 24px;
+                                    /* 150% */
+                                    letter-spacing: 0.08px;
+                                    color: $text;
+                                    margin: 0;
+                                }
+
+                                .profession {
+                                    font-size: 14px;
+                                    font-style: normal;
+                                    font-weight: 500;
+                                    line-height: 20px;
+                                    /* 142.857% */
+                                    letter-spacing: 0.07px;
+                                    color: #6B7280;
+                                    display: inline-block;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            .swiper-pagination{
+                position: absolute;
+                left: 0;
+                bottom: 0;
+                .swiper-pagination-bullet{
+                    width: 10px;
+                    height: 10px;
+                    margin-right: 10px;
+                    border-radius: 50%;
+                    background-color: #E5E7EB;
+                    display: inline-block;
+                    &:last-child{
+                        margin-right: 0;
+                    }
+                    &.swiper-pagination-bullet-active{
+                        background-color: #00A9BB;
+                    }
+                }
+            }
+            .swiper-button-prev{
+                width: 40px;
+                height: 38px;
+                border-radius: 8px;
+                box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.05);
+                border: 1px solid #E5E7EB;
+                position: absolute;
+                bottom: 0;
+                right: 56px;
+                cursor: pointer;
+                &::before{
+                    content: '';
+                    display: inline-block;
+                    width: 16px;
+                    height: 16px;
+                    left: 50%;
+                    top: 50%;
+                    background-image: url('../../assets/images/chevron-right.svg');
+                    background-repeat: no-repeat;
+                    background-size: auto;
+                    @include flexbox();
+                    align-items: center;
+                    justify-content: center;
+                    position: absolute;
+                    transform: translate(-50%, -50%) rotate(180deg);
+                    background-position: center;
+                    background-size: 8px;
+                }
+            }
+            .swiper-button-next{
+                width: 40px;
+                height: 38px;
+                border-radius: 8px;
+                box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.05);
+                border: 1px solid #E5E7EB;
+                position: absolute;
+                right: 0;
+                bottom: 0;
+                cursor: pointer;
+                &::before{
+                    content: '';
+                    display: inline-block;
+                    width: 16px;
+                    height: 16px;
+                    left: 50%;
+                    top: 50%;
+                    background-image: url('../../assets/images/chevron-right.svg');
+                    background-repeat: no-repeat;
+                    background-size: auto;
+                    @include flexbox();
+                    align-items: center;
+                    justify-content: center;
+                    position: absolute;
+                    transform: translate(-50%, -50%) rotate(0deg);
+                    background-position: center;
+                    background-size: 8px;
+                } 
+            }
+        }
+    }
+}

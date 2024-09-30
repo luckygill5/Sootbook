@@ -1,0 +1,68 @@
+$black:#000;
+$white:#fff;
+
+.section_attributeManage{
+    box-sizing: border-box;
+    *{
+        box-sizing: border-box;
+    }
+    .head-block{
+        padding: 20px;
+        background-color: #ccc;
+        .title{
+            font-size: 20px;
+            color: $black;
+            line-height: normal;
+            font-weight: 600;
+            margin: 0;
+        }
+    }
+    .data_submit{
+        margin-top: 20px;
+        margin-bottom: 20px;
+        form{
+            display: flex;
+            align-items: flex-end;
+            justify-content: flex-end;
+            width: 70%;
+            margin-left: auto;
+            margin-right: auto;
+            .selectindustry_fieldbox{
+                &.MuiFormControl-root{
+                    max-width: 500px;
+                    margin-right: 20px;
+                    .MuiFormLabel-root{
+                        &.MuiInputLabel-shrink{
+                            background-color: $white;
+                            padding-right: 5px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    .attr_collectionSection{
+        width: 70%;
+        margin-left: auto;
+        margin-right: auto;
+        .flexBox{
+            display: flex;
+            .form_controlBox{
+                display: flex;
+                flex-wrap: wrap;
+                .form_controls{
+                    margin-right: 30px;
+                    margin-bottom: 20px;
+                    form{
+                       .MuiTextField-root{
+                        &.inputfield_attrType{
+                            margin-right: 20px;
+                        }
+                       } 
+                    }
+                }
+            }
+        }
+        
+    }
+}
