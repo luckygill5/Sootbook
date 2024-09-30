@@ -22,8 +22,13 @@ function PaginationLayout({ paginationSet, pageNo , totalPages }) {
 
     const handlePageChange=(event)=>{
         const {value} =event.target;
-        paginationSet(parseInt(value));
-        setgotoPage(value);
+        if(!isNaN(value)){
+            paginationSet(parseInt(value));
+            setgotoPage(value);
+        }
+
+        
+
     }
 
     

@@ -266,7 +266,7 @@ function ManufacturerMaster({breadcrumbUpdateData, updateBreadCrumb}) {
                         <div className='manufacturerMasterListingTabs'>
                             <Box className="tabsContainer" sx={{ width: '100%' }}>
                                 <div className='tableContainer'>
-                            <CommonTable deleteProductData={(e) => handleManufacturerDelete(e)} dataEditPopulate={(e) => handleEditDataPopulate(e)} dataPopulate={(e) => handleDataPopulate(e)} tableFilterHeader={tableFilterHeader} header={tableHeader} productData={manufacturerListCard}/> 
+                            <CommonTable deleteProductData={(e) => handleManufacturerDelete(e)} dataEditPopulate={(e) => handleEditDataPopulate(e)} dataPopulate={(e) => handleDataPopulate(e)} tableFilterHeader={tableFilterHeader} header={tableHeader} tableBodyData={manufacturerListCard}/> 
                             </div>
                                    {manufacturerListCard ? <Pagination totalPages={totalPages} pageNo={pageValue} paginationSet={(e) => handlePagination(e)}/>: ''}
                                    

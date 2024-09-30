@@ -116,7 +116,7 @@ function AdminSideNav(props) {
                         dataLabel: 'Manufacturers',
                     },
                     {
-                        dataLabel: 'Suppliers',
+                        dataLabel: 'Suppliers/Distributor',
                     },
                     {
                         dataLabel: 'Categories',
@@ -223,9 +223,9 @@ function AdminSideNav(props) {
                                                             return (
                                                                 <li>
                                                                     <button
-                                                                        className={`menu_link ${label.dataLabel} ${label.dataLabel == menuSelected ? 'active' : ''}`}
+                                                                        className={`menu_link ${label.dataLabel.split("/").join("_")} ${label.dataLabel == menuSelected ? 'active' : ''}`}
                                                                         onClick={() => {
-                                                                            handleMenuItem(index, label.dataLabel, true);
+                                                                            handleMenuItem(index, label.dataLabel.split("/").join("_"), true);
                                                                             setSubMenuParent(item?.item);
                                                                         }}
                                                                     >
