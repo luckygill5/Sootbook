@@ -19,7 +19,7 @@ const productDetailInitialValues = {
 
     name: "",
     code: "",
-    status: 'active',
+    status: 'Active',
     email: "",
     contactName: "",
     contactMobile: "",
