@@ -75,7 +75,7 @@ function AddNewSupplier({ back, preview, previewData, removePreviewMode, success
                     <span className='icon'>
                         <ArrowLeft />
                     </span>
-                    Back to Suppliers List
+                    Back to Suppliers/Distributor List
                 </span>
             </div>
             <div className={`container_section ${preview ? 'preview':''}`}>
@@ -100,7 +100,7 @@ function AddNewSupplier({ back, preview, previewData, removePreviewMode, success
                         </div>
                     </div>
                 </div> :
-                    <h1 className='section_title'>{`${EditData ? "Edit Supplier" :"Add New Supplier"} `}</h1>}
+                    <h1 className='section_title'>{`${EditData || previewData && Object.keys(previewData).length > 0 ? "Edit Supplier/Distributor" :"Add New Supplier/Distributor"} `}</h1>}
                 <Box className="tabsContainer" sx={{ width: '100%' }}>
                     <Box className="tabFlexContainer">
                         {
