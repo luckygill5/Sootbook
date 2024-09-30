@@ -197,7 +197,7 @@ function AdminDashBoardContent(props) {
                 ) : props.viewcontrol == 'User' ? (
                     <User />
                 ) : props.viewcontrol == 'Categories' ? (
-                    <CategoryMaster />
+                    <CategoryMaster updateBreadCrumb={props.updateBreadCrumb} breadcrumbUpdateData={props.breadcrumbUpdateData}/>
                 ): props.viewcontrol == "Manufacturers" ? (
                     <ManufacturerMaster updateBreadCrumb={props.updateBreadCrumb} breadcrumbUpdateData={props.breadcrumbUpdateData}/>
                 ) : (

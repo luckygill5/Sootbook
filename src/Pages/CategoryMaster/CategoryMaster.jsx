@@ -7,18 +7,41 @@ import { ReactComponent as UserPlus } from '../../assets/images/user-plus.svg';
 import { ReactComponent as CopyPlus } from '../../assets/images/copy-plus.svg';
 import './CategoryMaster.scss';
 import { COMPACT_DENSITY_FACTOR } from '@mui/x-data-grid';
+import BulkUpload from '../../Components/BulkUpload/BulkUpload';
 
-const CategoryMaster = () => {
+const CategoryMaster = ({breadcrumbUpdateData, updateBreadCrumb}) => {
     const [showUpdateForm, setShowUpdateForm] = useState(false);
     const [categoryMap, setCategoryMap] = useState({});
     const [childCategoryMap, setChildCategoryMap] = useState({});
     const [selectedL1, setSelectedL1] = useState('');
     const [selectedL2, setSelectedL2] = useState('');
     const [editCategory, setEditCategory] = useState(null);
+    const [showBulkUploadForm, setshowBulkUploadForm] = useState(false);
+    const [breadcrumb, setBreadCrumb] = useState([...breadcrumbUpdateData]);
 
+    const handleBack=()=>{
+        let removeLastBreadcrumb = breadcrumb.filter((item) => {
+            if (item !== 'Bulk Category Creation') {
+                return item
+            }
+        });
+        setBreadCrumb([...removeLastBreadcrumb]);
+        setshowBulkUploadForm(!showBulkUploadForm); 
+    }
+
+    
+    useEffect(() => {
+        updateBreadCrumb(breadcrumb)
+    }, [breadcrumb]);
+
+    
     const toggleShowUpdateForm = () => {
         setShowUpdateForm(!showUpdateForm);
     };
+
+    const toggleBulkUpdateForm =()=>{
+      setshowBulkUploadForm(!showBulkUploadForm);  
+    }
 
     const getCategoryData = () => {
         try {
@@ -72,12 +95,14 @@ const CategoryMaster = () => {
                     categoryMap={categoryMap}
                     selectedL1={selectedL1}
                 />
+            ): showBulkUploadForm ?(
+                <BulkUpload breadcrumbUpdateData={breadcrumbUpdateData} updateBreadCrumb={updateBreadCrumb} back={handleBack}/>
             ) : (
                 <div className='categoryMaster_content'>
                     <div className='headerFlexbox'>
                         <h2 className='title'>Categories</h2>
                         <span className='headerButtons'>
-                            <button className='bulkUploadBtn' onClick={() => toggleShowUpdateForm()}>
+                            <button className='bulkUploadBtn' onClick={() => toggleBulkUpdateForm()}>
                                 <span className='icon'>
                                     <CopyPlus />
                                 </span>
