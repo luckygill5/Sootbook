@@ -7,12 +7,14 @@ $font-monsterat: 'Montserrat';
     border-collapse: collapse;
     box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
     margin-bottom: 20px;
+    max-width: 672px;
     table {
         border-collapse: collapse;
         width: 100%;
         border: 1px solid #ccc; /* added border to the table */
         border-radius: 5px; /* added border radius to the table */
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* added box shadow to the table */
+        
         thead{
 
         }
@@ -327,6 +329,10 @@ $font-monsterat: 'Montserrat';
         align-items: center;
         justify-content: space-between;
         min-width: 114px;
+        max-width: 672px;
+        &.tableform{
+            justify-content: flex-end;
+        }
         .saveDraftBtn {
             border: none;
             cursor: pointer;

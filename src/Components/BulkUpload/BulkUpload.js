@@ -322,9 +322,11 @@ function BulkUpload({ breadcrumbUpdateData, updateBreadCrumb, back }) {
                         </>
                     )}
                 </>
-                <div className='button_actions'>
+                <div className={`button_actions ${fileData.length>0 ? 'tableform': ''}`}>
                     <React.Fragment>
-                        <button className='saveDraftBtn' type='button' onClick={handleClickDownloadTemplate}>Download the Category Template</button>
+                    {fileData.length === 0 ?
+                        (<button className='saveDraftBtn' type='button' onClick={handleClickDownloadTemplate}>Download the Category Template</button>)
+                        :("")}
                         <div className='action_flexContainer'>
                             <button className='cancelBtn' type='button' onClick={gotoBack}>Cancel</button>
                             <button className={`addUploadBtn ${
