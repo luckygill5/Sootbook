@@ -1,158 +1,123 @@
-import React , {useEffect, useState} from "react";
-import { ReactComponent as UserPlus } from '../../../../assets/images/user-plus.svg';
-import { ReactComponent as ArrowLeft } from '../../../../assets/images/arrow-left.svg';
-import { Input, Select } from '../../../../Components/common';
-import * as Yup from 'yup';
-import { useFormik } from 'formik';
-import "./AddNewSupplier.scss"
+import React, { useState, useEffect } from 'react';
+import { ReactComponent as ArrowLeft } from "../../../../assets/images/arrow-left.svg";
+import { ReactComponent as Edit } from "../../../../assets/images/pencil.svg";
+import Box from '@mui/material/Box';
+import { axiosClient } from "../../../../services/axiosClient";
+import SupplierDetail from "./SupplierDetail";
+import './AddNewSupplier.scss';
 
 
-const addNewSupplierFormSchema = Yup.object({
-    name: Yup.string().required('Product Name is required.'),
-    contactNumber: Yup.string().required('Contact Number  is required.'),
-    email: Yup.string().required('Email is required.'),
-});
+function AddNewSupplier({ back, preview, previewData, removePreviewMode, successModalClose, EditData }) {
+    const [productCreateList, setProductCreateList] = useState("");
+    const [productDetailsCollection, setProductDetailsCollection] = useState("");
+    const  [productTypelist, setProductTypeList] = useState([]);
 
-const addNewSupplierInitialValues = {
-    // productCode: '',
-    status: '',
-    name: '',
-    email: '',
-    contactPersonName: '',
-    contactNumber: '',
-    country: '',
-    city: '',
-    zipCode: '',
-    addressLine1: '',
-    addressLine2: '',
-    entryPort: '',
-    minMargin: '',
-    expireRecieve: '',
-    creditTerms: '',
-    licenseNumber: '',
-    productType: '',
-    trn: '',
-    MOQ: '',
-   
-};
+    useEffect(() => {
+        handleProductCreateList();
+        handleProductTypeList();
+    }, [])
 
-function AddNewSupplier({back}){
+    const handleProductDetailData = (event) => {
+        setProductDetailsCollection(event)
+    }
 
-    const { values, handleBlur, handleChange, handleSubmit, errors, touched, setFieldValue } = useFormik({
-        initialValues: addNewSupplierInitialValues,
-        validationSchema: addNewSupplierFormSchema,
-        validateOnChange: true,
-        validateOnBlur: false,
-        enableReinitialize: true,
-        onSubmit: (values, action) => {
-            handleFormSubmit(values);
-            // action.resetForm();
-        },
-    });
+    const handleProductCreateList = async event => {
+        const accessToken = `Bearer ${sessionStorage.accessToken} `
+        try {
+            let response = await axiosClient.get(
+                `admin/product/create/list`, {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'x-via-device': true,
+                    'Authorization': accessToken
+                },
+            }
 
-    const handleFormSubmit = async values => {
-       console.log("submmit", values)
-    };
+            );
+            if (response.status == 200) {
+                setProductCreateList(response?.data?.data)
+            }
 
-    return(
-        <React.Fragment>
-            <div className="addNewSupplier_container">
+        } catch (error) {
+            console.log("error", error)
+        }
+
+    }
+
+    const handleProductTypeList = async event => {
+        const accessToken =  `Bearer ${sessionStorage.accessToken} `
+        try{
+            let response = await axiosClient.post(
+                `admin/product_type/list`, 
+                JSON.stringify({ search: ''}), 
+                {
+                    headers : {
+                        'Content-Type': 'application/json',
+                        'x-via-device': true,
+                        'Authorization' : accessToken
+                    },
+                }
+
+            );
+            if(response.status == 200){
+                setProductTypeList( response?.data?.data?.productTypes)
+            }
+
+        }catch(error){
+            console.log("error", error)
+        }
+       
+    }
+    return (
+        <div className='addNewSupplier_container'>
             <div className='backLink'>
                 <span className='link' onClick={back}>
                     <span className='icon'>
                         <ArrowLeft />
                     </span>
-                    Back to Suppliers
+                    Back to Suppliers List
                 </span>
             </div>
-            <div className="contentSection">
-            <h1 className="title">Add New Supplier</h1>
-            <form className="form_container">
-                <div className="firstSection">
-                        <div className="flexbox">
-                        <div className="supplierCodeBox sm-30 lg-30">
-                        <div className='inputBox supplierCode '>
-                        <Input
-                            label={'Supplier Code'}
-                            type={'text'}
-                            name={'code'}
-                            id={'code'}
-                            value={values.code}
-                            wrapperClass={'col12'}
-                            onChange={handleChange}
-                            error={errors.code}
-                            touched={touched.code}
-                            ReadOnly={true}
-                            disabled={true}
-                        />
-                    </div>
-                      
+            <div className={`container_section ${preview ? 'preview':''}`}>
+                {preview ? <div className='header_section'>
+                    <div className='section_flexbox'>
+                        <div className='leftInfo_flexbox'>
+                            <div className='imgBox'>
+                                <img src={previewData && previewData.image[0]} alt="thumbnail" className='preview'></img>
+                            </div>
+                            <div className='info'>
+                                <div className='flexbox'>
+                                    <h5 className='title'>{previewData && previewData.name}</h5><span className='status green'>Available</span>
+                                </div>
+                                <span className='lastUpdated'>
+                                    Last Updated on {new Date(`${previewData && previewData.updatedAt}`).toDateString()}
+                                </span>
+                            </div>
                         </div>
-                        <div className='inputBox sm-20 lg-15'>
-                        <Select
-                            label={'Status'}
-                            name={'status'}
-                            options={[
-                                { id: 'Active', value: 'Active' },
-                                { id: 'In Active', value: 'In Active' },
-                            ]}
-                            // isRequired
-                            wrapperClass={'col12'}
-                            value={values.status}
-                            onChange={handleChange}
-                            error={errors.status}
-                            touched={touched.status}
-                        />
-                    </div> 
+                        <div className='rightInfo_flexbox'>
+                            <button className='histroyBtn' type='button'>Transaction History</button>
+                            <button className='stockBtn' type='button'>Stock</button>
+                        </div>
                     </div>
-                
-                </div>
-                <div className="secondSection">
-                <div className='inputBox sm-50 lg-50 '>
-                        <Input
-                            label={'Name'}
-                            type={'text'}
-                            name={'name'}
-                            id={'name'}
-                            value={values.name}
-                            wrapperClass={'col12'}
-                            onChange={handleChange}
-                            error={errors.name}
-                            touched={touched.name}
-                        />
-                    </div>  
-                    <div className='inputBox sm-50 lg-50 '>
-                        <Input
-                            label={'Email'}
-                            type={'text'}
-                            name={'email'}
-                            id={'name'}
-                            value={values.email}
-                            wrapperClass={'col12'}
-                            onChange={handleChange}
-                            error={errors.email}
-                            touched={touched.email}
-                        />
-                    </div>  
-                    <div className='inputBox sm-50 lg-50 '>
-                        <Input
-                            label={'Contact Person Name'}
-                            type={'text'}
-                            name={'contactPersonName'}
-                            id={'contactPersonName'}
-                            value={values.contactPersonName}
-                            wrapperClass={'col12'}
-                            onChange={handleChange}
-                            error={errors.contactPersonName}
-                            touched={touched.contactPersonName}
-                        />
-                    </div>  
-                </div>
-            </form>
+                </div> :
+                    <h1 className='section_title'>{`${EditData ? "Edit Supplier" :"Add New Supplier"} `}</h1>}
+                <Box className="tabsContainer" sx={{ width: '100%' }}>
+                    <Box className="tabFlexContainer">
+                        {
+                            preview ? <button className='editBtn' onClick={() => removePreviewMode()}>
+                                <span className='icon'>
+                                    <Edit />
+                                </span>
+                                Edit
+                            </button> : ""
+                        }
+                    </Box>
+
+                        <SupplierDetail successModalClose={() => successModalClose()} productTypelist={productTypelist} preview={preview} previewData={previewData} productDetailData={(e) => handleProductDetailData(e)} ProductCreateList={productCreateList} back={back} productBackData={productDetailsCollection}/>
+                </Box>
             </div>
-            </div>
-        </React.Fragment>
+        </div>
     )
 }
 
-export default AddNewSupplier
+export default AddNewSupplier;

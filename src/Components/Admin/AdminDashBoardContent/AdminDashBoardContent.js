@@ -176,7 +176,7 @@ function AdminDashBoardContent(props) {
                     updateBreadCrumb={props.updateBreadCrumb}
                     breadcrumbUpdateData={props.breadcrumbUpdateData} />;
                 break;
-            case "Suppliers":
+            case "Suppliers_Distributor":
                 return <Supplier 
                 updateBreadCrumb={props.updateBreadCrumb}
                 breadcrumbUpdateData={props.breadcrumbUpdateData} />;

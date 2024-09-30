@@ -229,6 +229,9 @@ $font-monsterat: 'Montserrat';
                             padding-left: 0;
                             padding-right: 0;
                             position: relative;
+                            .table_container{
+                                overflow-x: auto;
+                            }
                             .productCard_container {
                                 .card_flexContainer {
                                     width: 100%;

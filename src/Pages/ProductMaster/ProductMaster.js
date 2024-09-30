@@ -26,7 +26,7 @@ function ProductMaster({ breadcrumbUpdateData, updateBreadCrumb }) {
     const [productListCard, setProductListCard] = useState(null);
     const [draftListData, setDraftListData] = useState('');
     const [tableFilterHeader, setTableFilterHeader] = useState('');
-    const [productTableHeader, setProductTableHeader] = useState(["manufacturer name", "product Code", "product name", "generic Name", "net Price", "VAT"])
+    const [productTableHeader, setProductTableHeader] = useState(["manufacturer name", "product Code", "product name", "generic Name", "net Price", "VAT %"])
     const [previewMode, setPreviewMode] = useState();
     const [previewData, setPreviewData] = useState('');
     const [productlistUpdate, setProductListUpdate] = useState(false);
@@ -354,9 +354,12 @@ function ProductMaster({ breadcrumbUpdateData, updateBreadCrumb }) {
             handleDraftList({pageNo :1, data:event.target.value});
         }
 
-
-
     }
+
+    useEffect(() => {
+        handlePagination(1)
+    }, [value])
+
     const ProductMasterTabs = ['Products', 'Drafts'];
 
     return (
@@ -442,6 +445,7 @@ function ProductMaster({ breadcrumbUpdateData, updateBreadCrumb }) {
                                                 
                                             />
                                         ) : toggleView == 'List' ? (
+                                            <div className='table_container'>
                                             <CommonTable
                                                 deleteProductData={e => handleProductDelete(e)}
                                                 dataEditPopulate={e => handleEditDataPopulate(e)}
@@ -450,6 +454,7 @@ function ProductMaster({ breadcrumbUpdateData, updateBreadCrumb }) {
                                                 tableBodyData={productListCard}
                                                 tableFilterHeader={tableFilterHeader}
                                             />
+                                            </div>
                                         ) : (
                                             ''
                                         )}

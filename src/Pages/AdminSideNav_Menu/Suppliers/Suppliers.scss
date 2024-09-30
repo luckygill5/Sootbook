@@ -78,4 +78,9 @@
             border: none;
         }
     }
+    .supplierTableLayout{
+        .table_container{
+            overflow-x: auto;
+        }
+    }
 }
