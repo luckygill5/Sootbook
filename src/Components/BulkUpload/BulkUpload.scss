@@ -4,12 +4,18 @@ $font-monsterat: 'Montserrat';
 .upload_container {
     height: 100%;
 .TableSection {
+    border-collapse: collapse;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+    margin-bottom: 20px;
     table {
         border-collapse: collapse;
         width: 100%;
         border: 1px solid #ccc; /* added border to the table */
         border-radius: 5px; /* added border radius to the table */
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* added box shadow to the table */
+        thead{
+
+        }
       }
       
       th, td {
@@ -19,13 +25,24 @@ $font-monsterat: 'Montserrat';
       }
       
       th {
-        background-color: #f0f0f0;
+        background-color: #E5E7EB;
         font-weight: bold; /* added font weight to the header cells */
-        color: #333; /* added text color to the header cells */
+        font-size: 14px;
+        font-style: normal;
+        font-weight: 500;
+        line-height: 20px; /* 142.857% */
+        letter-spacing: 0.07px;    
+        color: #6B7280; /* added text color to the header cells */
+
       }
       
       td {
         background-color: #fff; /* added background color to the data cells */
+        font-size: 14px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 20px; /* 142.857% */
+        letter-spacing: 0.07px;    
       }
       
       tr:nth-child(even) {
