@@ -61,7 +61,6 @@ function ManufacturerDetail({ ProductCreateList, productTypelist, preview, previ
     const [formDisabled, setFormDisabled] = useState(true);
 
    useEffect(()=>{
-    debugger
      if(previewData.length===0){
       setFieldValue("status","Active");
      }

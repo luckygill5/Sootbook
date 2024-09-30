@@ -34,7 +34,6 @@ function CommonTable(props) {
     };
 
     const handleEditClick = index => {
-        debugger
         props.dataEditPopulate(index);
     };
     let filtered;
