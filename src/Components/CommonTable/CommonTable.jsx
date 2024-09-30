@@ -165,12 +165,11 @@ function CommonTable(props) {
                                     </div>
                                     {
                                         Object.entries(item).map((data, index) => {
-
                                             if (props.header?.includes(data[0]) || props.tableFilterHeader?.includes(data[0])) {
                                                 return <div key={index} className={`tableCell ${data[0]}`} >
                                                     <div className='flexbox'>
                                                     {data[0] == 'productCode' ? <span className='text link' onClick={() => data[0] == "productCode" ? handleClick(data[1]) : ''}>{data[1]}</span> : <span className={`text`} >{data[1]}</span>}
-                                                    {data[0] == "netPrice" || data[0] == "vat" || (props.renderTable =="suppliers" && (data[0]=="code" || data[0] =="name" || data[0] == "email") ) ?
+                                                    {props.copyHeaderItem.includes(data[0]) ?
                                                         <span className='copy'>
                                                             <CopyToClipboard text={data[1]} onCopy={() => { setCopyOpen(true); setCopied(true) }}>
                                                                 <img src={Copy} alt='copyIcon' className='icon'></img>

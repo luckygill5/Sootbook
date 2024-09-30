@@ -234,7 +234,7 @@ function Supplier({ breadcrumbUpdateData, updateBreadCrumb }) {
                         header={header}
                         tableFilterHeader={tableFilterHeader}
                         tableBodyData={supplierTableData}
-                        renderTable="suppliers"
+                        copyHeaderItem={["name","code","email"]}
                         dataEditPopulate={(e) => handleEditDataPopulate(e)} 
                         deleteProductData={(e) => handleDeleteData(e)}
                     />

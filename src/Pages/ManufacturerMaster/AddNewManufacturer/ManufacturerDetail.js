@@ -60,7 +60,11 @@ function ManufacturerDetail({ ProductCreateList, productTypelist, preview, previ
     const [successModal, setSucessModal] = useState("");
     const [formDisabled, setFormDisabled] = useState(true);
 
-
+   useEffect(()=>{
+     if(previewData.length===0){
+      setFieldValue("status","Active");
+     }
+   },[])
  
 
     const handleFormSubmit = async values => {
@@ -199,6 +203,7 @@ function ManufacturerDetail({ ProductCreateList, productTypelist, preview, previ
                             error={errors.code}
                             touched={touched.code}
                             ReadOnly={true}
+                            disabled={true}
 
                         />
                         <ul className='info_listing'>
@@ -216,6 +221,7 @@ function ManufacturerDetail({ ProductCreateList, productTypelist, preview, previ
                             ]}
                             wrapperClass={'sm-20 lg-20'}
                             onChange={handleChange}
+
                         />
                     </div>
                     <div className='inputBox Product_Name sm-60 lg-60'>
