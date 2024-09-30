@@ -103,7 +103,7 @@ function CommonTable(props) {
                     return item;
                 }
             });
-            console.log("filter", filterObject)
+
         filteredCode = filterObject[0].productCode ? filterObject[0].productCode : filterObject[0].code;
         FilteredID = filterObject[0]._id;
         setFilteredProductCode(filteredCode);
