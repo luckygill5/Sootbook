@@ -1,0 +1,81 @@
+@import "../../../BaseStyle/Basestyle.scss";
+
+.suppliers_container {
+    box-sizing: border-box;
+
+    * {
+        box-sizing: border-box;
+        font-family: $font-monsterat;
+    }
+
+    padding: 24px;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+    background-color: #F2F5FA;
+    border-radius: 12px;
+
+    .header_section {
+        @include flexbox();
+        align-items: flex-start;
+        justify-content: space-between;
+        margin-bottom: 20px;
+
+        .title {
+            font-size: 24px;
+            font-style: normal;
+            font-weight: 500;
+            line-height: 32px;
+            /* 133.333% */
+            letter-spacing: 0.12px;
+            margin: 0;
+            color: $text;
+        }
+
+        .addSupplierBtn {
+            border: none;
+            border-radius: 8px;
+            background-color: $buttonColor;
+            box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+            color: $white;
+            white-space: nowrap;
+            padding: 14px 16px;
+            cursor: pointer;
+            @include flexbox();
+            align-items: center;
+            &:focus:not(:focus-visible) {
+                outline: none;
+            }
+            .icon{
+                display: inline-flex;
+                margin-right: 10px;
+            }
+        }
+    }
+
+    .searchBox {
+        text-align: left;
+        margin-bottom: 20px;
+
+        .searchElement {
+            width: 40%;
+            max-width: 400px;
+            background-color: #f2f5fa;
+            border-radius: 6px;
+            padding: 14px 16px 14px 50px;
+            height: 48px;
+            outline: none;
+            font-size: 14px;
+            font-style: normal;
+            font-weight: 400;
+            line-height: 20px;
+            letter-spacing: 0.07px;
+            color: #6b7280;
+            display: flex;
+            align-items: center;
+            box-shadow: 0px 4px 4px 0px inset rgba(0, 0, 0, 0.25), -7px -7px 7px 0px inset #fff;
+            background-image: url("../../../assets/images/search_icon.svg");
+            background-repeat: no-repeat;
+            background-position: 16px center;
+            border: none;
+        }
+    }
+}

@@ -447,7 +447,7 @@ function ProductMaster({ breadcrumbUpdateData, updateBreadCrumb }) {
                                                 dataEditPopulate={e => handleEditDataPopulate(e)}
                                                 dataPopulate={e => handleDataPopulate(e)}
                                                 header={productTableHeader}
-                                                productData={productListCard}
+                                                tableBodyData={productListCard}
                                                 tableFilterHeader={tableFilterHeader}
                                             />
                                         ) : (

@@ -72,9 +72,9 @@ function CommonTable(props) {
             setSelectAll(false);
         } else {
             let collections =
-                props.productData &&
-                props.productData.length > 0 &&
-                props.productData.map((item, index) => {
+                props.tableBodyData &&
+                props.tableBodyData.length > 0 &&
+                props.tableBodyData.map((item, index) => {
                     return index;
                 });
 
@@ -96,9 +96,9 @@ function CommonTable(props) {
         let filteredCode;
         let FilteredID;
         filterObject =
-            props.productData &&
-            props.productData.length > 0 &&
-            props.productData.filter((item, index) => {
+            props.tableBodyData &&
+            props.tableBodyData.length > 0 &&
+            props.tableBodyData.filter((item, index) => {
                 if (index == event) {
                     return item;
                 }
@@ -127,7 +127,7 @@ function CommonTable(props) {
     };
     return (
         <React.Fragment>
-            {props.header && props.header.length > 0 && props.productData && props.productData.length > 0 ? (
+            {props.header && props.header.length > 0 && props.tableBodyData && props.tableBodyData.length > 0 ? (
                 <div className='commonTable_container'>
                     <div className='table_head'>
                         <div className={`table_row ln_${props.header.length}`}>
@@ -156,9 +156,9 @@ function CommonTable(props) {
                     </div>
                     <div className='tableBody'>
                         {
-                            props.productData &&
-                            props.productData.length > 0 &&
-                            props.productData.map((item, index) => {
+                            props.tableBodyData &&
+                            props.tableBodyData.length > 0 &&
+                            props.tableBodyData.map((item, index) => {
                                 return (<div className={`tablerow ln_${props.header.length}`} key={index}>
                                     <div className={`tabCheckBox ${indexCheck.includes(index) ? 'checked' : ''}`}>
                                         <Checkbox checked={indexCheck.includes(index) ? true : false} onChange={() => handleChange(index)} />
@@ -170,7 +170,7 @@ function CommonTable(props) {
                                                 return <div key={index} className={`tableCell ${data[0]}`} >
                                                     <div className='flexbox'>
                                                     {data[0] == 'productCode' ? <span className='text link' onClick={() => data[0] == "productCode" ? handleClick(data[1]) : ''}>{data[1]}</span> : <span className={`text`} >{data[1]}</span>}
-                                                    {data[0] == "netPrice" || data[0] == "vat" ?
+                                                    {data[0] == "netPrice" || data[0] == "vat" || (props.renderTable =="suppliers" && (data[0]=="code" || data[0] =="name" || data[0] == "email") ) ?
                                                         <span className='copy'>
                                                             <CopyToClipboard text={data[1]} onCopy={() => { setCopyOpen(true); setCopied(true) }}>
                                                                 <img src={Copy} alt='copyIcon' className='icon'></img>
