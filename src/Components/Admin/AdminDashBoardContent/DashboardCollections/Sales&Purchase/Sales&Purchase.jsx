@@ -9,7 +9,7 @@ import { ReactComponent as Calendar } from "../../../../../assets/images/calenda
 import Max from "../../../../../assets/images/maximize.svg";
 import list from "../../../../../assets/images/list.svg";
 import Star from "../../../../../assets/images/star.svg";
-import { Doughnut, Bar, Line } from 'react-chartjs-2';
+import { Doughnut, Bar, Line, Pie } from 'react-chartjs-2';
 import Team1 from "../../../../../assets/images/team_1.png";
 import Team2 from "../../../../../assets/images/team_2.png";
 import Team3 from "../../../../../assets/images/team_3.png";
@@ -82,6 +82,38 @@ function SalesPurchase({ ChartFilter, ChartFilterClose }) {
   };
 
   ChartJS.register(ArcElement, Tooltip, Legend, CategoryScale, LinearScale, PointElement, LineElement, BarElement, Title);
+
+
+    // Data for the Pie chart
+    const Piedata = {
+      datasets: [
+        {
+          data: [12, 3, 25,],
+          backgroundColor: [
+            'rgb(229 231 235)',
+            'rgb(0 152 89)',
+            'rgb(0 119 70)',
+          ],
+          borderColor: 'rgb(242 245 250)', // White color for gaps
+          borderWidth: 1, // Adjust this value for the gap size
+          hoverBorderWidth: 0,
+        },
+      ],
+    };
+
+      // Options for the chart (you can customize it)
+  const Pieoptions = {
+    responsive: true,
+    plugins: {
+      legend: {
+        position: 'top', // Position the legend at the top
+        display: false,
+      },
+      tooltip: {
+        enabled: true,
+      },
+    },
+  };
 
   const data = {
     // labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple'],
@@ -250,34 +282,65 @@ function SalesPurchase({ ChartFilter, ChartFilterClose }) {
   };
 
 
-  const ReturnGoodData = {
-    // labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple'],
-    datasets: [
-      {
-        data: [12, 3, 25,],
-        backgroundColor: [
-          'rgb(229 231 235)',
-          'rgb(0 152 89)',
-          'rgb(0 119 70)',
+  // const ReturnGoodData = {
+  //   // labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple'],
+  //   datasets: [
+  //     {
+  //       data: [12, 3, 25,],
+  //       backgroundColor: [
+  //         'rgb(229 231 235)',
+  //         'rgb(0 152 89)',
+  //         'rgb(0 119 70)',
+  //       ],
+  //       borderColor: 'rgb(242 245 250)', // White color for gaps
+  //       borderWidth: 5, // Adjust this value for the gap size
+  //       hoverBorderWidth: 0,
+  //     },
+  //   ],
+  // };
+
+  // const ReturnGoodoptions = {
+  //   responsive: true,
+  //   maintainAspectRatio: false,
+  //   cutout: '70%', // Adjust this value for the thickness of the doughnut
+  //   plugins: {
+  //     legend: {
+  //       position: 'bottom',
+  //     },
+  //   },
+  // };
+
+
+      // Data for the Pie chart
+      const ReturnGoodData = {
+        datasets: [
+          {
+            data: [12, 3, 25,],
+            backgroundColor: [
+              'rgb(229 231 235)',
+              'rgb(0 152 89)',
+              'rgb(0 119 70)',
+            ],
+            borderColor: 'rgb(242 245 250)', // White color for gaps
+            borderWidth: 1, // Adjust this value for the gap size
+            hoverBorderWidth: 0,
+          },
         ],
-        borderColor: 'rgb(242 245 250)', // White color for gaps
-        borderWidth: 5, // Adjust this value for the gap size
-        hoverBorderWidth: 0,
+      };
+  
+        // Options for the chart (you can customize it)
+    const ReturnGoodoptions = {
+      responsive: true,
+      plugins: {
+        legend: {
+          position: 'top', // Position the legend at the top
+          display: false,
+        },
+        tooltip: {
+          enabled: true,
+        },
       },
-    ],
-  };
-
-  const ReturnGoodoptions = {
-    responsive: true,
-    maintainAspectRatio: false,
-    cutout: '70%', // Adjust this value for the thickness of the doughnut
-    plugins: {
-      legend: {
-        position: 'bottom',
-      },
-    },
-  };
-
+    };
 
   const SaleGrowthData = {
     labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
@@ -431,12 +494,18 @@ function SalesPurchase({ ChartFilter, ChartFilterClose }) {
 
   const renderChart = () => {
     switch (Charttype) {
+      case "Pie" : 
+      return <Pie data={ChartData} options={ChartOptions} />;
+      break;
       case 'Doughnut':
         return <Doughnut data={ChartData} options={ChartOptions} />;
+        break;
       case 'Bar':
         return <Bar data={ChartData} options={ChartOptions} />;
+        break;
       case 'Line':
         return <Line data={ChartData} options={ChartOptions} />;
+        break;
         case 'saleLeaders' : 
         return ( <ul className='saleLeader_listing'>
           {
@@ -481,6 +550,7 @@ function SalesPurchase({ ChartFilter, ChartFilterClose }) {
 
                 }
         </ul>)
+         break;
       default:
         return <h1>404 - Not Found</h1>;
     }
@@ -733,11 +803,12 @@ function SalesPurchase({ ChartFilter, ChartFilterClose }) {
             (ChartRender.channelChart || chartvisible) ? <Draggable onDrag={handleDrag} bounds="parent">
               <div className='salechannel chartFlexbox'>
                 <div className='max-view' >
-                  <span className='maximize' onClick={() => handleZoomChart("Doughnut", data, options, `Sale by channel`)}><img src={Max} alt="maximize_icon" className='icon'></img></span>
+                  <span className='maximize' onClick={() => handleZoomChart("Pie", data, options, `Sale by channel`)}><img src={Max} alt="maximize_icon" className='icon'></img></span>
                 </div>
                 <h5 className='section_title'>Sale by Channel</h5>
                 <div className='chart_container'>
-                  <Doughnut data={data} options={options} />
+                  {/* <Doughnut data={data} options={options} /> */}
+                  <Pie data={Piedata} options={Pieoptions} />
                 </div>
                 <ul className='indicator_info'>
                   <li className='indicator_item'>
@@ -886,7 +957,8 @@ function SalesPurchase({ ChartFilter, ChartFilterClose }) {
               </div>
               <h5 className='section_title'>Return Goods</h5>
               <div className='chart_container'>
-                <Doughnut data={ReturnGoodData} options={ReturnGoodoptions} />
+                {/* <Doughnut data={ReturnGoodData} options={ReturnGoodoptions} /> */}
+                <Pie data={ReturnGoodData} options={ReturnGoodoptions} />
               </div>
               <ul className='indicator_info'>
                 <li className='indicator_item'>
