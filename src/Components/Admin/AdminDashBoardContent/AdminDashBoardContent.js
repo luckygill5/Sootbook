@@ -169,8 +169,8 @@ function AdminDashBoardContent(props) {
                 return <User />;
                 break;
             case 'Categories':
-                return  <CategoryMaster updateBreadCrumb={props.updateBreadCrumb} 
-                         breadcrumbUpdateData={props.breadcrumbUpdateData}/>;
+                return <CategoryMaster updateBreadCrumb={props.updateBreadCrumb} 
+                breadcrumbUpdateData={props.breadcrumbUpdateData} />;
                 break;
             case "Manufacturers":
                 return <ManufacturerMaster
