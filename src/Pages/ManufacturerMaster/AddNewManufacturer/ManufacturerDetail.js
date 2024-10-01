@@ -8,11 +8,11 @@ import SuccessModal from '../../../Components/CommonSuccessModal/SuccessModal';
 import ErrorModal from '../../../Components/CommonErrorModal/ErrorModal';
 import "./AddNewManufacturer.scss"
 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-const phoneRegExp = /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/
+const phoneRegExp = /((\+*)((0[ -]*)*|((91 )*))((\d{12})+|(\d{10})+))|\d{5}([- ]*)\d{6}/
 const manufacturerDetailEditFormSchema = Yup.object({
     name: Yup.string().trim().required('Name is required.'),
     email:Yup.string().trim().required("Email is required.").email("Invalid email").matches(emailRegex,"Invalid email"),
-    contactMobile: Yup.string().trim().required('Contact Number is required.').matches(phoneRegExp, 'Contact number is not valid'),
+    contactMobile: Yup.string().trim().matches(phoneRegExp, 'Contact number is not valid'),
 });
 
 const productDetailInitialValues = {
@@ -36,6 +36,7 @@ const productDetailInitialValues = {
     productType: "",
     trn: "",
     moq: "",
+    selectedCountry:"IND"
 };
 
 function ManufacturerDetail({ ProductCreateList, productTypelist, preview, previewData, back, successModalClose }) {
@@ -71,6 +72,7 @@ function ManufacturerDetail({ ProductCreateList, productTypelist, preview, previ
         delete values.createdAt;
         delete values.updatedAt;
         delete values.__v;
+        delete values.selectedCountry;
         if (values._id) {
             handleEditManufacturer(values)
         } else {
@@ -168,6 +170,7 @@ function ManufacturerDetail({ ProductCreateList, productTypelist, preview, previ
         setTimeout(() => {
             if (previewData) {
                 console.log("previewData",previewData);
+                previewData['selectedCountry']="IND";
                 Object.entries(previewData).map((item) => {
                     // if(item[0]==="status"){
                     //     setFieldValue('status', item[1]);
@@ -265,7 +268,24 @@ function ManufacturerDetail({ ProductCreateList, productTypelist, preview, previ
                             touched={touched.contactName}
                             ReadOnly={preview ? true : false}
                         />
-                        <Input
+                        <SelectWithInput
+                                label={'Contact Number'}
+                                selectName={'selectedCountry'}
+                                inputName={'contactMobile'}
+                                options={[
+                                    { id: 'IND', value: 'IND' },
+                                    // { id: 'USA', value: 'USA' },
+                                    // { id: 'England', value: 'ENG' },
+                                ]}
+                                onSelectChange={handleChange}
+                                placeholder={'+1 (000) 000-0000'}
+                                wrapperClass={'col12'}
+                                values={values}
+                                touched={touched}
+                                errors={errors}
+                                onInputChange={handleChange}
+                            />
+                        {/* <Input
                             label={'Contact Number'}
                             // selectName={'country'}
                             // options={[
@@ -283,7 +303,7 @@ function ManufacturerDetail({ ProductCreateList, productTypelist, preview, previ
                             touched={touched.contactMobile}
                             ReadOnly={preview ? true : false}
                             isRequired
-                        />
+                        /> */}
                     </div>
                 </div>
                 <div className='second_flexbox'>

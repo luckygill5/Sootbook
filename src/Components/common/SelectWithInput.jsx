@@ -21,17 +21,16 @@ export function SelectWithInput ({
     errors,
     disabled
 }) {
-
     return<div className= {classNames('inputField contactNumber', wrapperClass, { "disabled": disabled })}>
         <label className='label'>{label}</label>
         <div className='flexbox '>
-            <Select
+            <Select               
                 label={selectLabel}
                 name={selectName}
                 options={options}
                 isRequired={isRequired}
                 disabled={disabled}
-                wrapperClass={'col2'}
+                wrapperClass={'col4'}
                 value={values[selectName]}
                 onChange={onSelectChange}
                 touched={touched[selectName]}
