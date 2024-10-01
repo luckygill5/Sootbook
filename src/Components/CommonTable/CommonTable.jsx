@@ -9,8 +9,11 @@ import CircularProgress from '@mui/material/CircularProgress';
 import Box from '@mui/material/Box';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
+import Copy from '../../assets/images/copy.svg';
+import { CopyToClipboard } from 'react-copy-to-clipboard';
+import Snackbar, { SnackbarCloseReason } from '@mui/material/Snackbar';
 import './CommonTable.scss';
-import { filter } from 'lodash';
+
 
 function CommonTable(props) {
     const [indexCheck, setIndexCheck] = useState([]);
@@ -19,6 +22,8 @@ function CommonTable(props) {
     const [filteredProductCode, setFilteredProductCode] = useState('');
     const [filteredProductID, setFilteredProductID] = useState('');
     const open = Boolean(anchorEl);
+    const [copied, setCopied] = useState(false);
+    const [copyOpen, setCopyOpen] = useState(false);
 
     const handleClose = () => {
         setAnchorEl(null);
@@ -34,14 +39,30 @@ function CommonTable(props) {
     let filtered;
     const handleChange = event => {
         if (indexCheck.includes(event)) {
+
             filtered = indexCheck.filter(item => {
                 if (item !== event) {
                     return item;
                 }
             });
-            setIndexCheck(filtered);
+
+            if (indexCheck.includes(0) == true && event !== 0 && filtered.includes(0) == false) {
+                setIndexCheck([0, ...filtered]);
+            } else {
+                setIndexCheck([...filtered]);
+            }
+
+
+
+            if (selectAll) {
+                setSelectAll(false)
+            }
+
         } else {
             setIndexCheck([...indexCheck, event]);
+            if (selectAll) {
+                setSelectAll(false)
+            }
         }
     };
 
@@ -51,9 +72,9 @@ function CommonTable(props) {
             setSelectAll(false);
         } else {
             let collections =
-                props.productData &&
-                props.productData.length > 0 &&
-                props.productData.map((item, index) => {
+                props.tableBodyData &&
+                props.tableBodyData.length > 0 &&
+                props.tableBodyData.map((item, index) => {
                     return index;
                 });
 
@@ -75,15 +96,15 @@ function CommonTable(props) {
         let filteredCode;
         let FilteredID;
         filterObject =
-            props.productData &&
-            props.productData.length > 0 &&
-            props.productData.filter((item, index) => {
+            props.tableBodyData &&
+            props.tableBodyData.length > 0 &&
+            props.tableBodyData.filter((item, index) => {
                 if (index == event) {
                     return item;
                 }
             });
 
-        filteredCode = filterObject[0].productCode;
+        filteredCode = filterObject[0].productCode ? filterObject[0].productCode : filterObject[0].code;
         FilteredID = filterObject[0]._id;
         setFilteredProductCode(filteredCode);
         setFilteredProductID(FilteredID);
@@ -94,15 +115,25 @@ function CommonTable(props) {
         setAnchorEl(null);
     };
 
+    const handleSnackClose = (
+        event,
+        reason,
+    ) => {
+        if (reason === 'clickaway') {
+            return;
+        }
+
+        setCopyOpen(false);
+    };
     return (
         <React.Fragment>
-            {props.header && props.header.length > 0 && props.productData && props.productData.length > 0 ? (
+            {props.header && props.header.length > 0 && props.tableBodyData && props.tableBodyData.length > 0 ? (
                 <div className='commonTable_container'>
                     <div className='table_head'>
                         <div className={`table_row ln_${props.header.length}`}>
                             {props.header && props.header.length > 0 && (
                                 <div className='tabCheckBox'>
-                                    <Checkbox onChange={() => handleChangeAll()} />
+                                    <Checkbox checked={selectAll ? true : false} onChange={() => handleChangeAll()} />
                                 </div>
                             )}
                             {props.header &&
@@ -110,10 +141,12 @@ function CommonTable(props) {
                                 props.header.map((label, index) => {
                                     return (
                                         <div key={index} className='thead'>
+                                            <div className='flexbox'>
                                             <span className='text'>{label}</span>
                                             <span className='icon'>
                                                 <ArrowUpDown />
                                             </span>
+                                        </div>
                                         </div>
                                     );
                                 })}
@@ -121,46 +154,55 @@ function CommonTable(props) {
                             {props.header && props.header.length > 0 && <div className='moreOptions'></div>}
                         </div>
                     </div>
-                <div className='tableBody'>
-                    {
-                        props.productData &&
-                        props.productData.length > 0 &&
-                        props.productData.map((item, index) => {
-                            return (<div className={`tablerow ln_${props.header.length}`} key={index}>
-                                <div className={`tabCheckBox ${indexCheck.includes(index) ? 'checked' : ''}`}>
-                                    <Checkbox checked={indexCheck.includes(index) ? true : false} onChange={() => handleChange(index)} />
-                                </div>
-                                {
-                                    Object.entries(item).map((data, index) => {
-                                        if (props.header.includes(data[0]) || props.tableFilterHeader.includes(data[0])) {
-                                            return <div key={index} className={`tableCell`} >
-                                                {data[0] == 'productCode' ? <span className='text link' onClick={() => data[0] == "productCode" ? handleClick(data[1]) : ''}>{data[1]}</span> : <span className={`text`} >{data[1]}</span>}
-                                            </div>
+                    <div className='tableBody'>
+                        {
+                            props.tableBodyData &&
+                            props.tableBodyData.length > 0 &&
+                            props.tableBodyData.map((item, index) => {
+                                return (<div className={`tablerow ln_${props.header.length}`} key={index}>
+                                    <div className={`tabCheckBox ${indexCheck.includes(index) ? 'checked' : ''}`}>
+                                        <Checkbox checked={indexCheck.includes(index) ? true : false} onChange={() => handleChange(index)} />
+                                    </div>
+                                    {
+                                        Object.entries(item).map((data, index) => {
+                                            if (props.header?.includes(data[0]) || props.tableFilterHeader?.includes(data[0])) {
+                                                return <div key={index} className={`tableCell ${data[0]}`} >
+                                                    <div className='flexbox'>
+                                                    {data[0] == 'productCode' ? <span className='text link' onClick={() => data[0] == "productCode" ? handleClick(data[1]) : ''}>{data[1]}</span> : <span className={`text`} >{data[1]}</span>}
+                                                    {props.copyHeaderItem.includes(data[0]) ?
+                                                        <span className='copy'>
+                                                            <CopyToClipboard text={data[1]} onCopy={() => { setCopyOpen(true); setCopied(true) }}>
+                                                                <img src={Copy} alt='copyIcon' className='icon'></img>
+                                                            </CopyToClipboard>
+                                                        </span> : null
+                                                    }
+                                                     </div>
+                                                </div>
 
-                                        }
+                                            }
 
-                                    })
-                                }
-                                <div className='moreOptions'>
-                                    <span className='icon'
-                                        id="basic-button"
-                                        aria-controls={open ? 'basic-menu' : undefined}
-                                        aria-haspopup="true"
-                                        aria-expanded={open ? 'true' : undefined}
-                                        onClick={(event) => {
-                                            handleMenuOptionClicked(index)
-                                            handlePopUpClick(event)
+                                        })
+                                    }
+                                    <div className='moreOptions'>
+                                        <span className='icon'
+                                            id="basic-button"
+                                            aria-controls={open ? 'basic-menu' : undefined}
+                                            aria-haspopup="true"
+                                            aria-expanded={open ? 'true' : undefined}
+                                            onClick={(event) => {
+                                                handleMenuOptionClicked(index)
+                                                handlePopUpClick(event)
                                             }}><Dots /></span>
+                                    </div>
                                 </div>
-                            </div>
-                            )
-                        })
-                    }
+                                )
+                            })
+                        }
 
 
-                </div>
-            </div>) : <Box className="loader_container" sx={{ display: 'flex' }}>
-            <p>No Data found</p>
+                    </div>
+                </div>) : <Box className="loader_container" sx={{ display: 'flex' }}>
+                <p>No Data found</p>
             </Box>
             }
 
@@ -174,10 +216,18 @@ function CommonTable(props) {
                     'aria-labelledby': 'basic-button',
                 }}
             >
-                <MenuItem onClick={() => handleEditClick(filteredProductCode?filteredProductCode:filteredProductID)}><span className='icon'><Pencil /></span> Edit</MenuItem>
+                <MenuItem onClick={() => handleEditClick(filteredProductCode ? filteredProductCode : filteredProductID)}><span className='icon'><Pencil /></span> Edit</MenuItem>
                 <MenuItem onClick={() => handleDeleProduct(filteredProductID)}><span className='icon'><Bin /></span> Delete</MenuItem>
                 {/* <MenuItem onClick={handleClose}><span className='icon'><EyeOff /></span> Hide</MenuItem> */}
             </Menu>
+
+            <Snackbar
+                open={copyOpen}
+                autoHideDuration={3000}
+                onClose={handleSnackClose}
+                message="Copied"
+            //   action={action}
+            />
         </React.Fragment>
     );
 }

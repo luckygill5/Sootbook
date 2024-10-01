@@ -66,7 +66,8 @@ function ProductCards({ productData, dataPopulate, editDataPopulate, deleteProdu
                     })
                  : (
                     <Box className='loader_container' sx={{ display: 'flex' }}>
-                        <CircularProgress />
+                        {/* <CircularProgress /> */}
+                        <p>No Data found</p>
                     </Box>
                 )}
             </div>

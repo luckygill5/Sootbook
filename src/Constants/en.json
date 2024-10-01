@@ -50,6 +50,7 @@
     "account_doesnotExist" : "User account does not exist",
     "edit_title" : "Edit",
     "cancel_label": "Cancel",
-    "save_label" : "Save"
+    "save_label" : "Save",
+    "update_label" : "Update"
 
 }

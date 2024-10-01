@@ -71,6 +71,7 @@ $font-monsterat: 'Montserrat';
 
                 .searchBox {
                     width: 40%;
+                    max-width: 400px;
                     background-color: #f2f5fa;
                     border-radius: 6px;
                     padding: 14px 16px 14px 50px;
@@ -228,6 +229,9 @@ $font-monsterat: 'Montserrat';
                             padding-left: 0;
                             padding-right: 0;
                             position: relative;
+                            .table_container{
+                                overflow-x: auto;
+                            }
                             .productCard_container {
                                 .card_flexContainer {
                                     width: 100%;
@@ -479,8 +483,12 @@ $font-monsterat: 'Montserrat';
                     }
                     .copy {
                         display: inline-flex;
+                        align-items: center;
+                        justify-content: center;
                         margin-left: auto;
                         cursor: pointer;
+                        width: 30px;
+                        height: 30px;
                     }
                 }
                 .actionCell {

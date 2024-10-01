@@ -499,6 +499,10 @@ $font-monsterat : 'Montserrat';
                 height: 10.834vw;
                 .chart_container {
                     height: 4.2vw;
+                    canvas {
+                        width: auto !important;
+                        height: 4vw !important;
+                    }
                 }
 
             }
@@ -512,6 +516,10 @@ $font-monsterat : 'Montserrat';
                 height: 10.5vw;
                 .chart_container {
                     height: 4.2vw;
+                    canvas{
+                        width: auto !important;
+                        height: 4vw !important;
+                    }
                 }
             }
 
@@ -1220,6 +1228,18 @@ $font-monsterat : 'Montserrat';
 }
 
 /******************************************************/
+
+@media screen and (min-width:1499px) {
+    .salepurchase_dashboard{
+        .draggable_flexContainer{
+            .chartFlexbox{
+                &.saleProduct{
+                    width: calc(30.5% - 1.5vw);
+                }
+            }
+        }
+    }  
+}
 
 @media screen and (min-width:1600px) {
     .salepurchase_dashboard {

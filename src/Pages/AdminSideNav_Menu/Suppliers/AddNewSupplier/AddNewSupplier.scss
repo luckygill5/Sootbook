@@ -1,0 +1,1029 @@
+@import "../../../../BaseStyle/Basestyle.scss";
+
+$font-monsterat : 'Montserrat';
+
+.addNewSupplier_container {
+    min-height: calc(100vh - 288px);
+    box-sizing: border-box;
+
+    * {
+        box-sizing: border-box;
+        font-family: $font-monsterat;
+    }
+
+    .backLink {
+        margin-bottom: 24px;
+        text-align: left;
+
+        .link {
+            display: inline-flex;
+            cursor: pointer;
+            align-items: center;
+            font-size: 12px;
+            font-style: normal;
+            font-weight: 500;
+            line-height: 16px;
+            /* 133.333% */
+            letter-spacing: 0.06px;
+            color: #6B7280;
+
+            .icon {
+                display: inline-flex;
+                align-items: center;
+                margin-right: 4px;
+            }
+        }
+    }
+
+    .container_section {
+        box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+        background-color: #F2F5FA;
+        border-radius: 12px;
+        padding: 24px;
+        min-height: calc(100vh - 336px);
+        &.preview{
+            box-shadow: none;
+            padding: 0;
+        }
+
+        .section_title {
+            font-size: 24px;
+            font-style: normal;
+            font-weight: 700;
+            line-height: 32px;
+            /* 133.333% */
+            letter-spacing: 0.12px;
+            margin-bottom: 8px;
+            margin-top: 0;
+            text-align: left;
+        }
+
+        .header_section{
+            .section_flexbox{
+                @include flexbox();
+                margin-bottom: 20px;
+                align-items: center;
+                justify-content: space-between;
+                border-radius: 12px 12px 0px 0px;
+                padding: 8px 20px;
+                background-color: #F2F5FA;
+                box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+
+                .leftInfo_flexbox{
+                    @include flexbox(); 
+                    .imgBox{
+                        width: 56px;
+                        height: 56px;
+                        margin-right: 20px;
+                        .preview{
+                            max-width: 100%;
+                            height: auto;
+                            width: 100%;
+
+                        }
+                    }
+                    .info{
+                        .flexbox{
+                            @include flexbox();
+                            .title{
+                                font-size: 20px;
+                                font-style: normal;
+                                font-weight: 500;
+                                line-height: 28px; /* 140% */
+                                letter-spacing: 0.1px;
+                                color: $text;
+                                margin: 0;
+
+                            }
+                            .status {
+                                margin-left: 20px;
+                                height: 28px;
+                                border-radius: 6px;
+                                &.green{
+                                    background-color: #CCFBF1;
+                                    padding: 6px 6px 6px 22px;
+                                    position: relative;
+                                    &::before{
+                                        content: '';
+                                        display: inline-block;
+                                        position: absolute;
+                                        width: 6px;
+                                        height: 6px;
+                                        background-color:#134E4A ;
+                                        border-radius: 50%;
+                                        left: 6px;
+                                        top: 50%;
+                                        transform: translateY(-50%);
+
+                                    }
+                                    font-size: 12px;
+                                    font-style: normal;
+                                    font-weight: 400;
+                                    line-height: 16px; /* 133.333% */
+                                    letter-spacing: 0.06px;  
+                                    color: #134E4A ;     
+                                }
+                            }
+                        }
+                        .lastUpdated{
+                            display: block;
+                            font-size: 12px;
+                            font-style: normal;
+                            font-weight: 400;
+                            line-height: 16px; /* 133.333% */
+                            letter-spacing: 0.06px;
+                            color: #6B7280;  
+                            margin-top: 8px;
+                        }
+                    }
+                }
+                .rightInfo_flexbox{
+                    @include flexbox();
+                    align-items: center;
+                    column-gap: 8px;
+                    .histroyBtn{
+                        border-radius:8px ;
+                        padding: 10px 12px;
+                        box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+                        border: none;
+                        height: 40px;
+                        cursor: pointer;
+                        background-color: $buttonColor;
+                        color: $white;
+                        font-size: 14px;
+                        font-style: normal;
+                        font-weight: 600;
+                        line-height: 20px; /* 142.857% */
+                        letter-spacing: 0.07px;
+                        white-space: nowrap;   
+                        &:focus:not(:focus-visible){
+                            outline: none;
+                        }
+                    }
+                    .stockBtn{
+                        height: 40px;
+                        cursor: pointer;
+                        border-radius:8px ;
+                        padding: 10px 12px;
+                        box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+                        white-space: nowrap;
+                        background-color: #E6F6F8;
+                        &:focus:not(:focus-visible){
+                            outline: none;
+                        }
+                        font-size: 14px;
+                        font-style: normal;
+                        font-weight: 600;
+                        line-height: 20px; /* 142.857% */
+                        letter-spacing: 0.07px;
+                        color: $buttonColor;
+                        border: none;  
+                    }
+                }
+            }
+        }
+        .tabsContainer {
+            min-height: calc(100% - 40px);
+
+            .tabFlexContainer {
+                position: relative;
+                .MuiTabs-root {
+                    min-height: 40px;
+
+                    .MuiTabs-scroller {
+                        .MuiTabs-flexContainer {
+                            .MuiButtonBase-root {
+                                font-size: 16px;
+                                font-style: normal;
+                                font-weight: 500;
+                                line-height: 24px;
+                                /* 150% */
+                                letter-spacing: 0.08px;
+                                color: $text;
+                                text-transform: capitalize;
+                                font-family: $font-monsterat;
+                                padding: 8px 12px;
+                                min-height: 40px;
+                                border-bottom: 2px solid #E5E7EB;
+
+                                &.Mui-selected {
+                                    color: rgb(34, 229, 145);
+                                    border-bottom: none;
+                                }
+                            }
+                        }
+
+                        .MuiTabs-indicator {
+                            background-color: rgb(34, 229, 145);
+                        }
+                    }
+                }
+                .editBtn{
+                    position: absolute;
+                    z-index: 1;
+                    right: 0;
+                    top: -5px;
+                    background-color: transparent;
+                    border: 1px solid $buttonColor;
+                    color: $buttonColor;
+                    cursor: pointer;
+                    padding: 14px 16px;
+                    border-radius: 8px;
+                    @include flexbox();
+                    align-items: center;
+                    justify-content: center;
+                    width: 86px;
+                    height: 48px;
+                    white-space: nowrap;
+                    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+                    font-size: 14px;
+                    font-style: normal;
+                    font-weight: 600;
+                    line-height: 20px; /* 142.857% */
+                    letter-spacing: 0.07px;  
+                    .icon{
+                        margin-right: 10px;
+                    display: inline-flex;
+                    svg{
+                        g{
+                            path{
+                                stroke: $buttonColor;
+                            }
+                        }
+                    }
+                    }
+                }
+            }
+
+            .tabContentContainer {
+                min-height: calc(100% - 42px);
+
+                .MuiBox-root {
+                    padding-top: 20px;
+                    padding-left: 0;
+                    padding-right: 0;
+                    padding-bottom: 0;
+                    height: 100%;
+                    position: relative;
+                    .loader_container{
+                        position: absolute;
+                        left: 0;
+                        top: 0;
+                        width: 100%;
+                        height: 100%;
+                        z-index: 1;
+                        background-color: #F2F5FA;
+                        display: none;
+                        &.show{
+                            @include flexbox()
+                        }
+                    }
+                    .manufacturerDetail_container {
+                        
+                        .first_flexbox,
+                        .second_flexbox {
+                            margin-bottom: 14px;
+                            @include flexbox();
+                            flex-wrap: wrap;
+                            row-gap: 10px;
+
+                            .inputBox {
+                                @include flexbox();
+
+                                .inputField {
+                                    width: 100%;
+                                }
+                            }
+
+                            .leftCol {
+                                width: 40%;
+                                padding-right: 10px;
+                                &.preview{
+                                    width: 20%;
+                                    .qrCodeFlexBox{
+                                        .leftCol{
+                                            width: 100%;
+                                        }
+                                        .qrCode_container{
+                                            width: 60px;
+                                            height: 60px;
+                                            .qrcode-icon{
+                                                width:100%;
+                                                max-width: 100%;
+                                                height: auto
+                                            }
+                                        }
+                                    }
+                                }
+                                .qrCodeFlexBox {
+                                    @include flexbox();
+
+                                    .leftCol {
+                                        width: calc(100% - 136px);
+                                        margin-right: 10px;
+
+                                        .title {
+                                            text-align: left;
+                                            @include flexbox();
+                                            align-items: center;
+                                            font-size: 14px;
+                                            font-style: normal;
+                                            font-weight: 500;
+                                            line-height: 20px;
+                                            /* 142.857% */
+                                            letter-spacing: 0.07px;
+                                            color: $text;
+                                            margin: 0 0 10px 0;
+
+                                            .icon {
+                                                display: inline-flex;
+                                                margin-left: 10px;
+                                            }
+                                        }
+
+                                        .qrcodeinfo_list {
+                                            margin: 0;
+                                            padding: 0 0 0 15px;
+
+                                            li {
+                                                font-size: 12px;
+                                                font-style: normal;
+                                                font-weight: 400;
+                                                line-height: 16px;
+                                                /* 133.333% */
+                                                letter-spacing: 0.06px;
+                                                color: #6B7280;
+                                                text-align: left;
+                                            }
+                                        }
+                                    }
+
+                                    .rightCol {
+                                        width: 126px;
+
+                                        .actions {
+                                            @include flexbox();
+                                            flex-direction: column;
+                                            row-gap: 10px;
+
+                                            .autoBtn {
+                                                padding: 10px 12px;
+                                                height: 40px;
+                                                border-radius: 8px;
+                                                border: none;
+                                                cursor: pointer;
+
+                                                &:focus:not(:focus-visible) {
+                                                    outline: none;
+                                                }
+
+                                                font-size: 14px;
+                                                font-style: normal;
+                                                font-weight: 600;
+                                                line-height: 20px;
+                                                /* 142.857% */
+                                                letter-spacing: 0.07px;
+                                                color: #00A9BB;
+                                                @include flexbox();
+                                                align-items: center;
+                                                justify-content: center;
+                                                box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+                                                background-color: #E6F6F8;
+                                                white-space: nowrap;
+                                            }
+
+                                            .scanBtn {
+                                                @include flexbox();
+                                                align-items: center;
+                                                justify-content: center;
+                                                cursor: pointer;
+                                                padding: 10px 12px;
+                                                height: 40px;
+                                                border-radius: 8px;
+                                                border: none;
+                                                box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+
+                                                &:focus:not(:focus-visible) {
+                                                    outline: none;
+                                                }
+
+                                                background-color: #00A9BB;
+                                                color: $white;
+                                                font-size: 14px;
+                                                font-style: normal;
+                                                font-weight: 600;
+                                                line-height: 20px;
+                                                /* 142.857% */
+                                                letter-spacing: 0.07px;
+                                                white-space: nowrap;
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+
+                            .rightCol {
+                                width: 60%;
+                                margin-right: -10px;
+                                margin-left: 10px;
+                                @include flexbox();
+                                &.preview{
+                                    width: 80%;
+                                }
+                            }
+                        }
+
+                        .first_flexbox {
+                            margin: 0 -10px 14px -10px;
+                            .inputBox {
+                                #manufacturerCode{
+                                    color: #D1D5DB;
+                                    opacity: .7;
+                                    cursor: not-allowed;
+                                    &::placeholder{
+                                        color: #D1D5DB;
+                                    }
+                                }
+                            }
+                        }
+
+                        .third_flexbox {
+                            margin-bottom: 14px;
+                            @include flexbox();
+                            column-gap: 16px;
+
+                            .leftCol {
+                                width: 50%;
+
+                                .title {
+                                    text-align: left;
+                                    font-size: 12px;
+                                    font-style: normal;
+                                    font-weight: 500;
+                                    line-height: 16px;
+                                    /* 133.333% */
+                                    letter-spacing: 0.06px;
+                                    color: $black;
+                                    margin-top: 0;
+                                    margin-bottom: 4px;
+                                }
+
+                                .flexbox {
+                                    @include flexbox();
+                                    flex-wrap: wrap;
+                                    row-gap: 4px;
+                                    margin: 0 -10px;
+
+                                    .inputBox {
+                                        @include flexbox();
+
+                                        .inputField {
+                                            .input_element {
+                                                height: 36px;
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+
+                            .rightCol {
+                                width: 50%;
+
+                                .title {
+                                    text-align: left;
+                                    font-size: 12px;
+                                    font-style: normal;
+                                    font-weight: 500;
+                                    line-height: 16px;
+                                    /* 133.333% */
+                                    letter-spacing: 0.06px;
+                                    color: $black;
+                                    margin-top: 0;
+                                    margin-bottom: 4px;
+                                }
+
+                                .flexbox {
+                                    @include flexbox();
+                                    flex-wrap: wrap;
+                                    row-gap: 10px;
+                                    margin: 0 -10px;
+
+                                    .inputBox {
+                                        @include flexbox();
+
+                                        .inputField {
+                                            .input_element {
+                                                height: 36px;
+                                            }
+
+                                            .MuiInputBase-root {
+                                                .MuiSelect-select {
+                                                    height: 36px;
+                                                    @include flexbox();
+                                                    align-items: center;
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+
+
+                        }
+
+                        .bottom_flexbox {
+                            padding-top: 16px;
+                            border-top: 1px solid #D1D5DB;
+
+                            .leftCol {
+                                width: 60%;
+                                @include flexbox();
+                                flex-wrap: wrap;
+                                row-gap: 10px;
+                                margin: 0 -10px;
+
+                                .inputBox {
+                                    @include flexbox();
+
+                                    .inputField {
+
+                                        .input_element,
+                                        .MuiSelect-select {
+                                            height: 36px;
+                                            @include flexbox();
+                                            align-items: center;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        .inputBox{
+                            .inputField {
+                                .form-error{
+                                    margin-bottom: 0;
+                                    position: relative;
+                                    text-align: left;
+                                }
+                            }
+                        }
+                        &.preview_active{
+                            .inputBox {
+                                .inputField {
+                                    >label{
+                                        font-size: 16px;
+                                        font-weight: 500;
+                                        line-height: 24px;
+                                    }
+                                    .input_element{
+                                        background-color: transparent;
+                                        box-shadow: none;
+                                        padding: 0;
+                                        height: 24px !important;
+                                    }
+                                    .form-error{
+                                      display: none;
+                                    }
+                                    .MuiInputBase-root{
+                                        .MuiSelect-select{
+                                            &.Mui-disabled{
+                                                background-color: transparent;
+                                                box-shadow: none;
+                                                color: #6B7280;
+                                                -webkit-text-fill-color:#6B7280;
+                                                padding: 0;
+                                                @include flexbox();
+                                                align-items: center;
+                                                height: 24px !important;
+                                                cursor: text;
+                                            }
+                                            
+                                        }
+                                        .MuiSvgIcon-root{
+                                            display: none;
+                                        }
+                                    }
+                                   
+                                }
+                                .barcode_box{
+                                    .label{
+                                        font-size: 16px;
+                                        font-style: normal;
+                                        font-weight: 500;
+                                        line-height: 24px; /* 150% */
+                                        letter-spacing: 0.08px;
+                                        display: block;
+                                        color: $text;
+                                        text-align: left;
+                                        margin-bottom: 4px;
+
+                                    }
+                                }
+                            }
+                            .first_flexbox{
+                                row-gap: 30px;
+                                position: relative;
+                                padding-bottom: 20px;
+                                border-bottom: 1px solid #D1D5DB;
+                                &::after{
+                                    content: '';
+                                    display: inline-block;
+                                    position: absolute;
+                                    left: 0;
+                                    top: 45%;
+                                    transform: translateY(-50%);
+                                    width: 100%;
+                                    height: 1px;
+                                    background-color: #D1D5DB;
+                                }
+                               
+                                .inputBox{
+                                    &.manufacturer, &.manufacturerCode{
+                                        width: 17%;
+                                    }
+                                     &.supplier, &.Product_Name {
+                                        width: 20%;
+                                    }
+                                    &.genericName {
+                                        width: 20%;
+                                        margin-right: 20%;
+                                    }
+                                } 
+                            }
+                            .second_flexbox{
+                                position: relative;
+                                padding-bottom: 20px;
+                                border-bottom: 1px solid #D1D5DB;
+                                .leftCol{
+                                    &.preview{
+                                        width: 17%;
+                                    }
+                                } 
+                                .inputBox{
+                                    width: 25%;
+                                    &.barcode_section {
+                                        width: 25%;
+                                    }
+                                }
+                                .rightCol{
+                                    &.preview{
+                                        margin-left: 0;
+                                    }
+                                } 
+                            } 
+                        }
+                       .bottom_actions {
+                            @include flexbox();
+                            align-items: center;
+                            justify-content: flex-end;
+            
+                            .cancelBtn {
+                                cursor: pointer;
+                                height: 40px;
+                                width: 73px;
+                                @include flexbox();
+                                align-items: center;
+                                justify-content: center;
+                                border-radius: 8px;
+                                border: 1px solid #00A9BB;
+                                color: #00A9BB;
+                                font-size: 14px;
+                                font-style: normal;
+                                font-weight: 600;
+                                line-height: 20px;
+                                /* 142.857% */
+                                letter-spacing: 0.07px;
+                                padding: 10px 12px;
+                                margin-right: 16px;
+                                box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25), -1px -7px 7px 0px #FFF;
+                                background-color: $white;
+            
+                                &:focus:not(:focus-visible) {
+                                    outline: none;
+                                }
+                            }
+            
+                            .saveBtn {
+                                height: 40px;
+                                width: 58px;
+                                @include flexbox();
+                                align-items: center;
+                                justify-content: center;
+                                border-radius: 8px;
+                                cursor: pointer;
+                                padding: 10px 12px;
+                                box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25), -1px -7px 7px 0px #FFF;
+                                background-color: #00A9BB;
+                                color: $white;
+                                font-size: 14px;
+                                font-style: normal;
+                                font-weight: 600;
+                                line-height: 20px;
+                                /* 142.857% */
+                                letter-spacing: 0.07px;
+                                border: none;
+            
+                                &:focus:not(:focus-visible) {
+                                    outline: none;
+                                }
+                            }
+                        }
+                        
+                    }
+                }
+
+            }
+        }
+
+
+    }
+}
+
+.supplierDetail_container{
+    margin-top: 10px;
+    .inputField {
+        > label{
+            font-weight: 600;
+        }
+        .form-error{
+            position: relative;
+            text-align: left;
+        }
+    }
+    .manufacturerCode{
+        margin-bottom: 20px;
+        margin-left: -10px;
+        margin-right: -10px;
+        align-items: flex-end;
+        .inputField {
+            &.disabled{
+                input{
+                    color: rgba(107, 114, 128, .7);
+                }
+            }
+        }
+        .info_listing{
+            margin: 0 auto 0 15px;
+            padding: 0;
+            li{
+                font-size: 12px;
+                font-style: normal;
+                font-weight: 400;
+                line-height: 16px; /* 133.333% */
+                letter-spacing: 0.06px;
+                color: $buttonColor;
+                margin-bottom: 4px;
+                text-align: left;
+                &:last-child{
+                    margin-bottom: 0px;
+                }   
+            }
+        }
+    }
+    .Product_Name {
+        margin-bottom: 10px;
+        margin-left: -10px;
+        margin-right: -10px;
+    }
+    .second_flexbox{
+        .rightCol {
+           >  .title{
+                text-align: left;
+                font-size: 14px;
+                font-style: normal;
+                font-weight: 600;
+                line-height: 20px; /* 142.857% */
+                letter-spacing: 0.07px;
+                color: $black; 
+                margin: 10px 0px;
+            }
+        }
+    }
+    .third_flexbox{
+        .leftCol {
+           >  .title{
+                text-align: left;
+                font-size: 14px;
+                font-style: normal;
+                font-weight: 600;
+                line-height: 20px; /* 142.857% */
+                letter-spacing: 0.07px;
+                color: $black; 
+                margin: 10px 0px;
+            }
+        }
+        .inputFlexbox{
+            margin-left: -10px;
+            margin-right: -10px;
+            margin-bottom: 20px;
+            align-items: flex-end;
+        }
+    }
+    .bottom_actions {
+        @include flexbox();
+        align-items: center;
+        justify-content: flex-end;
+        margin-top: -10px;
+
+        .cancelBtn {
+            cursor: pointer;
+            height: 40px;
+            width: auto;
+            min-width: 114px;
+            @include flexbox();
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+            border: 1px solid #00A9BB;
+            color: #00A9BB;
+            font-size: 14px;
+            font-style: normal;
+            font-weight: 600;
+            line-height: 20px;
+            /* 142.857% */
+            letter-spacing: 0.07px;
+            padding: 10px 12px;
+            margin-right: 16px;
+            box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25), -1px -7px 7px 0px #FFF;
+            background-color: $white;
+
+            &:focus:not(:focus-visible) {
+                outline: none;
+            }
+        }
+
+        .saveBtn {
+            height: 40px;
+            width: auto;
+            min-width: 114px;
+            @include flexbox();
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+            cursor: pointer;
+            padding: 10px 12px;
+            box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25), -1px -7px 7px 0px #FFF;
+            background-color: #00A9BB;
+            color: $white;
+            font-size: 14px;
+            font-style: normal;
+            font-weight: 600;
+            line-height: 20px;
+            /* 142.857% */
+            letter-spacing: 0.07px;
+            border: none;
+
+            &:focus:not(:focus-visible) {
+                outline: none;
+            }
+        }
+    }
+}
+
+
+
+@media screen and (min-width:1500px) {
+
+    .inputBox {
+        @include flexbox();
+
+        &.lg-15 {
+            width: 15%;
+        }
+
+        &.lg-10 {
+            width: 10%;
+        }
+
+        &.lg-40 {
+            width: 40%;
+        }
+
+        &.lg-50 {
+            width: 50%;
+        }
+
+        &.lg-60 {
+            width: 50%;
+        }
+        &.lg-20 {
+            width: 20%;
+        }
+
+        &.lg-25 {
+            width: 25%;
+        }
+
+        &.lg-30 {
+            width: 33.33%;
+        }
+    }
+
+    .inputField{
+
+
+        &.lg-15 {
+            width: 15%;
+        }
+
+        &.lg-10 {
+            width: 10%;
+        }
+
+        &.lg-40 {
+            width: 40%;
+        }
+
+        &.lg-50 {
+            width: 50%;
+        }
+
+        &.lg-60 {
+            width: 50%;
+        }
+        &.lg-20 {
+            width: 20%;
+        }
+
+        &.lg-25 {
+            width: 25%;
+        }
+
+        &.lg-30 {
+            width: 33.33%;
+        }
+    }
+}
+
+@media screen and (max-width:1499px) {
+
+    .inputBox {
+        @include flexbox();
+
+        &.sm-10 {
+            width: 10%;
+        }
+
+        &.sm-15 {
+            width: 15%;
+        }
+
+        &.sm-40 {
+            width: 40%;
+        }
+
+        &.sm-50 {
+            width: 50%;
+        }
+
+        &.sm-60 {
+            width: 60%;
+        }
+        &.sm-20 {
+            width: 20%;
+        }
+
+        &.sm-25 {
+            width: 25%;
+        }
+
+        &.sm-30 {
+            width: 33.33%;
+        }
+    }
+
+    .inputField {
+
+        &.sm-10 {
+            width: 10%;
+        }
+
+        &.sm-15 {
+            width: 15%;
+        }
+
+        &.sm-40 {
+            width: 40%;
+        }
+
+        &.sm-50 {
+            width: 50%;
+        }
+
+        &.sm-60 {
+            width: 60%;
+        }
+        &.sm-20 {
+            width: 20%;
+        }
+
+        &.sm-25 {
+            width: 25%;
+        }
+
+        &.sm-30 {
+            width: 33.33%;
+        }
+    }
+
+
+}
