@@ -35,6 +35,8 @@ function UploadProduct({ productData, ecommerceData, preview, previewData, chang
     const [draftClicked, setDraftClicked] = useState(false);
     const [draftsuccessModal, setDraftSuccessModal] = useState(false);
     const [draftButtonClick, setDraftButtonClick] = useState(false);
+    const [editProductApiCall, setEditProductApiCall] = useState(false);
+    const [editProductApiData, setEditProductApiData] = useState(false);
 
     const maxFiles = 5; // Limit the number of files to 3
     let fileCollection = [];
@@ -244,14 +246,24 @@ function UploadProduct({ productData, ecommerceData, preview, previewData, chang
                     return obj;
                 }, {});
 
-            console.log("addproduct", addproductFormData)
             const finalObj = { ...addproductFormData, ...filteredEcommerceData, ...packagingData, ...uploadImageState, isDraft: false }
-            handleEditProduct(finalObj);
+            if(editProductApiCall == false){
+                setEditProductApiCall(true)
+                setEditProductApiData(finalObj);
+            }
+       
         } else {
             addProduct()
         }
 
-    }, [addproductFormData, ecommerceDataState, packagingData, uploadImageState])
+    }, [addproductFormData, ecommerceDataState, packagingData, uploadImageState]);
+
+    useEffect(() => {
+        if(editProductApiData!==false){
+            handleEditProduct( editProductApiData);
+        }
+        
+    }, [editProductApiData])
 
     const addProduct = async event => {
 
@@ -286,6 +298,9 @@ function UploadProduct({ productData, ecommerceData, preview, previewData, chang
                     }
                     if (draftButtonClick == true) {
                         setDraftButtonClick(false)
+                    }
+                    if(editProductApiCall){
+                        setEditProductApiCall(false)
                     }
                 }
 
@@ -404,7 +419,7 @@ function UploadProduct({ productData, ecommerceData, preview, previewData, chang
     return (
         <React.Fragment>
             <div className={`uploadProduct_container ${preview ? 'preview_active' : ''}`}>
-                <h5 className='section_title'>Upload Product Image</h5>
+                <h5 className='section_title'>{(preview || EditMode )? `Uploaded Images` : `Upload Product Image`}</h5>
                 <div className='uploadFlexbox'>
                     <div className={`uploadBox ${uploadAlert && 'uploadError'} ${uploadedFile.length > 0 ? 'uploaded' : ''}`} id="dropzone">
                         {

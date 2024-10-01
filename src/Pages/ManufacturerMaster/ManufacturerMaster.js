@@ -38,8 +38,8 @@ function ManufacturerMaster({breadcrumbUpdateData, updateBreadCrumb}) {
 
  const dataheader= ["code","name","email","contactName","contactMobile"]
     let tableHeader = [
-        "Manufacturer code",
         "Name",
+        "Manufacturer code",
         "Email",
         "Contact Person Name",
         "Contact Number"
@@ -61,6 +61,9 @@ function ManufacturerMaster({breadcrumbUpdateData, updateBreadCrumb}) {
     const handleAddNewManufacturer = () => {
         setAddManufacturer(true);
         setManufacturerListUpdate(false);
+        setEditMode(false)
+        setPreviewData([])
+        setPreviewMode(false);
         setBreadCrumb([...breadcrumb, 'Add New Manufacturer']);
          //updateBreadCrumb(breadcrumb)
     }
@@ -96,7 +99,7 @@ function ManufacturerMaster({breadcrumbUpdateData, updateBreadCrumb}) {
         try{
             let response = await axiosClient.post(
                 `admin/manufacturer/list`, 
-                JSON.stringify({ search: searchTerm.length > 2?searchTerm:'', page: pageValue, limit:10}), 
+                JSON.stringify({ search: searchTerm.length > 2?searchTerm:'', page:searchTerm.length > 2?1: pageValue, limit:10}), 
                 {
                     headers : {
                         'Content-Type': 'application/json',
@@ -153,7 +156,7 @@ function ManufacturerMaster({breadcrumbUpdateData, updateBreadCrumb}) {
     }
 
     const handleEditDataPopulate = (id) => {
-        const data = manufacturerListCard.filter(x=>x._id===id);
+        const data = manufacturerListCard.filter(x=>x.code===id);
         setBreadCrumb([...breadcrumb, 'Edit Manufacturer']);
         setPreviewData(data && data[0])
         setPreviewMode(false);
@@ -254,7 +257,7 @@ function ManufacturerMaster({breadcrumbUpdateData, updateBreadCrumb}) {
                             <span className='icon'>
                                 <UserPlus />
                             </span>
-                            Add new Manufacturer
+                            Add New Manufacturer
                         </button>
                     </div>
                     <div className='contentSection'>
@@ -265,9 +268,11 @@ function ManufacturerMaster({breadcrumbUpdateData, updateBreadCrumb}) {
                         </div>
                         <div className='manufacturerMasterListingTabs'>
                             <Box className="tabsContainer" sx={{ width: '100%' }}>
-                            <CommonTable deleteProductData={(e) => handleManufacturerDelete(e)} dataEditPopulate={(e) => handleEditDataPopulate(e)} dataPopulate={(e) => handleDataPopulate(e)} tableFilterHeader={tableFilterHeader} header={tableHeader} productData={manufacturerListCard}/> 
+                                <div className='tableContainer'>
+                            <CommonTable deleteProductData={(e) => handleManufacturerDelete(e)} dataEditPopulate={(e) => handleEditDataPopulate(e)} dataPopulate={(e) => handleDataPopulate(e)} tableFilterHeader={tableFilterHeader} header={tableHeader} tableBodyData={manufacturerListCard}  copyHeaderItem={["name","code","email"]}/> 
+                            </div>
                                    {manufacturerListCard ? <Pagination totalPages={totalPages} pageNo={pageValue} paginationSet={(e) => handlePagination(e)}/>: ''}
-
+                                   
                             </Box>
                         </div>
                     </div>

@@ -40,8 +40,11 @@ function ECommerceDetails({
     ecommerceBackData,
     productData,
     draftPopUpClose,
+    categoriesAllData
 }) {
+
     const [draftClicked, setDraftClicked] = useState(false);
+    const [categoryLevel1, setCategoryLevel1] = useState('');
     const [categoryLevel2, setCategoryLevel2] = useState('');
     const [categoryLevel3, setCategoryLevel3] = useState('');
     const [draftsuccessModal, setDraftSuccessModal] = useState(false);
@@ -61,11 +64,12 @@ function ECommerceDetails({
         },
     });
 
+ 
     const handleFormSubmit = async values => {
         if (draftClicked) {
             handleDraft(productData, values);
         } else {
-            console.log("ecomerceData",values);
+          
             ECommerceDetailsData(values);
             changeTab(2);
         }
@@ -153,39 +157,33 @@ function ECommerceDetails({
     };
 
     const handleFirstCategory = async event => {
-        const accessToken = `Bearer ${sessionStorage.accessToken} `;
-        try {
-            let response = await axiosClient.post(`admin/category/list`, JSON.stringify({ categoryId: event }), {
-                headers: {
-                    'Content-Type': 'application/json',
-                    'x-via-device': true,
-                    Authorization: accessToken,
-                },
-            });
-            if (response.status == 200) {
-                setCategoryLevel2(response?.data?.data?.category);
+        if(event){
+           let filterLevel2;
+          
+           filterLevel2 =  categoriesAllData && categoriesAllData.filter((data) => {
+            if(event == data.parent){
+                
+                return data
             }
-        } catch (error) {
-            console.log('error', error);
+           })
+          
+           setCategoryLevel2(filterLevel2) 
         }
     };
 
     const handleSecondCategory = async event => {
-        const accessToken = `Bearer ${sessionStorage.accessToken} `;
-        try {
-            let response = await axiosClient.post(`admin/category/list`, JSON.stringify({ categoryId: event }), {
-                headers: {
-                    'Content-Type': 'application/json',
-                    'x-via-device': true,
-                    Authorization: accessToken,
-                },
-            });
-            if (response.status == 200) {
-                setCategoryLevel3(response?.data?.data?.category);
-            }
-        } catch (error) {
-            console.log('error', error);
-        }
+        if(event){
+            let filterLevel2;
+           
+            filterLevel2 =  categoriesAllData && categoriesAllData.filter((data) => {
+             if(event == data.parent){
+                 
+                 return data
+             }
+            })
+           
+            setCategoryLevel3(filterLevel2) 
+         }
     };
 
     const handleDraftSuccessPopupClose = () => {
@@ -203,7 +201,61 @@ function ECommerceDetails({
                 setFieldValue(item[0], item[1]);
             });
         }
+       
     }, []);
+
+    useEffect(() => {
+        if(categoriesAllData && categoriesAllData.length > 0){
+            let filterlevel1;
+           filterlevel1 =  categoriesAllData.filter((data) => {
+                if(data.level == 1){
+                    return data
+                }
+            })
+            setCategoryLevel1(filterlevel1)
+        }
+    }, [values.canDisplay])
+
+    useEffect(() => {
+        if(previewData){
+            if(previewData.firstCategory!==""){
+                if(categoriesAllData && categoriesAllData.length > 0){
+                    let filterlevel1;
+                   filterlevel1 =  categoriesAllData.filter((data) => {
+                        if(data._id == previewData.firstCategory){
+                            return data
+                        }
+                    })
+                    setCategoryLevel1(filterlevel1)
+                }
+            }
+            if(previewData.secondCategory!==""){
+                if(categoriesAllData && categoriesAllData.length > 0){
+                    let filterlevel2;
+                   filterlevel2 =  categoriesAllData.filter((data) => {
+                        if(data._id == previewData.secondCategory){
+                            return data
+                        }
+                    })
+                    
+                    setCategoryLevel2(filterlevel2)
+                }
+            }
+            if(previewData.thirdCategory!==""){
+                if(categoriesAllData && categoriesAllData.length > 0){
+                    let filterlevel3;
+                   filterlevel3 =  categoriesAllData.filter((data) => {
+                        if(data._id == previewData.thirdCategory){
+                            return data
+                        }
+                    })
+                    
+                    setCategoryLevel3(filterlevel3)
+                }
+            }
+
+        }
+    }, [previewData])
 
     return (
         <React.Fragment>
@@ -229,9 +281,9 @@ function ECommerceDetails({
                                 label={'Category-Level 1'}
                                 name={'firstCategory'}
                                 options={
-                                    ProductCreateList &&
-                                    ProductCreateList.category.length > 0 &&
-                                    ProductCreateList.category.map(item => {
+                                    categoryLevel1 &&
+                                    categoryLevel1.length > 0 &&
+                                    categoryLevel1.map(item => {
                                         return { id: item._id, value: item.name };
                                     })
                                 }

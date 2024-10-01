@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import locales from "../../../Constants/en.json";
-import { Input, Select, SelectWithInput } from '../../../Components/common';
+import locales from "../../../../Constants/en.json";
+import { Input, Select, SelectWithInput } from '../../../../Components/common';
 import * as Yup from 'yup';
 import { useFormik } from 'formik';
-import { axiosClient } from '../../../services/axiosClient';
-import SuccessModal from '../../../Components/CommonSuccessModal/SuccessModal';
-import ErrorModal from '../../../Components/CommonErrorModal/ErrorModal';
-import "./AddNewManufacturer.scss"
+import { axiosClient } from '../../../../services/axiosClient';
+import SuccessModal from '../../../../Components/CommonSuccessModal/SuccessModal';
+import ErrorModal from '../../../../Components/CommonErrorModal/ErrorModal';
+import "./AddNewSupplier.scss"
 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const phoneRegExp = /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/
 const manufacturerDetailEditFormSchema = Yup.object({
@@ -19,7 +19,7 @@ const productDetailInitialValues = {
 
     name: "",
     code: "",
-    status: 'active',
+    status: 'Active',
     email: "",
     contactName: "",
     contactMobile: "",
@@ -60,21 +60,17 @@ function ManufacturerDetail({ ProductCreateList, productTypelist, preview, previ
     const [successModal, setSucessModal] = useState("");
     const [formDisabled, setFormDisabled] = useState(true);
 
-   useEffect(()=>{
-     if(previewData.length===0){
-      setFieldValue("status","Active");
-     }
-   },[])
+
  
 
     const handleFormSubmit = async values => {
         delete values.createdAt;
         delete values.updatedAt;
         delete values.__v;
-        if (values._id) {
-            handleEditManufacturer(values)
+        if (values._id || previewData && Object.keys(previewData).length > 0) {
+            handleEditSupplier(values)
         } else {
-            handleAddManufacturer(values);
+            handleAddSupplier(values);
         }
     };
 
@@ -83,13 +79,13 @@ function ManufacturerDetail({ ProductCreateList, productTypelist, preview, previ
     }
 
 
-    const handleAddManufacturer = async (values) => {
+    const handleAddSupplier = async (values) => {
 
         if (values !== "") {
             const accessToken = `Bearer ${sessionStorage.accessToken} `
             try {
                 let response = await axiosClient.post(
-                    `admin/manufacturer/create`, values, {
+                    `admin/supplier/create`, values, {
                     headers: {
                         'Content-Type': 'application/json',
                         'x-via-device': true,
@@ -104,8 +100,8 @@ function ManufacturerDetail({ ProductCreateList, productTypelist, preview, previ
                 if (response.status == 200) {
                     setSucessModal(true);
                     SetUpdateClicked(false);
-                    setSuccessMsg("The Manufacturer has been added into the system");
-                    setSuccessTitle("Manufacturer has been added successfully")
+                    setSuccessMsg("New Supplier has been added successfully");
+                    setSuccessTitle("The new supplier has been integrated into the system")
                 }
 
             } catch (error) {
@@ -130,12 +126,12 @@ function ManufacturerDetail({ ProductCreateList, productTypelist, preview, previ
     }
 
 
-    const handleEditManufacturer = async (values) => {
+    const handleEditSupplier = async (values) => {
         if (values !== "") {
             const accessToken = `Bearer ${sessionStorage.accessToken} `
             try {
                 let response = await axiosClient.post(
-                    `admin/manufacturer/update`, values, {
+                    `admin/supplier/update`, values, {
                     headers: {
                         'Content-Type': 'application/json',
                         'x-via-device': true,
@@ -151,35 +147,28 @@ function ManufacturerDetail({ ProductCreateList, productTypelist, preview, previ
                     // setProductCreateList( response?.data?.data)
                     setSucessModal(true);
                     SetUpdateClicked(false);
-                    setSuccessMsg("The manufacturer has been updated into the system");
-                    setSuccessTitle("Manufacturer has been updated successfully")
+                    setSuccessMsg("The supplier has been updated into the system");
+                    setSuccessTitle("Supplier has been updated successfully")
                 }
 
             } catch (error) {
                 console.log("error", error);
                 setErrorModal(true);
-                setErrorMsg(error.response.data.message);
+                setErrorMsg(error?.response?.data?.message);
 
             }
         }
     }
 
+
     useEffect(() => {
         setTimeout(() => {
             if (previewData) {
-                console.log("previewData",previewData);
+
                 Object.entries(previewData).map((item) => {
-                    // if(item[0]==="status"){
-                    //     setFieldValue('status', item[1]);
-                    // }
-                    // else if(item[0]==="country"){
-                    //     setFieldValue('country', item[1]);
-                    // }
-                    // else if(item[0]==="productType"){
-                    //     setFieldValue('productType', item[1]); 
-                    // }else{
+
                         setFieldValue(item[0], item[1]);
-                //     }
+
                 })
             }
             setshowLoader(false)
@@ -189,7 +178,7 @@ function ManufacturerDetail({ ProductCreateList, productTypelist, preview, previ
 
     return (
         <React.Fragment>
-            <div className={`manufacturerDetail_container  ${preview ? 'preview_active' : ''}`}>
+            <div className={`supplierDetail_container  ${preview ? 'preview_active' : ''}`}>
                 <div className='first_flexbox'>
                     <div className='inputBox manufacturerCode'>
                         <Input
@@ -198,7 +187,7 @@ function ManufacturerDetail({ ProductCreateList, productTypelist, preview, previ
                             name={'manufacturerCode'}
                             id={'manufacturerCode'}
                             value={values.code}
-                            wrapperClass={'sm-40 lg-40'}
+                            wrapperClass={'sm-25 lg-25'}
                             onChange={handleChange}
                             error={errors.code}
                             touched={touched.code}
@@ -219,9 +208,8 @@ function ManufacturerDetail({ ProductCreateList, productTypelist, preview, previ
                                 { id: 'Active', value: 'Active' },
                                 { id: 'Inactive', value: 'Inactive' },
                             ]}
-                            wrapperClass={'sm-20 lg-20'}
+                            wrapperClass={'sm-15 lg-15'}
                             onChange={handleChange}
-
                         />
                     </div>
                     <div className='inputBox Product_Name sm-60 lg-60'>
@@ -472,7 +460,7 @@ function ManufacturerDetail({ ProductCreateList, productTypelist, preview, previ
                     <button className='cancelBtn' onClick={() => back()}>
                         {locales.cancel_label}
                     </button>
-                    <button type='button' className='saveBtn' onClick={handleSubmit}> {locales.save_label}</button>
+                    <button type='button' className='saveBtn' onClick={handleSubmit}> {previewData && Object.keys(previewData).length > 0 ? locales.update_label : locales.save_label}</button>
                 </div>
             </div>
             {

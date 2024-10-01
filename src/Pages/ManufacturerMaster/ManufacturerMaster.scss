@@ -71,6 +71,7 @@ $font-monsterat : 'Montserrat';
 
                 .searchBox {
                     width: 40%;
+                    max-width: 400px;
                     background-color: #f2f5fa;
                     border-radius: 6px;
                     padding: 14px 16px 14px 50px;
@@ -82,15 +83,16 @@ $font-monsterat : 'Montserrat';
                     line-height: 20px;
                     /* 142.857% */
                     letter-spacing: 0.07px;
-                    color: #6B7280;
+                    color: #6b7280;
                     @include flexbox();
                     align-items: center;
-                    box-shadow: 0px 4px 4px 0px inset rgba(0, 0, 0, 0.25), -7px -7px 7px 0px inset #FFF;
+                    box-shadow:
+                        0px 4px 4px 0px inset rgba(0, 0, 0, 0.25),
+                        -7px -7px 7px 0px inset #fff;
                     background-image: url('../../assets/images/search_icon.svg');
                     background-repeat: no-repeat;
                     background-position: 16px center;
                     border: none;
-
                 }
 
                 .actionFlexBox {
@@ -219,14 +221,18 @@ $font-monsterat : 'Montserrat';
                             }
                         }
                     }
-
+                    .tableContainer{
+                        overflow-x: auto;
+                    }
                     .tabContentContainer {
+                       
                         .MuiBox-root {
                             padding-top: 8px;
                             padding-bottom: 0;
                             padding-left: 0;
                             padding-right: 0;
                             position: relative;
+                           
                             .manufacturerCard_container {
                                 .card_flexContainer {
                                     width: 100%;

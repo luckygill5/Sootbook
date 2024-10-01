@@ -11,9 +11,9 @@ import UploadProduct from './UploadProduct';
 import { axiosClient } from '../../../services/axiosClient';
 import './AddNewProduct.scss';
 
-function AddNewProduct({ back, preview, previewData, removePreviewMode, successModalClose, EditData, draftSuccessPopUpClose }) {
+function AddNewProduct({ back, preview, previewData, removePreviewMode, successModalClose, EditData, draftSuccessPopUpClose, categoriesAllData, productCreateListData }) {
     const [value, setValue] = useState(0);
-    const [productCreateList, setProductCreateList] = useState('');
+    const [productCreateList, setProductCreateList] = useState(productCreateListData);
     const [ecommercedata, setEcommerceData] = useState('');
     const [productDetailsCollection, setProductDetailsCollection] = useState('');
     const handleChange = (event, newValue) => {
@@ -37,30 +37,12 @@ function AddNewProduct({ back, preview, previewData, removePreviewMode, successM
         };
     }
 
-    const handleProductCreateList = async event => {
-        const accessToken = `Bearer ${sessionStorage.accessToken} `;
-        try {
-            let response = await axiosClient.get(`admin/product/create/list`, {
-                headers: {
-                    'Content-Type': 'application/json',
-                    'x-via-device': true,
-                    Authorization: accessToken,
-                },
-            });
-            if (response.status == 200) {
-                setProductCreateList(response?.data?.data);
-            }
-        } catch (error) {
-            console.log('error', error);
-        }
-    };
+    
 
     const handleDraftPopUpClose = () => {
         draftSuccessPopUpClose();
     };
-    useEffect(() => {
-        handleProductCreateList();
-    }, []);
+
 
     const handleTabs = event => {
         handleChange(true, event);
@@ -148,6 +130,7 @@ function AddNewProduct({ back, preview, previewData, removePreviewMode, successM
                             back={back}
                             productBackData={productDetailsCollection}
                             draftPopUpClose={() => handleDraftPopUpClose()}
+                           
                         />
                     </CustomTabPanel>
                     <CustomTabPanel value={value} index={1} className='tabContentContainer'>
@@ -160,6 +143,7 @@ function AddNewProduct({ back, preview, previewData, removePreviewMode, successM
                             ecommerceBackData={ecommercedata}
                             productData={productDetailsCollection}
                             draftPopUpClose={() => handleDraftPopUpClose()}
+                            categoriesAllData={categoriesAllData}
                         />
                     </CustomTabPanel>
                     <CustomTabPanel value={value} index={2} className='tabContentContainer'>

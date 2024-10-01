@@ -26,6 +26,7 @@ function ProductMaster({ breadcrumbUpdateData, updateBreadCrumb }) {
     const [productListCard, setProductListCard] = useState(null);
     const [draftListData, setDraftListData] = useState('');
     const [tableFilterHeader, setTableFilterHeader] = useState('');
+    const [productTableHeader, setProductTableHeader] = useState(["manufacturer name", "product Code", "product name", "generic Name", "net Price", "VAT %"])
     const [previewMode, setPreviewMode] = useState();
     const [previewData, setPreviewData] = useState('');
     const [productlistUpdate, setProductListUpdate] = useState(false);
@@ -39,8 +40,12 @@ function ProductMaster({ breadcrumbUpdateData, updateBreadCrumb }) {
     const [deleteProductData, setDeleteProductData] = useState('');
     const [DeleteModalTitle, setDeleteModalTitle] = useState('');
     const [DeleteModalMsg, setDeleteModalMsg] = useState('');
-
-    let tableHeader = ['name', 'genericName', 'productCode', 'manufacturer', 'netPrice'];
+    const [totalPagesListCard, setTotalPagesListCard] = useState("");
+    const [totalPagesDraft, setTotalPagesDraft] = useState("");
+    const [searchVal, setSearchVal] = useState("");
+    const [categoriesData, setCategoriesData] = useState("");
+    const [productCreateList, setProductCreateList] = useState('');
+    let tableHeader = ["manufacturerName" , 'name', 'genericName', 'productCode', 'netPrice', "vat" ];
 
     const handleAddNewProduct = () => {
         setAddProduct(true);
@@ -99,9 +104,10 @@ function ProductMaster({ breadcrumbUpdateData, updateBreadCrumb }) {
     };
 
     const handleProductList = async event => {
+  
         const accessToken = `Bearer ${sessionStorage.accessToken} `;
         try {
-            let response = await axiosClient.post(`admin/product/list`, JSON.stringify({ search: '', isDraft: false, page: pageValue, limit: 10 }), {
+            let response = await axiosClient.post(`admin/product/list`, JSON.stringify({ search: event?.data, isDraft: false, page: event?.pageNo ? 1 : pageValue, limit: 12 }), {
                 headers: {
                     'Content-Type': 'application/json',
                     'x-via-device': true,
@@ -110,6 +116,26 @@ function ProductMaster({ breadcrumbUpdateData, updateBreadCrumb }) {
             });
             if (response.status == 200) {
                 setProductListCard(response?.data?.data?.products);
+                setTotalPagesListCard(response?.data?.data?.totalPages)
+            }
+        } catch (error) {
+            console.log('error', error);
+        }
+    };
+
+
+    const handleProductCreateList = async event => {
+        const accessToken = `Bearer ${sessionStorage.accessToken} `;
+        try {
+            let response = await axiosClient.get(`admin/product/create/list`, {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'x-via-device': true,
+                    Authorization: accessToken,
+                },
+            });
+            if (response.status == 200) {
+                setProductCreateList(response?.data?.data);
             }
         } catch (error) {
             console.log('error', error);
@@ -119,7 +145,7 @@ function ProductMaster({ breadcrumbUpdateData, updateBreadCrumb }) {
     const handleDraftList = async event => {
         const accessToken = `Bearer ${sessionStorage.accessToken} `;
         try {
-            let response = await axiosClient.post(`admin/product/list`, JSON.stringify({ search: '', isDraft: true, page: pageValue, limit: 10 }), {
+            let response = await axiosClient.post(`admin/product/list`, JSON.stringify({ search: event?.data, isDraft: true, page:event?.pageNo ? 1 : pageValue, limit: 12 }), {
                 headers: {
                     'Content-Type': 'application/json',
                     'x-via-device': true,
@@ -128,11 +154,14 @@ function ProductMaster({ breadcrumbUpdateData, updateBreadCrumb }) {
             });
             if (response.status == 200) {
                 setDraftListData(response?.data?.data?.products);
+                setTotalPagesDraft(response?.data?.data?.totalPages)
             }
         } catch (error) {
             console.log('error', error);
         }
     };
+
+ 
 
     const handleProductTableheaderFilter = () => {
         if (productListCard && productListCard.length > 0) {
@@ -144,6 +173,7 @@ function ProductMaster({ breadcrumbUpdateData, updateBreadCrumb }) {
                     return item;
                 }
             });
+
             setTableFilterHeader(filterFirst);
         }
     };
@@ -151,12 +181,32 @@ function ProductMaster({ breadcrumbUpdateData, updateBreadCrumb }) {
     useEffect(() => {
         handleProductList();
         handleDraftList();
+        handleCategoryAll();
+        handleProductCreateList();
     }, []);
 
     useEffect(() => {
         handleProductTableheaderFilter();
     }, [productListCard]);
 
+    const handleCategoryAll = async event  => {
+        const accessToken = `Bearer ${sessionStorage.accessToken} `;
+        try {
+            let response = await axiosClient.get(`admin/category/all`,  {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'x-via-device': true,
+                    Authorization: accessToken,
+                },
+            });
+            if (response.status == 200) {
+                setCategoriesData(response?.data?.data?.categories)
+                
+            }
+        } catch (error) {
+            console.log('error', error);
+        }
+    }
     const handleDataPopulate = index => {
         let filter;
         filter = productListCard.filter(item => {
@@ -219,12 +269,15 @@ function ProductMaster({ breadcrumbUpdateData, updateBreadCrumb }) {
         setProductListUpdate(true);
         setAddProduct(false);
         handleBradCrumb();
+        setPreviewData([])
     };
 
     useEffect(() => {
-        if (productlistUpdate == true || successModal == true || showDraftList == true || addProduct == true || pageValue !== 0) {
+        if (productlistUpdate == true || successModal == true || showDraftList == true || addProduct == true || pageValue !== 0 ) {
             handleProductList();
             handleDraftList();
+            handleCategoryAll();
+            handleProductCreateList();
         }
     }, [productlistUpdate, successModal, addProduct, showDraftList, pageValue]);
 
@@ -253,7 +306,9 @@ function ProductMaster({ breadcrumbUpdateData, updateBreadCrumb }) {
     const handleDeleteSuccessModalClose = () => {
         setSuccessModal(false);
         setSuccessModalMsg('');
+        setPreviewData([])
         handleBradCrumb();
+       
     };
 
     const handleDraftSuccessPopUpclose = () => {
@@ -288,6 +343,23 @@ function ProductMaster({ breadcrumbUpdateData, updateBreadCrumb }) {
     const handleDeleteData = () => {
         handleDeleteProductData(deleteProductData);
     };
+
+    const handlesearch = (event) => {
+        setSearchVal(event.target.value);
+        if(event.target.value == ""){
+            handleProductList({pageNo :"", data:event.target.value});
+            handleDraftList({pageNo :"", data:event.target.value});
+        }else{
+            handleProductList({pageNo :1, data:event.target.value});
+            handleDraftList({pageNo :1, data:event.target.value});
+        }
+
+    }
+
+    useEffect(() => {
+        handlePagination(1)
+    }, [value])
+
     const ProductMasterTabs = ['Products', 'Drafts'];
 
     return (
@@ -302,6 +374,8 @@ function ProductMaster({ breadcrumbUpdateData, updateBreadCrumb }) {
                         back={handleBack}
                         EditData={editMode}
                         draftSuccessPopUpClose={() => handleDraftSuccessPopUpclose()}
+                        categoriesAllData={categoriesData}
+                        productCreateListData={productCreateList}
                     />
                 ) : (
                     <div className='productMaster_content'>
@@ -316,7 +390,7 @@ function ProductMaster({ breadcrumbUpdateData, updateBreadCrumb }) {
                         </div>
                         <div className='contentSection'>
                             <div className='head-flexbox'>
-                                <input type='text' className='searchBox' placeholder='Search Product'></input>
+                                <input type='text' className='searchBox' placeholder='Search Product' value={searchVal} onChange={handlesearch}></input>
                                 <div className='actionFlexBox'>
                                     <button className='importBtn commonBtn' type='button'>
                                         <span className='icon'>
@@ -368,19 +442,24 @@ function ProductMaster({ breadcrumbUpdateData, updateBreadCrumb }) {
                                                 editDataPopulate={e => handleEditProductData(e)}
                                                 dataPopulate={e => handleDataPopulate(e)}
                                                 productData={productListCard}
+                                                
                                             />
                                         ) : toggleView == 'List' ? (
+                                            <div className='table_container'>
                                             <CommonTable
                                                 deleteProductData={e => handleProductDelete(e)}
                                                 dataEditPopulate={e => handleEditDataPopulate(e)}
                                                 dataPopulate={e => handleDataPopulate(e)}
-                                                header={tableFilterHeader}
-                                                productData={productListCard}
+                                                header={productTableHeader}
+                                                tableBodyData={productListCard}
+                                                tableFilterHeader={tableFilterHeader}
+                                                copyHeaderItem={["netPrice","vat"]}
                                             />
+                                            </div>
                                         ) : (
                                             ''
                                         )}
-                                        {productListCard ? <Pagination pageNo={pageValue} paginationSet={e => handlePagination(e)} /> : ''}
+                                        {productListCard ? <Pagination totalPages={totalPagesListCard} pageNo={pageValue} paginationSet={e => handlePagination(e)} /> : ''}
                                     </CustomTabPanel>
                                     <CustomTabPanel value={value} index={1} className='tabContentContainer'>
                                         <DraftList
@@ -388,7 +467,7 @@ function ProductMaster({ breadcrumbUpdateData, updateBreadCrumb }) {
                                             deleteDataPopulate={e => handleDeleteDraft(e)}
                                             editDataPopulate={e => handleEditDraftData(e)}
                                         />
-                                        {draftListData ? <Pagination pageNo={pageValue} paginationSet={e => handlePagination(e)} /> : ''}
+                                        {draftListData ? <Pagination totalPages={totalPagesDraft} pageNo={pageValue} paginationSet={e => handlePagination(e)} /> : ''}
                                     </CustomTabPanel>
                                 </Box>
                             </div>
