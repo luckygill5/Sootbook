@@ -9,7 +9,7 @@ import xls from "../../assets/images/xls.png";
 import Papa from 'papaparse';
 import "./BulkUpload.scss"
 
-function BulkUpload({ breadcrumbUpdateData, updateBreadCrumb, back }) {
+function BulkUpload({ breadcrumbUpdateData, updateBreadCrumb, back,getUpdatedData }) {
     const [breadcrumb, setBreadCrumb] = useState([...breadcrumbUpdateData]);
     const fileTypes = ["JPG", "PNG", "GIF"];
     const [base64, setBase64] = useState('');
@@ -131,6 +131,7 @@ function BulkUpload({ breadcrumbUpdateData, updateBreadCrumb, back }) {
     const handleSuccessPopupClose = () => {
         setSuccessModal(false);
         setSuccessModalMsg('');
+        getUpdatedData();
         back();
     }
 

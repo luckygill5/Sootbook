@@ -26,7 +26,11 @@ const CategoryMaster = ({breadcrumbUpdateData, updateBreadCrumb}) => {
             }
         });
         setBreadCrumb([...removeLastBreadcrumb]);
-        setshowBulkUploadForm(!showBulkUploadForm); 
+        setshowBulkUploadForm(!showBulkUploadForm);    
+    }
+
+    const getUpdatedData=()=>{
+        getCategoryData(); 
     }
 
     
@@ -96,7 +100,7 @@ const CategoryMaster = ({breadcrumbUpdateData, updateBreadCrumb}) => {
                     selectedL1={selectedL1}
                 />
             ): showBulkUploadForm ?(
-                <BulkUpload breadcrumbUpdateData={breadcrumbUpdateData} updateBreadCrumb={updateBreadCrumb} back={handleBack}/>
+                <BulkUpload breadcrumbUpdateData={breadcrumbUpdateData} updateBreadCrumb={updateBreadCrumb} back={handleBack} getUpdatedData={getUpdatedData}/>
             ) : (
                 <div className='categoryMaster_content'>
                     <div className='headerFlexbox'>
