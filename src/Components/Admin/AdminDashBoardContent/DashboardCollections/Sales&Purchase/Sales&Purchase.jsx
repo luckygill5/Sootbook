@@ -172,6 +172,11 @@ function SalesPurchase({ ChartFilter, ChartFilterClose }) {
         grid: {
           display: false, // This will remove vertical grid lines
         },
+        ticks : {
+          font: {
+            size: 10, // Reduce the font size of y-axis labels
+          }, 
+        }
       },
       y: {
         beginAtZero: true,
@@ -180,6 +185,9 @@ function SalesPurchase({ ChartFilter, ChartFilterClose }) {
             // Custom left vertical labels
             return `$${value}k`;
           },
+          font: {
+            size: 10, // Reduce the font size of y-axis labels
+          }, 
         },
       },
     },
@@ -272,11 +280,21 @@ function SalesPurchase({ ChartFilter, ChartFilterClose }) {
         grid: {
           display: false, // This removes the vertical grid lines
         },
+        ticks : {
+          font: {
+            size: 10, // Reduce the font size of y-axis labels
+          }, 
+        }
       },
       y: {
         grid: {
           borderDash: [2, 2], // Optional: makes the horizontal grid lines dashed
         },
+        ticks : {
+          font: {
+            size: 10, // Reduce the font size of y-axis labels
+          }, 
+        }
       },
     },
   };
@@ -371,6 +389,11 @@ function SalesPurchase({ ChartFilter, ChartFilterClose }) {
         grid: {
           display: false, // This will remove vertical grid lines
         },
+        ticks : {
+          font: {
+            size: 10, // Reduce the font size of y-axis labels
+          }, 
+        }
       },
       y: {
         beginAtZero: true,
@@ -379,6 +402,9 @@ function SalesPurchase({ ChartFilter, ChartFilterClose }) {
             // Custom left vertical labels
             return `$${value}k`;
           },
+          font: {
+            size: 10, // Reduce the font size of y-axis labels
+          }, 
         },
       },
     },
