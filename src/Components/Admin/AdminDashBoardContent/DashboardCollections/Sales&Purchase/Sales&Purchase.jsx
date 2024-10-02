@@ -519,13 +519,13 @@ function SalesPurchase({ ChartFilter, ChartFilterClose }) {
   }
 
   const renderChart = () => {
-    switch (Charttype) {
+    switch (Charttype) {      
       case "Pie" : 
       return <Pie data={ChartData} options={ChartOptions} />;
       break;
-      case 'Doughnut':
-        return <Doughnut data={ChartData} options={ChartOptions} />;
-        break;
+      // case 'Doughnut':
+      //   return <Doughnut data={ChartData} options={ChartOptions} />;
+      //   break;
       case 'Bar':
         return <Bar data={ChartData} options={ChartOptions} />;
         break;
@@ -797,7 +797,7 @@ function SalesPurchase({ ChartFilter, ChartFilterClose }) {
               <img src={Coins} alt="coins_icon" className='icon-img'></img>
             </div>
             <div className='info'>
-              <h5 className='title'>Total sale</h5>
+              <h5 className='title'>Total Sale</h5>
               <span className='value'>900K</span>
             </div>
           </div>
@@ -806,7 +806,7 @@ function SalesPurchase({ ChartFilter, ChartFilterClose }) {
               <img src={FileWarm} alt="filewarm_icon" className='icon-img'></img>
             </div>
             <div className='info'>
-              <h5 className='title'>Total profit</h5>
+              <h5 className='title'>Total Profit</h5>
               <span className='value'>10K</span>
             </div>
           </div>
@@ -899,7 +899,7 @@ function SalesPurchase({ ChartFilter, ChartFilterClose }) {
           {(ChartRender.TopSaleLeaderChart || chartvisible) ? <Draggable onDrag={handleDrag} bounds="parent">
             <div className='saleLeaders chartFlexbox'>
               <div className='head_flexbox'>
-                <h5 className='section_title'>Top sales Leaders</h5>
+                <h5 className='section_title'>Top Sales Leaders</h5>
                 <button className='options' onClick={() => handleZoomChart('saleLeaders' , '', '', `Top sales Leaders`)}>
                   <img src={list} alt="list_icon" className='icon'></img>
                 </button>
@@ -979,7 +979,7 @@ function SalesPurchase({ ChartFilter, ChartFilterClose }) {
           {(ChartRender.ReturnGoodsChart || chartvisible) ? <Draggable  onDrag={handleDrag} bounds="parent">
             <div className='returnGoods chartFlexbox'>
               <div className='max-view'>
-                <span className='maximize' onClick={() => handleZoomChart("Doughnut", ReturnGoodData, ReturnGoodoptions, `Return goods`)}><img src={Max} alt="maximize_icon" className='icon'></img></span>
+                <span className='maximize' onClick={() => handleZoomChart("Pie", ReturnGoodData, ReturnGoodoptions, `Return goods`)}><img src={Max} alt="maximize_icon" className='icon'></img></span>
               </div>
               <h5 className='section_title'>Return Goods</h5>
               <div className='chart_container'>
