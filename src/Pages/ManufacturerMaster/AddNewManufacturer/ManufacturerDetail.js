@@ -12,7 +12,7 @@ const phoneRegExp = /((\+*)((0[ -]*)*|((91 )*))((\d{12})+|(\d{10})+))|\d{5}([- ]
 const manufacturerDetailEditFormSchema = Yup.object({
     name: Yup.string().trim().required('Name is required.'),
     email:Yup.string().trim().required("Email is required.").email("Invalid email").matches(emailRegex,"Invalid email"),
-    contactMobile: Yup.string().trim().matches(phoneRegExp, 'Contact number is not valid'),
+    //contactMobile: Yup.string().trim().matches(phoneRegExp, 'Contact number is not valid'),
 });
 
 const productDetailInitialValues = {
@@ -172,17 +172,7 @@ function ManufacturerDetail({ ProductCreateList, productTypelist, preview, previ
                 console.log("previewData",previewData);
                 previewData['selectedCountry']="IND";
                 Object.entries(previewData).map((item) => {
-                    // if(item[0]==="status"){
-                    //     setFieldValue('status', item[1]);
-                    // }
-                    // else if(item[0]==="country"){
-                    //     setFieldValue('country', item[1]);
-                    // }
-                    // else if(item[0]==="productType"){
-                    //     setFieldValue('productType', item[1]); 
-                    // }else{
                         setFieldValue(item[0], item[1]);
-                //     }
                 })
             }
             setshowLoader(false)

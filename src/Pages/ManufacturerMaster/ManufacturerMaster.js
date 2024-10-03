@@ -1,22 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import locales from "../../Constants/en.json";
 import { ReactComponent as UserPlus } from "../../assets/images/user-plus.svg";
-import { ReactComponent as Download } from "../../assets/images/download.svg";
-import { ReactComponent as Setting } from "../../assets/images/settings.svg";
-import { ReactComponent as List } from "../../assets/images/list.svg";
-import { ReactComponent as UserSquare } from "../../assets/images/user-square-2.svg";
-import { ReactComponent as Arrow } from "../../assets/images/chevron-right.svg";
 import CommonTable from '../../Components/CommonTable/CommonTable';
 import SuccessModal from '../../Components/CommonSuccessModal/SuccessModal';
 import { axiosClient } from '../../services/axiosClient';
-import Tabs from '@mui/material/Tabs';
-import Tab from '@mui/material/Tab';
 import Box from '@mui/material/Box';
 import Pagination from '../../Components/common/PaginationLayout';
 import DeleteModal from '../../Components/CommonDeleteModal/CommonDeleteModal';
 import AddNewManufacturer from './AddNewManufacturer/AddNewManufacturer';
 import './ManufacturerMaster.scss';
-
+import ProductList from "../ProductList/ProductList";
 function ManufacturerMaster({breadcrumbUpdateData, updateBreadCrumb}) {
     const [addManufacturer, setAddManufacturer] = useState(false);
     const [manufacturerListCard, setManufacturerListCard] =  useState(null);
@@ -35,6 +27,9 @@ function ManufacturerMaster({breadcrumbUpdateData, updateBreadCrumb}) {
     const [breadcrumb, setBreadCrumb] = useState([...breadcrumbUpdateData]);
     const [searchTerm, setSearchTerm] = useState('');
     const [totalPages, setTotalPages] = useState();
+    const [showProductList,setShowProductList] = useState(false);
+    const [manufacturerId,setManufacturerId]= useState();
+    const [productType,setProductType]= useState();
 
  const dataheader= ["code","name","email","contactName","contactMobile"]
     let tableHeader = [
@@ -61,8 +56,8 @@ function ManufacturerMaster({breadcrumbUpdateData, updateBreadCrumb}) {
     const handleAddNewManufacturer = () => {
         setAddManufacturer(true);
         setManufacturerListUpdate(false);
-        setEditMode(false)
-        setPreviewData([])
+        setEditMode(false);
+        setPreviewData([]);
         setPreviewMode(false);
         setBreadCrumb([...breadcrumb, 'Add New Manufacturer']);
          //updateBreadCrumb(breadcrumb)
@@ -165,6 +160,25 @@ function ManufacturerMaster({breadcrumbUpdateData, updateBreadCrumb}) {
 
     }
 
+
+    const handleViewProductDetail=(id)=>{
+        const data = manufacturerListCard.filter(x=>x._id===id);
+        setManufacturerId(id);
+        setShowProductList(true);
+        setProductType(data[0].productType);
+    }
+
+    const handleProductListBack=()=>{
+        setProductType("");
+        setShowProductList("");
+        let removeLastBreadcrumb = breadcrumb.filter((item) => {
+            if (item !== 'Products List') {
+                return item
+            }
+        });
+        setBreadCrumb([...removeLastBreadcrumb]);
+    }
+
     const handleRemovePreview =() => {
         setPreviewMode(false);
         setEditMode(true)
@@ -249,7 +263,10 @@ function ManufacturerMaster({breadcrumbUpdateData, updateBreadCrumb}) {
     return (
         <React.Fragment>
         <div className={`manufacturerMaster_container ${editMode ? "editMode" : ''}`}>
-        {addManufacturer ? <AddNewManufacturer  successModalClose={() => handleSuccessModalClose()} preview={previewMode} removePreviewMode={() => handleRemovePreview()} previewData={previewData} back={handleBack} EditData={editMode}/> :
+            {showProductList?(
+                <ProductList breadcrumbUpdateData={breadcrumbUpdateData} updateBreadCrumb={updateBreadCrumb} back={handleProductListBack} id={manufacturerId} name={productType}/> 
+            ):
+        addManufacturer ? <AddNewManufacturer  successModalClose={() => handleSuccessModalClose()} preview={previewMode} removePreviewMode={() => handleRemovePreview()} previewData={previewData} back={handleBack} EditData={editMode}/> :
                 <div className='manufacturerMaster_content'>
                     <div className='headerFlexbox'>
                         <h5 className='title'>Manufacturers List</h5>
@@ -269,7 +286,16 @@ function ManufacturerMaster({breadcrumbUpdateData, updateBreadCrumb}) {
                         <div className='manufacturerMasterListingTabs'>
                             <Box className="tabsContainer" sx={{ width: '100%' }}>
                                 <div className='tableContainer'>
-                            <CommonTable deleteProductData={(e) => handleManufacturerDelete(e)} dataEditPopulate={(e) => handleEditDataPopulate(e)} dataPopulate={(e) => handleDataPopulate(e)} tableFilterHeader={tableFilterHeader} header={tableHeader} tableBodyData={manufacturerListCard}  copyHeaderItem={["name","code","email"]}/> 
+                            <CommonTable deleteProductData={(e) => handleManufacturerDelete(e)} 
+                            dataEditPopulate={(e) => handleEditDataPopulate(e)} 
+                            dataPopulate={(e) => handleDataPopulate(e)} 
+                            tableFilterHeader={tableFilterHeader} 
+                            header={tableHeader} 
+                            tableBodyData={manufacturerListCard} 
+                             copyHeaderItem={["name","code","email"]}
+                             showViewProducts={true}
+                             handleViewDetail={handleViewProductDetail}
+                             /> 
                             </div>
                                    {manufacturerListCard ? <Pagination totalPages={totalPages} pageNo={pageValue} paginationSet={(e) => handlePagination(e)}/>: ''}
                                    

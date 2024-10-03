@@ -36,6 +36,10 @@ function CommonTable(props) {
     const handleEditClick = index => {
         props.dataEditPopulate(index);
     };
+
+    const handleShowDetail= id =>{
+       props.handleViewDetail(id); 
+    }
     let filtered;
     const handleChange = event => {
         if (indexCheck.includes(event)) {
@@ -103,7 +107,6 @@ function CommonTable(props) {
                     return item;
                 }
             });
-
         filteredCode = filterObject[0].productCode ? filterObject[0].productCode : filterObject[0].code;
         FilteredID = filterObject[0]._id;
         setFilteredProductCode(filteredCode);
@@ -216,9 +219,12 @@ function CommonTable(props) {
                     'aria-labelledby': 'basic-button',
                 }}
             >
+               {!props.isOnlyViewAction &&
+                <>
                 <MenuItem onClick={() => handleEditClick(filteredProductCode ? filteredProductCode : filteredProductID)}><span className='icon'><Pencil /></span> Edit</MenuItem>
                 <MenuItem onClick={() => handleDeleProduct(filteredProductID)}><span className='icon'><Bin /></span> Delete</MenuItem>
-                {/* <MenuItem onClick={handleClose}><span className='icon'><EyeOff /></span> Hide</MenuItem> */}
+                </>}
+                {props.showViewProducts && <MenuItem onClick={()=>handleShowDetail(filteredProductID)}><span className='icon'><EyeOff /></span> {props.showViewProducts?"View Products":"Hide"}</MenuItem> }
             </Menu>
 
             <Snackbar

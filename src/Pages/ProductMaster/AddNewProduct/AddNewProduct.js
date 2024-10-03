@@ -11,7 +11,7 @@ import UploadProduct from './UploadProduct';
 import { axiosClient } from '../../../services/axiosClient';
 import './AddNewProduct.scss';
 
-function AddNewProduct({ back, preview, previewData, removePreviewMode, successModalClose, EditData, draftSuccessPopUpClose, categoriesAllData, productCreateListData }) {
+function AddNewProduct({ back, preview, previewData, removePreviewMode, successModalClose, EditData, draftSuccessPopUpClose, categoriesAllData, productCreateListData,isProductList }) {
     const [value, setValue] = useState(0);
     const [productCreateList, setProductCreateList] = useState(productCreateListData);
     const [ecommercedata, setEcommerceData] = useState('');
@@ -65,7 +65,7 @@ function AddNewProduct({ back, preview, previewData, removePreviewMode, successM
                     <span className='icon'>
                         <ArrowLeft />
                     </span>
-                    Back to Product Master
+                    {`${isProductList ? isProductList : 'Back to Product Master'} `}
                 </span>
             </div>
             <div className={`container_section ${preview ? 'preview' : ''}`}>
