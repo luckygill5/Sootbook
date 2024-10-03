@@ -68,8 +68,7 @@ function ManufacturerMaster({breadcrumbUpdateData, updateBreadCrumb}) {
         setEditMode(false)
         setPreviewData([])
         setPreviewMode(false);
-       handleBreadCrumb();
-        
+       handleBreadCrumb();        
     }
 
     const handleBreadCrumb=()=>{
@@ -177,6 +176,8 @@ function ManufacturerMaster({breadcrumbUpdateData, updateBreadCrumb}) {
             }
         });
         setBreadCrumb([...removeLastBreadcrumb]);
+        setSearchTerm("");
+        handleManufacturerList();
     }
 
     const handleRemovePreview =() => {
