@@ -453,7 +453,7 @@ function ProductMaster({ breadcrumbUpdateData, updateBreadCrumb }) {
                                                 header={productTableHeader}
                                                 tableBodyData={productListCard}
                                                 tableFilterHeader={tableFilterHeader}
-                                                copyHeaderItem={["netPrice","vat"]}
+                                                copyHeaderItem={[]}
                                             />
                                             </div>
                                         ) : (

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import locales from '../../../Constants/en.json';
 import { Input, Select } from '../../../Components/common';
+import { AutoComplete } from '../../../Components/common/AutoComplete';
 import * as Yup from 'yup';
 import { useFormik } from 'formik';
 import Box from '@mui/material/Box';
@@ -12,6 +13,7 @@ import { ReactComponent as Barcode } from '../../../assets/images/sample-bar-cod
 import QRcode from '../../../assets/images/sample-qr-code.png';
 import SuccessModal from '../../../Components/CommonSuccessModal/SuccessModal';
 import './AddNewProduct.scss';
+
 
 const productDetailEditFormSchema = Yup.object({
     name: Yup.string().required('Product Name is required.'),
@@ -76,6 +78,7 @@ function ProductDetail({ changeTab, ProductCreateList, productDetailData, previe
             handleFormSubmit(values);
             // action.resetForm();
         },
+      
     });
 
   
@@ -104,6 +107,7 @@ function ProductDetail({ changeTab, ProductCreateList, productDetailData, previe
                 });
             }
             if (productBackData) {
+
                 Object.entries(productBackData).map(item => {
                     setFieldValue(item[0], item[1]);
                     if (item[0] == 'packaging' && item[1].length > 0) {
@@ -113,6 +117,18 @@ function ProductDetail({ changeTab, ProductCreateList, productDetailData, previe
                             setFieldValue(`Rate_${index + 1}`, data.price);
                             setFieldValue(`Stock_${index + 1}`, data.stock);
                         });
+                    }
+                    if(item[0] == "productType" && item[1]!==""){
+                       let filterData;
+                       filterData =    ProductCreateList &&
+                                ProductCreateList.productType.length > 0 &&
+                                ProductCreateList.productType.filter((item) => {
+                                    if(item.id == item[1]){
+                                        return item
+                                    }
+                                })
+                                
+                                setFieldValue("productType", filterData[0]._id);
                     }
                 });
             }
@@ -189,6 +205,17 @@ function ProductDetail({ changeTab, ProductCreateList, productDetailData, previe
         draftPopUpClose();
     };
 
+    const handleAutoComplete = (event) => {
+        
+        if(event?.target?.name && (event?.target?.value!=="" || event?.target?.value=="")){
+            setFieldValue(event.target.name, event.target.value)
+        }
+        else{
+            setFieldValue(event.name, event.value) 
+        }
+
+    }
+
     return (
         <React.Fragment>
             <div className={`productDetail_container  ${preview ? 'preview_active' : ''}`}>
@@ -206,10 +233,11 @@ function ProductDetail({ changeTab, ProductCreateList, productDetailData, previe
                             touched={touched.productCode}
                             ReadOnly={true}
                             disabled={true}
+                            placeholder=" "
                         />
                     </div>
                     <div className='inputBox sm-20 lg-15'>
-                        <Select
+                       {preview ?  <Select
                             label={'Product Type'}
                             name={'productType'}
                             options={
@@ -226,7 +254,25 @@ function ProductDetail({ changeTab, ProductCreateList, productDetailData, previe
                             error={errors.productType}
                             touched={touched.productType}
                             disabled={preview ? true : false}
-                        />
+                        /> : 
+                        <AutoComplete
+                        name={'productType'}
+                        label={'Product Type'}
+                        option={
+                            ProductCreateList &&
+                            ProductCreateList.productType.length > 0 &&
+                            ProductCreateList.productType.map(item => {
+                                 return { label: item.name, id: item._id, value: item.name };
+                            })
+                        }
+                        isRequired
+                        wrapperClass={'col12'}
+                        value={values.productType}
+                        onChange={(e) => handleAutoComplete(e)}
+                        error={errors.productType}
+                        touched={touched.productType}
+                        disabled={preview ? true : false}
+                        />}
                     </div>
                   
                     <div className='inputBox genericName sm-20 lg-20'>

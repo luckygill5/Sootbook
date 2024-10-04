@@ -112,6 +112,56 @@ $font-monsterat : 'Montserrat';
         }
     }
 
+    &.autocompleteBox{
+        .MuiAutocomplete-root{
+            .MuiInputBase-root{
+                box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25) inset, -7px -7px 7px 0px #FFF inset;
+                background-color: #f2f5fa;
+                border-radius: 8px;
+                height: 48px;
+                .MuiInputBase-input{
+                    font-family: $font-monsterat;
+                    color: #6B7280;
+                }
+                fieldset{
+                    display: none;
+                }
+            }
+
+        }
+        .addOption{
+            display:none;
+        }
+        &.notMatched{
+            .MuiPopper-root{
+                display: none;
+            }
+            .addOption{
+                @include flexbox();
+                align-items: center;
+                justify-content: flex-start;
+                margin-top: 6px;
+                .addLink{
+                    padding: 5px;
+                    background-color: #ccc;
+                    color: $text;
+                    margin-right: 10px;
+                    font-size: 12px;
+                    line-height: normal;
+                    font-weight: 400;
+                    border-radius: 4px;
+                    cursor: pointer;
+                }
+                .value{
+                    font-size: 12px;
+                    line-height: normal;
+                    font-weight: 400;
+                    color: $text;
+                }
+            }
+        }
+    }
+
     &.col12 {
         width: 100%;
     }
@@ -333,3 +383,100 @@ $font-monsterat : 'Montserrat';
         }
     }
 }
+
+.MuiAutocomplete-root {
+    .MuiAutocomplete-endAdornment{
+        .MuiAutocomplete-clearIndicator{
+            display: none;
+        }
+      
+    }
+    .MuiInputAdornment-root{
+        &.customClear {
+            margin-right: -28px;
+            display: none;
+        }
+    }
+    &:hover{
+        .MuiInputAdornment-root{
+            &.customClear {
+                display: inline-flex;
+            }
+        }
+    }
+    
+}
+
+.MuiDialog-root{
+    &.addOptionModal{
+        .MuiDialog-container{
+            .MuiPaper-root{
+                padding: 24px;
+                .modal_title {
+                    padding: 0;
+                    margin-bottom: 20px;
+                    text-transform: capitalize;
+                    font-size: 20px;
+                    font-weight: 600;
+                    font-style: normal;
+                    line-height: normal;
+                    font-family: $font-monsterat;
+                }
+                .MuiDialogActions-root{
+                    .cancelBtn{
+                        color: #00a9bb;
+                        height: 48px;
+                        padding: 14px 16px;
+                        border-radius: 8px;
+                        white-space: nowrap;
+                        box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        font-size: 14px;
+                        font-style: normal;
+                        font-weight: 600;
+                        line-height: 20px;
+                        letter-spacing: 0.07px;
+                        white-space: nowrap;
+                        background-color: transparent;
+                        width: 114px;
+                        cursor: pointer;
+                        border: 1px solid #00a9bb;
+                        font-family: $font-monsterat;
+                        &:focus:not(:focus-visible){
+                            outline: none;
+                        }
+                        text-transform: capitalize;
+                    }
+                    .saveBtn{
+                        height: 48px;
+                        padding: 14px 16px;
+                        border-radius: 8px;
+                        cursor: pointer;
+                        border: none;
+                        background-color: #00a9bb;
+                        color: #FFF;
+                        font-size: 14px;
+                        width: 114px;
+                        font-style: normal;
+                        font-weight: 600;
+                        line-height: 20px;
+                        letter-spacing: 0.07px;
+                        box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+                        @include flexbox();
+                        align-items: center;
+                        justify-content: center;
+                        text-transform: capitalize;
+                        font-family: $font-monsterat;
+                        margin-left: 20px;
+                        &:focus:not(:focus-visible){
+                            outline: none;
+                        }
+                    }
+                }
+            }
+            
+        }
+    }
+} 
